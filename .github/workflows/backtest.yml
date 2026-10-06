@@ -1,0 +1,47 @@
+# Replays a past season week by week against real closing lines.
+# Runs when backtest/request.txt changes, or manually from the Actions tab.
+name: Season backtest
+
+on:
+  push:
+    paths: ["backtest/request.txt"]
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "Season (spring year, e.g. 2026 for 2025-26)"
+        default: "2026"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-board          # shares the lock with the daily refresh
+  cancel-in-progress: false
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Run backtest
+        run: |
+          SEASON="${{ github.event.inputs.season }}"
+          if [ -z "$SEASON" ]; then SEASON=$(grep -oE '^season=[0-9]+' backtest/request.txt | cut -d= -f2); fi
+          START=$(grep -oE '^start=[0-9-]+' backtest/request.txt | cut -d= -f2 || true)
+          cd src
+          python season_backtest.py --season "${SEASON:-2026}" ${START:+--start "$START"} | tee ../backtest/last_run.log
+      - name: Commit results
+        run: |
+          git config user.name "board-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/data data backtest || true
+          git diff --cached --quiet && exit 0
+          git commit -m "Backtest results $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git pull --rebase -X theirs origin main
+          git push
