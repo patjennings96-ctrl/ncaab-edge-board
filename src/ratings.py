@@ -153,44 +153,41 @@ def fit_adjusted_ratings(games_long: pd.DataFrame,
                    fix). prior_weight is the number of league-average-strength
                    synthetic games injected per team.
     """
+    from scipy import sparse
+
     g = games_long
     teams = sorted(set(g.team) | set(g.opp))
     t_idx = {t: i for i, t in enumerate(teams)}
     n_teams = len(teams)
+    n_cols = 2 * n_teams + 1
 
-    rows, y = [], []
-    for r in g.itertuples(index=False):
-        # one-hot: [offense block | defense block | home]
-        x = np.zeros(2 * n_teams + 1)
-        x[t_idx[r.team]] = 1.0                       # offense of r.team
-        x[n_teams + t_idx[r.opp]] = 1.0              # defense of r.opp
-        x[-1] = 1.0 if r.location == "H" else 0.0    # home bump on this possession
-        rows.append(x)
-        y.append(r.raw_oe)
-
-    X = np.asarray(rows)
-    y = np.asarray(y)
+    # Sparse one-hot design: [offense block | defense block | home flag]
+    n = len(g)
+    off_col = g["team"].map(t_idx).to_numpy()
+    def_col = n_teams + g["opp"].map(t_idx).to_numpy()
+    home = (g["location"] == "H").to_numpy()
+    r_idx = np.concatenate([np.arange(n), np.arange(n), np.flatnonzero(home)])
+    c_idx = np.concatenate([off_col, def_col, np.full(home.sum(), n_cols - 1)])
+    X = sparse.csr_matrix((np.ones(len(r_idx)), (r_idx, c_idx)), shape=(n, n_cols))
+    y = g["raw_oe"].to_numpy(dtype=float)
+    # Optional per-row weights (e.g. last season's games down-weighted)
+    sw = g["weight"].to_numpy(dtype=float) if "weight" in g.columns else np.ones(n)
 
     # Optional last-season prior injected as synthetic average-context games.
     if prior_ratings is not None and prior_weight > 0:
-        extra_X, extra_y = [], []
-        for t in teams:
-            xo = np.zeros(2 * n_teams + 1)
-            xo[t_idx[t]] = 1.0
-            extra_X.append(xo)
-            extra_y.append(prior_ratings.adj_o(t))          # pull O toward prior
-            xd = np.zeros(2 * n_teams + 1)
-            xd[n_teams + t_idx[t]] = 1.0
-            extra_X.append(xd)
-            extra_y.append(prior_ratings.adj_d(t) - prior_ratings.mu + 0.0)
-        X = np.vstack([X, np.asarray(extra_X)])
+        rows, cols, extra_y = [], [], []
+        for k, t in enumerate(teams):
+            rows += [2 * k, 2 * k + 1]
+            cols += [t_idx[t], n_teams + t_idx[t]]
+            extra_y += [prior_ratings.adj_o(t), prior_ratings.adj_d(t)]
+        P = sparse.csr_matrix((np.ones(len(rows)), (rows, cols)),
+                              shape=(2 * n_teams, n_cols))
+        X = sparse.vstack([X, P]).tocsr()
         y = np.concatenate([y, np.asarray(extra_y)])
-        sw = np.concatenate([np.ones(len(rows)),
-                             np.full(len(extra_X), prior_weight)])
-    else:
-        sw = None
+        sw = np.concatenate([sw, np.full(2 * n_teams, prior_weight)])
 
-    ridge = Ridge(alpha=alpha, fit_intercept=True)
+    ridge = Ridge(alpha=alpha, fit_intercept=True, solver="sparse_cg",
+                  max_iter=5000, tol=1e-6)
     ridge.fit(X, y, sample_weight=sw)
 
     coef = ridge.coef_
@@ -200,8 +197,13 @@ def fit_adjusted_ratings(games_long: pd.DataFrame,
     hca = float(coef[-1])
 
     # Tempo: simple per-team mean (could also be opponent-adjusted the same way).
-    tempo = g.groupby("team")["tempo"].mean().to_dict()
-    league_tempo = float(g["tempo"].mean())
+    if "weight" in g.columns:
+        wt = g["weight"] * g["tempo"]
+        tempo = (wt.groupby(g["team"]).sum() / g["weight"].groupby(g["team"]).sum()).to_dict()
+        league_tempo = float(wt.sum() / g["weight"].sum())
+    else:
+        tempo = g.groupby("team")["tempo"].mean().to_dict()
+        league_tempo = float(g["tempo"].mean())
 
     return AdjustedRatings(mu=mu, hca=hca, league_tempo=league_tempo,
                            off=off, deff=deff, tempo=tempo)

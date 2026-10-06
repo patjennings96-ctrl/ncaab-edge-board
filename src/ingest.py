@@ -24,8 +24,9 @@ DATA SOURCES (legality/ToS notes matter — read README before scraping anything
     - Verbal Commits / 247 / On3 recruiting ranks, transfer-portal trackers,
       prior-season minutes from box scores.
 
-Everything below returns tidy DataFrames. Network calls are wrapped so the
-module imports cleanly offline; wire in your real keys/endpoints where marked.
+The live feeds (ESPN, The Odds API, optional Torvik) are implemented in
+live.py. This module keeps the shared schema, the preseason-prior helpers and
+the synthetic demo season.
 """
 
 from __future__ import annotations
@@ -52,10 +53,8 @@ def fetch_torvik_ratings(season: int) -> pd.DataFrame:
     Endpoint pattern (verify current path): barttorvik.com/trank.php?year=...&csv=1
     Implement with requests; left as a stub so the module imports offline.
     """
-    raise NotImplementedError(
-        "Wire up the Torvik CSV/JSON endpoint with `requests`. Return columns "
-        "['team','adj_o','adj_d','tempo','season']."
-    )
+    import live
+    return live.fetch_torvik(season)
 
 
 def fetch_odds(date: str, api_key: str) -> pd.DataFrame:
@@ -65,10 +64,8 @@ def fetch_odds(date: str, api_key: str) -> pd.DataFrame:
      home_ml, away_ml, book, snapshot_ts].
     Store snapshots so you can recover BOTH opening and closing lines (for CLV).
     """
-    raise NotImplementedError(
-        "Call The Odds API /v4/sports/basketball_ncaab/odds with your key and "
-        "normalise to the documented columns. Persist every snapshot for CLV."
-    )
+    import live
+    return live.fetch_odds(api_key)
 
 
 # -----------------------------------------------------------------------------

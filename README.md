@@ -63,7 +63,7 @@ commits a new `docs/data/plays.json`, which the page loads on open.
 | When (UTC) | What |
 |------------|------|
 | 12:15 daily | Refit ratings and rebuild the card |
-| Hourly, 16:15–03:15 | Re-price the slate as lines move (live mode only) |
+| 16:15, 19:15, 22:15, 00:15 | Re-price the slate as lines move (live mode only) |
 
 ### One-time setup
 
@@ -71,17 +71,31 @@ commits a new `docs/data/plays.json`, which the page loads on open.
 2. **Actions permissions:** Settings → Actions → General → Workflow permissions →
    *Read and write*.
 3. **First run:** Actions → Refresh board → *Run workflow*.
-4. **Go live** once `ingest.fetch_*` are implemented: Settings → Secrets and
-   variables → Actions →
+4. **Go live:** Settings → Secrets and variables → Actions →
+   - Secret `ODDS_API_KEY` = your key from the-odds-api.com
    - Variable `MODEL_MODE` = `live`
-   - Secret `ODDS_API_KEY` = your The Odds API key
+   The first live run downloads last season's games and box scores from ESPN
+   (several thousand games), so it takes longer than later runs.
 5. **Google Sheets (optional):**
    - Variable `SHEET_ID` = the id from your sheet's URL
    - Secret `GOOGLE_CREDS` = the full service-account JSON. Share the sheet with
      that service account's email.
 
-Live plays are appended to `data/history/card_log.csv`; fill in `close_line`
-after tip-off to track CLV. Demo runs never write to the log.
+### What live mode keeps in the repo
+
+| File | Contents |
+|------|----------|
+| `data/games/<season>.csv` | Every completed D-I game with box-score possessions inputs (ESPN) |
+| `data/history/odds_snapshots.csv` | Consensus spread/total for each game at every run |
+| `data/history/card_log.csv` | Each play the first time it was posted, then its closing line, CLV (points) and W/L/P, filled in automatically |
+| `data/unmatched_teams.csv` | Sportsbook team names that didn't match an ESPN team |
+| `data/team_aliases.csv` | Your manual fixes: columns `source_name,espn_id` |
+
+Ratings come from our own adjusted-efficiency fit on ESPN box scores. Early in
+the season, last season's games are blended in at weight
+`0.5 × 12 / (12 + games played)`, so the prior fades as data arrives.
+Torvik's site blocks most automated downloads; `live.fetch_torvik` tries it and
+skips quietly when blocked. KenPom requires your own subscription export.
 
 Note: GitHub Pages on a **private** repo needs a paid GitHub plan. On a free
 plan, a public repo makes the board (and your picks) public.
