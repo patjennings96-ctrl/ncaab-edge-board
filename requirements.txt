@@ -1,0 +1,19 @@
+# Core
+numpy>=1.26
+pandas>=2.0
+scipy>=1.11
+scikit-learn>=1.3
+
+# Gradient boosting (optional — sklearn HistGradientBoosting is the fallback)
+lightgbm>=4.0
+
+# Data ingestion (wire up in ingest.py)
+requests>=2.31
+cbbpy>=2.0            # ESPN box scores / play-by-play
+
+# Google Sheets export (option A)
+gspread>=6.0
+google-auth>=2.0
+
+# Config
+pyyaml>=6.0

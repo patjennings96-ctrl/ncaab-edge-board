@@ -1,0 +1,94 @@
+# NCAAB ATS / Totals Model
+
+A modular, leakage-safe pipeline for projecting college-basketball spreads and
+totals, comparing projections to market lines, and sizing bets with fractional
+Kelly. Outputs land in Google Sheets and can refresh daily.
+
+> **Read this first — honest expectations.** Major NCAAB markets (especially the
+> *closing* line) are very efficient. Most public models lose money after the
+> -110 vig. The realistic goal is not "guaranteed profit" — it is to **beat the
+> closing line consistently (positive CLV)**, which is the only reliable leading
+> indicator of a real edge. A backtest that looks profitable is not proof; it is
+> a hypothesis. The synthetic demo numbers in this repo are inflated by design
+> (the fake "lines" sit near the projection) and are **not** representative of
+> live results. Treat any edge skeptically, paper-trade first, and never stake
+> money you can't afford to lose. This is software, not financial advice.
+
+## Architecture
+
+```
+ingest.py    -> data sources + early-season prior (cold start)
+ratings.py   -> possessions, tempo, opponent-adjusted O/D efficiency (ridge)
+features.py  -> rest/travel/altitude, continuity, dynamic HCA, EWMA form
+model.py     -> dual model: margin (spreads) + total (O/U), GBM + Bayesian Ridge
+edge.py      -> de-vig, P(cover), Edge %, fractional Kelly
+backtest.py  -> walk-forward CV: RMSE/MAE, ATS%, ROI, CLV, Kelly bankroll
+sheets.py    -> Google Sheets export
+run_daily.py -> orchestration entrypoint
+```
+
+See **BLUEPRINT.md** for the full methodology and math justifications.
+
+## Quick start (no credentials needed)
+
+```bash
+pip install -r requirements.txt
+cd src
+python run_daily.py                 # demo card from synthetic data -> docs/data/plays.json
+```
+
+To run on real data, implement the `fetch_*` functions in `ingest.py` and call
+`run_daily.run(demo=False, sheet_id=...)`.
+
+## Data sources
+
+| Need | Source | Notes |
+|------|--------|-------|
+| Box / play-by-play / schedule | `cbbpy`, hoopR, CollegeBasketballData API | free |
+| Reference ratings | **Bart Torvik** (public CSV/JSON) | open; primary reference here |
+| Reference ratings | KenPom | **paid; ToS forbids scraping.** Use your own export, don't scrape |
+| Market lines + closing lines | The Odds API (free tier), Pinnacle screens | snapshot every line for CLV |
+| Injuries / availability | public injury feeds, availability reports | drives the usage-availability feature |
+| Recruiting / transfers | 247/On3/Verbal Commits, portal trackers | early-season prior only |
+
+The model is **source-agnostic**: any ratings table with
+`[team, adj_o, adj_d, tempo]` plugs straight in.
+
+## Hosting and daily refresh (GitHub)
+
+The board is a static page in `docs/` served by GitHub Pages. The
+**Refresh board** workflow (`.github/workflows/daily.yml`) reruns the model and
+commits a new `docs/data/plays.json`, which the page loads on open.
+
+| When (UTC) | What |
+|------------|------|
+| 12:15 daily | Refit ratings and rebuild the card |
+| Hourly, 16:15–03:15 | Re-price the slate as lines move (live mode only) |
+
+### One-time setup
+
+1. **Pages:** Settings → Pages → Source: *Deploy from a branch* → `main` / `/docs`.
+2. **Actions permissions:** Settings → Actions → General → Workflow permissions →
+   *Read and write*.
+3. **First run:** Actions → Refresh board → *Run workflow*.
+4. **Go live** once `ingest.fetch_*` are implemented: Settings → Secrets and
+   variables → Actions →
+   - Variable `MODEL_MODE` = `live`
+   - Secret `ODDS_API_KEY` = your The Odds API key
+5. **Google Sheets (optional):**
+   - Variable `SHEET_ID` = the id from your sheet's URL
+   - Secret `GOOGLE_CREDS` = the full service-account JSON. Share the sheet with
+     that service account's email.
+
+Live plays are appended to `data/history/card_log.csv`; fill in `close_line`
+after tip-off to track CLV. Demo runs never write to the log.
+
+Note: GitHub Pages on a **private** repo needs a paid GitHub plan. On a free
+plan, a public repo makes the board (and your picks) public.
+
+## Validation discipline
+
+- Every rating and feature for a game on date *D* is computed only from games
+  **before** *D* (`backtest.walk_forward` enforces this).
+- Success = positive CLV first, then ROI over a large sample. Break-even ATS at
+  -110 is **52.38%**. Anything you can't reproduce out-of-sample is overfitting.

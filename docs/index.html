@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NCAAB Edge Board</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: scoreboard header with the day's card first, then the model explained top-to-bottom as the pipeline actually runs. */
+:root{
+  --bg:#F3F5F8; --surface:#FFFFFF; --ink:#141A24; --muted:#5A6577; --line:#DCE1E9;
+  --accent:#C9501C; --accent-soft:#F8E6DC; --court:#1F3A5F; --court-soft:#E3EAF3;
+  --good:#1E7A4C; --good-soft:#DDF0E5; --warn:#9A6A00; --warn-soft:#F6EBCF;
+  --display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0E131B; --surface:#161D28; --ink:#E8ECF2; --muted:#98A3B5; --line:#2A3443;
+  --accent:#F07A43; --accent-soft:#3A2218; --court:#8DB1DE; --court-soft:#1C2A3D;
+  --good:#5CC991; --good-soft:#163024; --warn:#E3B54D; --warn-soft:#3A2F14; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E131B; --surface:#161D28; --ink:#E8ECF2; --muted:#98A3B5; --line:#2A3443;
+  --accent:#F07A43; --accent-soft:#3A2218; --court:#8DB1DE; --court-soft:#1C2A3D;
+  --good:#5CC991; --good-soft:#163024; --warn:#E3B54D; --warn-soft:#3A2F14; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0}
+[hidden]{display:none!important}
+img{max-width:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6}
+.wrap{max-width:1080px;margin:0 auto;padding-inline:20px;padding-block:28px 64px;display:flex;flex-direction:column;gap:56px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;letter-spacing:.01em}
+h1{font-size:clamp(2.6rem,7vw,4.4rem);line-height:.95;font-weight:700;text-transform:uppercase}
+h2{font-size:2rem;font-weight:700;text-transform:uppercase;line-height:1}
+h3{font-size:1.3rem;font-weight:600}
+p{margin:0;max-width:68ch}
+.eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.muted{color:var(--muted)}
+code,.mono{font-family:var(--mono);font-size:.88em}
+section{display:flex;flex-direction:column;gap:20px}
+.sec-head{display:flex;flex-direction:column;gap:8px;border-top:2px solid var(--ink);padding-top:14px}
+
+/* header */
+header{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:32px;align-items:end}
+header .lede{font-size:1.05rem;color:var(--muted);margin-top:14px}
+.scoreboard{background:var(--court);color:var(--bg);border-radius:6px;padding:18px 20px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 18px}
+.scoreboard div{display:flex;flex-direction:column}
+.scoreboard .k{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;opacity:.75}
+.scoreboard .v{font-family:var(--display);font-size:1.9rem;font-weight:700;line-height:1.05;font-variant-numeric:tabular-nums}
+@media (max-width:760px){header{grid-template-columns:1fr}}
+
+.notice{background:var(--warn-soft);color:var(--ink);border-left:4px solid var(--warn);padding:12px 16px;border-radius:0 4px 4px 0;font-size:.92rem}
+.notice strong{color:var(--warn)}
+
+/* plays */
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--surface)}
+.seg button{font:500 .85rem var(--body);background:none;border:0;color:var(--muted);padding:7px 14px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.seg button:focus-visible,.calc input:focus-visible,.calc select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.table-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums;min-width:720px}
+th{font-family:var(--mono);font-weight:500;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:11px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-family:var(--mono);font-size:.88rem}
+.match{font-weight:600}
+.match small{display:block;font-weight:400;color:var(--muted);font-size:.78rem}
+.pill{display:inline-block;font-family:var(--mono);font-size:.72rem;padding:2px 8px;border-radius:999px;letter-spacing:.04em}
+.pill.spread{background:var(--court-soft);color:var(--court)}
+.pill.total{background:var(--accent-soft);color:var(--accent)}
+.pick{font-weight:600}
+.edgecell{display:flex;align-items:center;gap:8px;justify-content:flex-end}
+.bar{width:90px;height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--good)}
+.units{font-family:var(--display);font-size:1.25rem;font-weight:700}
+.capped{font-size:.68rem;color:var(--warn);font-family:var(--mono);margin-left:4px}
+.foot{font-size:.85rem}
+
+/* pipeline */
+.pipeline{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--surface)}
+.stage{padding:16px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:6px;min-width:0}
+.stage:last-child{border-right:0}
+.stage .n{font-family:var(--mono);font-size:.72rem;color:var(--accent)}
+.stage h3{font-size:1.15rem}
+.stage p{font-size:.86rem;color:var(--muted)}
+.stage code{font-size:.78rem;color:var(--court)}
+@media (max-width:860px){.pipeline{grid-template-columns:1fr}.stage{border-right:0;border-bottom:1px solid var(--line)}.stage:last-child{border-bottom:0}}
+
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+@media (max-width:760px){.grid2{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+
+dl.feats{display:grid;grid-template-columns:minmax(0,180px) minmax(0,1fr);gap:0;margin:0;background:var(--surface);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+dl.feats dt,dl.feats dd{padding:13px 16px;border-bottom:1px solid var(--line);margin:0}
+dl.feats dt{font-family:var(--display);font-weight:600;font-size:1.1rem;text-transform:uppercase;background:var(--court-soft);color:var(--court)}
+dl.feats dd{font-size:.92rem}
+dl.feats dt:nth-last-of-type(1),dl.feats dd:last-of-type{border-bottom:0}
+@media (max-width:600px){dl.feats{grid-template-columns:1fr}dl.feats dt{border-bottom:0}}
+
+.formula{font-family:var(--mono);font-size:.86rem;background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:12px 14px;overflow-x:auto;white-space:pre;line-height:1.7}
+
+ul.clean{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+ul.clean li{max-width:68ch}
+
+/* metric table */
+.metrics td:first-child{font-weight:600}
+
+/* calculator */
+.calc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px}
+@media (max-width:760px){.calc{grid-template-columns:1fr}}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.fields label{display:flex;flex-direction:column;gap:4px;font-size:.78rem;font-family:var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.fields input,.fields select{font:500 1rem var(--mono);padding:8px 10px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);width:100%}
+.result{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.result div{background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:10px 12px}
+.result .k{font-family:var(--mono);font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.result .v{font-family:var(--display);font-size:1.7rem;font-weight:700;font-variant-numeric:tabular-nums}
+.verdict{grid-column:1/-1;font-weight:600}
+.verdict.bet{background:var(--good-soft)!important;color:var(--good);border-color:transparent!important}
+.verdict.pass{color:var(--muted)}
+
+.files{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+@media (max-width:760px){.files{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.files div{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:10px 12px;min-width:0}
+.files code{color:var(--court);font-weight:500}
+.files p{font-size:.82rem;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header>
+  <div>
+    <div class="eyebrow">College basketball · spreads &amp; totals</div>
+    <h1>NCAAB Edge Board</h1>
+    <p class="lede">A tempo-free efficiency model that projects every game's margin and total, converts each projection into a cover probability, and sizes plays with quarter-Kelly. The goal is beating the closing line, measured out of sample.</p>
+  </div>
+  <div class="scoreboard" aria-label="Model settings">
+    <div><span class="k">Staking</span><span class="v">¼ Kelly</span></div>
+    <div><span class="k">Min edge</span><span class="v">2.5%</span></div>
+    <div><span class="k">Max bet</span><span class="v">5.0u</span></div>
+    <div><span class="k">Break-even @ −110</span><span class="v">52.38%</span></div>
+  </div>
+</header>
+
+<section id="plays">
+  <div class="sec-head">
+    <div class="eyebrow">Today's card</div>
+    <h2>Plays</h2>
+  </div>
+  <div class="notice" id="demo-note" hidden><strong>Demo data.</strong> This card comes from a synthetic season (teams T07, T58…) with lines generated close to the projection, so edges are far larger than real markets allow. It switches to real games when the repo's MODEL_MODE is set to live.</div>
+  <p class="muted foot" id="updated">Loading the latest card…</p>
+
+  <div class="toolbar">
+    <div class="seg" role="group" aria-label="Filter market">
+      <button type="button" id="f-all" data-f="ALL" aria-pressed="true">All</button>
+      <button type="button" id="f-spread" data-f="SPREAD" aria-pressed="false">Spreads</button>
+      <button type="button" id="f-total" data-f="TOTAL" aria-pressed="false">Totals</button>
+    </div>
+    <span class="muted foot" id="summary"></span>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>Matchup</th><th>Market</th><th>Play</th>
+        <th class="num">Model</th><th class="num">Win prob</th>
+        <th class="num">Edge</th><th class="num">Stake</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+  <p class="muted foot">Win prob is the model's chance the play cashes. Edge is win prob minus the de-vigged market probability (50% at −110/−110). Stake is ¼ Kelly in units, capped at 5u.</p>
+</section>
+
+<section id="pipeline">
+  <div class="sec-head">
+    <div class="eyebrow">Architecture</div>
+    <h2>How a game becomes a play</h2>
+  </div>
+  <div class="pipeline">
+    <div class="stage"><span class="n">1 · ingest.py</span><h3>Collect</h3><p>Box scores, schedule, venues, Torvik ratings, odds snapshots, injuries, rosters.</p><code>fetch_torvik_ratings · fetch_odds</code></div>
+    <div class="stage"><span class="n">2 · ratings.py</span><h3>Adjust</h3><p>Possessions, tempo, and opponent-adjusted offense and defense per 100 possessions.</p><code>fit_adjusted_ratings</code></div>
+    <div class="stage"><span class="n">3 · features.py</span><h3>Context</h3><p>Rest, travel, altitude, continuity, availability, team HCA, recent form.</p><code>build_matchup_features</code></div>
+    <div class="stage"><span class="n">4 · model.py</span><h3>Predict</h3><p>Margin and total models, each a gradient-boosted + Bayesian Ridge blend with a σ.</p><code>DualModel.predict</code></div>
+    <div class="stage"><span class="n">5 · edge.py</span><h3>Price</h3><p>De-vig the line, compute P(cover), edge, and a fractional-Kelly stake.</p><code>recommend_spread · recommend_total</code></div>
+  </div>
+</section>
+
+<section id="ratings">
+  <div class="sec-head">
+    <div class="eyebrow">Core metric</div>
+    <h2>Adjusted efficiency</h2>
+  </div>
+  <div class="grid2">
+    <div class="panel">
+      <h3>Possessions and pace</h3>
+      <div class="formula">Poss   = FGA − OREB + TOV + 0.475·FTA
+Tempo  = Poss · 40 / minutes
+RawOE  = 100 · PointsFor / Poss</div>
+      <p class="muted">Each game's possession count averages both teams' estimates. Per-100 scoring removes pace, so a slow grinder and a fast team are compared on quality, not volume.</p>
+    </div>
+    <div class="panel">
+      <h3>Opponent adjustment</h3>
+      <div class="formula">RawOE = μ + off[team] + def[opp] + hca·home
+AdjO  = μ + off      AdjD = μ + def
+AdjEM = AdjO − AdjD</div>
+      <p class="muted">One ridge regression over every game, refit using only games before the prediction date. The ridge penalty doubles as early-season shrinkage.</p>
+    </div>
+    <div class="panel">
+      <h3>Game projection</h3>
+      <div class="formula">Poss     = tempo_H · tempo_A / league_tempo
+Pts_home = (μ + off_H + def_A + hca) · Poss / 100
+Margin   = Pts_home − Pts_away
+Total    = Pts_home + Pts_away</div>
+    </div>
+    <div class="panel">
+      <h3>Early-season prior</h3>
+      <ul class="clean">
+        <li>Regress last year's AdjEM toward the mean, by <span class="mono">0.55 + 0.30 × continuity</span>.</li>
+        <li>Add about 2.5 points per standard deviation of incoming recruiting and transfer talent.</li>
+        <li>Blend in current data at weight <span class="mono">n / (n + 12)</span> games played.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="features">
+  <div class="sec-head">
+    <div class="eyebrow">Feature store</div>
+    <h2>What adjusts the projection</h2>
+  </div>
+  <dl class="feats">
+    <dt>Rest &amp; travel</dt><dd>Days rest, back-to-backs, games in the last 7 days, consecutive road games, haversine miles between venues, and altitude relative to home (Air Force, Wyoming, Colorado, Utah, New Mexico).</dd>
+    <dt>Continuity</dt><dd>Share of last season's minutes returning. In the transfer-portal era this separates teams that keep their rating from teams that reset.</dd>
+    <dt>Availability</dt><dd>Usage-weighted share of the offense available tonight. Losing a 28%-usage star costs far more than losing a reserve.</dd>
+    <dt>Home court</dt><dd>Per-team HCA, shrunk toward the league mean: <span class="mono">(n·observed + 25·league) / (n + 25)</span>. Strong venues earn their own number only with enough home games.</dd>
+    <dt>Recent form</dt><dd>EWMA of game efficiency margin (half-life 5 games) minus the season baseline, shifted so a game never sees its own result.</dd>
+  </dl>
+</section>
+
+<section id="model">
+  <div class="sec-head">
+    <div class="eyebrow">Modeling</div>
+    <h2>Two models, one ensemble each</h2>
+  </div>
+  <div class="grid2">
+    <div class="panel">
+      <span class="pill spread">Spreads</span>
+      <h3>Margin model</h3>
+      <p class="muted">Predicts home margin. Margin responds to strength gaps, rest and home court more than to pace.</p>
+    </div>
+    <div class="panel">
+      <span class="pill total">Totals</span>
+      <h3>Total model</h3>
+      <p class="muted">Predicts combined points. Totals move with pace and two-sided defense, which barely changes the margin.</p>
+    </div>
+  </div>
+  <div class="panel">
+    <ul class="clean">
+      <li><strong>Gradient-boosted trees</strong> (LightGBM, sklearn fallback) catch interactions such as a tired team at altitude against a fast opponent.</li>
+      <li><strong>Bayesian Ridge</strong> anchors the blend. With noise around 10–11 points per game, a regularized linear model is hard to beat and rarely overfits.</li>
+      <li><strong>Huber loss</strong> limits the pull of blowouts. <strong>Quantile heads</strong> at the 16th and 84th percentiles give the σ that turns a projection into a cover probability.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="calc">
+  <div class="sec-head">
+    <div class="eyebrow">Edge &amp; sizing</div>
+    <h2>Price a play</h2>
+  </div>
+  <div class="calc">
+    <div class="panel">
+      <div class="fields">
+        <label for="c-mkt">Market
+          <select id="c-mkt"><option value="spread">Spread (home side)</option><option value="total">Total (over)</option></select></label>
+        <label for="c-proj"><span id="lbl-proj">Model margin</span>
+          <input id="c-proj" type="number" step="0.1" value="6.0"></label>
+        <label for="c-line"><span id="lbl-line">Home spread</span>
+          <input id="c-line" type="number" step="0.5" value="-3.5"></label>
+        <label for="c-sigma">σ (points)
+          <input id="c-sigma" type="number" step="0.5" value="10.5"></label>
+        <label for="c-odds">Your odds
+          <input id="c-odds" type="number" step="1" value="-110"></label>
+        <label for="c-other">Other side odds
+          <input id="c-other" type="number" step="1" value="-110"></label>
+      </div>
+      <div class="formula">P(cover) = Φ((margin + spread) / σ)
+Edge     = P(cover) − fair_prob
+Stake    = ¼ · (P·b − (1−P)) / b   ·  b = decimal − 1</div>
+    </div>
+    <div class="panel">
+      <div class="result">
+        <div><div class="k" id="r-side-k">Best side</div><div class="v" id="r-side">—</div></div>
+        <div><div class="k">Win prob</div><div class="v" id="r-p">—</div></div>
+        <div><div class="k">Edge</div><div class="v" id="r-edge">—</div></div>
+        <div><div class="k">Stake</div><div class="v" id="r-stake">—</div></div>
+        <div class="verdict" id="r-verdict">—</div>
+      </div>
+      <p class="muted foot">Uses the same math as <span class="mono">edge.py</span>: proportional de-vig, Normal cover probability, quarter-Kelly, 2.5% minimum edge, 5u cap.</p>
+    </div>
+  </div>
+</section>
+
+<section id="validation">
+  <div class="sec-head">
+    <div class="eyebrow">Backtesting</div>
+    <h2>How the model earns trust</h2>
+  </div>
+  <p>Walk-forward validation only. For every game on date D, ratings, features and model weights come from games before D. The common silent bug is fitting full-season ratings and then backtesting past games with them, which leaks the future into every projection.</p>
+  <div class="table-wrap">
+    <table class="metrics">
+      <thead><tr><th>Metric</th><th>What it tells you</th><th>Target</th></tr></thead>
+      <tbody>
+        <tr><td>CLV</td><td>Did the bet beat the closing line? Stabilizes much faster than ROI.</td><td>Positive on average</td></tr>
+        <tr><td>ATS hit rate</td><td>Share of graded bets won, pushes excluded.</td><td>Above 52.38%</td></tr>
+        <tr><td>ROI</td><td>Profit per unit staked, flat and Kelly. Noisy in small samples.</td><td>Positive over 500+ bets</td></tr>
+        <tr><td>Margin RMSE / MAE</td><td>Projection accuracy. Diagnostic, not the verdict.</td><td>Near or below the market's</td></tr>
+        <tr><td>Max drawdown</td><td>Worst peak-to-trough bankroll drop in the Kelly simulation.</td><td>Survivable at ¼ Kelly</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="notice"><strong>Reading results.</strong> Positive CLV with flat short-run ROI is usually variance. Negative CLV means the model is behind the market, whatever the recent record says. Paper-trade first and stake only what you can afford to lose.</div>
+</section>
+
+<section id="setup">
+  <div class="sec-head">
+    <div class="eyebrow">Running it</div>
+    <h2>Data, code and Sheets</h2>
+  </div>
+  <div class="grid2">
+    <div class="panel">
+      <h3>Sources</h3>
+      <ul class="clean">
+        <li><strong>Bart Torvik</strong> for open reference ratings.</li>
+        <li><strong>KenPom</strong> from your own subscription export. Its terms forbid scraping.</li>
+        <li><strong>cbbpy / hoopR</strong> for box scores and play-by-play.</li>
+        <li><strong>The Odds API</strong> for lines, snapshotted for opening and closing numbers.</li>
+        <li>Injury and availability reports; 247/On3 and portal trackers for the preseason prior.</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Daily refresh to Google Sheets</h3>
+      <ul class="clean">
+        <li>GitHub Actions or Cloud Scheduler runs <span class="mono">run_daily.py</span> each morning.</li>
+        <li><span class="mono">gspread</span> with a service account writes the Ratings and Today tabs.</li>
+        <li>No-API option: publish the card CSV and pull it with <span class="mono">=IMPORTDATA(url)</span>.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="files">
+    <div><code>ingest.py</code><p>Sources, prior, demo data</p></div>
+    <div><code>ratings.py</code><p>Tempo, AdjO/AdjD/AdjEM</p></div>
+    <div><code>features.py</code><p>Rest, HCA, continuity, form</p></div>
+    <div><code>model.py</code><p>Dual ensemble + σ</p></div>
+    <div><code>edge.py</code><p>De-vig, edge, Kelly, CLV</p></div>
+    <div><code>backtest.py</code><p>Walk-forward metrics</p></div>
+    <div><code>sheets.py</code><p>Google Sheets export</p></div>
+    <div><code>run_daily.py</code><p>Daily orchestration</p></div>
+  </div>
+</section>
+
+</div>
+
+<script>
+let PLAYS = [];
+const fmtLine = v => (v>0?"+":"") + v.toFixed(1);
+let filter = "ALL";
+function render(){
+  if(!PLAYS.length){document.getElementById("rows").innerHTML='<tr><td colspan="7" class="muted">No plays clear the edge threshold right now.</td></tr>';document.getElementById("summary").textContent="0 plays";return;}
+  const rows = PLAYS.filter(r => filter==="ALL" || r.mkt===filter).sort((a,b)=>b.edge-a.edge);
+  const maxEdge = Math.max(...PLAYS.map(r=>r.edge));
+  document.getElementById("rows").innerHTML = rows.map(r=>{
+    const play = r.mkt==="SPREAD" ? `${r.side} ${fmtLine(r.line)}` : `${r.side} ${r.line.toFixed(1)}`;
+    const model = r.mkt==="SPREAD" ? `${r.home} ${fmtLine(r.proj)}` : r.total.toFixed(1);
+    return `<tr>
+      <td class="match">${r.away} @ ${r.home}<small>proj ${r.home} by ${r.proj.toFixed(1)}, total ${r.total.toFixed(1)}</small></td>
+      <td><span class="pill ${r.mkt.toLowerCase()}">${r.mkt==="SPREAD"?"Spread":"Total"}</span></td>
+      <td class="pick">${play} <span class="muted">−110</span></td>
+      <td class="num">${model}</td>
+      <td class="num">${(r.p*100).toFixed(1)}%</td>
+      <td class="num"><div class="edgecell"><div class="bar"><i style="width:${(r.edge/maxEdge*100).toFixed(0)}%"></i></div>${r.edge.toFixed(1)}%</div></td>
+      <td class="num"><span class="units">${r.stake.toFixed(1)}u</span>${r.stake>=5?'<span class="capped">cap</span>':''}</td>
+    </tr>`;
+  }).join("");
+  const units = rows.reduce((s,r)=>s+r.stake,0);
+  document.getElementById("summary").textContent = `${rows.length} plays · ${units.toFixed(1)}u total exposure`;
+}
+document.querySelectorAll(".seg button").forEach(b=>b.addEventListener("click",()=>{
+  filter=b.dataset.f;
+  document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed", x===b?"true":"false"));
+  render();
+}));
+async function load(){
+  const up=document.getElementById("updated");
+  try{
+    const res=await fetch("data/plays.json?ts="+Date.now(),{cache:"no-store"});
+    if(!res.ok) throw new Error(res.status);
+    const d=await res.json();
+    PLAYS=d.plays||[];
+    document.getElementById("demo-note").hidden = d.mode!=="demo";
+    const t=new Date(d.updated_at);
+    up.textContent="Updated "+t.toLocaleString([], {weekday:"short",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})+(d.mode==="live"?" · live lines":" · demo run");
+  }catch(e){
+    up.textContent="Couldn't load the latest card (data/plays.json). Check that the Refresh board workflow has run.";
+  }
+  render();
+}
+load();
+
+// calculator
+function erf(x){const s=Math.sign(x);x=Math.abs(x);const t=1/(1+0.3275911*x);
+  const y=1-(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-x*x);return s*y;}
+const Phi = z => 0.5*(1+erf(z/Math.SQRT2));
+const impl = o => o>0 ? 100/(o+100) : -o/(-o+100);
+const dec = o => o>0 ? 1+o/100 : 1+100/(-o);
+function kelly(p,o){const b=dec(o)-1;return Math.max((p*b-(1-p))/b,0);}
+function calc(){
+  const mkt=document.getElementById("c-mkt").value;
+  const proj=+document.getElementById("c-proj").value, line=+document.getElementById("c-line").value;
+  const sig=Math.max(+document.getElementById("c-sigma").value,0.1);
+  const o1=+document.getElementById("c-odds").value, o2=+document.getElementById("c-other").value;
+  document.getElementById("lbl-proj").textContent = mkt==="spread"?"Model margin":"Model total";
+  document.getElementById("lbl-line").textContent = mkt==="spread"?"Home spread":"Total line";
+  const p1 = mkt==="spread" ? Phi((proj+line)/sig) : 1-Phi((line-proj)/sig);
+  const f1=impl(o1)/(impl(o1)+impl(o2));
+  const sides = mkt==="spread"
+    ? [{n:"Home "+fmtLine(line),p:p1,f:f1,o:o1},{n:"Away "+fmtLine(-line),p:1-p1,f:1-f1,o:o2}]
+    : [{n:"Over "+line.toFixed(1),p:p1,f:f1,o:o1},{n:"Under "+line.toFixed(1),p:1-p1,f:1-f1,o:o2}];
+  const best = sides.sort((a,b)=>(b.p-b.f)-(a.p-a.f))[0];
+  const edge = best.p-best.f;
+  const stake = Math.min(0.25*kelly(best.p,best.o)*100,5);
+  document.getElementById("r-side").textContent = best.n;
+  document.getElementById("r-p").textContent = (best.p*100).toFixed(1)+"%";
+  document.getElementById("r-edge").textContent = (edge*100).toFixed(1)+"%";
+  const bet = edge>=0.025 && stake>0;
+  document.getElementById("r-stake").textContent = bet ? stake.toFixed(2)+"u" : "0u";
+  const v=document.getElementById("r-verdict");
+  v.className="verdict "+(bet?"bet":"pass");
+  v.textContent = bet ? `Bet ${best.n} for ${stake.toFixed(2)} units` : "Pass. Edge is below the 2.5% threshold.";
+}
+document.querySelectorAll(".calc input,.calc select").forEach(el=>el.addEventListener("input",calc));
+calc();
+</script>
+</body>
+</html>

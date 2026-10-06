@@ -1,0 +1,34 @@
+# ---- ratings ----
+ratings:
+  ft_poss_coef: 0.475      # FTA coefficient in the possession estimate
+  ridge_alpha: 50.0        # higher early-season for heavier shrinkage
+  early_alpha: 120.0       # used before games stabilize
+
+# ---- early season ----
+early_season:
+  stabilize_games: 12      # current data weight = n / (n + stabilize_games)
+  talent_points_per_z: 2.5 # EM bump per z-score of incoming recruiting/portal talent
+
+# ---- model ----
+model:
+  ensemble_weight_gbm: 0.6 # weight on trees vs Bayesian Ridge
+  fallback_margin_sigma: 11.0
+  fallback_total_sigma: 13.0
+
+# ---- betting ----
+betting:
+  kelly_multiplier: 0.25   # fractional Kelly (1/4) — never bet full Kelly
+  min_edge: 0.025          # require >2.5% edge over de-vigged fair prob
+  max_stake_units: 5.0     # hard cap per bet
+  odds_juice: -110
+
+# ---- backtest ----
+backtest:
+  start_date: "2025-12-15"
+  step_days: 7
+  min_train_games: 1500
+
+# ---- sheets ----
+sheets:
+  spreadsheet_id: "PUT_YOUR_SHEET_ID_HERE"
+  credentials_path: "credentials.json"
