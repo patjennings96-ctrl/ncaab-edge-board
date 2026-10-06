@@ -1,0 +1,59 @@
+[games 2025] 6292 new completed games 2024-11-01..2025-04-10
+  box score failed for 401727057: GET failed after 4 tries: https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary
+  box score failed for 401724539: GET failed after 4 tries: https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary
+  box score failed for 401721984: GET failed after 4 tries: https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary
+  box score failed for 401727410: GET failed after 4 tries: https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/summary
+[lines 2026] 0 cached, fetching 6300
+  1000/6300
+  2000/6300
+  3000/6300
+  4000/6300
+  5000/6300
+  6000/6300
+[replay] 6300 games, 4805 with closing lines
+  week 2025-11-10: 301 games, 0 model bets, prior w=0.43
+  week 2025-11-17: 298 games, 0 model bets, prior w=0.40
+  week 2025-11-24: 336 games, 500 model bets, prior w=0.37
+  week 2025-12-01: 304 games, 528 model bets, prior w=0.35
+  week 2025-12-08: 192 games, 330 model bets, prior w=0.33
+  week 2025-12-15: 263 games, 453 model bets, prior w=0.32
+  week 2025-12-22: 75 games, 133 model bets, prior w=0.31
+  week 2025-12-29: 367 games, 635 model bets, prior w=0.31
+  week 2026-01-05: 342 games, 578 model bets, prior w=0.30
+  week 2026-01-12: 326 games, 554 model bets, prior w=0.28
+  week 2026-01-19: 340 games, 565 model bets, prior w=0.27
+  week 2026-01-26: 338 games, 544 model bets, prior w=0.26
+  week 2026-02-02: 337 games, 575 model bets, prior w=0.25
+  week 2026-02-09: 339 games, 564 model bets, prior w=0.24
+  week 2026-02-16: 348 games, 579 model bets, prior w=0.23
+  week 2026-02-23: 343 games, 576 model bets, prior w=0.22
+  week 2026-03-02: 318 games, 526 model bets, prior w=0.22
+  week 2026-03-09: 180 games, 286 model bets, prior w=0.21
+  week 2026-03-16: 76 games, 128 model bets, prior w=0.21
+  week 2026-03-23: 16 games, 27 model bets, prior w=0.21
+  week 2026-03-30: 12 games, 20 model bets, prior w=0.20
+  week 2026-04-06: 1 games, 0 model bets, prior w=0.20
+
+wrote /home/runner/work/ncaab-edge-board/ncaab-edge-board/docs/data/backtest_2026.json
+{
+ "accuracy": {
+  "games_with_spread": 4765,
+  "games_with_total": 4789,
+  "margin": {
+   "model_rmse": 11.96,
+   "model_mae": 9.38,
+   "ratings_rmse": 11.7,
+   "market_rmse": 11.17,
+   "market_mae": 8.86
+  },
+  "total": {
+   "model_rmse": 17.77,
+   "model_mae": 14.11,
+   "ratings_rmse": 17.54,
+   "market_rmse": 16.85,
+   "market_mae": 13.35
+  }
+ }
+}
+model {"all": {"bets": 8101, "w": 4060, "l": 4041, "p": 0, "win_pct": 0.5012, "flat_units": -347.85, "flat_roi": -0.0429, "kelly_units": -1022.13, "kelly_roi": -0.0361, "avg_edge": 12.25}, "spread": {"bets": 4051, "w": 2030, "l": 2021, "p": 0, "win_pct": 0.5011, "flat_units": -174.27, "flat_roi": -0.043, "kelly_units": -392.24, "kelly_roi": -0.0282, "avg_edge": 12.04}, "total": {"bets": 4050, "w": 2030, "l": 2020, "p": 0, "win_pct": 0.5012, "flat_units": -173.58, "flat_roi": -0.0429, "kelly_units": -629.89, "kelly_roi": -0.0437, "avg_edge": 12.47}, "max_drawdown": 1.0404}
+ratings_only {"all": {"bets": 7734, "w": 3881, "l": 3853, "p": 0, "win_pct": 0.5018, "flat_units": -320.25, "flat_roi": -0.0414, "kelly_units": -835.7, "kelly_roi": -0.0342, "avg_edge": 10.42}, "spread": {"bets": 3746, "w": 1869, "l": 1877, "p": 0, "win_pct": 0.4989, "flat_units": -175.39, "flat_roi": -0.0468, "kelly_units": -450.52, "kelly_roi": -0.0393, "avg_edge": 10.08}, "total": {"bets": 3988, "w": 2012, "l": 1976, "p": 0, "win_pct": 0.5045, "flat_units": -144.86, "flat_roi": -0.0363, "kelly_units": -385.18, "kelly_roi": -0.0297, "avg_edge": 10.74}, "max_drawdown": 1.0369}
