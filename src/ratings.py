@@ -18,7 +18,7 @@ Model
 -----
 For every (game, offense-team, defense-team) observation:
 
-    OE_obs = mu + off[team] + def[opp] + hca * is_home + eps
+    OE_obs = mu + off[team] + def[opp] + hca * venue + eps   (venue: +1 H, -1 A, 0 N)
 
     OE_obs  : points scored per 100 possessions in that game
     mu      : Division-I average efficiency (the intercept)
@@ -122,7 +122,7 @@ class AdjustedRatings:
         hca = 0.0 if neutral else self.hca
 
         oe_home = self.mu + self.off.get(home, 0.0) + self.deff.get(away, 0.0) + hca
-        oe_away = self.mu + self.off.get(away, 0.0) + self.deff.get(home, 0.0)
+        oe_away = self.mu + self.off.get(away, 0.0) + self.deff.get(home, 0.0) - hca
 
         pts_home = oe_home * poss / 100.0
         pts_away = oe_away * poss / 100.0
@@ -165,10 +165,14 @@ def fit_adjusted_ratings(games_long: pd.DataFrame,
     n = len(g)
     off_col = g["team"].map(t_idx).to_numpy()
     def_col = n_teams + g["opp"].map(t_idx).to_numpy()
-    home = (g["location"] == "H").to_numpy()
-    r_idx = np.concatenate([np.arange(n), np.arange(n), np.flatnonzero(home)])
-    c_idx = np.concatenate([off_col, def_col, np.full(home.sum(), n_cols - 1)])
-    X = sparse.csr_matrix((np.ones(len(r_idx)), (r_idx, c_idx)), shape=(n, n_cols))
+    # Venue column: +1 home offense, -1 road offense, 0 neutral. `hca` is then
+    # the per-side effect, and a home game is worth 2*hca per 100 possessions.
+    venue = np.select([g["location"] == "H", g["location"] == "A"], [1.0, -1.0], 0.0)
+    nz = np.flatnonzero(venue)
+    r_idx = np.concatenate([np.arange(n), np.arange(n), nz])
+    c_idx = np.concatenate([off_col, def_col, np.full(len(nz), n_cols - 1)])
+    vals = np.concatenate([np.ones(2 * n), venue[nz]])
+    X = sparse.csr_matrix((vals, (r_idx, c_idx)), shape=(n, n_cols))
     y = g["raw_oe"].to_numpy(dtype=float)
     # Optional per-row weights (e.g. last season's games down-weighted)
     sw = g["weight"].to_numpy(dtype=float) if "weight" in g.columns else np.ones(n)

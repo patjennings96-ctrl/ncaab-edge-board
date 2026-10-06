@@ -1,8 +1,7 @@
 # ---- ratings ----
 ratings:
   ft_poss_coef: 0.475      # FTA coefficient in the possession estimate
-  ridge_alpha: 50.0        # higher early-season for heavier shrinkage
-  early_alpha: 120.0       # used before games stabilize
+  ridge_alpha: 3.0         # tuned on held-out 2025-26 D-I games (margin RMSE 11.31)
 
 # ---- early season ----
 early_season:

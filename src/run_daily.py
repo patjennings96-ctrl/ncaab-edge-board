@@ -123,7 +123,9 @@ def run(demo: bool = True, sheet_id: str | None = None):
     else:
         games, names = load_live_games()
 
-    ratings = R.fit_adjusted_ratings(games, alpha=50.0)
+    # alpha=3 minimized held-out margin error on 2025-26 D-I games
+    # (RMSE 11.31 vs 13.3 at the old default); demo data keeps its old setting.
+    ratings = R.fit_adjusted_ratings(games, alpha=50.0 if demo else 3.0)
     train = build_training_frame(games, ratings)
     dual = M.DualModel.train(train, FEATURES)
 
@@ -209,6 +211,12 @@ def load_live_games():
     games = pd.concat([prev, cur], ignore_index=True)
     if games.empty:
         raise RuntimeError("No completed games available from ESPN yet.")
+    # Drop games against non-Division I schools (one or two games a year each);
+    # they distort the efficiency scale. D-I teams have 10+ games across the
+    # two seasons on disk even on opening night.
+    n = games.groupby("team").size()
+    d1 = set(n[n >= 10].index)
+    games = games[games["team"].isin(d1) & games["opp"].isin(d1)]
     games = R.add_tempo_efficiency(games)
     return games, live.team_names(prev_raw, cur_raw)
 
