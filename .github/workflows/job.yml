@@ -1,0 +1,46 @@
+# Runs data jobs listed in jobs/request.txt (one command per line), e.g.
+#   probe_torvik 2026
+#   backfill_players 2025 2026
+name: Data job
+
+on:
+  push:
+    paths: ["jobs/request.txt"]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-board
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Run jobs
+        run: |
+          mkdir -p jobs/out
+          cd src
+          grep -vE '^\s*(#|$)' ../jobs/request.txt | while read -r line; do
+            echo "::group::$line"
+            python jobs.py $line 2>&1 | tee "../jobs/out/$(echo $line | cut -d' ' -f1).run.log"
+            echo "::endgroup::"
+          done
+      - name: Commit results
+        run: |
+          git config user.name "board-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data jobs docs/data || true
+          git diff --cached --quiet && exit 0
+          git commit -m "Data job: $(head -c 60 jobs/request.txt | tr '\n' ' ')"
+          git pull --rebase -X theirs origin main
+          git push
