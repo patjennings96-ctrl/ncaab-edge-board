@@ -70,6 +70,7 @@ tr:last-child td{border-bottom:0}
 td.num,th.num{text-align:right;font-family:var(--mono);font-size:.88rem}
 .match{font-weight:600}
 .match small{display:block;font-weight:400;color:var(--muted);font-size:.78rem}
+.match small.note{color:var(--warn);white-space:normal;max-width:34ch}
 .pill{display:inline-block;font-family:var(--mono);font-size:.72rem;padding:2px 8px;border-radius:999px;letter-spacing:.04em}
 .pill.spread{background:var(--court-soft);color:var(--court)}
 .pill.total{background:var(--accent-soft);color:var(--accent)}
@@ -240,7 +241,7 @@ Total    = Pts_home + Pts_away</div>
   <dl class="feats">
     <dt>Rest &amp; travel</dt><dd>Days rest, back-to-backs, games in the last 7 days, consecutive road games, haversine miles between venues, and altitude relative to home (Air Force, Wyoming, Colorado, Utah, New Mexico).</dd>
     <dt>Continuity</dt><dd>Share of last season's minutes returning. In the transfer-portal era this separates teams that keep their rating from teams that reset.</dd>
-    <dt>Availability</dt><dd>Usage-weighted share of the offense available tonight. Losing a 28%-usage star costs far more than losing a reserve.</dd>
+    <dt>Availability</dt><dd>Every player gets an offensive and defensive rating from ESPN box scores. Tonight's expected lineup is compared with the lineups behind the team's rating: a missing bench player barely moves the line, a missing 32-minute starter can move it 3–5 points. Injury reports and your own notes override the guess from recent absences.</dd>
     <dt>Home court</dt><dd>Per-team HCA, shrunk toward the league mean: <span class="mono">(n·observed + 25·league) / (n + 25)</span>. Strong venues earn their own number only with enough home games.</dd>
     <dt>Recent form</dt><dd>EWMA of game efficiency margin (half-life 5 games) minus the season baseline, shifted so a game never sees its own result.</dd>
   </dl>
@@ -372,6 +373,7 @@ Stake    = ¼ · (P·b − (1−P)) / b   ·  b = decimal − 1</div>
 
 <script>
 let PLAYS = [];
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const fmtLine = v => (v>0?"+":"") + v.toFixed(1);
 let filter = "ALL";
 function render(){
@@ -382,7 +384,7 @@ function render(){
     const play = r.mkt==="SPREAD" ? `${r.side} ${fmtLine(r.line)}` : `${r.side} ${r.line.toFixed(1)}`;
     const model = r.mkt==="SPREAD" ? `${r.home} ${fmtLine(r.proj)}` : r.total.toFixed(1);
     return `<tr>
-      <td class="match">${r.away} @ ${r.home}<small>proj ${r.home} by ${r.proj.toFixed(1)}, total ${r.total.toFixed(1)}</small></td>
+      <td class="match">${esc(r.away)} @ ${esc(r.home)}<small>proj ${esc(r.home)} by ${r.proj.toFixed(1)}, total ${r.total.toFixed(1)}</small>${r.notes?`<small class="note">Lineup: ${esc(r.notes)}</small>`:""}</td>
       <td><span class="pill ${r.mkt.toLowerCase()}">${r.mkt==="SPREAD"?"Spread":"Total"}</span></td>
       <td class="pick">${play} <span class="muted">−110</span></td>
       <td class="num">${model}</td>

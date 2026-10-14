@@ -1,0 +1,47 @@
+{
+ "games": 4853,
+ "fit_games": 2426,
+ "test_games": 2427,
+ "test_from": "2026-01-24",
+ "heur": {
+  "weight_margin": 0.773,
+  "weight_total": 0.959,
+  "margin_rmse": 11.142,
+  "total_rmse": 17.108,
+  "avg_abs_adj_margin": 0.98,
+  "share_games_adj_over_2pts": 0.105,
+  "weight_vs_close": 0.159,
+  "ats_disagree_3plus": {
+   "games": 334,
+   "cover": 0.5359
+  }
+ },
+ "inf": {
+  "weight_margin": 0.59,
+  "weight_total": 1.032,
+  "margin_rmse": 11.135,
+  "total_rmse": 17.112,
+  "avg_abs_adj_margin": 0.92,
+  "share_games_adj_over_2pts": 0.095,
+  "weight_vs_close": 0.193,
+  "ats_disagree_3plus": {
+   "games": 364,
+   "cover": 0.5549
+  }
+ },
+ "base": {
+  "margin_rmse": 11.24,
+  "total_rmse": 17.1
+ },
+ "market": {
+  "margin_rmse": 10.995,
+  "total_rmse": 16.674
+ },
+ "base_on_lined": 11.241,
+ "return_rates": {
+  "1": 0.489,
+  "2": 0.342,
+  "3": 0.085
+ },
+ "generated_at": "2026-10-14T20:16+00:00"
+}

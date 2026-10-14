@@ -7,7 +7,6 @@ that file is the command, e.g.
 
     backfill_players 2025 2026
     probe_torvik 2026
-    torvik 2026
 
 Output logs go to jobs/out/<command>.log and data files are committed.
 """
@@ -63,10 +62,11 @@ def backfill_players(*seasons: int) -> None:
         print(f"season {s}: {len(df)} player rows, {df['game_id'].nunique()} games")
 
 
-def torvik(*seasons: int) -> None:
-    import torvik as T
-    for s in seasons:
-        T.update_torvik(int(s))
+def lineup_backtest(season: int = 2026) -> None:
+    import sys as _s
+    import lineup_backtest as L
+    _s.argv = ["lineup_backtest.py", "--season", str(season)]
+    L.main()
 
 
 def main(argv):
@@ -75,7 +75,7 @@ def main(argv):
         return
     cmd, args = argv[0], argv[1:]
     fn = {"probe_torvik": probe_torvik, "backfill_players": backfill_players,
-          "torvik": torvik}.get(cmd)
+          "lineup_backtest": lineup_backtest}.get(cmd)
     if fn is None:
         raise SystemExit(f"unknown command {cmd}")
     fn(*[int(a) if a.isdigit() else a for a in args])

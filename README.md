@@ -100,6 +100,65 @@ skips quietly when blocked. KenPom requires your own subscription export.
 Note: GitHub Pages on a **private** repo needs a paid GitHub plan. On a free
 plan, a public repo makes the board (and your picks) public.
 
+## Injuries and lineups
+
+Every player gets an offensive and defensive rating (points per 100 possessions
+vs an average D-I player, Box Plus-Minus scale) from ESPN box scores, adjusted
+so each team's players add up to the team's rating, and pulled toward last
+season's rating (or replacement level) until he has played enough minutes.
+
+Before each game the model compares the lineup it expects tonight with the
+lineups behind the team's rating:
+
+* **Expected minutes:** recent minutes in games the player played.
+* **Will he play?** From, in order of priority: your notes in
+  `data/availability_overrides.csv`, saved reports in `data/availability/`,
+  ESPN's injury feed, and otherwise his recent absences. A rotation player who
+  missed the last game played the next one 49% of the time last season, 34%
+  after two missed games and 8.5% after three or more.
+* **Impact:** `5 × Σ rating × minutes / 200`, with missing minutes filled at
+  replacement level (−2). A bench player out barely moves the line; a
+  32-minute starter rated +6 is worth about 4 points.
+
+The adjustment applies at 0.8 weight to margins and 0.5 to totals, the weights
+fitted on 2025-26 (`src/lineup_backtest.py`, results in
+`docs/data/lineup_backtest_2026.json`). On the second half of that season it
+cut margin error from 11.24 to 11.14 points, and when the adjusted projection
+disagreed with the closing spread by 3+ points its side covered 53.6% (334
+games), vs 48.0% without it. Totals did not improve. Two-thirds of team-games
+move less than 1 point; 2% move more than 3.
+
+Adding a note (ESPN's college injury feed is often empty):
+
+```
+player_id,name,team_id,status,through
+,Caleb Wilson,153,OUT,2026-02-28
+```
+
+Use `player_id` or `name` + `team_id` (ESPN ids; see the Players tab).
+Status: OUT, DOUBTFUL, QUESTIONABLE, PROBABLE, ACTIVE. Rows past `through` are ignored.
+
+The board shows a "Lineup:" note under any game where a player is expected out.
+
+## Torvik, KenPom and ShotQuality
+
+Torvik blocks requests from cloud servers (GitHub included), KenPom's terms
+forbid scraping, and ShotQuality is a paid service, so these are import slots
+rather than automatic feeds. Save an export as:
+
+```
+data/external/torvik/teams.csv      data/external/torvik/players.csv
+data/external/kenpom/teams.csv      data/external/kenpom/players.csv
+data/external/shotquality/teams.csv data/external/shotquality/players.csv
+```
+
+Team files need a team name plus offense and defense ratings (tempo optional);
+player files need name, team and OBPM/DBPM, BPM, or O/D. Common column names
+from each site are recognized (`src/external.py`). Team ratings are blended 50/50
+with ours and player ratings 50/50 with ours. Files older than 3 days are
+ignored. These blends have not been backtested, because historical exports
+aren't available.
+
 ## Validation discipline
 
 - Every rating and feature for a game on date *D* is computed only from games

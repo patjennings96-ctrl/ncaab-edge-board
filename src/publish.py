@@ -39,6 +39,7 @@ def card_to_records(card: pd.DataFrame) -> list[dict]:
             "proj": float(r["proj_margin"]), "total": float(r["proj_total"]),
             "p": float(r["model_prob"]), "edge": float(r["edge_pct"]),
             "stake": float(r["stake_units"]),
+            "notes": str(r.get("notes", "") or ""),
         })
     return recs
 

@@ -93,6 +93,7 @@ def make_card(pred_df: pd.DataFrame, kelly_mult=0.25, min_edge=0.025) -> pd.Data
     for row in pred_df.itertuples(index=False):
         base = {"home": row.home, "away": row.away,
                 "game_id": getattr(row, "game_id", ""), "start": getattr(row, "start", ""),
+                "notes": getattr(row, "notes", ""),
                 "proj_margin": round(row.pred_margin, 1),
                 "proj_total": round(row.pred_total, 1)}
         if pd.notna(row.spread_home):
@@ -109,7 +110,7 @@ def make_card(pred_df: pd.DataFrame, kelly_mult=0.25, min_edge=0.025) -> pd.Data
             if tot:
                 card.append({**base, "mkt": "TOTAL", **tot.as_row()})
     cols = ["game_id", "start", "home", "away", "mkt", "side", "line", "odds",
-            "proj_margin", "proj_total", "model_prob", "edge_pct", "stake_units"]
+            "proj_margin", "proj_total", "model_prob", "edge_pct", "stake_units", "notes"]
     df = pd.DataFrame(card)
     return df[[c for c in cols if c in df.columns]] if not df.empty else df
 
@@ -119,13 +120,24 @@ def run(demo: bool = True, sheet_id: str | None = None):
         games = ingest.synthesize_demo_games()
         games = R.add_tempo_efficiency(games)
         games["date"] = pd.to_datetime(games["date"])
-        names = {}
+        names, extra = {}, None
     else:
-        games, names = load_live_games()
+        games, names, extra = load_live_games()
 
     # alpha=3 minimized held-out margin error on 2025-26 D-I games
     # (RMSE 11.31 vs 13.3 at the old default); demo data keeps its old setting.
     ratings = R.fit_adjusted_ratings(games, alpha=50.0 if demo else 3.0)
+    ctx = None
+    if not demo:
+        import external as X
+        import players as P
+        own_ratings = ratings
+        ratings = X.blend_team_ratings(ratings, X.load_team_sources(names))
+        roster = P.load_player_games(extra["season"])
+        roster = roster.drop_duplicates("player_id", keep="last").set_index("player_id")[["name", "team_id"]]
+        ext_players = X.load_player_sources(names, roster) if not roster.empty else None
+        ctx = P.build_context(extra["season"], extra["prev_raw"], extra["cur_raw"],
+                              extra["prev_long"], own_ratings, extra["weights"], ext_players)
     train = build_training_frame(games, ratings)
     dual = M.DualModel.train(train, FEATURES)
 
@@ -157,6 +169,8 @@ def run(demo: bool = True, sheet_id: str | None = None):
     else:
         slate_feat = build_slate_frame(slate, ratings)
         preds = dual.predict(slate_feat)
+        if ctx is not None:
+            preds = apply_lineups(preds, ctx, names)
         card = make_card(preds)
         if names:
             card["home"] = card["home"].map(names).fillna(card["home"])
@@ -185,10 +199,43 @@ def run(demo: bool = True, sheet_id: str | None = None):
             table.insert(2, "name", table["team"].map(names))
         write_dataframe(table, sheet_id, "Ratings", creds)
         write_dataframe(card, sheet_id, "Today", creds)
-        print(f"Pushed Ratings + Today tabs to sheet {sheet_id}")
+        if ctx is not None and not ctx["current"].empty:
+            import players as P
+            write_dataframe(P.ratings_table(ctx, names), sheet_id, "Players", creds)
+        print(f"Pushed Ratings, Today and Players tabs to sheet {sheet_id}")
     elif sheet_id:
         print("Sheet id set but no credentials file found; skipped Sheets export.")
     return card
+
+
+def apply_lineups(preds: pd.DataFrame, ctx: dict, names: dict) -> pd.DataFrame:
+    """Shift each game's margin and total for who is expected to play tonight."""
+    import players as P
+    out = preds.copy()
+    notes, dms, dts = [], [], []
+    for r in out.itertuples(index=False):
+        ho, hd, hn = P.team_adjustment(ctx, r.home)
+        ao, ad, an = P.team_adjustment(ctx, r.away)
+        dm = ((ho + hd) - (ao + ad)) * r.proj_poss / 100.0
+        dt = ((ho - ad) + (ao - hd)) * r.proj_poss / 100.0
+        dms.append(P.LINEUP_WEIGHT_MARGIN * dm)
+        dts.append(P.LINEUP_WEIGHT_TOTAL * dt)
+        parts = []
+        if hn:
+            parts.append(f"{names.get(r.home, r.home)}: {hn}")
+        if an:
+            parts.append(f"{names.get(r.away, r.away)}: {an}")
+        notes.append("; ".join(parts))
+    out["lineup_margin_adj"] = dms
+    out["lineup_total_adj"] = dts
+    out["pred_margin"] = out["pred_margin"] + out["lineup_margin_adj"]
+    out["pred_total"] = out["pred_total"] + out["lineup_total_adj"]
+    out["notes"] = notes
+    big = out[out["lineup_margin_adj"].abs() >= 1.0]
+    for r in big.itertuples(index=False):
+        print(f"[lineups] {names.get(r.away, r.away)} @ {names.get(r.home, r.home)}: "
+              f"margin {r.lineup_margin_adj:+.1f} ({r.notes})")
+    return out
 
 
 def load_live_games():
@@ -197,9 +244,12 @@ def load_live_games():
     Last season's games are down-weighted and fade out as this season's sample
     grows: weight = 0.5 * 12 / (12 + games_played_per_team).
     """
+    import players as P
     season = live.current_season()
     prev_raw = live.update_games(season - 1)
     cur_raw = live.update_games(season)
+    P.update_player_games(season - 1)
+    P.update_player_games(season)
     prev, cur = live.to_long(prev_raw), live.to_long(cur_raw)
 
     n_avg = len(cur) / max(cur["team"].nunique(), 1) if not cur.empty else 0.0
@@ -218,7 +268,11 @@ def load_live_games():
     d1 = set(n[n >= 10].index)
     games = games[games["team"].isin(d1) & games["opp"].isin(d1)]
     games = R.add_tempo_efficiency(games)
-    return games, live.team_names(prev_raw, cur_raw)
+    weights = pd.concat([pd.Series(w_prev, index=prev_raw["game_id"].astype(str)),
+                         pd.Series(1.0, index=cur_raw["game_id"].astype(str))])
+    extra = {"season": season, "prev_raw": prev_raw, "cur_raw": cur_raw,
+             "prev_long": R.add_tempo_efficiency(prev), "weights": weights}
+    return games, live.team_names(prev_raw, cur_raw), extra
 
 
 def names_and_results():
