@@ -86,16 +86,32 @@ def start_times(*seasons: int) -> None:
         print(f"season {season}: {len(rows)} games with start times -> {out}")
 
 
+def probe_url(*urls) -> None:
+    """Fetch URLs and save status + the start of each body (for checking access rules)."""
+    os.makedirs(OUT_DIR, exist_ok=True)
+    lines = []
+    for url in urls:
+        try:
+            r = live.SESSION.get(url, timeout=40)
+            lines.append(f"=== {url}\nHTTP {r.status_code} bytes {len(r.content)}\n{r.text[:6000]}\n")
+        except Exception as exc:
+            lines.append(f"=== {url}\nERROR {exc}\n")
+    with open(os.path.join(OUT_DIR, "probe_url.log"), "w") as f:
+        f.write("\n".join(lines))
+    print("\n".join(l[:300] for l in lines))
+
+
 def main(argv):
     if not argv:
         print("usage: jobs.py <command> [args]")
         return
     cmd, args = argv[0], argv[1:]
     fn = {"probe_torvik": probe_torvik, "backfill_players": backfill_players,
-          "lineup_backtest": lineup_backtest, "start_times": start_times}.get(cmd)
+          "lineup_backtest": lineup_backtest, "start_times": start_times,
+          "probe_url": probe_url}.get(cmd)
     if fn is None:
         raise SystemExit(f"unknown command {cmd}")
-    fn(*[int(a) if a.isdigit() else a for a in args])
+    fn(*[int(a) if a.isdigit() and cmd != "probe_url" else a for a in args])
 
 
 if __name__ == "__main__":
