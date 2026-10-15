@@ -140,6 +140,31 @@ Status: OUT, DOUBTFUL, QUESTIONABLE, PROBABLE, ACTIVE. Rows past `through` are i
 
 The board shows a "Lineup:" note under any game where a player is expected out.
 
+### X scan (@JonRothstein, @CorbieBO)
+
+Scheduled tasks open these two accounts in your Chrome (Claude in Chrome, your
+logged-in X) and record availability news for that day's games in
+`data/availability/x_reports.csv`:
+
+```
+date,player,team,status,account,url,posted_at,note
+```
+
+Pushing that file re-prices the board immediately. Reporter posts count
+slightly below official reports (REPORTED OUT = 10% chance to play), and ESPN
+reports and your overrides take precedence. Picks, predictions and opinions are
+ignored. Each scan appends what it read to `data/history/x_scan_log.csv`.
+
+Schedule (Eastern time, Nov-Apr), from 2024-26 tip times:
+
+| Pass | When | Why |
+|------|------|-----|
+| First tip | Mon 1:50pm, Tue-Wed 3:50pm, Thu 11:50am, Fri-Sun 10:50am | ~1 hour before that weekday's median first tip |
+| Evening | Daily 5:50pm | 1 hour before the 7pm ET wave (most common tip time; 2/3 of games tip 5pm ET or later) |
+
+Your computer must be on with Chrome open and the Claude extension connected;
+otherwise that pass is skipped and the model uses ESPN and recent absences.
+
 ## Torvik, KenPom and ShotQuality
 
 Torvik blocks requests from cloud servers (GitHub included), KenPom's terms

@@ -410,26 +410,78 @@ def fetch_espn_injuries() -> pd.DataFrame:
     return pd.DataFrame(rows, columns=["player_id", "team_id", "name", "status", "source"])
 
 
-def current_statuses(roster: pd.DataFrame) -> dict:
-    """player_id -> status from ESPN + saved reports + your overrides (overrides win)."""
-    st = {}
+X_REPORTS_PATH = os.path.join(AVAIL_DIR, "x_reports.csv")
+
+# Reporter posts count slightly below official reports.
+STATUS_PLAY_PROB.update({"REPORTED OUT": 0.1, "REPORTED DOUBTFUL": 0.3,
+                         "REPORTED QUESTIONABLE": 0.6, "REPORTED PROBABLE": 0.9,
+                         "REPORTED AVAILABLE": 0.95})
+
+
+def _match_player(name: str, team: str, roster: pd.DataFrame, team_names: dict) -> str:
+    """ESPN player id for a name (+ team text), or '' if not confidently matched."""
+    import difflib
+    from external import _norm_name
+    key = _norm_name(name)
+    cand = roster[roster["_nn"] == key]
+    if len(cand) == 1:
+        return cand.index[0]
+    if len(cand) > 1 and team:
+        tn = {cand.loc[i, "team_id"]: team_names.get(cand.loc[i, "team_id"], "") for i in cand.index}
+        best = difflib.get_close_matches(team.lower(), [v.lower() for v in tn.values()], n=1, cutoff=0.5)
+        if best:
+            for i in cand.index:
+                if tn[cand.loc[i, "team_id"]].lower() == best[0]:
+                    return i
+    return ""
+
+
+def load_x_reports(roster: pd.DataFrame, team_names: dict) -> dict:
+    """
+    Reporter posts collected by the scheduled X scan (data/availability/x_reports.csv):
+    columns date, player, team, status, account, url, posted_at, note.
+    Only rows dated today or later (Eastern) are used.
+    """
+    if not os.path.exists(X_REPORTS_PATH) or roster.empty:
+        return {}
+    x = pd.read_csv(X_REPORTS_PATH, dtype=str).fillna("")
+    today = datetime.now(live.ET).date().isoformat()
+    x = x[x["date"] >= today]
+    out = {}
+    for r in x.sort_values("posted_at").itertuples():
+        pid = _match_player(r.player, r.team, roster, team_names)
+        if pid:
+            out[pid] = f"REPORTED {r.status.strip().upper()}"
+        else:
+            print(f"[x reports] no player match for {r.player} ({r.team})")
+    return out
+
+
+def current_statuses(roster: pd.DataFrame, team_names: dict | None = None) -> dict:
+    """
+    player_id -> status. Later sources overwrite earlier ones:
+    reporter posts (X scan) < ESPN injury feed < saved reports < your overrides.
+    """
+    roster = roster.copy()
+    from external import _norm_name
+    roster["_nn"] = roster["name"].map(_norm_name)
+    st = load_x_reports(roster, team_names or {})
     inj = fetch_espn_injuries()
     for r in inj.itertuples():
         if r.player_id:
             st[r.player_id] = r.status
     if os.path.isdir(AVAIL_DIR):
         for f in sorted(os.listdir(AVAIL_DIR)):
-            if f.endswith(".csv"):
+            if f.endswith(".csv") and os.path.join(AVAIL_DIR, f) != X_REPORTS_PATH:
                 a = pd.read_csv(os.path.join(AVAIL_DIR, f), dtype=str).fillna("")
                 for r in a.itertuples():
                     if getattr(r, "player_id", ""):
                         st[r.player_id] = r.status.upper()
     ov = load_overrides()
     if not ov.empty:
-        by_name = {(n.lower(), t): p for p, n, t in
-                   zip(roster.index, roster["name"], roster["team_id"])}
         for r in ov.itertuples():
-            pid = r.player_id or by_name.get((r.name.lower(), r.team_id), "")
+            pid = r.player_id or _match_player(r.name, "", roster[roster["team_id"] == r.team_id]
+                                               if r.team_id else roster, team_names or {})
             if pid:
                 st[pid] = r.status.upper()
     return st
@@ -494,7 +546,8 @@ def build_context(season: int, prev_raw, cur_raw, prev_long, team_ratings,
     rr = cached_return_rates(prev_pg, season - 1) if not prev_pg.empty else DEFAULT_RETURN_PROB
     cur_pg = cur_pg.copy()
     cur_pg["date"] = pd.to_datetime(cur_pg["date"])
-    statuses = current_statuses(cur) if not cur.empty else {}
+    names = live.team_names(prev_raw, cur_raw)
+    statuses = current_statuses(cur, names) if not cur.empty else {}
     print(f"[players] {len(cur)} rated this season, {len(statuses)} with a report status")
     return {"ratings": allr, "current": cur, "base": base, "return_rates": rr,
             "pg": cur_pg, "statuses": statuses}
