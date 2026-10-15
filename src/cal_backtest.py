@@ -58,7 +58,8 @@ def run(season: int, start: str, step_days: int = 7) -> pd.DataFrame:
         for day, dg in wk.groupby("date"):
             slate = pd.DataFrame({"game_id": dg.game_id, "start": day.date().isoformat(),
                                   "home": dg.home_id, "away": dg.away_id,
-                                  "spread_home": dg.close_spread_home, "total": dg.close_total})
+                                  "spread_home": dg.close_spread_home, "total": dg.close_total,
+                                  "neutral": dg.neutral.astype(bool)})
             priced = C.price_slate(slate, m1, m2)
             if priced.empty:
                 continue
@@ -103,7 +104,7 @@ def summarize(df: pd.DataFrame, season: int) -> dict:
             "m1_margin_bias": round(float(((s.m1_home - s.m1_away) - margin.loc[s.index]).mean()), 2),
         },
         "notes": "DraftKings closing lines via ESPN; Model 2 uses Edge Board adjusted ratings "
-                 "(historical KenPom not available); no home-court term, as in the sheet.",
+                 "(historical KenPom not available); 3-point home-court edge added to both models.",
     }
     return res
 

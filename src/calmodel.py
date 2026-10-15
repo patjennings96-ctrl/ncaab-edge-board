@@ -37,7 +37,9 @@ Plays (LINES tab)
            OVER if Model 1 >= 7 and adjusted Model 2 >= 7; UNDER if both <= -7.
     Grading: +1 unit win, -1.1 loss (flat, -110).
 
-Note: the sheet has no home-court term; neither does this rebuild.
+Home court: the sheet had none. At Pat's direction this version adds a 3-point
+home edge to both models' margins (+1.5 home, -1.5 away, so totals are
+unchanged), skipped for neutral-site games.
 
 Data substitutions (the sheet scraped sites that block automated access)
     TeamRankings OE/DE/possessions/EPR -> computed from ESPN box scores, same
@@ -62,6 +64,7 @@ ROOT = live.ROOT
 CAL_JSON = os.path.join(ROOT, "docs", "cal", "data", "plays.json")
 CAL_LOG = os.path.join(ROOT, "data", "history", "cal_log.csv")
 
+HCA = 3.0             # home-court points added to each model's margin (half to each side)
 ATS_THRESHOLD = 5.0
 TOTAL_THRESHOLD = 7.0
 MIN_GAMES = 3          # fewer current-season games -> fall back to last season
@@ -170,6 +173,9 @@ def price_slate(slate: pd.DataFrame, m1: pd.DataFrame, m2: pd.DataFrame) -> pd.D
             continue
         a1, h1 = model1(m1.loc[g.away], m1.loc[g.home])
         a2, h2 = model2(m2.loc[g.away], m2.loc[g.home])
+        if not bool(getattr(g, "neutral", False)):
+            # 3-point home edge: margin moves 3, total unchanged
+            h1, a1, h2, a2 = h1 + HCA / 2, a1 - HCA / 2, h2 + HCA / 2, a2 - HCA / 2
         r = {"game_id": getattr(g, "game_id", ""), "start": getattr(g, "start", ""),
              "home": g.home, "away": g.away,
              "line": g.spread_home, "total_line": g.total,
@@ -243,7 +249,7 @@ def write_json(priced: pd.DataFrame, names: dict, mode: str, m2_source: str) -> 
             "ats_play": r.ats_play, "ou_play": r.ou_play,
         })
     payload = {"updated_at": datetime.now(timezone.utc).isoformat(timespec="minutes"),
-               "mode": mode, "model2_source": m2_source,
+               "mode": mode, "model2_source": m2_source, "hca": HCA,
                "thresholds": {"ats": ATS_THRESHOLD, "total": TOTAL_THRESHOLD},
                "record": log_record(), "games": games}
     with open(CAL_JSON, "w") as f:

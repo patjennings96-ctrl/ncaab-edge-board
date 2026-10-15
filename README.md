@@ -197,9 +197,12 @@ Data substitutions: TeamRankings stats are computed from ESPN box scores with
 the same definitions; KenPom comes from `data/external/kenpom/teams.csv` if
 fresh, otherwise the Edge Board's adjusted ratings.
 
-`src/cal_backtest.py` replays 2025-26 against DraftKings closes: spreads 560-546
-(-40.6u; 94% road teams, since the sheet has no home-court term), totals 211-187
-(+5.3u).
+Home court: the sheet had none; this version adds 3 points to each model's
+margin (+1.5 home, -1.5 road, totals unchanged), none on neutral courts.
+
+`src/cal_backtest.py` replays 2025-26 against DraftKings closes: spreads 362-356
+(-29.6u, 718 plays; without home court it was 560-546, -40.6u, 94% road teams),
+totals 211-187 (+5.3u).
 
 ## Validation discipline
 
