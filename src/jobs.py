@@ -94,8 +94,9 @@ def probe_url(*urls) -> None:
         try:
             r = live.SESSION.get(url, timeout=40)
             import re as _re
-            links = sorted(set(_re.findall(r'href="([^"]*(?:term|legal|polic|matchup)[^"]*)"', r.text)))
-            lines.append(f"=== {url}\nHTTP {r.status_code} bytes {len(r.content)}\nLINKS {links[:60]}\n{r.text[:3000]}\n")
+            links = sorted(set(l for l in _re.findall(r'href="([^"]*)"', r.text)
+                               if _re.search(r"term|legal|polic|ncaa-basketball/matchup", l)))
+            lines.append(f"=== {url}\nHTTP {r.status_code} bytes {len(r.content)}\nLINKS {links[:400]}\n{r.text[:3000]}\n")
         except Exception as exc:
             lines.append(f"=== {url}\nERROR {exc}\n")
     with open(os.path.join(OUT_DIR, "probe_url.log"), "w") as f:
