@@ -104,6 +104,23 @@ def probe_url(*urls) -> None:
     print("\n".join(l[:300] for l in lines))
 
 
+def espn_teams() -> None:
+    """ESPN team id, school (location), mascot (name) and display name for every team."""
+    import pandas as pd
+    d = live._get_json(f"{live.ESPN}/teams", {"limit": "1000"})
+    rows = []
+    for sp in d.get("sports", []):
+        for lg in sp.get("leagues", []):
+            for t in lg.get("teams", []):
+                t = t.get("team", t)
+                rows.append({"team_id": str(t["id"]), "location": t.get("location", ""),
+                             "mascot": t.get("name", ""), "display": t.get("displayName", ""),
+                             "abbr": t.get("abbreviation", "")})
+    out = os.path.join(live.ROOT, "data", "teams.csv")
+    pd.DataFrame(rows).to_csv(out, index=False)
+    print(f"{len(rows)} teams -> {out}")
+
+
 def main(argv):
     if not argv:
         print("usage: jobs.py <command> [args]")
@@ -111,7 +128,7 @@ def main(argv):
     cmd, args = argv[0], argv[1:]
     fn = {"probe_torvik": probe_torvik, "backfill_players": backfill_players,
           "lineup_backtest": lineup_backtest, "start_times": start_times,
-          "probe_url": probe_url}.get(cmd)
+          "probe_url": probe_url, "espn_teams": espn_teams}.get(cmd)
     if fn is None:
         raise SystemExit(f"unknown command {cmd}")
     fn(*[int(a) if a.isdigit() and cmd != "probe_url" else a for a in args])
