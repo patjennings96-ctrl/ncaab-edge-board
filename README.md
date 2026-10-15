@@ -184,6 +184,23 @@ with ours and player ratings 50/50 with ours. Files older than 3 days are
 ignored. These blends have not been backtested, because historical exports
 aren't available.
 
+## Cal's model (second site)
+
+`docs/cal/` is a separate board for Cal's "NCAAB Model" Google Sheet, rebuilt in
+`src/calmodel.py` formula for formula: Model 1 (raw efficiency × possessions ×
+effective possession ratio), Model 2 (AdjO/AdjD/AdjT), each averaging three
+projections, and a play only when both agree by 5+ on a side or 7+ on a total
+(Model 2 totals shifted by the day's average). It prices the same slate and lines
+as the Edge Board on every run and logs plays to `data/history/cal_log.csv`.
+
+Data substitutions: TeamRankings stats are computed from ESPN box scores with
+the same definitions; KenPom comes from `data/external/kenpom/teams.csv` if
+fresh, otherwise the Edge Board's adjusted ratings.
+
+`src/cal_backtest.py` replays 2025-26 against DraftKings closes: spreads 560-546
+(-40.6u; 94% road teams, since the sheet has no home-court term), totals 211-187
+(+5.3u).
+
 ## Validation discipline
 
 - Every rating and feature for a game on date *D* is computed only from games

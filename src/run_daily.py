@@ -164,6 +164,15 @@ def run(demo: bool = True, sheet_id: str | None = None):
             ok = slate["home"].map(counts).fillna(0).ge(5) & slate["away"].map(counts).fillna(0).ge(5)
             slate = slate[ok]
 
+    # --- Cal's model: same slate and lines, its own two-model rules ---
+    if not demo:
+        try:
+            import calmodel
+            calmodel.run_daily(slate if not slate.empty else pd.DataFrame(),
+                               extra["cur_raw"], extra["prev_raw"], own_ratings, names, "live")
+        except Exception as exc:
+            print(f"[cal] skipped: {exc}")
+
     if slate.empty:
         card = pd.DataFrame()
     else:

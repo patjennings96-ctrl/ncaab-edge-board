@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cal's NCAAB Model</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,500..800&family=Public+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a scorer's sheet. Record strip, then today's slate where each game shows both models on a shared number line with the ±5 / ±7 agreement zones, then the formulas and the backtest. */
+:root{
+  --bg:#F2F5F3; --surface:#FFFFFF; --ink:#11201A; --muted:#5A6B63; --line:#D5DED9;
+  --accent:#1E6A49; --accent-soft:#DCEDE4; --gold:#A86A12; --gold-soft:#F5E7CF;
+  --zone:#E9F1EC; --bad:#A33A2C; --bad-soft:#F6E1DD;
+  --display:"Archivo","Arial Narrow",Arial,sans-serif;
+  --body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"DM Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0D1512; --surface:#15201B; --ink:#E5EEE9; --muted:#93A69C; --line:#26352E;
+  --accent:#5CC497; --accent-soft:#173326; --gold:#E2A64A; --gold-soft:#3A2C14;
+  --zone:#1A2B23; --bad:#EE8B7B; --bad-soft:#3A1E19; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0D1512; --surface:#15201B; --ink:#E5EEE9; --muted:#93A69C; --line:#26352E;
+  --accent:#5CC497; --accent-soft:#173326; --gold:#E2A64A; --gold-soft:#3A2C14;
+  --zone:#1A2B23; --bad:#EE8B7B; --bad-soft:#3A1E19; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6}
+[hidden]{display:none!important}
+.wrap{max-width:1100px;margin:0 auto;padding-inline:20px;padding-block:28px 64px;display:flex;flex-direction:column;gap:52px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance}
+h1{font-size:clamp(2.4rem,6.5vw,4rem);font-weight:800;font-stretch:78%;line-height:.95;letter-spacing:-.01em}
+h2{font-size:1.75rem;font-weight:750;font-stretch:80%;line-height:1.05}
+h3{font-size:1.15rem;font-weight:700;font-stretch:85%}
+p{margin:0;max-width:68ch}
+.eyebrow{font-family:var(--mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.muted{color:var(--muted)}
+.mono{font-family:var(--mono);font-size:.9em}
+section{display:flex;flex-direction:column;gap:18px}
+.sec-head{display:flex;flex-direction:column;gap:6px;padding-top:14px;border-top:1px solid var(--ink)}
+a{color:var(--accent)}
+
+header{display:flex;flex-direction:column;gap:14px}
+.topline{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.lede{font-size:1.05rem;color:var(--muted)}
+.switch{font-family:var(--mono);font-size:.8rem;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:var(--surface)}
+.switch:focus-visible,.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.records{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.rec{padding:14px 16px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:6px;min-width:0}
+.rec:last-child{border-right:0}
+.rec .k{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.rec .row{display:flex;justify-content:space-between;gap:10px;font-variant-numeric:tabular-nums}
+.rec .row b{font-family:var(--display);font-weight:700;font-stretch:85%;font-size:1.15rem}
+.rec .row span{font-family:var(--mono);font-size:.85rem}
+.pos{color:var(--accent)} .neg{color:var(--bad)}
+@media (max-width:760px){.records{grid-template-columns:1fr}.rec{border-right:0;border-bottom:1px solid var(--line)}.rec:last-child{border-bottom:0}}
+
+.banner{border-left:4px solid var(--gold);background:var(--gold-soft);padding:10px 14px;border-radius:0 4px 4px 0;font-size:.92rem}
+
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--surface)}
+.seg button{font:500 .85rem var(--body);border:0;background:none;color:var(--muted);padding:7px 14px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.legend{display:flex;gap:14px;align-items:center;font-size:.8rem;color:var(--muted);flex-wrap:wrap}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.legend .m1{border:2px solid var(--ink)} .legend .m2{background:var(--ink)}
+.legend .z{width:18px;border-radius:2px;background:var(--zone);border:1px solid var(--line)}
+
+.table-wrap{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+table{border-collapse:collapse;width:100%;min-width:860px;font-variant-numeric:tabular-nums}
+th{font-family:var(--mono);font-weight:500;font-size:.7rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+tr.hasplay td:first-child{box-shadow:inset 3px 0 0 var(--accent)}
+.game{font-weight:600;white-space:nowrap}
+.game small{display:block;font-weight:400;color:var(--muted);font-size:.78rem}
+.num{font-family:var(--mono);font-size:.86rem;white-space:nowrap}
+.val{display:flex;align-items:center;gap:10px}
+.val svg{flex:none}
+.val .nums{font-family:var(--mono);font-size:.78rem;color:var(--muted);line-height:1.3;white-space:nowrap}
+.tag{display:inline-block;font-family:var(--mono);font-size:.74rem;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.tag.play{background:var(--accent-soft);color:var(--accent);font-weight:500;white-space:normal;max-width:24ch;border-radius:10px;line-height:1.35}
+.tag.win{background:var(--accent-soft);color:var(--accent)} .tag.loss{background:var(--bad-soft);color:var(--bad)}
+.none{color:var(--muted);font-size:.85rem}
+
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+@media (max-width:780px){.grid2{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.formula{font-family:var(--mono);font-size:.84rem;background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:12px 14px;white-space:pre;overflow-x:auto;line-height:1.7}
+ul.clean{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px}
+
+.bt td,.bt th{white-space:nowrap}
+footer{font-size:.85rem;color:var(--muted);display:flex;flex-direction:column;gap:6px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="topline">
+    <div class="eyebrow">NCAAB · two-model agreement</div>
+    <a class="switch" href="../">Edge Board →</a>
+  </div>
+  <h1>Cal's NCAAB Model</h1>
+  <p class="lede">Two projections from Cal's NCAAB Model sheet, run every day on fresh data and lines. A play goes up only when both models land on the same side: 5+ points against the spread, or 7+ points on a total.</p>
+  <div class="records" id="records">
+    <div class="rec"><span class="k">Logged in Cal's sheet</span>
+      <div class="row"><b>Spreads</b><span>152–133 · <span class="pos">+5.7u</span></span></div>
+      <div class="row"><b>Totals</b><span>64–55 · <span class="pos">+3.5u</span></span></div></div>
+    <div class="rec"><span class="k">2025-26 replay vs closing lines</span>
+      <div class="row"><b>Spreads</b><span id="bt-ats">…</span></div>
+      <div class="row"><b>Totals</b><span id="bt-tot">…</span></div></div>
+    <div class="rec"><span class="k">This season, live</span>
+      <div class="row"><b>Spreads</b><span id="live-ats">No graded plays yet</span></div>
+      <div class="row"><b>Totals</b><span id="live-tot">No graded plays yet</span></div></div>
+  </div>
+</header>
+
+<section id="slate">
+  <div class="sec-head">
+    <div class="eyebrow" id="slate-eyebrow">Today</div>
+    <h2 id="slate-title">Slate</h2>
+  </div>
+  <div class="banner" id="sample-note" hidden></div>
+  <div class="toolbar">
+    <div class="seg" role="group" aria-label="Show">
+      <button type="button" id="f-plays" data-f="plays" aria-pressed="true">Plays</button>
+      <button type="button" id="f-all" data-f="all" aria-pressed="false">All games</button>
+    </div>
+    <div class="legend">
+      <span><i class="m1"></i>Model 1</span><span><i class="m2"></i>Model 2</span><span><i class="z"></i>Play zone</span>
+      <span class="mono" id="updated"></span>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr>
+        <th>Game</th><th>Line</th><th>Spread value (home)</th><th>Side</th>
+        <th>Total value</th><th>Total</th><th id="th-final" hidden>Final</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+  <p class="muted" style="font-size:.85rem">Spread value is projected home margin plus the home line, so positive favors the home side. Total value is the projected total minus the line. Model 2's total value is shown after the sheet's daily adjustment (minus the slate's average).</p>
+</section>
+
+<section id="how">
+  <div class="sec-head">
+    <div class="eyebrow">The sheet's formulas</div>
+    <h2>How Cal's model works</h2>
+  </div>
+  <div class="grid2">
+    <div class="panel">
+      <h3>Model 1 · raw efficiency</h3>
+      <div class="formula">base   = possessions × eff. possession ratio
+proj 1 = base × off. eff
+proj 2 = base × (2 − opp def. eff)
+proj 3 = proj 1 × opp def. eff
+score  = average(proj 1, proj 2, proj 3)</div>
+      <p class="muted">Offensive and defensive efficiency are points scored and allowed per possession. Effective possession ratio is (possessions − turnovers + offensive rebounds) ÷ possessions.</p>
+    </div>
+    <div class="panel">
+      <h3>Model 2 · adjusted ratings</h3>
+      <div class="formula">o = AdjO / 100,  d = opp AdjD / 100
+proj 1 = AdjT × o
+proj 2 = o × AdjT × d
+proj 3 = o × min(both AdjT) × d
+score  = average(proj 1, proj 2, proj 3)</div>
+      <p class="muted">Adjusted offense, defense and tempo, in points per 100 possessions. <span id="m2src">The sheet used KenPom.</span></p>
+    </div>
+  </div>
+  <div class="panel">
+    <h3>When it bets</h3>
+    <ul class="clean">
+      <li><b>Spread:</b> home side if both models' spread value is +5 or more; road side if both are −5 or less.</li>
+      <li><b>Total:</b> each day, Model 2's total values are shifted by the slate's average. Over if Model 1 and adjusted Model 2 are both +7 or more; under if both are −7 or less.</li>
+      <li><b>Units:</b> flat 1 unit at −110; a win is +1, a loss −1.1.</li>
+      <li>Neither model has a home-court term, same as the sheet.</li>
+    </ul>
+  </div>
+  <div class="panel">
+    <h3>Where the data comes from here</h3>
+    <ul class="clean">
+      <li>The sheet pulled TeamRankings and KenPom pages and a DraftKings line scraper. Those sites block automated pulls, so this version computes the same stats from ESPN box scores and uses the Edge Board's lines (The Odds API).</li>
+      <li>Model 1's inputs come from this season's games once a team has played 3. Before that, last season's numbers are used.</li>
+      <li>Model 2 uses a KenPom export when one is saved to <span class="mono">data/external/kenpom/teams.csv</span>, otherwise the Edge Board's adjusted ratings.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="backtest">
+  <div class="sec-head">
+    <div class="eyebrow">2025-26, week by week</div>
+    <h2>Replay against closing lines</h2>
+  </div>
+  <p>Every 2025-26 game from Nov 10 on, priced with only the data available before that week and graded against DraftKings' closing number.</p>
+  <div class="banner" id="hca-note">Without home court, 94% of spread plays were road teams. The models' margins ran about 3.4 points short on home teams, which is roughly what home court is worth.</div>
+  <div class="table-wrap">
+    <table class="bt">
+      <thead><tr><th>Month</th><th>Spread plays</th><th>Record</th><th>Units</th><th>Total plays</th><th>Record</th><th>Units</th></tr></thead>
+      <tbody id="bt-rows"></tbody>
+    </table>
+  </div>
+  <p class="muted" id="bt-acc" style="font-size:.85rem"></p>
+</section>
+
+<footer>
+  <span>Runs with the Edge Board's daily refresh. Plays are logged when first posted and graded after the final.</span>
+  <a href="../">Go to the Edge Board</a>
+</footer>
+</div>
+
+<script>
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const sgn = v => (v > 0 ? "+" : "") + v.toFixed(1);
+const units = u => `<span class="${u >= 0 ? "pos" : "neg"}">${u >= 0 ? "+" : ""}${u.toFixed(1)}u</span>`;
+const recTxt = r => r && r.bets !== undefined ? `${r.w}–${r.l} · ${units(r.units)}` : "—";
+let GAMES = [], FILTER = "plays", SAMPLE = false, TH = {ats: 5, total: 7};
+
+function strip(v1, v2, thr, range) {
+  // number line: zones beyond ±thr shaded; Model 1 hollow, Model 2 solid
+  const W = 150, H = 22, x = v => Math.max(4, Math.min(W - 4, (v + range) / (2 * range) * W));
+  if (v1 == null || v2 == null) return '<span class="none">no line</span>';
+  return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" aria-hidden="true">
+    <rect x="0" y="4" width="${x(-thr)}" height="14" fill="var(--zone)"/>
+    <rect x="${x(thr)}" y="4" width="${W - x(thr)}" height="14" fill="var(--zone)"/>
+    <line x1="${W/2}" y1="2" x2="${W/2}" y2="20" stroke="var(--line)"/>
+    <line x1="0" y1="11" x2="${W}" y2="11" stroke="var(--line)"/>
+    <circle cx="${x(v2)}" cy="11" r="5" fill="var(--ink)"/>
+    <circle cx="${x(v1)}" cy="11" r="5" fill="none" stroke="var(--ink)" stroke-width="2"/>
+  </svg>`;
+}
+
+function grade(g, kind) {
+  if (!g.final) return "";
+  const h = g.final.home, a = g.final.away;
+  let x;
+  if (kind === "ats") { if (!g.ats_play) return ""; x = (h + g.line) - a; if (g.ats_play === "AWAY") x = -x; }
+  else { if (!g.ou_play) return ""; x = (h + a) - g.total_line; if (g.ou_play === "UNDER") x = -x; }
+  return x > 0 ? '<span class="tag win">W</span>' : x < 0 ? '<span class="tag loss">L</span>' : '<span class="tag">P</span>';
+}
+
+function render() {
+  const list = GAMES.filter(g => FILTER === "all" || g.ats_play || g.ou_play)
+    .sort((a, b) => (!!(b.ats_play || b.ou_play)) - (!!(a.ats_play || a.ou_play)));
+  const body = document.getElementById("rows");
+  if (!list.length) {
+    body.innerHTML = `<tr><td colspan="7" class="none">${GAMES.length ? "No game has both models agreeing today." : "No games with lines right now. The slate fills in on game days."}</td></tr>`;
+    return;
+  }
+  body.innerHTML = list.map(g => {
+    const side = g.ats_play ? (g.ats_play === "HOME" ? g.home : g.away) : "";
+    const sideLine = g.ats_play ? (g.ats_play === "HOME" ? g.line : -g.line) : null;
+    return `<tr class="${g.ats_play || g.ou_play ? "hasplay" : ""}">
+      <td class="game">${esc(g.away)} @ ${esc(g.home)}<small>M1 ${g.m1.away}–${g.m1.home} · M2 ${g.m2.away}–${g.m2.home}</small></td>
+      <td class="num">${g.line == null ? "—" : "Home " + sgn(g.line)}<br><span class="muted">O/U ${g.total_line ?? "—"}</span></td>
+      <td><div class="val">${strip(g.m1.ats, g.m2.ats, TH.ats, 15)}<span class="nums">M1 ${g.m1.ats == null ? "—" : sgn(g.m1.ats)}<br>M2 ${g.m2.ats == null ? "—" : sgn(g.m2.ats)}</span></div></td>
+      <td>${side ? `<span class="tag play">${esc(side)} ${sgn(sideLine)}</span> ${grade(g, "ats")}` : '<span class="none">—</span>'}</td>
+      <td><div class="val">${strip(g.m1.tot, g.m2.tot_adj, TH.total, 20)}<span class="nums">M1 ${g.m1.tot == null ? "—" : sgn(g.m1.tot)}<br>M2 ${g.m2.tot_adj == null ? "—" : sgn(g.m2.tot_adj)}</span></div></td>
+      <td>${g.ou_play ? `<span class="tag play">${g.ou_play === "OVER" ? "Over" : "Under"} ${g.total_line}</span> ${grade(g, "ou")}` : '<span class="none">—</span>'}</td>
+      <td class="num" ${SAMPLE ? "" : "hidden"}>${g.final ? `${g.final.away}–${g.final.home}` : ""}</td>
+    </tr>`;
+  }).join("");
+}
+
+document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => {
+  FILTER = b.dataset.f;
+  document.querySelectorAll(".seg button").forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+  render();
+}));
+
+async function getJSON(u) { const r = await fetch(u + "?ts=" + Date.now(), {cache: "no-store"}); if (!r.ok) throw new Error(r.status); return r.json(); }
+
+async function load() {
+  try {
+    const d = await getJSON("data/plays.json");
+    TH = d.thresholds || TH;
+    GAMES = d.games || [];
+    if (d.model2_source) document.getElementById("m2src").textContent = `The sheet used KenPom; today's run used ${d.model2_source}.`;
+    const t = new Date(d.updated_at);
+    document.getElementById("updated").textContent = "Updated " + t.toLocaleString([], {month: "short", day: "numeric", hour: "numeric", minute: "2-digit"});
+    const r = d.record || {};
+    const live = k => r[k] && (r[k].w + r[k].l + r[k].p) ? `${r[k].w}–${r[k].l} · ${units(r[k].units)}` : "No graded plays yet";
+    document.getElementById("live-ats").innerHTML = live("ATS");
+    document.getElementById("live-tot").innerHTML = live("TOTAL");
+  } catch (e) { GAMES = []; }
+  if (!GAMES.length) {
+    try {
+      const s = await getJSON("data/sample.json");
+      GAMES = s.games; SAMPLE = true;
+      const day = new Date(s.date + "T12:00:00").toLocaleDateString([], {weekday: "long", month: "long", day: "numeric", year: "numeric"});
+      document.getElementById("slate-eyebrow").textContent = "Sample day";
+      document.getElementById("slate-title").textContent = day;
+      const n = s.games.filter(g => g.ats_play || g.ou_play).length;
+      const note = document.getElementById("sample-note");
+      note.innerHTML = `<strong>No games today.</strong> Until the season starts, this shows how the model priced ${esc(day)} against the closing lines, with final scores. ${n} of ${s.games.length} games had a play.`;
+      note.hidden = false;
+      document.getElementById("th-final").hidden = false;
+    } catch (e) {}
+  }
+  render();
+  try {
+    const b = await getJSON("data/backtest_2026.json");
+    document.getElementById("bt-ats").innerHTML = `${b.ats.w}–${b.ats.l} · ${units(b.ats.units)}`;
+    document.getElementById("bt-tot").innerHTML = `${b.totals.w}–${b.totals.l} · ${units(b.totals.units)}`;
+    const months = Object.entries(b.by_month).filter(([, v]) => v.ats.bets + v.totals.bets > 0);
+    const name = m => new Date(m + "-15").toLocaleDateString([], {month: "short", year: "numeric"});
+    document.getElementById("bt-rows").innerHTML = months.map(([m, v]) => `<tr>
+      <td>${name(m)}</td><td class="num">${v.ats.bets}</td><td class="num">${v.ats.w}–${v.ats.l}</td><td class="num">${units(v.ats.units)}</td>
+      <td class="num">${v.totals.bets}</td><td class="num">${v.totals.w}–${v.totals.l}</td><td class="num">${units(v.totals.units)}</td></tr>`).join("") +
+      `<tr><td><b>Season</b></td><td class="num"><b>${b.ats.bets}</b></td><td class="num"><b>${b.ats.w}–${b.ats.l}</b></td><td class="num"><b>${units(b.ats.units)}</b></td>
+      <td class="num"><b>${b.totals.bets}</b></td><td class="num"><b>${b.totals.w}–${b.totals.l}</b></td><td class="num"><b>${units(b.totals.units)}</b></td></tr>`;
+    const a = b.accuracy;
+    document.getElementById("bt-acc").textContent =
+      `Average miss on game margin: Model 1 ${a.m1_margin_rmse}, Model 2 ${a.m2_margin_rmse}, closing line ${a.market_margin_rmse} points. ` +
+      `On totals: ${a.m1_total_rmse}, ${a.m2_total_rmse} and ${a.market_total_rmse}. ` +
+      `Road sides: ${b.ats_side.AWAY ? b.ats_side.AWAY.w + "–" + b.ats_side.AWAY.l : "—"}; home sides: ${b.ats_side.HOME ? b.ats_side.HOME.w + "–" + b.ats_side.HOME.l : "—"}. ` +
+      `Unders: ${b.totals_side.UNDER ? b.totals_side.UNDER.w + "–" + b.totals_side.UNDER.l : "—"}; overs: ${b.totals_side.OVER ? b.totals_side.OVER.w + "–" + b.totals_side.OVER.l : "—"}.`;
+  } catch (e) {
+    document.getElementById("bt-ats").textContent = "—"; document.getElementById("bt-tot").textContent = "—";
+  }
+}
+load();
+</script>
+</body>
+</html>

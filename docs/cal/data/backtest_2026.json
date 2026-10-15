@@ -1,0 +1,194 @@
+{
+ "season": 2026,
+ "games": 4804,
+ "ats": {
+  "bets": 1106,
+  "w": 560,
+  "l": 546,
+  "p": 0,
+  "win_pct": 0.5063,
+  "units": -40.6,
+  "roi": -0.0367
+ },
+ "totals": {
+  "bets": 398,
+  "w": 211,
+  "l": 187,
+  "p": 0,
+  "win_pct": 0.5302,
+  "units": 5.3,
+  "roi": 0.0133
+ },
+ "ats_side": {
+  "AWAY": {
+   "bets": 1042,
+   "w": 525,
+   "l": 517,
+   "p": 0,
+   "win_pct": 0.5038,
+   "units": -43.7,
+   "roi": -0.0419
+  },
+  "HOME": {
+   "bets": 64,
+   "w": 35,
+   "l": 29,
+   "p": 0,
+   "win_pct": 0.5469,
+   "units": 3.1,
+   "roi": 0.0484
+  }
+ },
+ "totals_side": {
+  "OVER": {
+   "bets": 206,
+   "w": 106,
+   "l": 100,
+   "p": 0,
+   "win_pct": 0.5146,
+   "units": -4.0,
+   "roi": -0.0194
+  },
+  "UNDER": {
+   "bets": 192,
+   "w": 105,
+   "l": 87,
+   "p": 0,
+   "win_pct": 0.5469,
+   "units": 9.3,
+   "roi": 0.0484
+  }
+ },
+ "by_month": {
+  "2025-11": {
+   "ats": {
+    "bets": 58,
+    "w": 29,
+    "l": 29,
+    "p": 0,
+    "win_pct": 0.5,
+    "units": -2.9,
+    "roi": -0.05
+   },
+   "totals": {
+    "bets": 27,
+    "w": 18,
+    "l": 9,
+    "p": 0,
+    "win_pct": 0.6667,
+    "units": 8.1,
+    "roi": 0.3
+   }
+  },
+  "2025-12": {
+   "ats": {
+    "bets": 371,
+    "w": 175,
+    "l": 196,
+    "p": 0,
+    "win_pct": 0.4717,
+    "units": -40.6,
+    "roi": -0.1094
+   },
+   "totals": {
+    "bets": 93,
+    "w": 43,
+    "l": 50,
+    "p": 0,
+    "win_pct": 0.4624,
+    "units": -12.0,
+    "roi": -0.129
+   }
+  },
+  "2026-01": {
+   "ats": {
+    "bets": 299,
+    "w": 164,
+    "l": 135,
+    "p": 0,
+    "win_pct": 0.5485,
+    "units": 15.5,
+    "roi": 0.0518
+   },
+   "totals": {
+    "bets": 137,
+    "w": 70,
+    "l": 67,
+    "p": 0,
+    "win_pct": 0.5109,
+    "units": -3.7,
+    "roi": -0.027
+   }
+  },
+  "2026-02": {
+   "ats": {
+    "bets": 270,
+    "w": 138,
+    "l": 132,
+    "p": 0,
+    "win_pct": 0.5111,
+    "units": -7.2,
+    "roi": -0.0267
+   },
+   "totals": {
+    "bets": 103,
+    "w": 62,
+    "l": 41,
+    "p": 0,
+    "win_pct": 0.6019,
+    "units": 16.9,
+    "roi": 0.1641
+   }
+  },
+  "2026-03": {
+   "ats": {
+    "bets": 106,
+    "w": 52,
+    "l": 54,
+    "p": 0,
+    "win_pct": 0.4906,
+    "units": -7.4,
+    "roi": -0.0698
+   },
+   "totals": {
+    "bets": 38,
+    "w": 18,
+    "l": 20,
+    "p": 0,
+    "win_pct": 0.4737,
+    "units": -4.0,
+    "roi": -0.1053
+   }
+  },
+  "2026-04": {
+   "ats": {
+    "bets": 2,
+    "w": 2,
+    "l": 0,
+    "p": 0,
+    "win_pct": 1.0,
+    "units": 2.0,
+    "roi": 1.0
+   },
+   "totals": {
+    "bets": 0,
+    "w": 0,
+    "l": 0,
+    "p": 0,
+    "win_pct": 0.0,
+    "units": 0.0,
+    "roi": 0.0
+   }
+  }
+ },
+ "accuracy": {
+  "m1_margin_rmse": 13.82,
+  "m2_margin_rmse": 12.38,
+  "market_margin_rmse": 11.17,
+  "m1_total_rmse": 18.62,
+  "m2_total_rmse": 18.24,
+  "market_total_rmse": 16.85,
+  "m1_margin_bias": -3.44
+ },
+ "notes": "DraftKings closing lines via ESPN; Model 2 uses Edge Board adjusted ratings (historical KenPom not available); no home-court term, as in the sheet."
+}
