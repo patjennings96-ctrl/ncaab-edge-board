@@ -1,0 +1,130 @@
+=== https://www.teamrankings.com/robots.txt
+HTTP 200 bytes 180
+User-Agent: *
+Disallow: /ajax/
+Disallow: /libraries/
+Disallow: /common/
+Disallow: /config/
+Disallow: /admin/
+Disallow: /xml/
+Allow: /
+Disallow: /scripts/
+Crawl-delay: 10
+
+
+=== https://www.teamrankings.com/terms-of-use/
+HTTP 404 bytes 217485
+<!doctype html>
+<html id="html" class="no-js" lang="en">
+    <head>
+		<script> 
+	window.dataLayer = window.dataLayer || []; 
+	function gtag(){dataLayer.push(arguments);} 
+	
+	gtag('consent', 'default', {
+	  'analytics_storage': 'denied',
+	  'wait_for_update': 500
+	});
+	
+	gtag('consent', 'default', {
+	  'analytics_storage': 'granted',
+	  'region': ['US']
+	});
+</script>
+
+
+
+	<!-- OneTrust Cookies Consent Notice start for teamrankings.com -->
+	<script src="https://cdn.cookielaw.org/consent/cd78aa8e-f100-463b-a2c3-a63709bcb84d/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="cd78aa8e-f100-463b-a2c3-a63709bcb84d" ></script>
+	<script type="text/javascript">
+	function OptanonWrapper() { }
+	</script>
+	<!-- OneTrust Cookies Consent Notice end for teamrankings.com -->
+		
+	    <meta name="viewport" content="initial-scale=1.0,width=device-width">
+
+			<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1659141796">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1659141796">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=1659141796">
+	<link rel="manifest" href="/site.webmanifest?v=1659141796">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg?v=1659141796" color="#399f49">
+	<link rel="shortcut icon" href="/favicon.ico?v=1659141796">
+	<meta name="apple-mobile-web-app-title" content="TeamRankings">
+	<meta name="application-name" content="TeamRankings">
+	<meta name="msapplication-TileColor" content="#2b5797">
+	<meta name="theme-color" content="#ffffff">
+		
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Error page not found on TeamRankings.com</title>
+        <meta name="apple-mobile-web-app-title" content="TeamRankings">
+        <meta name="description" content="The TeamRankings.com 404 error page."/>
+		<meta name="format-detection" content="telephone=no">
+		
+				
+				
+				
+				
+				  <link type="text/css" rel="stylesheet" href="/css/v1r/main.min.css?ver=1791914365" />
+		
+			<script>
+	/* Modernizr 2.8.3 (Custom Build) | MIT & BSD
+	 * Build: http://modernizr.com/download/#-fontface-backgroundsize-borderimage-borderradius-boxshadow-flexbox-hsla-multiplebgs-opacity-rgba-textshadow-cssanimations-csscolumns-generatedcontent-cssgradients-cssreflections-csstransforms-csstransforms3d-csstransitions-applicationcache-canvas-canvastext-draganddrop-hashchange-history-audio-video-indexeddb-input-inputtypes-localstorage-postmessage-sessionstorage-websockets-websqldatabase-webworkers-geolocation-inlinesvg-smil-svg-svgclippaths-touch-webgl-shiv-mq-cssclasses-addtest-prefixed-teststyles-testprop-testallprops-hasevent-prefixes-domprefixes-load
+	 */
+	;window.Modernizr=function(a,b,c){function D(a){j.cssText=a}function E(a,b){return D(n.join(a+";")+(b||""))}function F(a,b){return typeof a===b}function G(a,b){return!!~(""+a).indexOf(b)}function H(a,b){for(var d in a){var e=a[d];if(!G(e,"-")&&j[e]!==c)return b=="pfx"?e:!0}return!1}function I(a,b,d){for(var e in a){var f=b[a[e]];if(f!==c)return d===!1?a[e]:F(f,"function")?f.bind(d||b):f}return!1}function J(a,b,c){var d=a.charAt(0).toUpperCase()+a.slice(1),e=(a+" "+p.join(d+" ")+d).split(" ");return F(b,"string")||F(b,"undefined")?H(e,b):(e=(a+" "+q.join(d+" ")+d).split(" "),I(e,b,c))}function K(){e.input=function(c){for(var d=0,e=c.length;d<e;d++)u[c[d]]=c[d]in k;return u.list&&(u.list=!!b.createElement("datalist")&&!!a.HTMLDataListElement),u}("autocomplete autofocus list placeholder max min multiple pattern required step".split(" ")),e.inputtypes=function(a){for(var d=0,e,f,h,i=a.length;d<i;d++)k.setAttribute("type",f=a[d]),e=k.type!=="text",e&&(k.value=l,k.style.cssText="position:absolute;visibility:hidden;",/^range$/.test(f)&&k.style.WebkitAppearance!==c?(g.appendChild(k),h=b.defaultView,e=h.getComputedStyle&&h.getComputedStyle(k,null).WebkitAppearance!=="textfield"&&k.offsetHeight!==0,g.removeChild(k)):/^(search|tel)$/.test(f)||(/^(url|email)$/.test(f)?e=k.checkValidity&&k.checkValidity()===!1:e=k.value!=l)),t[a[d]]=!!e;return t}("search tel url email datetime date month week time datetime-local number range color".split(" "))}var d="2.8.3",e={},f=!0,g=b.documentElement,h="modernizr",i=b.createElement(h),j=i.style,k=b.createElement("input"),l=":)",m={}.toString,n=" -webkit- -moz- -o- -ms- ".split(" "),o="Webkit Moz O ms",p=o.split(" "),q=o.toLowerCase().split(" "),r={svg:"http://www.w3.org/2000/svg"},s={},t={},u={},v=[],w=v.slice,x,y=function(a,c,d,e){var f,i,j,k,l=b.createElement("div"),m=b.body,n=m||b.createElement("body");if(parseInt(d,10))while(d--)j=b.createElement("div"),j.id=e?e[d]:h+(d+1),l.appendChild(j);return f=["&#173;",'<style id="s',h,'">',a,"</style>"].join(""),l.id=h,(m?l:n).innerHTML+=f,n.appendChild(l),m||(n.style.background="",n.style.overflow="hidden",k=g.style.overflow,g.style.overflow="hidden",g.appendChild(n)),i=c(l,a),m?l.parentNode.removeChild(l):(n.parentNode.removeChild(n),g.style.overflow=k),!!i},z=function(b){var c=a.matchMedia||a.msMatchMedia;if(c)return c(b)&&c(b).matches||!1;var d;return y("@media "+b+" { #"+h+" { position: absolute; } }",function(b){d=(a.getComputedStyle?getComputedStyle(b,null):b.currentStyle)["position"]=="absolute"}),d},A=function(){function d(d,e){e=e||b.createElement(a[d]||"div"),d="on"+d;var f=d in e;return f||(e.setAttribute||(e=b.createElement("div")),e.setAttribute&&e.removeAttribute&&(e.setAttribute(d,""),f=F(e[d],"function"),F(e[d],"undefined")||(e[d]=c),e.removeAttribute(d))),e=null,f}var a={select:"input",change:"input",submit:"form",reset:"form",error:"img",load:"img",abort:"img"};return d}(),B={}.hasOwnProperty,C;!F(B,"undefined")&&!F(B.call,"undefined")?C=function(a,b){return B.call(a,b)}:C=function(a,b){return b in a&&F(a.constructor.prototype[b],"undefined")},Function.prototype.bind||(Function.prototype.bind=function(b){var c=this;if(typeof c!="function")throw new TypeError;var d=w.call(arguments,1),e=function(){if(this instanceof e){var a=fu
+
+=== https://www.teamrankings.com/ncb/schedules/?date=2025-11-26
+HTTP 200 bytes 385535
+<!doctype html>
+<html id="html" class="no-js" lang="en">
+    <head>
+		<script> 
+	window.dataLayer = window.dataLayer || []; 
+	function gtag(){dataLayer.push(arguments);} 
+	
+	gtag('consent', 'default', {
+	  'analytics_storage': 'denied',
+	  'wait_for_update': 500
+	});
+	
+	gtag('consent', 'default', {
+	  'analytics_storage': 'granted',
+	  'region': ['US']
+	});
+</script>
+
+
+
+	<!-- OneTrust Cookies Consent Notice start for teamrankings.com -->
+	<script src="https://cdn.cookielaw.org/consent/cd78aa8e-f100-463b-a2c3-a63709bcb84d/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="cd78aa8e-f100-463b-a2c3-a63709bcb84d" ></script>
+	<script type="text/javascript">
+	function OptanonWrapper() { }
+	</script>
+	<!-- OneTrust Cookies Consent Notice end for teamrankings.com -->
+		
+	    <meta name="viewport" content="initial-scale=1.0,width=device-width">
+
+			<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=1659141796">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=1659141796">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=1659141796">
+	<link rel="manifest" href="/site.webmanifest?v=1659141796">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg?v=1659141796" color="#399f49">
+	<link rel="shortcut icon" href="/favicon.ico?v=1659141796">
+	<meta name="apple-mobile-web-app-title" content="TeamRankings">
+	<meta name="application-name" content="TeamRankings">
+	<meta name="msapplication-TileColor" content="#2b5797">
+	<meta name="theme-color" content="#ffffff">
+		
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>2025-2026 NCAA College Basketball Daily Schedules on TeamRankings.com</title>
+        <meta name="apple-mobile-web-app-title" content="TeamRankings">
+        <meta name="description" content="Daily 2025-2026 schedules for all NCAA college basketball teams."/>
+		<meta name="format-detection" content="telephone=no">
+		
+				
+				
+				
+					
+			<script data-cfasync="false" type="text/plain" class="optanon-category-C0004">
+			  (()=>{"use strict";var t={175:(t,e,n)=>{n.d(e,{A:()=>c});var r=n(601),o=n.n(r),i=n(314),a=n.n(i)()(o());a.push([t.id,'div._1mbd8ky{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.4);z-index:999999}div._1mbd8ky *{box-sizing:border-box}div._1mbd8ky div._198yzhg{position:fixed;top:50%;left:50%;transform:translate(-50%, -50%);display:flex;flex-direction:column;justify-content:flex-start;min-height:25vh;width:50%;background-color:#fff;border:none;border-radius:1em;box-shadow:0 0 10px rgba(0,0,0,.3);text-align:center;font-size:13px;font-family:Arial,Helvetica,sans-serif;font-weight:bold;line-height:2;color:#000}div._1mbd8ky div._198yzhg *:before,div._1mbd8ky div._198yzhg *:after{content:"";display:none}@media screen and (max-width: 479px){div._1mbd8ky div._198yzhg{font-size:13px;width:90%}}@media screen and (min-width: 480px){div._1mbd8ky div._198yzhg{font-size:14px;width:80%}}@media screen and (min-width: 608px){div._1mbd8ky div._198yzhg{font-size:14px;width:70%}}@media screen and (min-width: 960px){div._1mbd8ky div._198yzhg{font-size:16px;width:70%}}@media screen and (min-width: 1200px){div._1mbd8ky div._198yzhg{font-size:16px;width:840px}}div._1mbd8ky div._198yzhg header{width:100%;background-color:rgba(0,0,0,0);border:0;color:inherit;display:block;font-size:1em;font-family:inherit;letter-spacing:normal;margin:0;opacity:1;outline:none;padding:1em 2em;position:static;text-align:center}div._1mbd8ky div._198yzhg header img{display:inline;margin:0 0 16px 0;padding:0;max-width:240px;max-height:60px}div._1mbd8ky div._198yzhg header h2{display:block;line-height:1.3;padding:0;font-family:inherit;font-weight:normal;font-style:normal;text-decoration:initial;text-align:center;font-size:1.75em;margin:0;color:inherit}div._1mbd8ky div._198yzhg header h2:not(img+*){margin-top:30px}div._1mbd8ky div._198yzhg header span.ggmtgz{position:absolute;top:0;right:15px;font-size:2em;font-weight:normal;cursor:pointer;color:inherit}div._1mbd8ky div._198yzhg header span.ggmtgz:hover{filter:brightness(115%)}div._1mbd8ky div._198yzhg section{width:100%;margin:0;padding:1em 2em;text-align:center;font-family:inherit;color:inherit;background:rgba(0,0,0,0)}div._1mbd8ky div._198yzhg section p{display:block;margin:0 0 1em 0;line-height:1.5;text-align:center;font-size:1em;font-family:inherit;color:inherit;overflow-wrap:break-word;font-weight:normal;font-style:normal;text-decoration:initial}div._1mbd8ky div._198yzhg section p:last-of-type{margin:0 0 1.5em 0}div._1mbd8ky div._198yzhg section.ijl1ch{display:block}div._1mbd8ky div._198yzhg section.ijl1ch.v1fx5m{display:none}div._1mbd8ky div._198yzhg section.ijl1ch a.nb9oy2.zl2fp4{color:var(--zl2fp4)}div._1mbd8ky div._198yzhg section.ijl1ch a.nb9oy2._1ogdq5f{text-decoration:var(--_1ogdq5f)}div._1mbd8ky div._198yzhg section.ijl1ch a.nb9oy2._1o7vm1f:visited{color:var(--_1o7vm1f)}div._1mbd8ky div._198yzhg section.ijl1ch div.axogvc{display:block;margin:.75em;padding:0}div._1mbd8ky div._198yzhg section.ijl1ch div.axogvc p._19ax4ey{max-width:80%;margin:0 auto;padding:0;font-size:.85em;color:inherit;font-style:normal;font-weight:normal;cursor:pointer}div._1mbd8ky div._198yzhg section._1863sjh{display:block}div._1mbd8ky div._198yzhg section._1863sjh.v1fx5m{display:none}div._1mbd8ky div._198yzhg section._1863sjh h4._1uwwg2n{color:inherit;text-align:initial;font-weight:normal;font-family:inherit;font-size:1.125em;margin:0 0 .5em .5em}div._1mbd8ky div._198yzhg section._1863sjh div._1w7m8bp{display:flex;margin:1.5em 0}div._1mbd8ky div._198yzhg section._1863sjh div._1w7m8bp ul.hyxf2p{max-height:300px;flex:2;list-style:none;overflow-y:auto;margin:0 1em 0 0;padding-inline-start:0}@media screen and (min-width: 608px){div._1mbd8ky div._198yzhg section._1863sjh div._1w7m8bp ul.hyxf2p{flex:1;margin:0 2em 0 0}}div._1mbd8ky div._198yzhg section._1863sjh div._1w7m8bp ul.hyxf2p li{padding:.75em;cursor:pointer;backg
