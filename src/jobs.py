@@ -69,13 +69,30 @@ def lineup_backtest(season: int = 2026) -> None:
     L.main()
 
 
+def start_times(*seasons: int) -> None:
+    """Tip-off time (UTC) for every game, from ESPN's daily scoreboards."""
+    from datetime import timedelta
+    import pandas as pd
+    for season in seasons:
+        start, end = live.season_bounds(int(season))
+        rows, d = [], start
+        while d <= end:
+            for e in live.espn_scoreboard(d):
+                rows.append({"game_id": e["game_id"], "date": d.isoformat(), "start": e["start"],
+                             "home_id": e["home_id"], "away_id": e["away_id"]})
+            d += timedelta(days=1)
+        out = os.path.join(live.ROOT, "data", "games", f"{season}_starts.csv")
+        pd.DataFrame(rows).drop_duplicates("game_id").to_csv(out, index=False)
+        print(f"season {season}: {len(rows)} games with start times -> {out}")
+
+
 def main(argv):
     if not argv:
         print("usage: jobs.py <command> [args]")
         return
     cmd, args = argv[0], argv[1:]
     fn = {"probe_torvik": probe_torvik, "backfill_players": backfill_players,
-          "lineup_backtest": lineup_backtest}.get(cmd)
+          "lineup_backtest": lineup_backtest, "start_times": start_times}.get(cmd)
     if fn is None:
         raise SystemExit(f"unknown command {cmd}")
     fn(*[int(a) if a.isdigit() else a for a in args])
