@@ -278,9 +278,25 @@ def upcoming_slate(hours: int = 30) -> pd.DataFrame:
     return pd.DataFrame(rows).drop_duplicates("game_id") if rows else pd.DataFrame()
 
 
+def _decimal(american: float) -> float:
+    return 1 + (american / 100 if american > 0 else 100 / -american)
+
+
+def _best(quotes: list, better_line) -> tuple:
+    """Best (line, price, book) among quotes [(line, price, book)]: the most
+    favourable line first, then the best price at that line."""
+    if not quotes:
+        return np.nan, -110, ""
+    line = better_line(q[0] for q in quotes)
+    at = [q for q in quotes if q[0] == line]
+    q = max(at, key=lambda q: _decimal(q[1]))
+    return float(q[0]), int(q[1]), q[2]
+
+
 def fetch_odds(api_key: str) -> pd.DataFrame:
     """
-    Consensus spread/total per game across US books.
+    Consensus (median) spread/total per game across US books, plus the best
+    available number on each side and the book offering it (line shopping).
     Cost: 2 credits per call (2 markets x 1 region).
     """
     data = _get_json(ODDS, {"apiKey": api_key, "regions": "us",
@@ -289,19 +305,25 @@ def fetch_odds(api_key: str) -> pd.DataFrame:
     for ev in data:
         home, away = ev["home_team"], ev["away_team"]
         sp, sp_px_h, sp_px_a, tot, px_o, px_u, books = [], [], [], [], [], [], 0
+        q_home, q_away, q_over, q_under = [], [], [], []
         for bk in ev.get("bookmakers", []):
             books += 1
+            title = bk.get("title", bk.get("key", ""))
             for m in bk.get("markets", []):
                 outs = {o["name"]: o for o in m.get("outcomes", [])}
                 if m["key"] == "spreads" and home in outs and away in outs:
                     sp.append(outs[home]["point"])
                     sp_px_h.append(outs[home]["price"])
                     sp_px_a.append(outs[away]["price"])
+                    q_home.append((outs[home]["point"], outs[home]["price"], title))
+                    q_away.append((outs[away]["point"], outs[away]["price"], title))
                 elif m["key"] == "totals" and "Over" in outs and "Under" in outs:
                     tot.append(outs["Over"]["point"])
                     px_o.append(outs["Over"]["price"])
                     px_u.append(outs["Under"]["price"])
-        rows.append({
+                    q_over.append((outs["Over"]["point"], outs["Over"]["price"], title))
+                    q_under.append((outs["Under"]["point"], outs["Under"]["price"], title))
+        row = {
             "odds_id": ev["id"], "commence": ev["commence_time"],
             "home_name_odds": home, "away_name_odds": away,
             "spread_home": float(np.median(sp)) if sp else np.nan,
@@ -311,7 +333,14 @@ def fetch_odds(api_key: str) -> pd.DataFrame:
             "over_odds": int(np.median(px_o)) if px_o else -110,
             "under_odds": int(np.median(px_u)) if px_u else -110,
             "n_books": books,
-        })
+        }
+        # Best number per side. Spreads: the highest number is best for both
+        # sides (home -3 beats -3.5; away +4 beats +3.5). Over: lowest total;
+        # under: highest total.
+        for side, quotes, pick in (("home", q_home, max), ("away", q_away, max),
+                                   ("over", q_over, min), ("under", q_under, max)):
+            row[f"best_{side}_line"], row[f"best_{side}_odds"], row[f"best_{side}_book"] = _best(quotes, pick)
+        rows.append(row)
     return pd.DataFrame(rows)
 
 
@@ -388,7 +417,9 @@ def build_live_slate(api_key: str, espn_names: dict) -> pd.DataFrame:
     if not flipped.empty:
         flipped = flipped.assign(
             spread_home=-flipped["spread_home"],
-            home_odds=flipped["away_odds"], away_odds=flipped["home_odds"])
+            home_odds=flipped["away_odds"], away_odds=flipped["home_odds"],
+            **{f"best_home_{k}": flipped[f"best_away_{k}"] for k in ("line", "odds", "book")},
+            **{f"best_away_{k}": flipped[f"best_home_{k}"] for k in ("line", "odds", "book")})
         flipped = flipped[[c for c in j.columns if c in flipped.columns]]
         j = pd.concat([j, flipped], ignore_index=True)
 

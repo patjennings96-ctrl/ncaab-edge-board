@@ -14,6 +14,7 @@ import json
 import os
 from datetime import datetime, timezone
 
+import numpy as np
 import pandas as pd
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -40,6 +41,11 @@ def card_to_records(card: pd.DataFrame) -> list[dict]:
             "p": float(r["model_prob"]), "edge": float(r["edge_pct"]),
             "stake": float(r["stake_units"]),
             "notes": str(r.get("notes", "") or ""),
+            "best_line": None if pd.isna(r.get("best_line", np.nan)) else float(r["best_line"]),
+            "best_odds": None if pd.isna(r.get("best_odds", np.nan)) else int(r["best_odds"]),
+            "book": str(r.get("best_book", "") or ""),
+            "agree": bool(r.get("agree", False)),
+            "tracking": float(r["stake_units"]) == 0.0,
         })
     return recs
 
@@ -74,7 +80,11 @@ def append_log(card: pd.DataFrame, mode: str) -> str | None:
     df["close_line"] = ""                  # filled after tip-off
     df["clv_points"] = ""
     df["result"] = ""
-    df.to_csv(LOG_PATH, mode="a", index=False, header=not os.path.exists(LOG_PATH))
+    if os.path.exists(LOG_PATH):
+        # rewrite rather than append so new columns (best book, agree) stay aligned
+        old = pd.read_csv(LOG_PATH, dtype=str)
+        df = pd.concat([old, df.fillna("").astype(str)], ignore_index=True)
+    df.to_csv(LOG_PATH, index=False)
     return LOG_PATH
 
 

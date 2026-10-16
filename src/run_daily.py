@@ -76,41 +76,121 @@ def build_slate_frame(slate: pd.DataFrame, ratings) -> pd.DataFrame:
             "spread_home": x.spread_home, "total": x.total,
             "home_odds": getattr(x, "home_odds", -110), "away_odds": getattr(x, "away_odds", -110),
             "over_odds": x.over_odds, "under_odds": x.under_odds,
+            **{f"best_{sd}_{k}": getattr(x, f"best_{sd}_{k}", np.nan)
+               for sd in ("home", "away", "over", "under") for k in ("line", "odds", "book")},
         })
     return pd.DataFrame(rows)
 
 
-# Realistic error floors (points). The model's own residuals come from games
-# its ratings already saw, so they understate true uncertainty; never price a
-# bet with a sigma tighter than what college basketball actually produces.
-SIGMA_FLOOR_MARGIN = 10.5
-SIGMA_FLOOR_TOTAL = 12.5
+# Error floors (points) = out-of-sample RMSE of the closing line itself in the
+# 2025-26 walk-forward test (margin 11.2, total 16.8). The model's in-sample
+# residuals understate uncertainty, so never price a bet tighter than this.
+SIGMA_FLOOR_MARGIN = 11.5
+SIGMA_FLOOR_TOTAL = 17.0
+
+# Minimum disagreement with the consensus number before betting. From the
+# model head-to-head (src/model_compare.py): spreads were break-even or worse
+# under 2 points; totals needed 3+.
+MIN_POINTS_SPREAD = 2.0
+MIN_POINTS_TOTAL = 3.0
+
+# Betting window: conference regular season. In 2025-26 the same rules lost
+# heavily in December (spreads -40u, totals -75u at 3+) and in March
+# tournaments, and won in January-February. Outside the window plays are still
+# listed and CLV-tracked, at 0 units.
+BET_WINDOW = ((1, 1), (3, 8))        # (month, day) inclusive, Jan 1 - Mar 8
+
+# Totals where Cal's sheet rule picks the same side won 82-55 (59.9%) from
+# mid-January in the backtest; they get this stake multiplier. Spread agreement
+# showed no lift, so spreads are only labelled.
+AGREE_TOTAL_MULT = 1.5
 
 
-def make_card(pred_df: pd.DataFrame, kelly_mult=0.25, min_edge=0.025) -> pd.DataFrame:
-    """Turn predictions + lines into a recommended-bet card."""
+def in_bet_window(start) -> bool:
+    try:
+        d = pd.to_datetime(start)
+        if pd.isna(d):
+            return True
+        if d.tzinfo is not None:
+            d = d.tz_convert("America/New_York")
+    except Exception:
+        return True
+    (m0, d0), (m1, d1) = BET_WINDOW
+    return (m0, d0) <= (d.month, d.day) <= (m1, d1)
+
+
+def _shop(row, side: str, p_fn, kelly_mult: float, max_stake: float = 5.0) -> dict:
+    """Re-price a chosen side at the best line/price across books."""
+    line = getattr(row, f"best_{side.lower()}_line", np.nan)
+    odds = getattr(row, f"best_{side.lower()}_odds", np.nan)
+    book = getattr(row, f"best_{side.lower()}_book", "")
+    if pd.isna(line) or pd.isna(odds):
+        return {}
+    from edge import kelly_fraction, american_to_decimal
+    p = p_fn(float(line))
+    stake = min(kelly_mult * kelly_fraction(p, odds) * 100.0, max_stake)
+    return {"best_line": float(line), "best_odds": int(odds), "best_book": book,
+            "best_prob": round(p, 4),
+            "best_ev": round(p * (american_to_decimal(odds) - 1) - (1 - p), 4),
+            "stake_units": round(stake, 3)}
+
+
+def make_card(pred_df: pd.DataFrame, kelly_mult=0.25, min_edge=0.025,
+              cal_plays: dict | None = None) -> pd.DataFrame:
+    """Turn predictions + lines into a recommended-bet card.
+
+    The bet decision uses the consensus (median) line; the stake is then sized
+    at the best number available across books, which is the line to bet.
+    `cal_plays`: {game_id: {"ATS": "HOME"/"AWAY"/"", "TOTAL": "OVER"/"UNDER"/""}}.
+    """
+    from edge import prob_cover_spread, prob_over
+    cal_plays = cal_plays or {}
     card = []
     for row in pred_df.itertuples(index=False):
-        base = {"home": row.home, "away": row.away,
-                "game_id": getattr(row, "game_id", ""), "start": getattr(row, "start", ""),
+        gid = str(getattr(row, "game_id", ""))
+        start = getattr(row, "start", "")
+        window = in_bet_window(start)
+        cal = cal_plays.get(gid, {})
+        base = {"home": row.home, "away": row.away, "game_id": gid, "start": start,
                 "notes": getattr(row, "notes", ""),
                 "proj_margin": round(row.pred_margin, 1),
                 "proj_total": round(row.pred_total, 1)}
-        if pd.notna(row.spread_home):
-            sp = recommend_spread(row.pred_margin, max(row.sigma_margin, SIGMA_FLOOR_MARGIN),
-                                  row.spread_home,
+        if pd.notna(row.spread_home) and abs(row.pred_margin + row.spread_home) >= MIN_POINTS_SPREAD:
+            sig = max(row.sigma_margin, SIGMA_FLOOR_MARGIN)
+            sp = recommend_spread(row.pred_margin, sig, row.spread_home,
                                   getattr(row, "home_odds", -110), getattr(row, "away_odds", -110),
                                   kelly_mult=kelly_mult, min_edge=min_edge)
             if sp:
-                card.append({**base, "mkt": "SPREAD", **sp.as_row()})
-        if pd.notna(row.total):
-            tot = recommend_total(row.pred_total, max(row.sigma_total, SIGMA_FLOOR_TOTAL),
-                                  row.total, row.over_odds, row.under_odds,
+                r = {**base, "mkt": "SPREAD", **sp.as_row()}
+                if sp.side == "HOME":
+                    pf = lambda L: prob_cover_spread(row.pred_margin, L, sig)
+                else:
+                    pf = lambda L: 1.0 - prob_cover_spread(row.pred_margin, -L, sig)
+                r.update(_shop(row, sp.side, pf, kelly_mult))
+                r["agree"] = cal.get("ATS", "") == sp.side
+                if not window:
+                    r["stake_units"] = 0.0
+                card.append(r)
+        if pd.notna(row.total) and abs(row.pred_total - row.total) >= MIN_POINTS_TOTAL:
+            sig = max(row.sigma_total, SIGMA_FLOOR_TOTAL)
+            tot = recommend_total(row.pred_total, sig, row.total, row.over_odds, row.under_odds,
                                   kelly_mult=kelly_mult, min_edge=min_edge)
             if tot:
-                card.append({**base, "mkt": "TOTAL", **tot.as_row()})
+                r = {**base, "mkt": "TOTAL", **tot.as_row()}
+                if tot.side == "OVER":
+                    pf = lambda L: prob_over(row.pred_total, L, sig)
+                else:
+                    pf = lambda L: 1.0 - prob_over(row.pred_total, L, sig)
+                r.update(_shop(row, tot.side, pf, kelly_mult))
+                r["agree"] = cal.get("TOTAL", "") == tot.side
+                if r["agree"]:
+                    r["stake_units"] = round(min(r["stake_units"] * AGREE_TOTAL_MULT, 5.0), 3)
+                if not window:
+                    r["stake_units"] = 0.0
+                card.append(r)
     cols = ["game_id", "start", "home", "away", "mkt", "side", "line", "odds",
-            "proj_margin", "proj_total", "model_prob", "edge_pct", "stake_units", "notes"]
+            "best_line", "best_odds", "best_book", "proj_margin", "proj_total",
+            "model_prob", "edge_pct", "stake_units", "agree", "notes"]
     df = pd.DataFrame(card)
     return df[[c for c in cols if c in df.columns]] if not df.empty else df
 
@@ -165,11 +245,15 @@ def run(demo: bool = True, sheet_id: str | None = None):
             slate = slate[ok]
 
     # --- Cal's model: same slate and lines, its own two-model rules ---
+    cal_plays = {}
     if not demo:
         try:
             import calmodel
-            calmodel.run_daily(slate if not slate.empty else pd.DataFrame(),
+            priced = calmodel.run_daily(slate if not slate.empty else pd.DataFrame(),
                                extra["cur_raw"], extra["prev_raw"], own_ratings, names, "live")
+            if priced is not None and not priced.empty:
+                cal_plays = {str(r.game_id): {"ATS": r.ats_play or "", "TOTAL": r.ou_play or ""}
+                             for r in priced.itertuples(index=False)}
         except Exception as exc:
             print(f"[cal] skipped: {exc}")
 
@@ -180,7 +264,7 @@ def run(demo: bool = True, sheet_id: str | None = None):
         preds = dual.predict(slate_feat)
         if ctx is not None:
             preds = apply_lineups(preds, ctx, names)
-        card = make_card(preds)
+        card = make_card(preds, cal_plays=cal_plays)
         if names:
             card["home"] = card["home"].map(names).fillna(card["home"])
             card["away"] = card["away"].map(names).fillna(card["away"])
@@ -191,7 +275,9 @@ def run(demo: bool = True, sheet_id: str | None = None):
     # --- publish for the website + history log ---
     import publish
     mode = "demo" if demo else "live"
-    settings = {"kelly_mult": 0.25, "min_edge_pct": 2.5, "max_stake_units": 5.0}
+    settings = {"kelly_mult": 0.25, "min_edge_pct": 2.5, "max_stake_units": 5.0,
+                "min_points_spread": MIN_POINTS_SPREAD, "min_points_total": MIN_POINTS_TOTAL,
+                "bet_window": "Jan 1 - Mar 8", "agree_total_mult": AGREE_TOTAL_MULT}
     print("\nWrote", publish.write_json(card, mode, settings))
     log = publish.append_log(card, mode)
     if log:
