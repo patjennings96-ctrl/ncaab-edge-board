@@ -1,10 +1,14 @@
 {
-  "updated_at": "2026-10-15T03:16+00:00",
+  "updated_at": "2026-10-16T05:05+00:00",
   "mode": "live",
   "settings": {
     "kelly_mult": 0.25,
     "min_edge_pct": 2.5,
-    "max_stake_units": 5.0
+    "max_stake_units": 5.0,
+    "min_points_spread": 2.0,
+    "min_points_total": 3.0,
+    "bet_window": "Jan 1 - Mar 8",
+    "agree_total_mult": 1.5
   },
   "plays": []
 }
