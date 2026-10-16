@@ -105,7 +105,6 @@ BET_WINDOW = ((1, 1), (3, 8))        # (month, day) inclusive, Jan 1 - Mar 8
 # showed no lift, so spreads are only labelled.
 AGREE_TOTAL_MULT = 1.5
 
-
 def in_bet_window(start) -> bool:
     try:
         d = pd.to_datetime(start)
@@ -206,7 +205,17 @@ def run(demo: bool = True, sheet_id: str | None = None):
 
     # alpha=3 minimized held-out margin error on 2025-26 D-I games
     # (RMSE 11.31 vs 13.3 at the old default); demo data keeps its old setting.
-    ratings = R.fit_adjusted_ratings(games, alpha=50.0 if demo else 3.0)
+    ps = None
+    if demo:
+        ratings = R.fit_adjusted_ratings(games, alpha=50.0)
+    else:
+        # Roster-based starting ratings + this season's games (see preseason.py).
+        import players as P
+        import preseason as PS
+        ps = PS.build(extra["season"], extra["prev_raw"], extra["cur_raw"],
+                      P.load_player_games(extra["season"] - 1), P.load_player_games(extra["season"]),
+                      extra["d1"])
+        ratings = ps["ratings"]
     ctx = None
     if not demo:
         import external as X
@@ -217,7 +226,8 @@ def run(demo: bool = True, sheet_id: str | None = None):
         roster = roster.drop_duplicates("player_id", keep="last").set_index("player_id")[["name", "team_id"]]
         ext_players = X.load_player_sources(names, roster) if not roster.empty else None
         ctx = P.build_context(extra["season"], extra["prev_raw"], extra["cur_raw"],
-                              extra["prev_long"], own_ratings, extra["weights"], ext_players)
+                              extra["prev_long"], own_ratings, extra["weights"], ext_players,
+                              roster_minutes=ps["roster_minutes"], prior_games=ps["prior_games"])
     train = build_training_frame(games, ratings)
     dual = M.DualModel.train(train, FEATURES)
 
@@ -365,8 +375,10 @@ def load_live_games():
     games = R.add_tempo_efficiency(games)
     weights = pd.concat([pd.Series(w_prev, index=prev_raw["game_id"].astype(str)),
                          pd.Series(1.0, index=cur_raw["game_id"].astype(str))])
+    import preseason as PS
+    PS.ensure_rosters(season, sorted(d1))
     extra = {"season": season, "prev_raw": prev_raw, "cur_raw": cur_raw,
-             "prev_long": R.add_tempo_efficiency(prev), "weights": weights}
+             "prev_long": R.add_tempo_efficiency(prev), "weights": weights, "d1": d1}
     return games, live.team_names(prev_raw, cur_raw), extra
 
 

@@ -229,9 +229,9 @@ Total    = Pts_home + Pts_away</div>
     <div class="panel">
       <h3>Early-season prior</h3>
       <ul class="clean">
-        <li>Regress last year's AdjEM toward the mean, by <span class="mono">0.55 + 0.30 × continuity</span>.</li>
-        <li>Add about 2.5 points per standard deviation of incoming recruiting and transfer talent.</li>
-        <li>Blend in current data at weight <span class="mono">n / (n + 12)</span> games played.</li>
+        <li>Each team starts from a mix of last season's rating and a <strong>roster rating</strong>: this year's players, each carrying his rating from last season at whatever school he played. Transfers count; freshmen start below average.</li>
+        <li>The more minutes a team returns, the more the mix leans on last season. A portal rebuild leans on the roster.</li>
+        <li>The starting rating counts as about 25 games and fades as <span class="mono">12 / (12 + games played)</span>. Scoring level comes from this season only, compared with last season on matching dates.</li>
       </ul>
     </div>
   </div>

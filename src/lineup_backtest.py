@@ -67,7 +67,10 @@ def return_rates(pg: pd.DataFrame) -> dict:
         {int(k): int(v) for k, v in df.groupby("k").size().items()}
 
 
-def run(season: int, start: str, step_days: int = 7) -> dict:
+def run(season: int, start: str, step_days: int = 7, mode: str = "roster") -> dict:
+    """mode 'legacy': last season's games at fading weight (old method).
+    mode 'roster': roster-based starting ratings (preseason.py, live method)."""
+    import preseason as PS
     prev_raw, cur_raw = live.load_games(season - 1), live.load_games(season)
     prev_pg, cur_pg = P.load_player_games(season - 1), P.load_player_games(season)
     prev_long, cur_long = _d1_long(prev_raw), _d1_long(cur_raw)
@@ -84,6 +87,16 @@ def run(season: int, start: str, step_days: int = 7) -> dict:
     prior = P.player_ratings(prev_pg[prev_pg.team_id.isin(d1p)], prev_raw, prev_tr)
     print(f"[prior] {len(prior)} players rated from {season - 1}")
 
+    if mode == "roster":
+        nn = pd.concat([prev_long, cur_long]).groupby("team").size(); d1_all = set(nn[nn >= 10].index)
+        lastp = PS.last_season_players(prev_pg[prev_pg.team_id.isin(d1_all)], prev_raw,
+                                       R.fit_adjusted_ratings(prev_long[prev_long.team.isin(d1_all) & prev_long.opp.isin(d1_all)], alpha=3.0))
+        roster = PS.load_roster(season, cur_pg)
+        rstr, rmin = PS.roster_strength(roster[roster.team_id.isin(d1_all)], lastp)
+        prev_tr_all = R.fit_adjusted_ratings(prev_long[prev_long.team.isin(d1_all) & prev_long.opp.isin(d1_all)], alpha=3.0)
+        start_r = PS.starting_ratings(prev_tr_all, rstr, sorted(d1_all))
+        print(f"[roster prior] {len(rstr)} rosters")
+
     rr, rr_n = return_rates(prev_pg)
     print(f"[return rates from {season - 1}] {rr}  (n={rr_n})")
 
@@ -97,7 +110,14 @@ def run(season: int, start: str, step_days: int = 7) -> dict:
         hist = pd.concat([pp, hc], ignore_index=True)
         n = hist.groupby("team").size(); d1 = set(n[n >= 10].index)
         hist = hist[hist.team.isin(d1) & hist.opp.isin(d1)]
-        tr = R.fit_adjusted_ratings(hist, alpha=3.0)
+        if mode == "roster":
+            d1 = d1_all
+            tr = PS.fit_ratings(prev_long[prev_long.team.isin(d1) & prev_long.opp.isin(d1)],
+                                cur_long[(cur_long.date < cut) & cur_long.team.isin(d1) & cur_long.opp.isin(d1)],
+                                start_r, hca=prev_tr_all.hca)
+            w_prev = tr.prior_games
+        else:
+            tr = R.fit_adjusted_ratings(hist, alpha=3.0)
 
         pg_before = cur_pg[(cur_pg["date"] < cut) & cur_pg.team_id.isin(d1)]
         cur_r = P.player_ratings(pg_before, cur_raw, tr, prior=prior)
@@ -106,7 +126,11 @@ def run(season: int, start: str, step_days: int = 7) -> dict:
         weights = pd.concat([
             pd.Series(w_prev, index=prev_raw.game_id.astype(str)),
             pd.Series(1.0, index=cur_raw[pd.to_datetime(cur_raw.date) < cut].game_id.astype(str))])
-        base = P.baseline_strength(pd.concat([prev_pg, pg_before]), weights, allr)
+        if mode == "roster":
+            base = P.mix_baselines(P.baseline_strength(pg_before, weights, allr),
+                                   P.roster_baseline(rmin, allr), tr.prior_games)
+        else:
+            base = P.baseline_strength(pd.concat([prev_pg, pg_before]), weights, allr)
 
         wk = games[(games.date >= cut) & (games.date < cut + pd.Timedelta(days=step_days))]
         wk = wk[wk.home_id.isin(d1) & wk.away_id.isin(d1)].dropna(subset=["home_score", "away_score"])
@@ -122,13 +146,21 @@ def run(season: int, start: str, step_days: int = 7) -> dict:
             ok = True
             for side, tid in (("h", g.home_id), ("a", g.away_id)):
                 hist_team = cur_pg[(cur_pg.team_id == tid) & (cur_pg.date < g.date)]
-                if hist_team.game_id.nunique() < 3 or tid not in base.index:
+                if tid not in base.index:
                     ok = False
                     break
                 b_o, b_d = base.loc[tid, "base_o"], base.loc[tid, "base_d"]
-                so, sd, em = P.project_lineup(hist_team, tid, allr, return_prob=rr)
                 played = set(pg_g[(pg_g.team_id == tid) & (pg_g["min"] > 0)].player_id)
-                io, idd, _ = P.project_lineup(hist_team, tid, allr, played_override=played)
+                if hist_team.game_id.nunique() < 3:
+                    if mode != "roster" or tid not in rmin:
+                        ok = False
+                        break
+                    m = rmin[tid]           # early games: projected roster minutes
+                    so, sd = P.lineup_strength(m, allr)
+                    io, idd = P.lineup_strength(m * m.index.isin(played), allr)
+                else:
+                    so, sd, em = P.project_lineup(hist_team, tid, allr, return_prob=rr)
+                    io, idd, _ = P.project_lineup(hist_team, tid, allr, played_override=played)
                 row.update({f"{side}_heur_o": so - b_o, f"{side}_heur_d": sd - b_d,
                             f"{side}_inf_o": io - b_o, f"{side}_inf_d": idd - b_d})
             if ok:
@@ -193,8 +225,15 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--season", type=int, default=2026)
     ap.add_argument("--start", default="2025-11-24")
+    ap.add_argument("--mode", default="roster", choices=["roster", "legacy"])
+    ap.add_argument("--rows-only", action="store_true", help="write rows to a side file and skip the site JSON")
     a = ap.parse_args()
-    out = run(a.season, a.start)
+    out = run(a.season, a.start, mode=a.mode)
+    if a.rows_only:
+        p = os.path.join(live.ROOT, "data", "history", f"lineup_rows_{a.season}_{a.mode}.csv")
+        out["rows"].to_csv(p, index=False)
+        print("wrote", p)
+        return
     res = evaluate(out["rows"])
     res["return_rates"] = out["return_rates"]
     res["generated_at"] = datetime.now(timezone.utc).isoformat(timespec="minutes")

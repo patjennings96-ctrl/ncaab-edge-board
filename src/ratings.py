@@ -138,7 +138,9 @@ class AdjustedRatings:
 def fit_adjusted_ratings(games_long: pd.DataFrame,
                          alpha: float = 50.0,
                          prior_ratings: "AdjustedRatings | None" = None,
-                         prior_weight: float = 0.0) -> AdjustedRatings:
+                         prior_weight: float = 0.0,
+                         extra_teams=None,
+                         fixed_hca: float | None = None) -> AdjustedRatings:
     """
     Fit adjusted O/D ratings + HCA via ridge on the offensive rows of every game.
 
@@ -156,7 +158,7 @@ def fit_adjusted_ratings(games_long: pd.DataFrame,
     from scipy import sparse
 
     g = games_long
-    teams = sorted(set(g.team) | set(g.opp))
+    teams = sorted(set(g.team) | set(g.opp) | set(extra_teams or []))
     t_idx = {t: i for i, t in enumerate(teams)}
     n_teams = len(teams)
     n_cols = 2 * n_teams + 1
@@ -174,6 +176,11 @@ def fit_adjusted_ratings(games_long: pd.DataFrame,
     vals = np.concatenate([np.ones(2 * n), venue[nz]])
     X = sparse.csr_matrix((vals, (r_idx, c_idx)), shape=(n, n_cols))
     y = g["raw_oe"].to_numpy(dtype=float)
+    if fixed_hca is not None:
+        # Home court supplied by the caller (e.g. estimated with last season's
+        # balanced conference schedule): remove it and drop the venue column.
+        y = y - venue * fixed_hca
+        X = X.tolil(); X[:, n_cols - 1] = 0; X = X.tocsr()
     # Optional per-row weights (e.g. last season's games down-weighted)
     sw = g["weight"].to_numpy(dtype=float) if "weight" in g.columns else np.ones(n)
 
@@ -198,7 +205,7 @@ def fit_adjusted_ratings(games_long: pd.DataFrame,
     mu = float(ridge.intercept_)
     off = {t: float(coef[t_idx[t]]) for t in teams}
     deff = {t: float(coef[n_teams + t_idx[t]]) for t in teams}
-    hca = float(coef[-1])
+    hca = float(coef[-1]) if fixed_hca is None else float(fixed_hca)
 
     # Tempo, opponent-adjusted (KenPom AdjT style): observed pace = mu + t[team] + t[opp].
     # A team's adjusted tempo is mu + t[team] (its pace against an average opponent).
@@ -212,9 +219,12 @@ def fit_adjusted_ratings(games_long: pd.DataFrame,
     Xp = sparse.csr_matrix((np.ones(2 * n), (np.r_[np.arange(n), np.arange(n)],
                                               np.r_[gp["team"].map(pidx).values, gp["opp"].map(pidx).values])),
                            shape=(n, len(teams)))
-    pr = Ridge(alpha=alpha, solver="sparse_cg", max_iter=5000).fit(Xp, gp["tempo"].values, sample_weight=wp)
-    league_tempo = float(pr.intercept_)
-    tempo = {t: league_tempo + float(pr.coef_[pidx[t]]) for t in teams}
+    if n > 0:
+        pr = Ridge(alpha=alpha, solver="sparse_cg", max_iter=5000).fit(Xp, gp["tempo"].values, sample_weight=wp)
+        league_tempo = float(pr.intercept_)
+        tempo = {t: league_tempo + float(pr.coef_[pidx[t]]) for t in teams}
+    else:                       # no games yet: caller supplies pace
+        league_tempo, tempo = 68.0, {}
 
     return AdjustedRatings(mu=mu, hca=hca, league_tempo=league_tempo,
                            off=off, deff=deff, tempo=tempo)

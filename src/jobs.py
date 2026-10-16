@@ -121,6 +121,17 @@ def espn_teams() -> None:
     print(f"{len(rows)} teams -> {out}")
 
 
+def rosters(season: int) -> None:
+    """ESPN rosters for every D-I team -> data/rosters/<season>.csv."""
+    import pandas as pd
+    import preseason as PS
+    teams = pd.read_csv(os.path.join(live.ROOT, "data", "teams.csv"), dtype=str)
+    g = live.load_games(int(season) - 1)
+    d1 = set(g.home_id.astype(str)) | set(g.away_id.astype(str))
+    ids = [t for t in teams.team_id if t in d1]
+    PS.fetch_rosters(int(season), ids)
+
+
 def main(argv):
     if not argv:
         print("usage: jobs.py <command> [args]")
@@ -128,7 +139,7 @@ def main(argv):
     cmd, args = argv[0], argv[1:]
     fn = {"probe_torvik": probe_torvik, "backfill_players": backfill_players,
           "lineup_backtest": lineup_backtest, "start_times": start_times,
-          "probe_url": probe_url, "espn_teams": espn_teams}.get(cmd)
+          "probe_url": probe_url, "espn_teams": espn_teams, "rosters": rosters}.get(cmd)
     if fn is None:
         raise SystemExit(f"unknown command {cmd}")
     fn(*[int(a) if a.isdigit() and cmd != "probe_url" else a for a in args])

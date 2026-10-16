@@ -348,7 +348,30 @@ def baseline_strength(pg_rated: pd.DataFrame, weights: pd.Series, ratings: pd.Da
     tg["w"] = tg["game_id"].map(weights).fillna(0.0)
     tg = tg[tg["w"] > 0]
     agg = tg.assign(wo=tg.w * tg.so, wd=tg.w * tg.sd).groupby("team_id")[["wo", "wd", "w"]].sum()
-    return pd.DataFrame({"base_o": agg.wo / agg.w, "base_d": agg.wd / agg.w})
+    return pd.DataFrame({"base_o": agg.wo / agg.w, "base_d": agg.wd / agg.w, "w": agg.w})
+
+
+def roster_baseline(roster_minutes: dict, ratings: pd.DataFrame) -> pd.DataFrame:
+    """Strength of each team's projected full-strength roster (the lineup the
+    preseason starting rating assumes)."""
+    rows = {t: lineup_strength(m, ratings) for t, m in roster_minutes.items()}
+    return pd.DataFrame.from_dict(rows, orient="index", columns=["base_o", "base_d"])
+
+
+def mix_baselines(games_base: pd.DataFrame, roster_base: pd.DataFrame, prior_games: float) -> pd.DataFrame:
+    """Weighted mix matching the rating fit: the starting rating counts as
+    `prior_games` games played by the projected roster."""
+    teams = games_base.index.union(roster_base.index)
+    g = games_base.reindex(teams)
+    r = roster_base.reindex(teams)
+    wg = g["w"].fillna(0.0)
+    wr = pd.Series(np.where(r["base_o"].notna(), prior_games, 0.0), index=teams)
+    tot = (wg + wr).replace(0, np.nan)
+    out = pd.DataFrame(index=teams)
+    for c in ("base_o", "base_d"):
+        out[c] = (g[c].fillna(0) * wg + r[c].fillna(0) * wr) / tot
+    out["w"] = wg + wr
+    return out.dropna(subset=["base_o"])
 
 
 def project_lineup(pg_team_season: pd.DataFrame, team_id: str, ratings: pd.DataFrame,
@@ -528,7 +551,8 @@ def cached_return_rates(prev_pg: pd.DataFrame, prev_season: int) -> dict:
 
 
 def build_context(season: int, prev_raw, cur_raw, prev_long, team_ratings,
-                  game_weights: pd.Series, external_players: pd.DataFrame | None = None) -> dict:
+                  game_weights: pd.Series, external_players: pd.DataFrame | None = None,
+                  roster_minutes: dict | None = None, prior_games: float = 0.0) -> dict:
     """Player ratings, baselines, return rates and current statuses for the live run."""
     import ratings as R
     prev_pg, cur_pg = load_player_games(season - 1), load_player_games(season)
@@ -542,7 +566,14 @@ def build_context(season: int, prev_raw, cur_raw, prev_long, team_ratings,
     if external_players is not None and not external_players.empty:
         cur = blend_external(cur, external_players)
     allr = pd.concat([prior[~prior.index.isin(cur.index)], cur]) if prior is not None else cur
-    base = baseline_strength(pd.concat([prev_pg, cur_pg]), game_weights, allr)
+    if roster_minutes:
+        # Ratings come from this season's games plus a roster-based starting
+        # rating, so the baseline is this season's lineups plus the projected
+        # roster (not last season's lineups, which would count transfers twice).
+        gb = baseline_strength(cur_pg, game_weights, allr)
+        base = mix_baselines(gb, roster_baseline(roster_minutes, allr), prior_games)
+    else:
+        base = baseline_strength(pd.concat([prev_pg, cur_pg]), game_weights, allr)
     rr = cached_return_rates(prev_pg, season - 1) if not prev_pg.empty else DEFAULT_RETURN_PROB
     cur_pg = cur_pg.copy()
     cur_pg["date"] = pd.to_datetime(cur_pg["date"])
@@ -550,15 +581,17 @@ def build_context(season: int, prev_raw, cur_raw, prev_long, team_ratings,
     statuses = current_statuses(cur, names) if not cur.empty else {}
     print(f"[players] {len(cur)} rated this season, {len(statuses)} with a report status")
     return {"ratings": allr, "current": cur, "base": base, "return_rates": rr,
-            "pg": cur_pg, "statuses": statuses}
+            "pg": cur_pg, "statuses": statuses, "roster_minutes": roster_minutes or {}}
 
 
 def team_adjustment(ctx: dict, team_id: str) -> tuple[float, float, str]:
     """(dO, dD) per 100 possessions vs the rated baseline, plus a short note."""
     pg = ctx["pg"]
     t = pg[pg["team_id"] == team_id]
-    if t["game_id"].nunique() < MIN_TEAM_GAMES or team_id not in ctx["base"].index:
+    if team_id not in ctx["base"].index:
         return 0.0, 0.0, ""
+    if t["game_id"].nunique() < MIN_TEAM_GAMES:
+        return _roster_adjustment(ctx, team_id)
     so, sd, em = project_lineup(t, team_id, ctx["ratings"], statuses=ctx["statuses"],
                                 return_prob=ctx["return_rates"])
     b = ctx["base"].loc[team_id]
@@ -576,6 +609,22 @@ def team_adjustment(ctx: dict, team_id: str) -> tuple[float, float, str]:
                 tag = st.lower() if st else (f"missed {int(row['missed_streak'])}" if row["missed_streak"] else "")
                 parts.append(f"{nm[pid]} ({tag})" if tag else nm[pid])
             note = ", ".join(parts)
+    return so - b["base_o"], sd - b["base_d"], note
+
+
+def _roster_adjustment(ctx: dict, team_id: str) -> tuple[float, float, str]:
+    """Before a team has played enough games, start from its projected roster
+    minutes and remove anyone reported out (season openers, early injuries)."""
+    m = ctx.get("roster_minutes", {}).get(team_id)
+    if m is None or m.empty:
+        return 0.0, 0.0, ""
+    p = pd.Series([STATUS_PLAY_PROB.get(str(ctx["statuses"].get(pid, "")).upper(), 1.0)
+                   for pid in m.index], index=m.index)
+    so, sd = lineup_strength(m * p, ctx["ratings"])
+    b = ctx["base"].loc[team_id]
+    out = p[(p < 0.75) & (m >= 12)]
+    nm = ctx["ratings"]["name"].reindex(out.index).fillna("?")
+    note = ", ".join(f"{nm[pid]} ({str(ctx['statuses'].get(pid)).lower()})" for pid in out.index[:3])
     return so - b["base_o"], sd - b["base_d"], note
 
 
