@@ -294,6 +294,7 @@ def run(demo: bool = True, sheet_id: str | None = None):
         print("Appended", log)
     if not demo:
         publish.update_clv(live.closing_lines(), games_raw=names_and_results())
+        print("Wrote", publish.write_record())
 
     # --- Google Sheets (only when a sheet id and credentials are configured) ---
     creds = os.environ.get("GOOGLE_CREDS_PATH", "credentials.json")

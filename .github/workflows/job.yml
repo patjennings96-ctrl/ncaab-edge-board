@@ -42,5 +42,5 @@ jobs:
           git add data jobs docs/data || true
           git diff --cached --quiet && exit 0
           git commit -m "Data job: $(head -c 60 jobs/request.txt | tr '\n' ' ')"
-          git pull --rebase -X theirs origin main
+          git pull --rebase --autostash -X theirs origin main
           git push

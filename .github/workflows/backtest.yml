@@ -43,5 +43,5 @@ jobs:
           git add docs/data data backtest || true
           git diff --cached --quiet && exit 0
           git commit -m "Backtest results $(date -u +'%Y-%m-%d %H:%M UTC')"
-          git pull --rebase -X theirs origin main
+          git pull --rebase --autostash -X theirs origin main
           git push

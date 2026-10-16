@@ -222,8 +222,10 @@ def run_daily(slate: pd.DataFrame, cur_raw, prev_raw, team_ratings, names: dict,
     m2, m2_source = model2_inputs(team_ratings, names)
     priced = price_slate(slate, m1, m2) if not slate.empty else pd.DataFrame()
     write_json(priced, names, mode, m2_source)
-    if mode == "live" and not priced.empty:
-        log_plays(priced, names)
+    if mode == "live":
+        if not priced.empty:
+            log_plays(priced, names)
+        # grade every run, including days with no slate
         grade_log(pd.concat([prev_raw, cur_raw], ignore_index=True))
     n_ats = int((priced.get("ats_play", pd.Series(dtype=str)) != "").sum()) if not priced.empty else 0
     n_ou = int((priced.get("ou_play", pd.Series(dtype=str)) != "").sum()) if not priced.empty else 0
