@@ -22,7 +22,7 @@ on:
   workflow_dispatch: {}
   # re-price right away when the X scan (or you) adds availability notes
   push:
-    paths: ["data/availability/**", "data/availability_overrides.csv", ".github/workflows/daily.yml"]
+    paths: ["data/availability/**", "data/availability_overrides.csv", ".github/workflows/daily.yml", "data/external/**"]
 
 permissions:
   contents: write

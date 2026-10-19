@@ -27,6 +27,9 @@ own average first), and player ratings are blended into the player model.
 from __future__ import annotations
 
 import os
+import calendar
+import hashlib
+import json
 import re
 import time
 
@@ -58,8 +61,97 @@ def _pick(df: pd.DataFrame, key: str) -> str | None:
     return None
 
 
+# -----------------------------------------------------------------------------
+# Freshness stamps and KenPom paste
+# -----------------------------------------------------------------------------
+# A file's modification time is useless on GitHub Actions (every checkout looks
+# new), so each source folder keeps stamp.json = {file: {sha256, as_of}}. The
+# stamp only moves when the file's contents change; the daily run refreshes
+# stamps and commits them.
+def _stamp_path(folder: str) -> str:
+    return os.path.join(folder, "stamp.json")
+
+
+def _load_stamp(folder: str) -> dict:
+    try:
+        with open(_stamp_path(folder)) as f:
+            return json.load(f)
+    except Exception:
+        return {}
+
+
+KENPOM_PASTE = os.path.join(EXT_DIR, "kenpom", "paste.txt")
+_WL = re.compile(r"^\d{1,2}-\d{1,2}$")
+_NUM = re.compile(r"^[+-]?\d+(\.\d+)?$")
+
+
+def parse_kenpom_paste(text: str) -> pd.DataFrame:
+    """
+    Rows copied straight off kenpom.com's ratings table (select the table,
+    copy, paste). Works with tabs or plain spaces; header rows repeated down
+    the page are skipped. Each data row reads:
+        Rk  Team [seed]  Conf  W-L  NetRtg  ORtg rk  DRtg rk  AdjT rk  ...
+    """
+    rows = []
+    for line in text.splitlines():
+        tok = line.replace("\t", " ").split()
+        if len(tok) < 8 or not tok[0].isdigit():
+            continue
+        wl = next((i for i, t in enumerate(tok) if _WL.match(t)), None)
+        if wl is None or wl < 3:
+            continue
+        name = tok[1:wl - 1]                       # token before W-L is the conference
+        if len(name) > 1 and name[-1].isdigit():   # tournament seed after the name
+            name = name[:-1]
+        nums = [t for t in tok[wl + 1:] if _NUM.match(t)]
+        if len(nums) < 6:
+            continue
+        # NetRtg, ORtg, ORtg rank, DRtg, DRtg rank, AdjT, ...
+        rows.append({"team": " ".join(name), "adjo": float(nums[1]),
+                     "adjd": float(nums[3]), "adjt": float(nums[5])})
+    return pd.DataFrame(rows).drop_duplicates("team")
+
+
+def refresh_stamps() -> None:
+    """Convert a KenPom paste to teams.csv and update freshness stamps."""
+    if os.path.exists(KENPOM_PASTE):
+        with open(KENPOM_PASTE, encoding="utf-8", errors="replace") as f:
+            text = f.read()
+        if text.strip():
+            df = parse_kenpom_paste(text)
+            if len(df) >= 200:
+                df.to_csv(os.path.join(EXT_DIR, "kenpom", "teams.csv"), index=False)
+                print(f"[external] KenPom paste: {len(df)} teams")
+            else:
+                print(f"[external] KenPom paste: only {len(df)} rows parsed; copy the whole ratings table")
+    now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    for src in SOURCES:
+        folder = os.path.join(EXT_DIR, src)
+        if not os.path.isdir(folder):
+            continue
+        stamp, changed = _load_stamp(folder), False
+        for name in ("teams.csv", "players.csv"):
+            path = os.path.join(folder, name)
+            if not os.path.exists(path):
+                continue
+            with open(path, "rb") as f:
+                h = hashlib.sha256(f.read()).hexdigest()
+            if stamp.get(name, {}).get("sha256") != h:
+                stamp[name] = {"sha256": h, "as_of": now}
+                changed = True
+        if changed:
+            with open(_stamp_path(folder), "w") as f:
+                json.dump(stamp, f, indent=1)
+
+
 def _fresh(path: str) -> bool:
-    return os.path.exists(path) and (time.time() - os.path.getmtime(path)) < MAX_AGE_DAYS * 86400
+    if not os.path.exists(path):
+        return False
+    st = _load_stamp(os.path.dirname(path)).get(os.path.basename(path))
+    if st:
+        t = calendar.timegm(time.strptime(st["as_of"], "%Y-%m-%dT%H:%M:%SZ"))
+        return (time.time() - t) < MAX_AGE_DAYS * 86400
+    return (time.time() - os.path.getmtime(path)) < MAX_AGE_DAYS * 86400
 
 
 def load_team_sources(espn_names: dict) -> list[pd.DataFrame]:
@@ -74,7 +166,7 @@ def load_team_sources(espn_names: dict) -> list[pd.DataFrame]:
         if not (tc and oc and dc):
             print(f"[external] {src}/teams.csv: need team, offense and defense columns; skipped")
             continue
-        m = live.match_teams(list(df[tc].astype(str)), espn_names)
+        m = match_schools(list(df[tc].astype(str)))
         d = pd.DataFrame({"team_id": df[tc].astype(str).map(m),
                           "adj_o": pd.to_numeric(df[oc], errors="coerce"),
                           "adj_d": pd.to_numeric(df[dc], errors="coerce"),
@@ -152,3 +244,72 @@ def load_player_sources(espn_names: dict, roster: pd.DataFrame) -> pd.DataFrame:
     if not rows:
         return pd.DataFrame(columns=["player_id", "o", "d"])
     return pd.DataFrame(rows).groupby("player_id")[["o", "d"]].mean().reset_index()
+
+
+# -----------------------------------------------------------------------------
+# School-name matching (KenPom / Torvik style names -> ESPN ids)
+# -----------------------------------------------------------------------------
+# Sportsbook names carry mascots ("North Carolina Tar Heels"); rating sites use
+# the school only, with their own abbreviations. Normalize both sides against
+# ESPN's school names (data/teams.csv) and fix the known quirks here.
+SCHOOL_ALIASES = {
+    "connecticut": "uconn", "nc state": "nc state", "north carolina state": "nc state",
+    "miami fl": "miami", "miami oh": "miami oh", "mississippi": "ole miss",
+    "louisiana monroe": "ul monroe", "texas aandm corpus chris": "texas aandm corpus christi",
+    "liu": "long island university", "liu brooklyn": "long island university",
+    "loyola md": "loyola maryland", "usc upstate": "south carolina upstate",
+    "tennessee martin": "ut martin", "nebraska omaha": "omaha", "iu indy": "iu indianapolis",
+    "iupui": "iu indianapolis", "texas aandm commerce": "east texas aandm",
+    "illinois chicago": "uic", "arkansas pine bluff": "arkansas pine bluff", "penn": "pennsylvania",
+    "pitt": "pittsburgh", "grambling state": "grambling", "mcneese state": "mcneese",
+    "nicholls state": "nicholls", "southeastern louisiana": "se louisiana",
+    "cal baptist": "california baptist", "sam houston state": "sam houston", "seattle": "seattle u",
+    "fiu": "florida international", "albany": "ualbany", "appalachian state": "app state",
+    "american": "american university", "umkc": "kansas city", "arkansas little rock": "little rock",
+    "new orleans": "lsu new orleans", "csun": "cal state northridge", "fgcu": "florida gulf coast",
+    "louisiana lafayette": "louisiana", "college of charleston": "charleston",
+    "detroit": "detroit mercy", "fort wayne": "purdue fort wayne", "southern mississippi": "southern miss",
+    "texas rio grande valley": "ut rio grande valley", "utrgv": "ut rio grande valley",
+    "wisconsin milwaukee": "milwaukee", "wisconsin green bay": "green bay", "boston u": "boston university",
+    "saint thomas": "st thomas", "st thomas mn": "st thomas", "md eastern shore": "maryland eastern shore",
+    "massachusetts lowell": "umass lowell", "siue": "siu edwardsville", "uconn": "uconn",
+}
+
+
+def _school_norm(s: str) -> str:
+    import unicodedata
+    s = unicodedata.normalize("NFKD", str(s)).encode("ascii", "ignore").decode()
+    s = s.lower().replace("&", "and").replace("'", "").replace("’", "")
+    s = re.sub(r"[().,\-]", " ", s)
+    tok = s.split()
+    for i, t in enumerate(tok):          # "Kansas St." / "Cal St. Fullerton" -> state
+        if t == "st" and i > 0 and tok[i - 1] != "mount":
+            tok[i] = "state"
+    return " ".join(tok)
+
+
+def match_schools(names: list[str]) -> dict:
+    """Rating-site school name -> ESPN team id. Unmatched names are logged."""
+    import difflib
+    teams = pd.read_csv(os.path.join(live.ROOT, "data", "teams.csv"), dtype=str)
+    by = {}
+    for r in teams.itertuples(index=False):
+        for v in (r.location, r.display, r.abbr):
+            if isinstance(v, str) and v:
+                by.setdefault(_school_norm(v), r.team_id)
+    by.update({_school_norm(r.location): r.team_id for r in teams.itertuples(index=False)})
+    keys, out, missing = list(by), {}, []
+    for n in set(names):
+        k = _school_norm(n)
+        k = SCHOOL_ALIASES.get(k, k)
+        if k in by:
+            out[n] = by[k]
+            continue
+        close = difflib.get_close_matches(k, keys, n=1, cutoff=0.9)
+        if close:
+            out[n] = by[close[0]]
+        else:
+            missing.append(n)
+    if missing:
+        print(f"[external] {len(missing)} school names unmatched: {', '.join(sorted(missing)[:15])}")
+    return out

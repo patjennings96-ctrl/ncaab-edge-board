@@ -45,8 +45,9 @@ Data substitutions (the sheet scraped sites that block automated access)
     TeamRankings OE/DE/possessions/EPR -> computed from ESPN box scores, same
         definitions: points / possessions, possessions per game, and
         EPR = (possessions - turnovers + offensive rebounds) / possessions.
-    KenPom AdjO/AdjD/AdjT -> a fresh export in data/external/kenpom/teams.csv
-        when present, otherwise the Edge Board's own adjusted ratings.
+    KenPom AdjO/AdjD/AdjT -> the KenPom ratings table pasted into
+        data/external/kenpom/paste.txt (same copy-paste as the sheet, at most
+        3 days old), otherwise the Edge Board's own adjusted ratings.
 """
 
 from __future__ import annotations
@@ -125,8 +126,13 @@ def model2_inputs(team_ratings, espn_names: dict | None = None) -> tuple[pd.Data
         src = [s for s in X.load_team_sources(espn_names or {}) if s["source"].iloc[0] == "kenpom"]
         if src:
             k = src[0]
-            return pd.DataFrame({"adjo": k["adj_o"], "adjd": k["adj_d"],
-                                 "adjt": k["tempo"]}).dropna(), "KenPom export"
+            kp = pd.DataFrame({"adjo": k["adj_o"], "adjd": k["adj_d"], "adjt": k["tempo"]}).dropna()
+            # teams KenPom's paste didn't cover (name not matched) use our ratings
+            teams = [t for t in team_ratings.off if t not in kp.index]
+            fill = pd.DataFrame({"adjo": [team_ratings.adj_o(t) for t in teams],
+                                 "adjd": [team_ratings.adj_d(t) for t in teams],
+                                 "adjt": [team_ratings.team_tempo(t) for t in teams]}, index=teams)
+            return pd.concat([kp, fill]), f"KenPom ({len(kp)} teams)"
     except Exception as exc:                                     # pragma: no cover
         print(f"[cal] KenPom import skipped: {exc}")
     teams = list(team_ratings.off)

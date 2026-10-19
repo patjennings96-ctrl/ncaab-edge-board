@@ -220,6 +220,7 @@ def run(demo: bool = True, sheet_id: str | None = None):
     if not demo:
         import external as X
         import players as P
+        X.refresh_stamps()          # KenPom paste -> teams.csv; date stamps for freshness
         own_ratings = ratings
         ratings = X.blend_team_ratings(ratings, X.load_team_sources(names))
         roster = P.load_player_games(extra["season"])
