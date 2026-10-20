@@ -45,6 +45,7 @@ def card_to_records(card: pd.DataFrame) -> list[dict]:
             "best_odds": None if pd.isna(r.get("best_odds", np.nan)) else int(r["best_odds"]),
             "book": str(r.get("best_book", "") or ""),
             "agree": bool(r.get("agree", False)),
+            "play_to": None if pd.isna(r.get("play_to", np.nan)) else float(r["play_to"]),
             "tracking": float(r["stake_units"]) == 0.0,
         })
     return recs

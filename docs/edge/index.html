@@ -386,7 +386,8 @@ function bestPlay(r){
   const L = r.best_line ?? r.line, o = r.best_odds ?? r.odds;
   const ln = r.mkt==="SPREAD" ? fmtLine(L) : L.toFixed(1);
   const book = r.book ? `<small>best at ${esc(r.book)} · consensus ${r.mkt==="SPREAD"?fmtLine(r.line):r.line.toFixed(1)}</small>` : "";
-  return `${esc(r.side)} ${ln} <span class="muted">${fmtOdds(o)}</span>${book}`;
+  const pt = r.play_to == null ? "" : `<small>play to ${r.mkt==="SPREAD" ? fmtLine(r.play_to) : r.play_to.toFixed(1)}</small>`;
+  return `${esc(r.side)} ${ln} <span class="muted">${fmtOdds(o)}</span>${book}${pt}`;
 }
 function render(){
   if(!PLAYS.length){document.getElementById("rows").innerHTML='<tr><td colspan="7" class="muted">No plays clear the edge threshold right now.</td></tr>';document.getElementById("summary").textContent="0 plays";return;}

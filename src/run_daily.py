@@ -134,6 +134,29 @@ def _shop(row, side: str, p_fn, kelly_mult: float, max_stake: float = 5.0) -> di
             "stake_units": round(stake, 3)}
 
 
+def _half_up(x: float) -> float:
+    return float(np.ceil(round(x * 2, 6)) / 2)
+
+
+def _half_down(x: float) -> float:
+    return float(np.floor(round(x * 2, 6)) / 2)
+
+
+def play_to(mkt: str, side: str, proj: float, sigma: float, min_points: float,
+            min_edge: float) -> float:
+    """
+    Worst line (the picked side's own number) that still meets the card's
+    rules at -110: the gap to the model must be at least `min_points` and the
+    win probability at least 50% + `min_edge`.
+    """
+    from scipy.stats import norm
+    gap = max(min_points, sigma * float(norm.ppf(0.5 + min_edge)))
+    if mkt == "SPREAD":
+        # home line L: proj + L >= gap; away line A = -L: A - proj >= gap
+        return _half_up(gap - proj) if side == "HOME" else _half_up(proj + gap)
+    return _half_down(proj - gap) if side == "OVER" else _half_up(proj + gap)
+
+
 def make_card(pred_df: pd.DataFrame, kelly_mult=0.25, min_edge=0.025,
               cal_plays: dict | None = None) -> pd.DataFrame:
     """Turn predictions + lines into a recommended-bet card.
@@ -166,6 +189,7 @@ def make_card(pred_df: pd.DataFrame, kelly_mult=0.25, min_edge=0.025,
                 else:
                     pf = lambda L: 1.0 - prob_cover_spread(row.pred_margin, -L, sig)
                 r.update(_shop(row, sp.side, pf, kelly_mult))
+                r["play_to"] = play_to("SPREAD", sp.side, row.pred_margin, sig, MIN_POINTS_SPREAD, min_edge)
                 r["agree"] = cal.get("ATS", "") == sp.side
                 if not window:
                     r["stake_units"] = 0.0
@@ -181,6 +205,7 @@ def make_card(pred_df: pd.DataFrame, kelly_mult=0.25, min_edge=0.025,
                 else:
                     pf = lambda L: 1.0 - prob_over(row.pred_total, L, sig)
                 r.update(_shop(row, tot.side, pf, kelly_mult))
+                r["play_to"] = play_to("TOTAL", tot.side, row.pred_total, sig, MIN_POINTS_TOTAL, min_edge)
                 r["agree"] = cal.get("TOTAL", "") == tot.side
                 if r["agree"]:
                     r["stake_units"] = round(min(r["stake_units"] * AGREE_TOTAL_MULT, 5.0), 3)
@@ -189,7 +214,7 @@ def make_card(pred_df: pd.DataFrame, kelly_mult=0.25, min_edge=0.025,
                 card.append(r)
     cols = ["game_id", "start", "home", "away", "mkt", "side", "line", "odds",
             "best_line", "best_odds", "best_book", "proj_margin", "proj_total",
-            "model_prob", "edge_pct", "stake_units", "agree", "notes"]
+            "model_prob", "edge_pct", "stake_units", "play_to", "agree", "notes"]
     df = pd.DataFrame(card)
     return df[[c for c in cols if c in df.columns]] if not df.empty else df
 

@@ -201,7 +201,55 @@ def price_slate(slate: pd.DataFrame, m1: pd.DataFrame, m2: pd.DataFrame) -> pd.D
     df["ou_play"] = np.select(
         [(df.m1_tot >= TOTAL_THRESHOLD) & (df.m2_tot_adj >= TOTAL_THRESHOLD),
          (df.m1_tot <= -TOTAL_THRESHOLD) & (df.m2_tot_adj <= -TOTAL_THRESHOLD)], ["OVER", "UNDER"], "")
+    df["ats_play_to"] = [ats_play_to(r) for r in df.itertuples(index=False)]
+    n_tot = int(df["m2_tot"].notna().sum())
+    df["ou_play_to"] = [ou_play_to(r, n_tot) for r in df.itertuples(index=False)]
     return df
+
+
+def _half_up(x: float) -> float:
+    """Smallest half-point line >= x."""
+    return float(np.ceil(round(x * 2, 6)) / 2)
+
+
+def _half_down(x: float) -> float:
+    """Largest half-point line <= x."""
+    return float(np.floor(round(x * 2, 6)) / 2)
+
+
+def ats_play_to(r) -> float | None:
+    """
+    Worst line, from the picked side's view, at which both models still clear
+    the spread threshold. HOME needs margin_k + line >= 5 for both models;
+    AWAY needs margin_k + home_line <= -5, i.e. away line >= 5 + margin_k.
+    """
+    if r.ats_play not in ("HOME", "AWAY"):
+        return None
+    m = [r.m1_home - r.m1_away, r.m2_home - r.m2_away]
+    if r.ats_play == "HOME":
+        return _half_up(ATS_THRESHOLD - min(m))          # home line
+    return _half_up(ATS_THRESHOLD + max(m))              # away line
+
+
+def ou_play_to(r, n_games: int) -> float | None:
+    """
+    Worst total at which both models still clear the total threshold.
+    Model 2 is compared after the day's adjustment (minus the slate's average
+    Model 2 value), and that average moves with this game's line: if the line
+    moves by d, the game's own value moves by -d and the average by -d/n.
+    """
+    if r.ou_play not in ("OVER", "UNDER") or n_games < 2:
+        return None
+    t1, t2, t0 = r.m1_home + r.m1_away, r.m2_home + r.m2_away, r.total_line
+    avg0 = r.m2_tot - r.m2_tot_adj
+    k = 1.0 - 1.0 / n_games
+    th = TOTAL_THRESHOLD if r.ou_play == "OVER" else -TOTAL_THRESHOLD
+    # Model 2 adjusted value at total T: (t2 - T) - avg0 + (T - t0)/n = th
+    t_m2 = (t2 - avg0 - t0 / n_games - th) / k
+    t_m1 = t1 - th
+    if r.ou_play == "OVER":
+        return _half_down(min(t_m1, t_m2))
+    return _half_up(max(t_m1, t_m2))
 
 
 def grade(play: str, line: float, total_line: float, home_score: float, away_score: float) -> float | None:
@@ -255,6 +303,8 @@ def write_json(priced: pd.DataFrame, names: dict, mode: str, m2_source: str) -> 
             "m2": {"away": _r(r.m2_away), "home": _r(r.m2_home), "ats": _r(r.m2_ats),
                    "tot": _r(r.m2_tot), "tot_adj": _r(r.m2_tot_adj)},
             "ats_play": r.ats_play, "ou_play": r.ou_play,
+            "ats_play_to": _r(getattr(r, "ats_play_to", None)),
+            "ou_play_to": _r(getattr(r, "ou_play_to", None)),
         })
     payload = {"updated_at": datetime.now(timezone.utc).isoformat(timespec="minutes"),
                "mode": mode, "model2_source": m2_source, "hca": HCA,

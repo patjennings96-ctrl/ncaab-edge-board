@@ -74,8 +74,10 @@ nav a:focus-visible,.seg button:focus-visible{outline:2px solid var(--accent);ou
 .play:last-child{border-bottom:0}
 .play .match{font-size:.82rem;color:var(--muted)}
 .play .pick{font-weight:600;font-size:1.02rem}
+.ptrow{font-size:.82rem}
+.pt{font-family:var(--mono);font-size:.78rem;color:var(--good);background:var(--good-soft);padding:1px 7px;border-radius:3px}
 .play .meta{grid-column:1/-1;font-size:.8rem;color:var(--muted)}
-.play .stake{grid-row:1/3;grid-column:2;text-align:right;align-self:center;font-family:var(--display);font-size:1.4rem;font-weight:700;font-variant-numeric:tabular-nums}
+.play .stake{grid-row:1/4;grid-column:2;text-align:right;align-self:center;font-family:var(--display);font-size:1.4rem;font-weight:700;font-variant-numeric:tabular-nums}
 .play .stake small{display:block;font-family:var(--mono);font-size:.68rem;font-weight:400;color:var(--muted)}
 .tag{display:inline-block;font-family:var(--mono);font-size:.66rem;letter-spacing:.04em;padding:1px 7px;border-radius:999px;margin-left:6px;vertical-align:2px}
 .tag.spread{background:var(--court-soft);color:var(--court)}
@@ -182,6 +184,7 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
         <li>Stakes are ¼ Kelly, max 5u (1u = 1% of bankroll), sized at the best number across books.</li>
         <li>Staked Jan 1 – Mar 8 only. Before and after, plays are posted and graded as tracking only (0u).</li>
         <li>Totals that Cal's model also picks get 1.5× the stake.</li>
+        <li><strong>Play to</strong> is the worst line that still meets these rules at −110. Past it, pass.</li>
       </ul>
     </div>
     <div>
@@ -190,6 +193,7 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
         <li>Two projections per game (possession × efficiency, and adjusted ratings), each with a 3-point home edge.</li>
         <li>A spread play needs both models 5+ points off the line on the same side; a total needs 7+.</li>
         <li>1u flat per play; wins pay +1u, losses −1.1u. Cal's rules have no betting window.</li>
+        <li><strong>Play to</strong> is the worst line at which both models still clear their thresholds.</li>
       </ul>
     </div>
     <div>
@@ -213,6 +217,8 @@ const fmtOdds = o => (o > 0 ? "+" : "") + o;
 const units = v => (v > 0 ? "+" : "") + v.toFixed(1) + "u";
 const cls = v => v > 0 ? "pos" : (v < 0 ? "neg" : "");
 const ET = "America/New_York";
+const ptFmt = (mkt, v) => v == null ? "" : (mkt === "SPREAD" || mkt === "ATS" ? sgn(v) : v.toFixed(1));
+const playTo = (mkt, v) => v == null ? "" : `<span class="pt">play to ${ptFmt(mkt, v)}</span>`;
 
 function etParts(d){
   const f = new Intl.DateTimeFormat("en-US",{timeZone:ET,month:"numeric",day:"numeric"}).formatToParts(d);
@@ -245,6 +251,7 @@ function edgePlay(r){
   return `<div class="play">
     <div class="match">${esc(r.away)} @ ${esc(r.home)} ${startLabel(r.start) ? "· " + startLabel(r.start) : ""}</div>
     <div class="pick">${esc(r.side)} ${ln} <span class="muted mono">${fmtOdds(o)}${book}</span>${tags}</div>
+    <div class="ptrow">${playTo(r.mkt, r.play_to)}</div>
     <div class="stake">${r.tracking ? "0u" : r.stake.toFixed(1) + "u"}<small>edge ${r.edge.toFixed(1)}%</small></div>
     <div class="meta">${model} · win prob ${(r.p*100).toFixed(0)}%${r.notes ? " · Lineup: " + esc(r.notes) : ""}</div>
   </div>`;
@@ -253,10 +260,10 @@ function calPicks(g){
   const out = [];
   if (g.ats_play) {
     const home = g.ats_play === "HOME", team = home ? g.home : g.away, L = home ? g.line : -g.line;
-    out.push({mkt:"SPREAD", text:`${team} ${sgn(L)}`, gap:`Model 1 ${sgn(g.m1.ats)}, Model 2 ${sgn(g.m2.ats)}`});
+    out.push({mkt:"SPREAD", text:`${team} ${sgn(L)}`, pt:g.ats_play_to, gap:`Model 1 ${sgn(g.m1.ats)}, Model 2 ${sgn(g.m2.ats)}`});
   }
   if (g.ou_play) {
-    out.push({mkt:"TOTAL", text:`${g.ou_play === "OVER" ? "Over" : "Under"} ${g.total_line.toFixed(1)}`,
+    out.push({mkt:"TOTAL", text:`${g.ou_play === "OVER" ? "Over" : "Under"} ${g.total_line.toFixed(1)}`, pt:g.ou_play_to,
               gap:`Model 1 ${sgn(g.m1.tot)}, Model 2 ${sgn(g.m2.tot_adj ?? g.m2.tot)}`});
   }
   return out.map(p => ({...p, g}));
@@ -267,11 +274,24 @@ function calPlay(p){
   return `<div class="play">
     <div class="match">${esc(g.away)} @ ${esc(g.home)} ${startLabel(g.start) ? "· " + startLabel(g.start) : ""}</div>
     <div class="pick">${esc(p.text)}<span class="tag ${p.mkt==="SPREAD"?"spread":"total"}">${p.mkt==="SPREAD"?"Spread":"Total"}</span></div>
+    <div class="ptrow">${playTo(p.mkt, p.pt)}</div>
     <div class="stake">1u<small>flat</small></div>
     <div class="meta">${p.gap} · ${proj}</div>
   </div>`;
 }
 
+function agreePT(r){
+  const g = ((CAL && CAL.games) || []).find(x => String(x.game_id) === String(r.game_id));
+  const c = g ? (r.mkt === "SPREAD" ? g.ats_play_to : g.ou_play_to) : null;
+  const e = r.play_to;
+  if (e == null && c == null) return "";
+  // both qualify only up to the stricter of the two numbers
+  let both = null;
+  if (e != null && c != null) {
+    both = r.mkt === "TOTAL" && r.side_code === "OVER" ? Math.min(e, c) : Math.max(e, c);
+  }
+  return ` · play to ${ptFmt(r.mkt, both ?? e ?? c)}${both != null ? " (both)" : ""}`;
+}
 function renderPlays(){
   const ep = (EDGE && EDGE.plays) || [];
   const cg = (CAL && CAL.games) || [];
@@ -292,7 +312,7 @@ function renderPlays(){
     const L = r.best_line ?? r.line;
     return `<div class="agree-card"><span class="k">${r.mkt==="SPREAD"?"Spread":"Total"} · ${esc(r.away)} @ ${esc(r.home)}</span>
       <span class="v">${esc(r.side)} ${r.mkt==="SPREAD"?sgn(L):L.toFixed(1)}</span>
-      <span class="s">${r.tracking ? "Tracking only" : r.stake.toFixed(1)+"u Edge Board"} · Cal 1u${r.book ? " · best at " + esc(r.book) : ""}</span></div>`;
+      <span class="s">${r.tracking ? "Tracking only" : r.stake.toFixed(1)+"u Edge Board"} · Cal 1u${r.book ? " · best at " + esc(r.book) : ""}${agreePT(r)}</span></div>`;
   }).join("");
 }
 
