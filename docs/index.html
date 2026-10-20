@@ -161,6 +161,12 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
 </section>
 
 <section>
+  <div class="sec-head"><h2>Model check</h2><span class="muted mono">all graded plays, staked and tracked</span></div>
+  <p class="muted">Are bigger gaps winning more, and are the win probabilities used for staking holding up? "Expected" is the calibrated probability the stakes are based on. "Last season" is the 2025–26 backtest, Jan 1 – Mar 8. Watch for a bucket running well below its expected rate over 100+ plays.</p>
+  <div class="cols" id="check"></div>
+</section>
+
+<section>
   <div class="sec-head">
     <h2>Recent results</h2>
     <div class="seg" role="group" aria-label="Model">
@@ -181,9 +187,9 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
       <h3>Edge Board</h3>
       <ul>
         <li>Spread plays need 2+ points of disagreement with the consensus line; totals need 3+.</li>
-        <li>Stakes are ¼ Kelly, max 5u (1u = 1% of bankroll), sized at the best number across books.</li>
+        <li>Spread stakes are ¼ Kelly on a win probability calibrated to the backtest (about 54% at a 3-point gap), max 3u (1u = 1% of bankroll), sized at the best number across books.</li><li>Totals are 1u flat. Totals more than 5 points off the market are tracked, not bet: last season those lost.</li>
         <li>Staked Jan 1 – Mar 8 only. Before and after, plays are posted and graded as tracking only (0u).</li>
-        <li>Totals that Cal's model also picks get 1.5× the stake.</li>
+        <li>Totals that Cal's model also picks get 1.5u.</li>
         <li><strong>Play to</strong> is the worst line that still meets these rules at −110. Past it, pass.</li>
       </ul>
     </div>
@@ -246,7 +252,7 @@ function edgePlay(r){
   const book = r.book ? ` at ${esc(r.book)}` : "";
   const tags = `<span class="tag ${r.mkt==="SPREAD"?"spread":"total"}">${r.mkt==="SPREAD"?"Spread":"Total"}</span>`
     + (r.agree ? '<span class="tag both">Both models</span>' : "")
-    + (r.tracking ? '<span class="tag track">Tracking</span>' : "");
+    + (r.tracking ? `<span class="tag track">${esc(r.reason || "Tracking")}</span>` : "");
   const model = r.mkt === "SPREAD" ? `model ${esc(r.home)} by ${r.proj.toFixed(1)}` : `model total ${r.total.toFixed(1)}`;
   return `<div class="play">
     <div class="match">${esc(r.away)} @ ${esc(r.home)} ${startLabel(r.start) ? "· " + startLabel(r.start) : ""}</div>
@@ -342,6 +348,36 @@ function renderRecord(){
     document.getElementById("rec-since").textContent = `${y}–${String(y+1).slice(2)} season`;
   }
 }
+
+const LAST = {
+  edge: {SPREAD: {"2-3":.538,"3-4":.540,"4-5":.583,"5+":.656}, TOTAL: {"3-4":.534,"4-5":.544,"5-7":.510,"7+":.537}},
+  cal:  {ATS: {"5-7":.527,"7-10":.573,"10+":.667}, TOTAL: {"7-9":.528,"9-12":.593,"12+":.533}},
+  agree: {SPREAD: [.590,.547], TOTAL: [.581,.524]}
+};
+const pctf = v => v == null ? "—" : (100*v).toFixed(1) + "%";
+function checkTable(title, rows, last, extra){
+  const body = rows.map(b => `<tr><td>${b.gap} pts</td><td class="num">${b.w}-${b.l}</td><td class="num">${pctf(b.pct)}</td>`
+    + (extra ? `<td class="num">${pctf(b.expected)}</td><td class="num">${b.clv==null?"—":sgn(b.clv)}</td>` : "")
+    + `<td class="num muted">${pctf(last && last[b.gap])}</td></tr>`).join("");
+  const head = `<tr><th>Gap</th><th class="num">Record</th><th class="num">Win</th>${extra ? '<th class="num">Expected</th><th class="num">CLV</th>' : ""}<th class="num">Last season</th></tr>`;
+  return `<div class="model"><div class="model-head"><h3>${title}</h3></div><div class="table-wrap" style="border:0;border-radius:0"><table style="min-width:0"><thead>${head}</thead><tbody>${body}</tbody></table></div>${extra || ""}</div>`;
+}
+function renderCheck(){
+  const c = (REC && REC.check) || {}, e = c.edge || {}, k = c.cal || {};
+  const parts = [];
+  for (const [m, t] of [["SPREAD","Edge Board · spreads"],["TOTAL","Edge Board · totals"]]) {
+    const x = e[m];
+    if (!x) { parts.push(`<div class="model"><div class="model-head"><h3>${t}</h3></div><div class="empty">No graded plays yet.</div></div>`); continue; }
+    const ag = `<div class="empty" style="padding:10px 14px">Cal agrees: ${x.agree.w}-${x.agree.l} (${pctf(x.agree.pct)}) · doesn't: ${x.no_agree.w}-${x.no_agree.l} (${pctf(x.no_agree.pct)}). Last season ${pctf(LAST.agree[m][0])} vs ${pctf(LAST.agree[m][1])}.</div>`;
+    parts.push(checkTable(t, x.buckets, LAST.edge[m], ag));
+  }
+  for (const [m, t] of [["ATS","Cal's model · spreads"],["TOTAL","Cal's model · totals"]]) {
+    const x = k[m];
+    parts.push(x ? checkTable(t + " (weaker model's gap)", x.buckets, LAST.cal[m], "")
+                 : `<div class="model"><div class="model-head"><h3>${t}</h3></div><div class="empty">No graded plays yet.</div></div>`);
+  }
+  document.getElementById("check").innerHTML = parts.join("");
+}
 function renderResults(){
   const head = document.getElementById("res-head"), body = document.getElementById("res-rows");
   const day = s => { const t = new Date(s); return isNaN(t) ? esc(s) : t.toLocaleDateString([], {month:"short", day:"numeric", timeZone: /^\d{4}-\d{2}-\d{2}$/.test(s) ? "UTC" : undefined}); };
@@ -391,7 +427,7 @@ async function load(){
     ? "Updated " + new Date(ts).toLocaleString([], {weekday:"short", month:"short", day:"numeric", hour:"numeric", minute:"2-digit"})
       + (EDGE && EDGE.mode === "demo" ? " · demo data" : "")
     : "Couldn't load the latest plays.";
-  renderPlays(); renderRecord(); renderResults();
+  renderPlays(); renderRecord(); renderCheck(); renderResults();
 }
 load();
 </script>

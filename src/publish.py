@@ -47,6 +47,8 @@ def card_to_records(card: pd.DataFrame) -> list[dict]:
             "agree": bool(r.get("agree", False)),
             "play_to": None if pd.isna(r.get("play_to", np.nan)) else float(r["play_to"]),
             "tracking": float(r["stake_units"]) == 0.0,
+            "reason": str(r.get("reason", "") or ""),
+            "gap": None if pd.isna(r.get("gap", np.nan)) else float(r["gap"]),
         })
     return recs
 
@@ -233,8 +235,60 @@ def cal_record(since: str) -> dict:
 def write_record() -> str:
     since = _season_start()
     payload = {"updated_at": datetime.now(timezone.utc).isoformat(timespec="minutes"),
-               "season_start": since, "edge": edge_record(since), "cal": cal_record(since)}
+               "season_start": since, "edge": edge_record(since), "cal": cal_record(since),
+               "check": model_check(since)}
     os.makedirs(os.path.dirname(RECORD_PATH), exist_ok=True)
     with open(RECORD_PATH, "w") as f:
         json.dump(payload, f, indent=1)
     return RECORD_PATH
+
+
+# -----------------------------------------------------------------------------
+# Model check: is the staking calibration holding up? (both models, all plays)
+# -----------------------------------------------------------------------------
+EDGE_BUCKETS = {"SPREAD": [2, 3, 4, 5, 99], "TOTAL": [3, 4, 5, 7, 99]}
+CAL_BUCKETS = {"ATS": [5, 7, 10, 99], "TOTAL": [7, 9, 12, 99]}
+
+
+def _wl(res: pd.Series) -> dict:
+    w, l = int((res == "W").sum()), int((res == "L").sum())
+    return {"w": w, "l": l, "pct": round(w / (w + l), 3) if w + l else None}
+
+
+def _label(lo, hi):
+    return f"{lo:g}+" if hi >= 99 else f"{lo:g}-{hi:g}"
+
+
+def model_check(since: str) -> dict:
+    out = {"edge": {}, "cal": {}}
+    if os.path.exists(LOG_PATH):
+        log = pd.read_csv(LOG_PATH, dtype={"game_id": str})
+        log = log[(log["posted_at"].astype(str) >= since) & log["result"].astype(str).isin(["W", "L", "P"])]
+        if not log.empty and "gap" in log:
+            log["gap"] = pd.to_numeric(log["gap"], errors="coerce")
+            log["p"] = pd.to_numeric(log.get("p"), errors="coerce")
+            agree = log.get("agree", pd.Series("", index=log.index)).astype(str).str.lower() == "true"
+            for mkt, edges in EDGE_BUCKETS.items():
+                g = log[log["mkt"] == mkt]
+                rows = []
+                for lo, hi in zip(edges[:-1], edges[1:]):
+                    b = g[(g["gap"] >= lo) & (g["gap"] < hi)]
+                    clv = pd.to_numeric(b.get("clv_points"), errors="coerce").dropna()
+                    rows.append({"gap": _label(lo, hi), **_wl(b["result"]),
+                                 "expected": round(float(b["p"].mean()), 3) if b["p"].notna().any() else None,
+                                 "clv": round(float(clv.mean()), 2) if len(clv) else None})
+                out["edge"][mkt] = {"buckets": rows,
+                                    "agree": _wl(g[agree.loc[g.index]]["result"]),
+                                    "no_agree": _wl(g[~agree.loc[g.index]]["result"])}
+    if os.path.exists(CAL_LOG_PATH):
+        log = pd.read_csv(CAL_LOG_PATH, dtype={"game_id": str, "units": str}).fillna({"units": ""})
+        log = log[log["posted_at"].astype(str) >= since]
+        u = pd.to_numeric(log["units"], errors="coerce")
+        log = log[u.notna()].assign(result=np.where(u[u.notna()] > 0, "W", np.where(u[u.notna()] < 0, "L", "P")))
+        if not log.empty and "gap" in log:
+            log["gap"] = pd.to_numeric(log["gap"], errors="coerce")
+            for mkt, edges in CAL_BUCKETS.items():
+                g = log[log["market"] == mkt]
+                out["cal"][mkt] = {"buckets": [{"gap": _label(lo, hi), **_wl(g[(g["gap"] >= lo) & (g["gap"] < hi)]["result"])}
+                                               for lo, hi in zip(edges[:-1], edges[1:])]}
+    return out

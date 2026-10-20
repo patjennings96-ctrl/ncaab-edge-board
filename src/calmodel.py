@@ -323,6 +323,9 @@ def log_plays(priced: pd.DataFrame, names: dict) -> None:
                              "game_id": str(r.game_id), "start": str(r.start),
                              "away": names.get(r.away, r.away), "home": names.get(r.home, r.home),
                              "market": mkt, "play": play, "line": r.line, "total_line": r.total_line,
+                             # the weaker model's margin past the line (drives the play)
+                             "gap": round(min(abs(r.m1_ats), abs(r.m2_ats)) if mkt == "ATS"
+                                          else min(abs(r.m1_tot), abs(r.m2_tot_adj)), 2),
                              "units": ""})
     if not rows:
         return

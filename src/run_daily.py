@@ -157,15 +157,38 @@ def play_to(mkt: str, side: str, proj: float, sigma: float, min_points: float,
     return _half_down(proj - gap) if side == "OVER" else _half_up(proj + gap)
 
 
+# --- Staking (Oct 2026 review of the 2025-26 backtest) -------------------------
+# The pricing sigmas above decide WHETHER to bet (with the point minimums). The
+# win probabilities they imply were far too confident for SIZING: at a 3-point
+# spread gap they say 60%, while backtested plays won ~55% in Jan-Mar and ~51%
+# over the full season. Stakes now use calibrated probabilities:
+#   spreads  P(win) = Phi(gap / CAL_SIGMA_SPREAD): 52.7% at 2 pts, 54.0% at 3,
+#            56.6% at 5 (between the Jan-Mar fit, sigma 23, and the full season, 97)
+#   totals   bigger gaps did not win more (5+ point gaps lost), so totals are
+#            flat-staked, and gaps over TOTAL_MAX_GAP are tracked, not bet.
+CAL_SIGMA_SPREAD = 30.0
+CAL_SIGMA_TOTAL = 42.0          # display only (fit on 3-5 point totals)
+MAX_STAKE_SPREAD = 3.0
+TOTAL_FLAT_UNITS = 1.0
+TOTAL_MAX_GAP = 5.0
+
+
+def _cal_prob(gap_for_side: float, sigma: float) -> float:
+    """Calibrated win probability for the picked side, given its gap in points."""
+    from scipy.stats import norm
+    return float(norm.cdf(gap_for_side / sigma))
+
+
 def make_card(pred_df: pd.DataFrame, kelly_mult=0.25, min_edge=0.025,
               cal_plays: dict | None = None) -> pd.DataFrame:
     """Turn predictions + lines into a recommended-bet card.
 
-    The bet decision uses the consensus (median) line; the stake is then sized
-    at the best number available across books, which is the line to bet.
+    Which side, and whether to bet: the consensus line, the point minimums and
+    the pricing sigmas. How much: calibrated probabilities (spreads, quarter
+    Kelly at the best number across books) or a flat stake (totals).
     `cal_plays`: {game_id: {"ATS": "HOME"/"AWAY"/"", "TOTAL": "OVER"/"UNDER"/""}}.
     """
-    from edge import prob_cover_spread, prob_over
+    from edge import kelly_fraction
     cal_plays = cal_plays or {}
     card = []
     for row in pred_df.itertuples(index=False):
@@ -184,13 +207,21 @@ def make_card(pred_df: pd.DataFrame, kelly_mult=0.25, min_edge=0.025,
                                   kelly_mult=kelly_mult, min_edge=min_edge)
             if sp:
                 r = {**base, "mkt": "SPREAD", **sp.as_row()}
+                # picked side's own line L -> its gap to the model
                 if sp.side == "HOME":
-                    pf = lambda L: prob_cover_spread(row.pred_margin, L, sig)
+                    gap = lambda L: row.pred_margin + L
                 else:
-                    pf = lambda L: 1.0 - prob_cover_spread(row.pred_margin, -L, sig)
-                r.update(_shop(row, sp.side, pf, kelly_mult))
+                    gap = lambda L: L - row.pred_margin
+                pf = lambda L: _cal_prob(gap(L), CAL_SIGMA_SPREAD)
+                p0 = pf(sp.line)
+                r["gap"] = round(gap(sp.line), 2)
+                r["model_prob"] = round(p0, 4)
+                r["edge_pct"] = round(100 * (p0 - sp.fair_prob), 2)
+                r["stake_units"] = round(min(kelly_mult * kelly_fraction(p0, sp.odds) * 100, MAX_STAKE_SPREAD), 3)
+                r.update(_shop(row, sp.side, pf, kelly_mult, max_stake=MAX_STAKE_SPREAD))
                 r["play_to"] = play_to("SPREAD", sp.side, row.pred_margin, sig, MIN_POINTS_SPREAD, min_edge)
                 r["agree"] = cal.get("ATS", "") == sp.side
+                r["reason"] = "" if window else "Outside betting window"
                 if not window:
                     r["stake_units"] = 0.0
                 card.append(r)
@@ -201,20 +232,27 @@ def make_card(pred_df: pd.DataFrame, kelly_mult=0.25, min_edge=0.025,
             if tot:
                 r = {**base, "mkt": "TOTAL", **tot.as_row()}
                 if tot.side == "OVER":
-                    pf = lambda L: prob_over(row.pred_total, L, sig)
+                    gap = lambda L: row.pred_total - L
                 else:
-                    pf = lambda L: 1.0 - prob_over(row.pred_total, L, sig)
+                    gap = lambda L: L - row.pred_total
+                pf = lambda L: _cal_prob(gap(L), CAL_SIGMA_TOTAL)
+                p0 = pf(tot.line)
+                r["gap"] = round(gap(tot.line), 2)
+                r["model_prob"] = round(p0, 4)
+                r["edge_pct"] = round(100 * (p0 - tot.fair_prob), 2)
                 r.update(_shop(row, tot.side, pf, kelly_mult))
                 r["play_to"] = play_to("TOTAL", tot.side, row.pred_total, sig, MIN_POINTS_TOTAL, min_edge)
                 r["agree"] = cal.get("TOTAL", "") == tot.side
-                if r["agree"]:
-                    r["stake_units"] = round(min(r["stake_units"] * AGREE_TOTAL_MULT, 5.0), 3)
-                if not window:
-                    r["stake_units"] = 0.0
+                r["stake_units"] = TOTAL_FLAT_UNITS * (AGREE_TOTAL_MULT if r["agree"] else 1.0)
+                r["reason"] = ""
+                if abs(row.pred_total - row.total) > TOTAL_MAX_GAP:
+                    r["stake_units"], r["reason"] = 0.0, f"Over {TOTAL_MAX_GAP:g} pts off the market"
+                elif not window:
+                    r["stake_units"], r["reason"] = 0.0, "Outside betting window"
                 card.append(r)
     cols = ["game_id", "start", "home", "away", "mkt", "side", "line", "odds",
             "best_line", "best_odds", "best_book", "proj_margin", "proj_total",
-            "model_prob", "edge_pct", "stake_units", "play_to", "agree", "notes"]
+            "model_prob", "edge_pct", "stake_units", "play_to", "gap", "agree", "reason", "notes"]
     df = pd.DataFrame(card)
     return df[[c for c in cols if c in df.columns]] if not df.empty else df
 
@@ -311,7 +349,9 @@ def run(demo: bool = True, sheet_id: str | None = None):
     # --- publish for the website + history log ---
     import publish
     mode = "demo" if demo else "live"
-    settings = {"kelly_mult": 0.25, "min_edge_pct": 2.5, "max_stake_units": 5.0,
+    settings = {"kelly_mult": 0.25, "min_edge_pct": 2.5, "max_stake_units": MAX_STAKE_SPREAD,
+                "total_flat_units": TOTAL_FLAT_UNITS, "total_max_gap": TOTAL_MAX_GAP,
+                "cal_sigma_spread": CAL_SIGMA_SPREAD,
                 "min_points_spread": MIN_POINTS_SPREAD, "min_points_total": MIN_POINTS_TOTAL,
                 "bet_window": "Jan 1 - Mar 8", "agree_total_mult": AGREE_TOTAL_MULT}
     print("\nWrote", publish.write_json(card, mode, settings))

@@ -148,9 +148,9 @@ ul.clean li{max-width:68ch}
     <p class="lede">A tempo-free efficiency model that projects every game's margin and total, converts each projection into a cover probability, and sizes plays with quarter-Kelly. The goal is beating the closing line, measured out of sample.</p>
   </div>
   <div class="scoreboard" aria-label="Model settings">
-    <div><span class="k">Staking</span><span class="v">¼ Kelly</span></div>
+    <div><span class="k">Spreads</span><span class="v">¼ Kelly</span></div>
     <div><span class="k">Min gap</span><span class="v">2 / 3 pts</span></div>
-    <div><span class="k">Max bet</span><span class="v">5.0u</span></div>
+    <div><span class="k">Totals</span><span class="v">1u flat</span></div>
     <div><span class="k">Break-even @ −110</span><span class="v">52.38%</span></div>
   </div>
 </header>
@@ -182,7 +182,7 @@ ul.clean li{max-width:68ch}
       <tbody id="rows"></tbody>
     </table>
   </div>
-  <p class="muted foot">Win prob is the model's chance the play cashes. Edge is win prob minus the de-vigged market probability (50% at −110/−110). Stake is ¼ Kelly in units, capped at 5u.</p>
+  <p class="muted foot">Win prob is calibrated to how plays with the same gap actually did in the 2025–26 backtest (about 54% at a 3-point spread gap), not the raw model's more confident number. Edge is win prob minus the de-vigged market probability. Spread stakes are ¼ Kelly on that calibrated probability, capped at 3u; totals are 1u flat (1.5u when Cal's model agrees), and totals more than 5 points off the market are tracked, not bet.</p>
 </section>
 
 <section id="pipeline">
@@ -311,7 +311,7 @@ Stake    = ¼ · (P·b − (1−P)) / b   ·  b = decimal − 1</div>
         <div><div class="k">Stake</div><div class="v" id="r-stake">—</div></div>
         <div class="verdict" id="r-verdict">—</div>
       </div>
-      <p class="muted foot">Uses the same math as <span class="mono">edge.py</span>: proportional de-vig, Normal cover probability, quarter-Kelly, 2.5% minimum edge, 5u cap.</p>
+      <p class="muted foot">Uses the same math as <span class="mono">edge.py</span>: proportional de-vig, Normal cover probability, quarter-Kelly, 2.5% minimum edge, 5u cap. (The live card now sizes on calibrated probabilities with a 3u cap; see Plays.)</p>
     </div>
   </div>
 </section>
@@ -403,7 +403,7 @@ function render(){
       <td class="num">${model}</td>
       <td class="num">${(r.p*100).toFixed(1)}%</td>
       <td class="num"><div class="edgecell"><div class="bar"><i style="width:${(r.edge/maxEdge*100).toFixed(0)}%"></i></div>${r.edge.toFixed(1)}%</div></td>
-      <td class="num"><span class="units">${r.stake.toFixed(1)}u</span>${r.stake>=5?'<span class="capped">cap</span>':''}</td>
+      <td class="num"><span class="units">${r.stake.toFixed(1)}u</span>${r.stake>=3&&r.mkt==="SPREAD"?'<span class="capped">cap</span>':''}</td>
     </tr>`;
   }).join("");
   const units = rows.reduce((s,r)=>s+r.stake,0);
