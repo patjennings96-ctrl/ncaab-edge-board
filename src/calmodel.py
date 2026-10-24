@@ -194,7 +194,13 @@ def price_slate(slate: pd.DataFrame, m1: pd.DataFrame, m2: pd.DataFrame) -> pd.D
     df = pd.DataFrame(rows)
     if df.empty:
         return df
-    df["m2_tot_adj"] = df["m2_tot"] - df["m2_tot"].mean()          # "Adjust Daily"
+    # "Adjust Daily": subtract that day's average Model 2 total value. The
+    # slate can span several days once books post lines early, so average
+    # within each Eastern date.
+    st = pd.to_datetime(df["start"], utc=True, errors="coerce")
+    df["day"] = np.where(st.notna(), st.dt.tz_convert("America/New_York").dt.strftime("%Y-%m-%d"),
+                         df["start"].astype(str).str[:10])
+    df["m2_tot_adj"] = df["m2_tot"] - df.groupby("day")["m2_tot"].transform("mean")
     df["ats_play"] = np.select(
         [(df.m1_ats >= ATS_THRESHOLD) & (df.m2_ats >= ATS_THRESHOLD),
          (df.m1_ats <= -ATS_THRESHOLD) & (df.m2_ats <= -ATS_THRESHOLD)], ["HOME", "AWAY"], "")
@@ -202,8 +208,8 @@ def price_slate(slate: pd.DataFrame, m1: pd.DataFrame, m2: pd.DataFrame) -> pd.D
         [(df.m1_tot >= TOTAL_THRESHOLD) & (df.m2_tot_adj >= TOTAL_THRESHOLD),
          (df.m1_tot <= -TOTAL_THRESHOLD) & (df.m2_tot_adj <= -TOTAL_THRESHOLD)], ["OVER", "UNDER"], "")
     df["ats_play_to"] = [ats_play_to(r) for r in df.itertuples(index=False)]
-    n_tot = int(df["m2_tot"].notna().sum())
-    df["ou_play_to"] = [ou_play_to(r, n_tot) for r in df.itertuples(index=False)]
+    n_day = df.groupby("day")["m2_tot"].transform("count")
+    df["ou_play_to"] = [ou_play_to(r, int(n)) for r, n in zip(df.itertuples(index=False), n_day)]
     return df
 
 

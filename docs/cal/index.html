@@ -246,9 +246,10 @@ function grade(g, kind) {
   return x > 0 ? '<span class="tag win">W</span>' : x < 0 ? '<span class="tag loss">L</span>' : '<span class="tag">P</span>';
 }
 
+function gameTime(s) { const t = new Date(s); return !s || isNaN(t) || /^\d{4}-\d{2}-\d{2}$/.test(s) ? "" : t.toLocaleString([], {weekday:"short", month:"short", day:"numeric", hour:"numeric", minute:"2-digit"}); }
 function render() {
   const list = GAMES.filter(g => FILTER === "all" || g.ats_play || g.ou_play)
-    .sort((a, b) => (!!(b.ats_play || b.ou_play)) - (!!(a.ats_play || a.ou_play)));
+    .sort((a, b) => (!!(b.ats_play || b.ou_play)) - (!!(a.ats_play || a.ou_play)) || String(a.start).localeCompare(String(b.start)));
   const body = document.getElementById("rows");
   if (!list.length) {
     body.innerHTML = `<tr><td colspan="7" class="none">${GAMES.length ? "No game has both models agreeing today." : "No games with lines right now. The slate fills in on game days."}</td></tr>`;
@@ -258,7 +259,7 @@ function render() {
     const side = g.ats_play ? (g.ats_play === "HOME" ? g.home : g.away) : "";
     const sideLine = g.ats_play ? (g.ats_play === "HOME" ? g.line : -g.line) : null;
     return `<tr class="${g.ats_play || g.ou_play ? "hasplay" : ""}">
-      <td class="game">${esc(g.away)} @ ${esc(g.home)}<small>M1 ${g.m1.away}–${g.m1.home} · M2 ${g.m2.away}–${g.m2.home}</small></td>
+      <td class="game">${esc(g.away)} @ ${esc(g.home)}<small>${gameTime(g.start)}</small><small>M1 ${g.m1.away}–${g.m1.home} · M2 ${g.m2.away}–${g.m2.home}</small></td>
       <td class="num">${g.line == null ? "—" : "Home " + sgn(g.line)}<br><span class="muted">O/U ${g.total_line ?? "—"}</span></td>
       <td><div class="val">${strip(g.m1.ats, g.m2.ats, TH.ats, 15)}<span class="nums">M1 ${g.m1.ats == null ? "—" : sgn(g.m1.ats)}<br>M2 ${g.m2.ats == null ? "—" : sgn(g.m2.ats)}</span></div></td>
       <td>${side ? `<span class="tag play">${esc(side)} ${sgn(sideLine)}</span> ${grade(g, "ats")}${g.ats_play_to != null ? `<small class="pto">play to ${sgn(g.ats_play_to)}</small>` : ""}` : '<span class="none">—</span>'}</td>

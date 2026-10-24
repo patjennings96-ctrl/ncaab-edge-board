@@ -263,18 +263,31 @@ def team_names(*frames: pd.DataFrame) -> dict:
 # -----------------------------------------------------------------------------
 # Today's slate (ESPN) + odds (The Odds API)
 # -----------------------------------------------------------------------------
-def upcoming_slate(hours: int = 30) -> pd.DataFrame:
-    """Games starting in the next `hours` that haven't tipped yet."""
+MAX_SLATE_DAYS = 21     # how far ahead to price games that already have lines
+
+
+def upcoming_slate(hours: int = 30, until: date | None = None) -> pd.DataFrame:
+    """
+    Games that haven't tipped yet: the next `hours`, or every game through the
+    Eastern date `until` (capped at MAX_SLATE_DAYS ahead).
+    """
     now = datetime.now(timezone.utc)
     today = datetime.now(ET).date()
-    evs = espn_scoreboard(today) + espn_scoreboard(today + timedelta(days=1))
+    if until is None:
+        days = [today, today + timedelta(days=1)]
+        horizon = now + timedelta(hours=hours)
+    else:
+        last = min(until, today + timedelta(days=MAX_SLATE_DAYS))
+        days = [today + timedelta(days=i) for i in range((last - today).days + 1)]
+        horizon = None
     rows = []
-    for e in evs:
-        if e["completed"] or not e["start"]:
-            continue
-        start = datetime.fromisoformat(e["start"].replace("Z", "+00:00"))
-        if now <= start <= now + timedelta(hours=hours):
-            rows.append(e)
+    for d in days:
+        for e in espn_scoreboard(d):
+            if e["completed"] or not e["start"]:
+                continue
+            start = datetime.fromisoformat(e["start"].replace("Z", "+00:00"))
+            if start >= now and (horizon is None or start <= horizon):
+                rows.append(e)
     return pd.DataFrame(rows).drop_duplicates("game_id") if rows else pd.DataFrame()
 
 
@@ -392,14 +405,16 @@ def match_teams(odds_names: list[str], espn_names: dict) -> dict:
 
 
 def build_live_slate(api_key: str, espn_names: dict) -> pd.DataFrame:
-    """Join ESPN's upcoming games with consensus odds."""
-    slate = upcoming_slate()
-    if slate.empty:
-        print("[slate] no upcoming games in the next 30 hours")
-        return pd.DataFrame()
+    """Join ESPN's upcoming games with odds: every game that has lines posted,
+    up to MAX_SLATE_DAYS ahead (one Odds API call covers all of them)."""
     odds = fetch_odds(api_key)
     if odds.empty:
         print("[odds] no NCAAB odds returned")
+        return pd.DataFrame()
+    last = pd.to_datetime(odds["commence"], utc=True).dt.tz_convert(ET).dt.date.max()
+    slate = upcoming_slate(until=last)
+    if slate.empty:
+        print(f"[slate] no untipped games through {last}")
         return pd.DataFrame()
 
     names = {**espn_names,
@@ -423,8 +438,14 @@ def build_live_slate(api_key: str, espn_names: dict) -> pd.DataFrame:
         flipped = flipped[[c for c in j.columns if c in flipped.columns]]
         j = pd.concat([j, flipped], ignore_index=True)
 
+    # the same two teams can meet twice in the window: keep the odds whose
+    # start time matches ESPN's
+    if not j.empty:
+        gap = (pd.to_datetime(j["start"], utc=True) - pd.to_datetime(j["commence"], utc=True)).abs()
+        j = j[gap <= pd.Timedelta(hours=18)]
+        j = j.sort_values("n_books", ascending=False).drop_duplicates("game_id")
     j = j.dropna(subset=["spread_home", "total"], how="all")
-    print(f"[slate] {len(slate)} upcoming, {len(odds)} with odds, {len(j)} matched")
+    print(f"[slate] {len(slate)} untipped games through {last}, {len(odds)} with odds, {len(j)} matched")
     snapshot_odds(j)
     return j.rename(columns={"home_id": "home", "away_id": "away"})
 

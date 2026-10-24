@@ -75,6 +75,7 @@ nav a:focus-visible,.seg button:focus-visible{outline:2px solid var(--accent);ou
 .play .match{font-size:.82rem;color:var(--muted)}
 .play .pick{font-weight:600;font-size:1.02rem}
 .ptrow{font-size:.82rem}
+.dayhead{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--bg);padding:7px 14px;border-bottom:1px solid var(--line)}
 .pt{font-family:var(--mono);font-size:.78rem;color:var(--good);background:var(--good-soft);padding:1px 7px;border-radius:3px}
 .play .meta{grid-column:1/-1;font-size:.8rem;color:var(--muted)}
 .play .stake{grid-row:1/4;grid-column:2;text-align:right;align-self:center;font-family:var(--display);font-size:1.4rem;font-weight:700;font-variant-numeric:tabular-nums}
@@ -137,7 +138,7 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
 </section>
 
 <section>
-  <div class="sec-head"><h2>Today's plays</h2><span class="muted mono" id="plays-n"></span></div>
+  <div class="sec-head"><h2>Upcoming plays</h2><span class="muted mono" id="plays-n"></span></div>
   <div class="cols">
     <div class="model">
       <div class="model-head"><h3>Edge Board</h3><a href="edge/">How it works →</a></div>
@@ -298,15 +299,36 @@ function agreePT(r){
   }
   return ` · play to ${ptFmt(r.mkt, both ?? e ?? c)}${both != null ? " (both)" : ""}`;
 }
+function dayKey(s){
+  const t = new Date(s);
+  if (!s || isNaN(t)) return /^\d{4}-\d{2}-\d{2}/.test(s||"") ? s.slice(0,10) : "";
+  return new Intl.DateTimeFormat("en-CA",{timeZone:ET,year:"numeric",month:"2-digit",day:"2-digit"}).format(t);
+}
+function dayLabel(k){
+  if (!k) return "Date TBD";
+  const today = dayKey(new Date().toISOString());
+  const tm = dayKey(new Date(Date.now()+86400000).toISOString());
+  const d = new Date(k + "T12:00:00Z");
+  const s = d.toLocaleDateString([], {weekday:"long", month:"short", day:"numeric", timeZone:"UTC"});
+  return k === today ? "Today · " + s : (k === tm ? "Tomorrow · " + s : s);
+}
+// group plays under date headings (Eastern dates), earliest first
+function byDay(items, startOf, render, within){
+  const groups = {};
+  items.forEach(x => (groups[dayKey(startOf(x))] ||= []).push(x));
+  return Object.keys(groups).sort().map(k =>
+    `<div class="dayhead">${esc(dayLabel(k))}<span>${groups[k].length}</span></div>` +
+    groups[k].sort((a,b) => within(a,b) || String(startOf(a)).localeCompare(String(startOf(b)))).map(render).join("")).join("");
+}
 function renderPlays(){
   const ep = (EDGE && EDGE.plays) || [];
   const cg = (CAL && CAL.games) || [];
   const cp = cg.flatMap(calPicks);
   document.getElementById("edge-plays").innerHTML = ep.length
-    ? [...ep].sort((a,b)=>b.edge-a.edge).map(edgePlay).join("")
+    ? byDay(ep, r => r.start, edgePlay, (a,b) => b.edge - a.edge)
     : `<div class="empty">No Edge Board plays right now.${EDGE ? "" : " (Couldn't load data/plays.json.)"}</div>`;
   document.getElementById("cal-plays").innerHTML = cp.length
-    ? cp.map(calPlay).join("")
+    ? byDay(cp, p => p.g.start, calPlay, () => 0)
     : `<div class="empty">No games clear Cal's thresholds right now.${CAL ? "" : " (Couldn't load cal/data/plays.json.)"}</div>`;
   const su = ep.reduce((s,r)=>s+(r.tracking?0:r.stake),0);
   document.getElementById("plays-n").textContent = `Edge ${ep.length} (${su.toFixed(1)}u) · Cal ${cp.length}`;

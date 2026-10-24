@@ -379,6 +379,7 @@ Stake    = ¼ · (P·b − (1−P)) / b   ·  b = decimal − 1</div>
 <script>
 let PLAYS = [];
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const gameTime = s => { const t = new Date(s); return !s || isNaN(t) ? "" : t.toLocaleString([], {weekday:"short", month:"short", day:"numeric", hour:"numeric", minute:"2-digit"}); };
 const fmtLine = v => (v>0?"+":"") + v.toFixed(1);
 let filter = "ALL";
 const fmtOdds = o => (o>0?"+":"") + o;
@@ -391,13 +392,13 @@ function bestPlay(r){
 }
 function render(){
   if(!PLAYS.length){document.getElementById("rows").innerHTML='<tr><td colspan="7" class="muted">No plays clear the edge threshold right now.</td></tr>';document.getElementById("summary").textContent="0 plays";return;}
-  const rows = PLAYS.filter(r => filter==="ALL" || r.mkt===filter).sort((a,b)=>b.edge-a.edge);
+  const rows = PLAYS.filter(r => filter==="ALL" || r.mkt===filter).sort((a,b)=>String(a.start).slice(0,10).localeCompare(String(b.start).slice(0,10)) || b.edge-a.edge);
   const maxEdge = Math.max(...PLAYS.map(r=>r.edge));
   document.getElementById("rows").innerHTML = rows.map(r=>{
     const play = r.mkt==="SPREAD" ? `${r.side} ${fmtLine(r.line)}` : `${r.side} ${r.line.toFixed(1)}`;
     const model = r.mkt==="SPREAD" ? `${r.home} ${fmtLine(r.proj)}` : r.total.toFixed(1);
     return `<tr>
-      <td class="match">${esc(r.away)} @ ${esc(r.home)}<small>proj ${esc(r.home)} by ${r.proj.toFixed(1)}, total ${r.total.toFixed(1)}</small>${r.notes?`<small class="note">Lineup: ${esc(r.notes)}</small>`:""}</td>
+      <td class="match">${esc(r.away)} @ ${esc(r.home)}<small>${gameTime(r.start)}</small><small>proj ${esc(r.home)} by ${r.proj.toFixed(1)}, total ${r.total.toFixed(1)}</small>${r.notes?`<small class="note">Lineup: ${esc(r.notes)}</small>`:""}</td>
       <td><span class="pill ${r.mkt.toLowerCase()}">${r.mkt==="SPREAD"?"Spread":"Total"}</span></td>
       <td class="pick">${bestPlay(r)}${r.agree?'<span class="agree">Both models</span>':''}${r.tracking?'<span class="track">Tracking only</span>':''}</td>
       <td class="num">${model}</td>
