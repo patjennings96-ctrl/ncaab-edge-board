@@ -339,7 +339,7 @@ def run(demo: bool = True, sheet_id: str | None = None):
         if ctx is not None:
             preds = apply_lineups(preds, ctx, names)
         card = make_card(preds, cal_plays=cal_plays)
-        if names:
+        if names and not card.empty:
             card["home"] = card["home"].map(names).fillna(card["home"])
             card["away"] = card["away"].map(names).fillna(card["away"])
 

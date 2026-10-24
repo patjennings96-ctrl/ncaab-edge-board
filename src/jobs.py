@@ -132,6 +132,39 @@ def rosters(season: int) -> None:
     PS.fetch_rosters(int(season), ids)
 
 
+def odds_probe() -> None:
+    """What The Odds API has for NCAAB right now: events (free) and odds by
+    book and date (2 credits). Never prints the key."""
+    import collections
+    key = os.environ.get("ODDS_API_KEY", "")
+    base = "https://api.the-odds-api.com/v4/sports/basketball_ncaab"
+    lines = []
+    r = live.SESSION.get(f"{base}/events", params={"apiKey": key}, timeout=40)
+    ev = r.json() if r.ok else []
+    lines.append(f"events: HTTP {r.status_code}, {len(ev)} events, "
+                 f"credits left {r.headers.get('x-requests-remaining')}")
+    by_day = collections.Counter(e["commence_time"][:10] for e in ev)
+    lines.append("events by UTC date: " + ", ".join(f"{d} {n}" for d, n in sorted(by_day.items())))
+    for regions in ("us", "us,us2"):
+        r = live.SESSION.get(f"{base}/odds", params={"apiKey": key, "regions": regions,
+                             "markets": "spreads,totals", "oddsFormat": "american"}, timeout=40)
+        od = r.json() if r.ok else []
+        books = collections.Counter(b["key"] for e in od for b in e.get("bookmakers", []))
+        days = collections.Counter(e["commence_time"][:10] for e in od if e.get("bookmakers"))
+        lines.append(f"odds regions={regions}: HTTP {r.status_code}, {len(od)} events, "
+                     f"{sum(1 for e in od if e.get('bookmakers'))} with any book, "
+                     f"credits left {r.headers.get('x-requests-remaining')}")
+        lines.append("  books: " + ", ".join(f"{b} {n}" for b, n in books.most_common()))
+        lines.append("  priced events by UTC date: " + ", ".join(f"{d} {n}" for d, n in sorted(days.items())))
+        for e in od[:8]:
+            lines.append(f"  {e['commence_time']} {e['away_team']} @ {e['home_team']}: "
+                         + ", ".join(b["key"] for b in e.get("bookmakers", [])))
+    os.makedirs(OUT_DIR, exist_ok=True)
+    with open(os.path.join(OUT_DIR, "odds_probe.log"), "w") as f:
+        f.write("\n".join(lines) + "\n")
+    print("\n".join(lines))
+
+
 def main(argv):
     if not argv:
         print("usage: jobs.py <command> [args]")
@@ -139,7 +172,8 @@ def main(argv):
     cmd, args = argv[0], argv[1:]
     fn = {"probe_torvik": probe_torvik, "backfill_players": backfill_players,
           "lineup_backtest": lineup_backtest, "start_times": start_times,
-          "probe_url": probe_url, "espn_teams": espn_teams, "rosters": rosters}.get(cmd)
+          "probe_url": probe_url, "espn_teams": espn_teams, "rosters": rosters,
+          "odds_probe": odds_probe}.get(cmd)
     if fn is None:
         raise SystemExit(f"unknown command {cmd}")
     fn(*[int(a) if a.isdigit() and cmd != "probe_url" else a for a in args])
