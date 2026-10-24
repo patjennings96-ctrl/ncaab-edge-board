@@ -320,6 +320,8 @@ def run(demo: bool = True, sheet_id: str | None = None):
 
     # --- Cal's model: same slate and lines, its own two-model rules ---
     cal_plays = {}
+    priced = None
+    preds = None
     if not demo:
         try:
             import calmodel
@@ -355,6 +357,7 @@ def run(demo: bool = True, sheet_id: str | None = None):
                 "min_points_spread": MIN_POINTS_SPREAD, "min_points_total": MIN_POINTS_TOTAL,
                 "bet_window": "Jan 1 - Mar 8", "agree_total_mult": AGREE_TOTAL_MULT}
     print("\nWrote", publish.write_json(card, mode, settings))
+    print("Wrote", publish.write_slate(preds, priced, card, names))
     log = publish.append_log(card, mode)
     if log:
         print("Appended", log)

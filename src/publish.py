@@ -292,3 +292,46 @@ def model_check(since: str) -> dict:
                 out["cal"][mkt] = {"buckets": [{"gap": _label(lo, hi), **_wl(g[(g["gap"] >= lo) & (g["gap"] < hi)]["result"])}
                                                for lo, hi in zip(edges[:-1], edges[1:])]}
     return out
+
+
+# -----------------------------------------------------------------------------
+# Full slate: every game with lines, both models' numbers, plays or not
+# -----------------------------------------------------------------------------
+SLATE_PATH = os.path.join(ROOT, "docs", "data", "slate.json")
+
+
+def _f(x, n=1):
+    try:
+        x = float(x)
+    except (TypeError, ValueError):
+        return None
+    return None if not np.isfinite(x) else round(x, n)
+
+
+def write_slate(preds, cal_priced, card, names: dict) -> str:
+    games = []
+    cal = cal_priced.set_index(cal_priced["game_id"].astype(str)) \
+        if cal_priced is not None and not cal_priced.empty else pd.DataFrame()
+    plays = set()
+    if card is not None and not card.empty:
+        plays = set(card["game_id"].astype(str) + "|" + card["mkt"])
+    if preds is not None and not preds.empty:
+        for r in preds.itertuples(index=False):
+            gid = str(getattr(r, "game_id", ""))
+            g = {"game_id": gid, "start": str(getattr(r, "start", "")),
+                 "home": names.get(r.home, r.home), "away": names.get(r.away, r.away),
+                 "spread_home": _f(r.spread_home), "total": _f(r.total),
+                 "edge": {"margin": _f(r.pred_margin), "total": _f(r.pred_total),
+                          "spread_play": gid + "|SPREAD" in plays, "total_play": gid + "|TOTAL" in plays},
+                 "book": str(getattr(r, "best_home_book", "") or "")}
+            if not cal.empty and gid in cal.index:
+                c = cal.loc[gid]
+                g["cal"] = {"m1_margin": _f(c.m1_home - c.m1_away), "m2_margin": _f(c.m2_home - c.m2_away),
+                            "m1_total": _f(c.m1_home + c.m1_away), "m2_total": _f(c.m2_home + c.m2_away),
+                            "ats_play": str(c.ats_play or ""), "ou_play": str(c.ou_play or "")}
+            games.append(g)
+    games.sort(key=lambda g: (g["start"], g["home"]))
+    with open(SLATE_PATH, "w") as f:
+        json.dump({"updated_at": datetime.now(timezone.utc).isoformat(timespec="minutes"),
+                   "games": games}, f, indent=1)
+    return SLATE_PATH

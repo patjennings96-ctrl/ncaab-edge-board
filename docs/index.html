@@ -75,6 +75,11 @@ nav a:focus-visible,.seg button:focus-visible{outline:2px solid var(--accent);ou
 .play .match{font-size:.82rem;color:var(--muted)}
 .play .pick{font-weight:600;font-size:1.02rem}
 .ptrow{font-size:.82rem}
+.slate td{font-size:.88rem}
+.slate td.match{font-weight:600}
+.slate td.match small{display:block;font-weight:400;color:var(--muted);font-size:.75rem}
+.slate .dayrow td{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
+.hl{background:var(--good-soft);color:var(--good);padding:1px 5px;border-radius:3px;font-weight:600}
 .dayhead{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--bg);padding:7px 14px;border-bottom:1px solid var(--line)}
 .pt{font-family:var(--mono);font-size:.78rem;color:var(--good);background:var(--good-soft);padding:1px 7px;border-radius:3px}
 .play .meta{grid-column:1/-1;font-size:.8rem;color:var(--muted)}
@@ -149,6 +154,15 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
       <div id="cal-plays"><div class="empty">Loading…</div></div>
     </div>
   </div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>All games with lines</h2><span class="muted mono" id="slate-n"></span></div>
+  <p class="muted">Every game the books have priced, run through both models, whether or not it's a play. Spreads and margins are from the home team's side (−4.5 = home favored by 4.5). Highlighted numbers are plays.</p>
+  <div class="table-wrap"><table class="slate">
+    <thead><tr><th>Game</th><th class="num">Spread</th><th class="num">Edge</th><th class="num">Cal M1 / M2</th><th class="num">Total</th><th class="num">Edge</th><th class="num">Cal M1 / M2</th></tr></thead>
+    <tbody id="slate-rows"><tr><td colspan="7" class="muted">Loading…</td></tr></tbody>
+  </table></div>
 </section>
 
 <section>
@@ -245,7 +259,7 @@ function startLabel(s){
   return t.toLocaleTimeString([], {hour:"numeric", minute:"2-digit", timeZoneName:"short"});
 }
 
-let EDGE = null, CAL = null, REC = null, resModel = "edge";
+let SLATE = null, EDGE = null, CAL = null, REC = null, resModel = "edge";
 
 function edgePlay(r){
   const L = r.best_line ?? r.line, o = r.best_odds ?? r.odds;
@@ -400,6 +414,29 @@ function renderCheck(){
   }
   document.getElementById("check").innerHTML = parts.join("");
 }
+
+function renderSlate(){
+  const gs = (SLATE && SLATE.games) || [];
+  document.getElementById("slate-n").textContent = gs.length ? `${gs.length} games` : "";
+  const f = (v, s) => v == null ? "—" : (s ? sgn(v) : v.toFixed(1));
+  const mk = (v, play) => `<span class="${play ? "hl" : ""}">${v}</span>`;
+  if (!gs.length) { document.getElementById("slate-rows").innerHTML = '<tr><td colspan="7" class="muted">No games with lines yet. The board picks them up as books post them.</td></tr>'; return; }
+  const groups = {};
+  gs.forEach(g => (groups[dayKey(g.start)] ||= []).push(g));
+  document.getElementById("slate-rows").innerHTML = Object.keys(groups).sort().map(k =>
+    `<tr class="dayrow"><td colspan="7">${esc(dayLabel(k))}</td></tr>` + groups[k].map(g => {
+      const c = g.cal || {}, e = g.edge || {};
+      // margins shown as the home spread they imply (home by 5 -> -5.0)
+      const asLine = m => m == null ? null : -m;
+      return `<tr><td class="match">${esc(g.away)} @ ${esc(g.home)}<small>${startLabel(g.start)}</small></td>
+        <td class="num">${f(g.spread_home, true)}</td>
+        <td class="num">${mk(f(asLine(e.margin), true), e.spread_play)}</td>
+        <td class="num">${mk(f(asLine(c.m1_margin), true) + " / " + f(asLine(c.m2_margin), true), !!c.ats_play)}</td>
+        <td class="num">${f(g.total)}</td>
+        <td class="num">${mk(f(e.total), e.total_play)}</td>
+        <td class="num">${mk(f(c.m1_total) + " / " + f(c.m2_total), !!c.ou_play)}</td></tr>`;
+    }).join("")).join("");
+}
 function renderResults(){
   const head = document.getElementById("res-head"), body = document.getElementById("res-rows");
   const day = s => { const t = new Date(s); return isNaN(t) ? esc(s) : t.toLocaleDateString([], {month:"short", day:"numeric", timeZone: /^\d{4}-\d{2}-\d{2}$/.test(s) ? "UTC" : undefined}); };
@@ -443,13 +480,13 @@ async function load(){
   document.getElementById("phase").classList.toggle("live", ph.live);
   document.getElementById("phase-k").textContent = ph.k;
   document.getElementById("phase-v").textContent = ph.v;
-  [EDGE, CAL, REC] = await Promise.all([getJSON("data/plays.json"), getJSON("cal/data/plays.json"), getJSON("data/record.json")]);
+  [EDGE, CAL, REC, SLATE] = await Promise.all([getJSON("data/plays.json"), getJSON("cal/data/plays.json"), getJSON("data/record.json"), getJSON("data/slate.json")]);
   const ts = [EDGE && EDGE.updated_at, CAL && CAL.updated_at].filter(Boolean).sort().pop();
   document.getElementById("updated").textContent = ts
     ? "Updated " + new Date(ts).toLocaleString([], {weekday:"short", month:"short", day:"numeric", hour:"numeric", minute:"2-digit"})
       + (EDGE && EDGE.mode === "demo" ? " · demo data" : "")
     : "Couldn't load the latest plays.";
-  renderPlays(); renderRecord(); renderCheck(); renderResults();
+  renderPlays(); renderSlate(); renderRecord(); renderCheck(); renderResults();
 }
 load();
 </script>
