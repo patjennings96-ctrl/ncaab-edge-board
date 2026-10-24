@@ -75,12 +75,27 @@ jobs:
         env:
           GOOGLE_CREDS_PATH: ${{ runner.temp }}/credentials.json
         run: |
+          set -o pipefail
+          mkdir -p jobs/out
           cd src
           if [ "$MODEL_MODE" = "live" ]; then
-            python run_daily.py --live
+            python run_daily.py --live 2>&1 | tee ../jobs/out/refresh.log
           else
-            python run_daily.py
+            python run_daily.py 2>&1 | tee ../jobs/out/refresh.log
           fi
+
+      # Run logs live on a host the model sessions can't read; keep the output
+      # of a failed run in the repo so it can be diagnosed.
+      - name: Save log of a failed run
+        if: failure() && steps.gate.outputs.run == 'true'
+        run: |
+          git config user.name "board-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          cp jobs/out/refresh.log jobs/out/refresh_failed.log 2>/dev/null || true
+          git add jobs/out/refresh_failed.log || true
+          git commit -m "Refresh failed $(date -u +'%Y-%m-%d %H:%M UTC'): log" || exit 0
+          git pull --rebase --autostash -X theirs origin main
+          git push
 
       - name: Commit updated card
         if: steps.gate.outputs.run == 'true'
