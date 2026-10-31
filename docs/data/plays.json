@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-31T01:37+00:00",
+  "updated_at": "2026-10-31T05:37+00:00",
   "mode": "live",
   "settings": {
     "kelly_mult": 0.25,
@@ -31,13 +31,64 @@
       "stake": 0.0,
       "notes": "",
       "best_line": -13.5,
-      "best_odds": -101,
-      "book": "LowVig.ag",
+      "best_odds": 100,
+      "book": "theScore Bet",
       "agree": false,
       "play_to": -14.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 2.78
+      "gap": 2.78,
+      "quotes": [
+        {
+          "book": "theScore Bet",
+          "line": -13.5,
+          "odds": 100,
+          "prob": 0.5369,
+          "ev": 0.0738
+        },
+        {
+          "book": "DraftKings",
+          "line": -13.5,
+          "odds": -102,
+          "prob": 0.5369,
+          "ev": 0.0633
+        },
+        {
+          "book": "BetMGM",
+          "line": -13.5,
+          "odds": -105,
+          "prob": 0.5369,
+          "ev": 0.0482
+        },
+        {
+          "book": "FanDuel",
+          "line": -13.5,
+          "odds": -106,
+          "prob": 0.5369,
+          "ev": 0.0434
+        },
+        {
+          "book": "Bally Bet",
+          "line": -13.5,
+          "odds": -110,
+          "prob": 0.5369,
+          "ev": 0.025
+        },
+        {
+          "book": "Kalshi",
+          "line": -13.5,
+          "odds": -112,
+          "prob": 0.5369,
+          "ev": 0.0163
+        },
+        {
+          "book": "BetRivers",
+          "line": -13.5,
+          "odds": -112,
+          "prob": 0.5369,
+          "ev": 0.0163
+        }
+      ]
     },
     {
       "game_id": "401909771",
@@ -47,22 +98,73 @@
       "mkt": "TOTAL",
       "side": "UNDER",
       "side_code": "UNDER",
-      "line": 155.75,
+      "line": 155.5,
       "odds": -109,
       "proj": 16.3,
       "total": 151.5,
-      "p": 0.5404,
-      "edge": 4.25,
+      "p": 0.538,
+      "edge": 4.12,
       "stake": 0.0,
       "notes": "",
-      "best_line": 156.5,
-      "best_odds": -115,
-      "book": "FanDuel",
+      "best_line": 155.5,
+      "best_odds": -107,
+      "book": "Bally Bet",
       "agree": false,
       "play_to": 154.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 4.26
+      "gap": 4.01,
+      "quotes": [
+        {
+          "book": "Bally Bet",
+          "line": 155.5,
+          "odds": -107,
+          "prob": 0.538,
+          "ev": 0.0408
+        },
+        {
+          "book": "BetRivers",
+          "line": 155.5,
+          "odds": -108,
+          "prob": 0.538,
+          "ev": 0.0361
+        },
+        {
+          "book": "DraftKings",
+          "line": 154.5,
+          "odds": -105,
+          "prob": 0.5285,
+          "ev": 0.0319
+        },
+        {
+          "book": "theScore Bet",
+          "line": 155.5,
+          "odds": -110,
+          "prob": 0.538,
+          "ev": 0.0271
+        },
+        {
+          "book": "FanDuel",
+          "line": 156.5,
+          "odds": -115,
+          "prob": 0.5474,
+          "ev": 0.0235
+        },
+        {
+          "book": "BetMGM",
+          "line": 154.5,
+          "odds": -110,
+          "prob": 0.5285,
+          "ev": 0.009
+        },
+        {
+          "book": "Kalshi",
+          "line": 180.5,
+          "odds": -5268,
+          "prob": 0.7551,
+          "ev": -0.2306
+        }
+      ]
     },
     {
       "game_id": "401916313",
@@ -73,11 +175,11 @@
       "side": "UNDER",
       "side_code": "UNDER",
       "line": 160.5,
-      "odds": -111,
+      "odds": -110,
       "proj": 2.0,
       "total": 155.0,
       "p": 0.5524,
-      "edge": 5.02,
+      "edge": 5.24,
       "stake": 0.0,
       "notes": "",
       "best_line": 160.5,
@@ -87,7 +189,58 @@
       "play_to": 158.0,
       "tracking": true,
       "reason": "Over 5 pts off the market",
-      "gap": 5.53
+      "gap": 5.53,
+      "quotes": [
+        {
+          "book": "DraftKings",
+          "line": 160.5,
+          "odds": -105,
+          "prob": 0.5524,
+          "ev": 0.0785
+        },
+        {
+          "book": "theScore Bet",
+          "line": 160.5,
+          "odds": -110,
+          "prob": 0.5524,
+          "ev": 0.0546
+        },
+        {
+          "book": "FanDuel",
+          "line": 160.5,
+          "odds": -110,
+          "prob": 0.5524,
+          "ev": 0.0546
+        },
+        {
+          "book": "BetMGM",
+          "line": 160.5,
+          "odds": -110,
+          "prob": 0.5524,
+          "ev": 0.0546
+        },
+        {
+          "book": "Bally Bet",
+          "line": 160.5,
+          "odds": -112,
+          "prob": 0.5524,
+          "ev": 0.0456
+        },
+        {
+          "book": "BetRivers",
+          "line": 160.5,
+          "odds": -113,
+          "prob": 0.5524,
+          "ev": 0.0412
+        },
+        {
+          "book": "Kalshi",
+          "line": 185.5,
+          "odds": -5268,
+          "prob": 0.7664,
+          "ev": -0.2191
+        }
+      ]
     },
     {
       "game_id": "401921704",
@@ -97,22 +250,73 @@
       "mkt": "SPREAD",
       "side": "Purdue Boilermakers",
       "side_code": "HOME",
-      "line": 5.5,
-      "odds": -108,
+      "line": 5.0,
+      "odds": -110,
       "proj": 2.0,
       "total": 149.6,
-      "p": 0.599,
-      "edge": 10.12,
+      "p": 0.5926,
+      "edge": 9.26,
       "stake": 0.0,
       "notes": "",
       "best_line": 5.5,
-      "best_odds": -101,
-      "book": "LowVig.ag",
+      "best_odds": -110,
+      "book": "DraftKings",
       "agree": false,
       "play_to": -0.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 7.53
+      "gap": 7.03,
+      "quotes": [
+        {
+          "book": "DraftKings",
+          "line": 5.5,
+          "odds": -110,
+          "prob": 0.599,
+          "ev": 0.1436
+        },
+        {
+          "book": "Bally Bet",
+          "line": 4.5,
+          "odds": -106,
+          "prob": 0.5861,
+          "ev": 0.139
+        },
+        {
+          "book": "Kalshi",
+          "line": 4.5,
+          "odds": -107,
+          "prob": 0.5861,
+          "ev": 0.1338
+        },
+        {
+          "book": "BetRivers",
+          "line": 4.5,
+          "odds": -107,
+          "prob": 0.5861,
+          "ev": 0.1338
+        },
+        {
+          "book": "BetMGM",
+          "line": 5.5,
+          "odds": -115,
+          "prob": 0.599,
+          "ev": 0.1199
+        },
+        {
+          "book": "FanDuel",
+          "line": 4.5,
+          "odds": -110,
+          "prob": 0.5861,
+          "ev": 0.1189
+        },
+        {
+          "book": "theScore Bet",
+          "line": 5.5,
+          "odds": -120,
+          "prob": 0.599,
+          "ev": 0.0982
+        }
+      ]
     },
     {
       "game_id": "401921704",
@@ -123,21 +327,72 @@
       "side": "UNDER",
       "side_code": "UNDER",
       "line": 155.5,
-      "odds": -110,
+      "odds": -111,
       "proj": 2.0,
       "total": 149.6,
       "p": 0.5556,
-      "edge": 5.56,
+      "edge": 5.45,
       "stake": 0.0,
       "notes": "",
-      "best_line": 155.5,
-      "best_odds": -108,
-      "book": "LowVig.ag",
+      "best_line": 154.5,
+      "best_odds": -105,
+      "book": "DraftKings",
       "agree": false,
       "play_to": 153.0,
       "tracking": true,
       "reason": "Over 5 pts off the market",
-      "gap": 5.87
+      "gap": 5.87,
+      "quotes": [
+        {
+          "book": "DraftKings",
+          "line": 154.5,
+          "odds": -105,
+          "prob": 0.5462,
+          "ev": 0.0663
+        },
+        {
+          "book": "Bally Bet",
+          "line": 155.5,
+          "odds": -110,
+          "prob": 0.5556,
+          "ev": 0.0606
+        },
+        {
+          "book": "FanDuel",
+          "line": 155.5,
+          "odds": -110,
+          "prob": 0.5556,
+          "ev": 0.0606
+        },
+        {
+          "book": "BetRivers",
+          "line": 155.5,
+          "odds": -112,
+          "prob": 0.5556,
+          "ev": 0.0516
+        },
+        {
+          "book": "theScore Bet",
+          "line": 155.5,
+          "odds": -115,
+          "prob": 0.5556,
+          "ev": 0.0387
+        },
+        {
+          "book": "BetMGM",
+          "line": 155.5,
+          "odds": -115,
+          "prob": 0.5556,
+          "ev": 0.0387
+        },
+        {
+          "book": "Kalshi",
+          "line": 155.5,
+          "odds": -121,
+          "prob": 0.5556,
+          "ev": 0.0147
+        }
+      ]
     },
     {
       "game_id": "401906769",
@@ -147,22 +402,66 @@
       "mkt": "SPREAD",
       "side": "Florida Gators",
       "side_code": "HOME",
-      "line": -4.5,
-      "odds": -106,
+      "line": -5.5,
+      "odds": -112,
       "proj": 10.9,
       "total": 154.1,
-      "p": 0.5839,
-      "edge": 8.84,
+      "p": 0.5709,
+      "edge": 6.66,
       "stake": 0.0,
       "notes": "",
-      "best_line": -4.0,
-      "best_odds": -106,
-      "book": "LowVig.ag",
+      "best_line": -4.5,
+      "best_odds": -110,
+      "book": "theScore Bet",
       "agree": false,
       "play_to": -8.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 6.36
+      "gap": 5.36,
+      "quotes": [
+        {
+          "book": "theScore Bet",
+          "line": -4.5,
+          "odds": -110,
+          "prob": 0.5839,
+          "ev": 0.1148
+        },
+        {
+          "book": "FanDuel",
+          "line": -5.5,
+          "odds": -105,
+          "prob": 0.5709,
+          "ev": 0.1146
+        },
+        {
+          "book": "DraftKings",
+          "line": -4.5,
+          "odds": -112,
+          "prob": 0.5839,
+          "ev": 0.1053
+        },
+        {
+          "book": "Bally Bet",
+          "line": -5.5,
+          "odds": -117,
+          "prob": 0.5709,
+          "ev": 0.0588
+        },
+        {
+          "book": "BetRivers",
+          "line": -5.5,
+          "odds": -118,
+          "prob": 0.5709,
+          "ev": 0.0547
+        },
+        {
+          "book": "Kalshi",
+          "line": -4.5,
+          "odds": -126,
+          "prob": 0.5839,
+          "ev": 0.0474
+        }
+      ]
     },
     {
       "game_id": "401906769",
@@ -172,22 +471,66 @@
       "mkt": "TOTAL",
       "side": "UNDER",
       "side_code": "UNDER",
-      "line": 161.5,
-      "odds": -110,
+      "line": 159.5,
+      "odds": -112,
       "proj": 10.9,
       "total": 154.1,
-      "p": 0.5696,
-      "edge": 6.85,
+      "p": 0.5508,
+      "edge": 4.76,
       "stake": 0.0,
       "notes": "",
-      "best_line": 161.5,
-      "best_odds": -108,
-      "book": "LowVig.ag",
+      "best_line": 160.5,
+      "best_odds": -105,
+      "book": "theScore Bet",
       "agree": false,
       "play_to": 157.5,
       "tracking": true,
       "reason": "Over 5 pts off the market",
-      "gap": 7.36
+      "gap": 5.36,
+      "quotes": [
+        {
+          "book": "theScore Bet",
+          "line": 160.5,
+          "odds": -105,
+          "prob": 0.5602,
+          "ev": 0.0937
+        },
+        {
+          "book": "DraftKings",
+          "line": 161.5,
+          "odds": -112,
+          "prob": 0.5696,
+          "ev": 0.0781
+        },
+        {
+          "book": "FanDuel",
+          "line": 159.5,
+          "odds": -105,
+          "prob": 0.5508,
+          "ev": 0.0753
+        },
+        {
+          "book": "Bally Bet",
+          "line": 159.5,
+          "odds": -113,
+          "prob": 0.5508,
+          "ev": 0.0382
+        },
+        {
+          "book": "BetRivers",
+          "line": 159.5,
+          "odds": -114,
+          "prob": 0.5508,
+          "ev": 0.0339
+        },
+        {
+          "book": "Kalshi",
+          "line": 186.5,
+          "odds": -5268,
+          "prob": 0.7795,
+          "ev": -0.2057
+        }
+      ]
     }
   ]
 }
