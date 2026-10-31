@@ -12,7 +12,8 @@
 # = ~14 credits/day, about 430 a month, inside a 500-credit plan.
 #
 # Repo settings this workflow reads (Settings -> Secrets and variables -> Actions):
-#   Variables: MODEL_MODE ("demo" or "live"), SHEET_ID (optional)
+#   Variables: MODEL_MODE ("demo" or "live"), SHEET_ID (optional),
+#              ODDS_PLAN ("paid" adds Caesars and Fanatics; doubles credits per call)
 #   Secrets:   ODDS_API_KEY (live mode), GOOGLE_CREDS (optional, service-account JSON)
 
 name: Refresh board
@@ -41,6 +42,7 @@ jobs:
       MODEL_MODE: ${{ vars.MODEL_MODE || 'demo' }}
       SHEET_ID: ${{ vars.SHEET_ID }}
       ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+      ODDS_PLAN: ${{ vars.ODDS_PLAN }}
       GOOGLE_CREDS: ${{ secrets.GOOGLE_CREDS }}
     steps:
       - name: Decide whether to run

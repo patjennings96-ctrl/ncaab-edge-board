@@ -182,7 +182,8 @@ def price_slate(slate: pd.DataFrame, m1: pd.DataFrame, m2: pd.DataFrame) -> pd.D
         if not bool(getattr(g, "neutral", False)):
             # 3-point home edge: margin moves 3, total unchanged
             h1, a1, h2, a2 = h1 + HCA / 2, a1 - HCA / 2, h2 + HCA / 2, a2 - HCA / 2
-        r = {"game_id": getattr(g, "game_id", ""), "start": getattr(g, "start", ""),
+        r = {**{f"quotes_{sd}": getattr(g, f"quotes_{sd}", "[]") for sd in ("home", "away", "over", "under")},
+             "game_id": getattr(g, "game_id", ""), "start": getattr(g, "start", ""),
              "home": g.home, "away": g.away,
              "line": g.spread_home, "total_line": g.total,
              "m1_away": a1, "m1_home": h1, "m2_away": a2, "m2_home": h2}
@@ -258,6 +259,39 @@ def ou_play_to(r, n_games: int) -> float | None:
     return _half_up(max(t_m1, t_m2))
 
 
+# Book ranking for Cal's plays: the same calibrated win probabilities the
+# Edge Board stakes with (P = Phi(gap / sigma)), applied to the weaker of
+# Cal's two models, so a better number at one book is weighed against a
+# better price at another.
+RANK_SIGMA = {"ATS": 30.0, "TOTAL": 42.0}
+
+
+def rank_books(r, mkt: str) -> list[dict]:
+    import json as _json
+    from scipy.stats import norm
+    play = r.ats_play if mkt == "ATS" else r.ou_play
+    if not play:
+        return []
+    side = play.lower()
+    try:
+        quotes = _json.loads(getattr(r, f"quotes_{side}", "[]") or "[]")
+    except (TypeError, ValueError):
+        quotes = []
+    if mkt == "ATS":
+        g0 = min(abs(r.m1_ats), abs(r.m2_ats))
+        l0 = r.line if play == "HOME" else -r.line          # picked side's consensus line
+        gap = lambda L: g0 + (L - l0)
+    else:
+        g0 = min(abs(r.m1_tot), abs(r.m2_tot_adj))
+        gap = (lambda L: g0 + (r.total_line - L)) if play == "OVER" else (lambda L: g0 + (L - r.total_line))
+    out = []
+    for line, odds, book in quotes:
+        p = float(norm.cdf(gap(float(line)) / RANK_SIGMA[mkt]))
+        dec = 1 + (odds / 100 if odds > 0 else 100 / -odds)
+        out.append({"book": book, "line": float(line), "odds": int(odds), "ev": round(p * (dec - 1) - (1 - p), 4)})
+    return sorted(out, key=lambda q: -q["ev"])[:12]
+
+
 def grade(play: str, line: float, total_line: float, home_score: float, away_score: float) -> float | None:
     """Sheet grading: +1 win, -1.1 loss, 0 push."""
     if play in ("HOME", "AWAY"):
@@ -309,6 +343,7 @@ def write_json(priced: pd.DataFrame, names: dict, mode: str, m2_source: str) -> 
             "m2": {"away": _r(r.m2_away), "home": _r(r.m2_home), "ats": _r(r.m2_ats),
                    "tot": _r(r.m2_tot), "tot_adj": _r(r.m2_tot_adj)},
             "ats_play": r.ats_play, "ou_play": r.ou_play,
+            "ats_books": rank_books(r, "ATS"), "ou_books": rank_books(r, "TOTAL"),
             "ats_play_to": _r(getattr(r, "ats_play_to", None)),
             "ou_play_to": _r(getattr(r, "ou_play_to", None)),
         })

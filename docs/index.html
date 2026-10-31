@@ -75,6 +75,7 @@ nav a:focus-visible,.seg button:focus-visible{outline:2px solid var(--accent);ou
 .play .match{font-size:.82rem;color:var(--muted)}
 .play .pick{font-weight:600;font-size:1.02rem}
 .ptrow{font-size:.82rem}
+.books{grid-column:1/-1;font-size:.76rem;color:var(--muted);font-family:var(--mono)}
 .slate td{font-size:.88rem}
 .slate td.match{font-weight:600}
 .slate td.match small{display:block;font-weight:400;color:var(--muted);font-size:.75rem}
@@ -202,6 +203,7 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
       <h3>Edge Board</h3>
       <ul>
         <li>Spread plays need 2+ points of disagreement with the consensus line; totals need 3+.</li>
+        <li>Books shopped: DraftKings, FanDuel, theScore Bet, BetMGM, Bally Bet, Hard Rock, BetRivers, Kalshi and Polymarket (prediction-market prices converted to American odds, Kalshi's fee included). The best book is the one with the highest expected value, weighing line and price together.</li>
         <li>Spread stakes are ¼ Kelly on a win probability calibrated to the backtest (about 54% at a 3-point gap), max 3u (1u = 1% of bankroll), sized at the best number across books.</li><li>Totals are 1u flat. Totals more than 5 points off the market are tracked, not bet: last season those lost.</li>
         <li>Staked Jan 1 – Mar 8 only. Before and after, plays are posted and graded as tracking only (0u).</li>
         <li>Totals that Cal's model also picks get 1.5u.</li>
@@ -261,6 +263,11 @@ function startLabel(s){
 
 let SLATE = null, EDGE = null, CAL = null, REC = null, resModel = "edge";
 
+function booksLine(list, mkt, skip){
+  const fmt = q => `${esc(q.book)} ${mkt === "SPREAD" || mkt === "ATS" ? sgn(q.line) : q.line.toFixed(1)} ${fmtOdds(q.odds)}`;
+  const rest = (list || []).slice(skip, skip + 4);
+  return rest.length ? `<div class="books">Next best: ${rest.map(fmt).join(" · ")}</div>` : "";
+}
 function edgePlay(r){
   const L = r.best_line ?? r.line, o = r.best_odds ?? r.odds;
   const ln = r.mkt === "SPREAD" ? sgn(L) : L.toFixed(1);
@@ -273,6 +280,7 @@ function edgePlay(r){
     <div class="match">${esc(r.away)} @ ${esc(r.home)} ${startLabel(r.start) ? "· " + startLabel(r.start) : ""}</div>
     <div class="pick">${esc(r.side)} ${ln} <span class="muted mono">${fmtOdds(o)}${book}</span>${tags}</div>
     <div class="ptrow">${playTo(r.mkt, r.play_to)}</div>
+    ${booksLine(r.quotes, r.mkt, 1)}
     <div class="stake">${r.tracking ? "0u" : r.stake.toFixed(1) + "u"}<small>edge ${r.edge.toFixed(1)}%</small></div>
     <div class="meta">${model} · win prob ${(r.p*100).toFixed(0)}%${r.notes ? " · Lineup: " + esc(r.notes) : ""}</div>
   </div>`;
@@ -281,10 +289,10 @@ function calPicks(g){
   const out = [];
   if (g.ats_play) {
     const home = g.ats_play === "HOME", team = home ? g.home : g.away, L = home ? g.line : -g.line;
-    out.push({mkt:"SPREAD", text:`${team} ${sgn(L)}`, pt:g.ats_play_to, gap:`Model 1 ${sgn(g.m1.ats)}, Model 2 ${sgn(g.m2.ats)}`});
+    out.push({mkt:"SPREAD", text:`${team} ${sgn(L)}`, pt:g.ats_play_to, books:g.ats_books, gap:`Model 1 ${sgn(g.m1.ats)}, Model 2 ${sgn(g.m2.ats)}`});
   }
   if (g.ou_play) {
-    out.push({mkt:"TOTAL", text:`${g.ou_play === "OVER" ? "Over" : "Under"} ${g.total_line.toFixed(1)}`, pt:g.ou_play_to,
+    out.push({mkt:"TOTAL", text:`${g.ou_play === "OVER" ? "Over" : "Under"} ${g.total_line.toFixed(1)}`, pt:g.ou_play_to, books:g.ou_books,
               gap:`Model 1 ${sgn(g.m1.tot)}, Model 2 ${sgn(g.m2.tot_adj ?? g.m2.tot)}`});
   }
   return out.map(p => ({...p, g}));
@@ -295,7 +303,8 @@ function calPlay(p){
   return `<div class="play">
     <div class="match">${esc(g.away)} @ ${esc(g.home)} ${startLabel(g.start) ? "· " + startLabel(g.start) : ""}</div>
     <div class="pick">${esc(p.text)}<span class="tag ${p.mkt==="SPREAD"?"spread":"total"}">${p.mkt==="SPREAD"?"Spread":"Total"}</span></div>
-    <div class="ptrow">${playTo(p.mkt, p.pt)}</div>
+    <div class="ptrow">${playTo(p.mkt, p.pt)}${p.books && p.books.length ? ` <span class="muted mono">best at ${esc(p.books[0].book)} ${p.mkt==="SPREAD" ? sgn(p.books[0].line) : p.books[0].line.toFixed(1)} ${fmtOdds(p.books[0].odds)}</span>` : ""}</div>
+    ${booksLine(p.books, p.mkt, 1)}
     <div class="stake">1u<small>flat</small></div>
     <div class="meta">${p.gap} · ${proj}</div>
   </div>`;

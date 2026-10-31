@@ -78,6 +78,7 @@ def build_slate_frame(slate: pd.DataFrame, ratings) -> pd.DataFrame:
             "over_odds": x.over_odds, "under_odds": x.under_odds,
             **{f"best_{sd}_{k}": getattr(x, f"best_{sd}_{k}", np.nan)
                for sd in ("home", "away", "over", "under") for k in ("line", "odds", "book")},
+            **{f"quotes_{sd}": getattr(x, f"quotes_{sd}", "[]") for sd in ("home", "away", "over", "under")},
         })
     return pd.DataFrame(rows)
 
@@ -119,19 +120,36 @@ def in_bet_window(start) -> bool:
 
 
 def _shop(row, side: str, p_fn, kelly_mult: float, max_stake: float = 5.0) -> dict:
-    """Re-price a chosen side at the best line/price across books."""
-    line = getattr(row, f"best_{side.lower()}_line", np.nan)
-    odds = getattr(row, f"best_{side.lower()}_odds", np.nan)
-    book = getattr(row, f"best_{side.lower()}_book", "")
-    if pd.isna(line) or pd.isna(odds):
-        return {}
+    """
+    Pick the book to bet: every quote for this side is scored by expected
+    value with the model's win probability at that book's line, so a better
+    number and a better price are weighed together (+4 at -105 can beat +4.5
+    at -125). Returns the best quote, its stake, and all quotes ranked.
+    """
+    import json as _json
     from edge import kelly_fraction, american_to_decimal
-    p = p_fn(float(line))
-    stake = min(kelly_mult * kelly_fraction(p, odds) * 100.0, max_stake)
-    return {"best_line": float(line), "best_odds": int(odds), "best_book": book,
-            "best_prob": round(p, 4),
-            "best_ev": round(p * (american_to_decimal(odds) - 1) - (1 - p), 4),
-            "stake_units": round(stake, 3)}
+    try:
+        quotes = _json.loads(getattr(row, f"quotes_{side.lower()}", "[]") or "[]")
+    except (TypeError, ValueError):
+        quotes = []
+    if not quotes:
+        line = getattr(row, f"best_{side.lower()}_line", np.nan)
+        odds = getattr(row, f"best_{side.lower()}_odds", np.nan)
+        if pd.isna(line) or pd.isna(odds):
+            return {}
+        quotes = [(float(line), int(odds), getattr(row, f"best_{side.lower()}_book", ""))]
+    ranked = []
+    for line, odds, book in quotes:
+        p = p_fn(float(line))
+        ev = p * (american_to_decimal(odds) - 1) - (1 - p)
+        ranked.append({"book": book, "line": float(line), "odds": int(odds),
+                       "prob": round(p, 4), "ev": round(ev, 4)})
+    ranked.sort(key=lambda q: -q["ev"])
+    top = ranked[0]
+    stake = min(kelly_mult * kelly_fraction(top["prob"], top["odds"]) * 100.0, max_stake)
+    return {"best_line": top["line"], "best_odds": top["odds"], "best_book": top["book"],
+            "best_prob": top["prob"], "best_ev": top["ev"],
+            "stake_units": round(stake, 3), "quotes": _json.dumps(ranked[:12])}
 
 
 def _half_up(x: float) -> float:
@@ -252,7 +270,7 @@ def make_card(pred_df: pd.DataFrame, kelly_mult=0.25, min_edge=0.025,
                 card.append(r)
     cols = ["game_id", "start", "home", "away", "mkt", "side", "line", "odds",
             "best_line", "best_odds", "best_book", "proj_margin", "proj_total",
-            "model_prob", "edge_pct", "stake_units", "play_to", "gap", "agree", "reason", "notes"]
+            "model_prob", "edge_pct", "stake_units", "play_to", "gap", "agree", "reason", "notes", "quotes"]
     df = pd.DataFrame(card)
     return df[[c for c in cols if c in df.columns]] if not df.empty else df
 

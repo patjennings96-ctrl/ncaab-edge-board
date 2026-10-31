@@ -49,6 +49,7 @@ def card_to_records(card: pd.DataFrame) -> list[dict]:
             "tracking": float(r["stake_units"]) == 0.0,
             "reason": str(r.get("reason", "") or ""),
             "gap": None if pd.isna(r.get("gap", np.nan)) else float(r["gap"]),
+            "quotes": json.loads(r["quotes"]) if isinstance(r.get("quotes"), str) and r.get("quotes") else [],
         })
     return recs
 
@@ -71,7 +72,7 @@ def append_log(card: pd.DataFrame, mode: str) -> str | None:
     if mode != "live" or card.empty:
         return None
     os.makedirs(os.path.dirname(LOG_PATH), exist_ok=True)
-    df = pd.DataFrame(card_to_records(card))
+    df = pd.DataFrame(card_to_records(card)).drop(columns=["quotes"], errors="ignore")
     # Log each (game, market) once: the first time the model posted it.
     if os.path.exists(LOG_PATH):
         seen = pd.read_csv(LOG_PATH, dtype={"game_id": str})[["game_id", "mkt"]]

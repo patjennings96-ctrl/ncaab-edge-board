@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import csv
 import difflib
+import json
 import os
 import re
 import time
@@ -306,36 +307,108 @@ def _best(quotes: list, better_line) -> tuple:
     return float(q[0]), int(q[1]), q[2]
 
 
+# Books to shop, as The Odds API bookmaker keys -> display names. Pat's list:
+# DraftKings, FanDuel, theScore Bet, BetMGM, Bally Bet, Hard Rock (Arizona
+# feed), Caesars, bet365, BetRivers, Fanatics, Kalshi, Polymarket.
+#   - bet365 has no US feed on The Odds API, so it can't be shopped here.
+#   - Caesars and Fanatics need a paid Odds API plan: set the repo variable
+#     ODDS_PLAN=paid to add them (12 keys -> 2 bookmaker groups -> 4 credits
+#     per call instead of 2).
+BOOKS = {
+    "draftkings": "DraftKings", "fanduel": "FanDuel", "espnbet": "theScore Bet",
+    "betmgm": "BetMGM", "ballybet": "Bally Bet", "hardrockbet_az": "Hard Rock",
+    "betrivers": "BetRivers", "kalshi": "Kalshi", "polymarket_us": "Polymarket",
+}
+PAID_BOOKS = {"williamhill_us": "Caesars", "fanatics": "Fanatics"}
+EXCHANGES = {"kalshi", "polymarket_us", "polymarket"}
+KALSHI_FEE = 0.07          # taker fee per contract = 7% x P x (1 - P)
+
+
+def shop_books() -> dict:
+    books = dict(BOOKS)
+    if os.environ.get("ODDS_PLAN", "").lower() == "paid":
+        books.update(PAID_BOOKS)
+    return books
+
+
+def prob_to_american(p: float) -> int:
+    """Win probability (0-1) -> American odds (0.55 -> -122, 0.45 -> +122)."""
+    p = min(max(float(p), 0.01), 0.99)
+    return int(round(-100 * p / (1 - p))) if p >= 0.5 else int(round(100 * (1 - p) / p))
+
+
+def american_to_prob(o: float) -> float:
+    o = float(o)
+    return -o / (-o + 100) if o < 0 else 100 / (o + 100)
+
+
+def normalize_price(price, book_key: str) -> int | None:
+    """
+    American odds for any book. Prediction markets quote a price in cents or
+    a probability (0.52 = 52%): convert it to American odds. Kalshi's taker fee
+    (7% x P x (1-P) per contract) is added to the cost first, so its odds are
+    what you actually get.
+    """
+    try:
+        x = float(price)
+    except (TypeError, ValueError):
+        return None
+    if 0 < x < 1:                       # probability
+        p = x
+    elif book_key in EXCHANGES and 1 <= x < 100:
+        p = x / 100                     # cents, e.g. 52 or 52.5
+    else:
+        p = american_to_prob(x)
+    if book_key == "kalshi":
+        p = p + KALSHI_FEE * p * (1 - p)
+    if book_key in EXCHANGES or 0 < x < 1:
+        return prob_to_american(p)
+    return int(round(x))
+
+
 def fetch_odds(api_key: str) -> pd.DataFrame:
     """
-    Consensus (median) spread/total per game across US books, plus the best
-    available number on each side and the book offering it (line shopping).
-    Cost: 2 credits per call (2 markets x 1 region).
+    For each game: the consensus (median) spread and total across the
+    sportsbooks, and every book's quote on each side (quotes_<side>, JSON) for
+    line shopping. Prediction markets are shopped but kept out of the
+    consensus. Cost: 2 credits per call (2 markets, one bookmaker group of up
+    to 10); 4 with the paid books added.
     """
-    data = _get_json(ODDS, {"apiKey": api_key, "regions": "us",
+    books = shop_books()
+    data = _get_json(ODDS, {"apiKey": api_key, "bookmakers": ",".join(books),
                             "markets": "spreads,totals", "oddsFormat": "american"})
     rows = []
     for ev in data:
         home, away = ev["home_team"], ev["away_team"]
-        sp, sp_px_h, sp_px_a, tot, px_o, px_u, books = [], [], [], [], [], [], 0
-        q_home, q_away, q_over, q_under = [], [], [], []
+        sp, sp_px_h, sp_px_a, tot, px_o, px_u, n_books = [], [], [], [], [], [], 0
+        q = {"home": [], "away": [], "over": [], "under": []}
         for bk in ev.get("bookmakers", []):
-            books += 1
-            title = bk.get("title", bk.get("key", ""))
+            key = bk.get("key", "")
+            title = books.get(key, bk.get("title", key))
+            exchange = key in EXCHANGES
+            n_books += 0 if exchange else 1
             for m in bk.get("markets", []):
                 outs = {o["name"]: o for o in m.get("outcomes", [])}
                 if m["key"] == "spreads" and home in outs and away in outs:
-                    sp.append(outs[home]["point"])
-                    sp_px_h.append(outs[home]["price"])
-                    sp_px_a.append(outs[away]["price"])
-                    q_home.append((outs[home]["point"], outs[home]["price"], title))
-                    q_away.append((outs[away]["point"], outs[away]["price"], title))
+                    ph, pa = (normalize_price(outs[n]["price"], key) for n in (home, away))
+                    if ph is None or pa is None:
+                        continue
+                    q["home"].append((float(outs[home]["point"]), ph, title))
+                    q["away"].append((float(outs[away]["point"]), pa, title))
+                    if not exchange:
+                        sp.append(outs[home]["point"]); sp_px_h.append(ph); sp_px_a.append(pa)
                 elif m["key"] == "totals" and "Over" in outs and "Under" in outs:
-                    tot.append(outs["Over"]["point"])
-                    px_o.append(outs["Over"]["price"])
-                    px_u.append(outs["Under"]["price"])
-                    q_over.append((outs["Over"]["point"], outs["Over"]["price"], title))
-                    q_under.append((outs["Under"]["point"], outs["Under"]["price"], title))
+                    po, pu = (normalize_price(outs[n]["price"], key) for n in ("Over", "Under"))
+                    if po is None or pu is None:
+                        continue
+                    q["over"].append((float(outs["Over"]["point"]), po, title))
+                    q["under"].append((float(outs["Under"]["point"]), pu, title))
+                    if not exchange:
+                        tot.append(outs["Over"]["point"]); px_o.append(po); px_u.append(pu)
+        if not sp and q["home"]:            # only exchanges priced it
+            sp = [l for l, _, _ in q["home"]]
+        if not tot and q["over"]:
+            tot = [l for l, _, _ in q["over"]]
         row = {
             "odds_id": ev["id"], "commence": ev["commence_time"],
             "home_name_odds": home, "away_name_odds": away,
@@ -345,14 +418,13 @@ def fetch_odds(api_key: str) -> pd.DataFrame:
             "total": float(np.median(tot)) if tot else np.nan,
             "over_odds": int(np.median(px_o)) if px_o else -110,
             "under_odds": int(np.median(px_u)) if px_u else -110,
-            "n_books": books,
+            "n_books": n_books,
         }
-        # Best number per side. Spreads: the highest number is best for both
-        # sides (home -3 beats -3.5; away +4 beats +3.5). Over: lowest total;
-        # under: highest total.
-        for side, quotes, pick in (("home", q_home, max), ("away", q_away, max),
-                                   ("over", q_over, min), ("under", q_under, max)):
-            row[f"best_{side}_line"], row[f"best_{side}_odds"], row[f"best_{side}_book"] = _best(quotes, pick)
+        # Fallback best number per side (line first, then price). The card
+        # re-ranks every quote by expected value once it has a win probability.
+        for side, pick in (("home", max), ("away", max), ("over", min), ("under", max)):
+            row[f"best_{side}_line"], row[f"best_{side}_odds"], row[f"best_{side}_book"] = _best(q[side], pick)
+            row[f"quotes_{side}"] = json.dumps(q[side])
         rows.append(row)
     return pd.DataFrame(rows)
 
@@ -434,7 +506,8 @@ def build_live_slate(api_key: str, espn_names: dict) -> pd.DataFrame:
             spread_home=-flipped["spread_home"],
             home_odds=flipped["away_odds"], away_odds=flipped["home_odds"],
             **{f"best_home_{k}": flipped[f"best_away_{k}"] for k in ("line", "odds", "book")},
-            **{f"best_away_{k}": flipped[f"best_home_{k}"] for k in ("line", "odds", "book")})
+            **{f"best_away_{k}": flipped[f"best_home_{k}"] for k in ("line", "odds", "book")},
+            quotes_home=flipped["quotes_away"], quotes_away=flipped["quotes_home"])
         flipped = flipped[[c for c in j.columns if c in flipped.columns]]
         j = pd.concat([j, flipped], ignore_index=True)
 
