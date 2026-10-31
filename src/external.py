@@ -272,7 +272,7 @@ SCHOOL_ALIASES = {
     "texas rio grande valley": "ut rio grande valley", "utrgv": "ut rio grande valley",
     "wisconsin milwaukee": "milwaukee", "wisconsin green bay": "green bay", "boston u": "boston university",
     "saint thomas": "st thomas", "st thomas mn": "st thomas", "md eastern shore": "maryland eastern shore",
-    "massachusetts lowell": "umass lowell", "siue": "siu edwardsville", "uconn": "uconn",
+    "massachusetts lowell": "umass lowell", "southeast missouri": "southeast missouri state", "siue": "siu edwardsville", "uconn": "uconn",
 }
 
 
