@@ -165,6 +165,30 @@ def odds_probe() -> None:
     print("\n".join(lines))
 
 
+def books_probe() -> None:
+    """Which shopped books priced which games, and the raw exchange prices."""
+    import collections, json as _json
+    key = os.environ.get("ODDS_API_KEY", "")
+    books = live.shop_books()
+    r = live.SESSION.get(live.ODDS, params={"apiKey": key, "bookmakers": ",".join(books),
+                         "markets": "spreads,totals", "oddsFormat": "american"}, timeout=40)
+    data = r.json() if r.ok else []
+    lines = [f"HTTP {r.status_code}, {len(data)} events, credits used {r.headers.get('x-requests-last')}, "
+             f"left {r.headers.get('x-requests-remaining')}"]
+    cnt = collections.Counter(b["key"] for e in data for b in e.get("bookmakers", []))
+    lines.append("books returning lines: " + ", ".join(f"{k} {cnt.get(k, 0)}" for k in books))
+    for e in data:
+        for b in e.get("bookmakers", []):
+            if b["key"] in live.EXCHANGES:
+                lines.append(f"  {e['away_team']} @ {e['home_team']} {b['key']}: "
+                             + _json.dumps([(m["key"], [(o["name"], o.get("point"), o["price"]) for o in m["outcomes"]])
+                                            for m in b["markets"]])[:400])
+    os.makedirs(OUT_DIR, exist_ok=True)
+    with open(os.path.join(OUT_DIR, "books_probe.log"), "w") as f:
+        f.write("\n".join(lines) + "\n")
+    print("\n".join(lines))
+
+
 def main(argv):
     if not argv:
         print("usage: jobs.py <command> [args]")
@@ -173,7 +197,7 @@ def main(argv):
     fn = {"probe_torvik": probe_torvik, "backfill_players": backfill_players,
           "lineup_backtest": lineup_backtest, "start_times": start_times,
           "probe_url": probe_url, "espn_teams": espn_teams, "rosters": rosters,
-          "odds_probe": odds_probe}.get(cmd)
+          "odds_probe": odds_probe, "books_probe": books_probe}.get(cmd)
     if fn is None:
         raise SystemExit(f"unknown command {cmd}")
     fn(*[int(a) if a.isdigit() and cmd != "probe_url" else a for a in args])
