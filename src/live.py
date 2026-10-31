@@ -317,11 +317,25 @@ def _best(quotes: list, better_line) -> tuple:
 BOOKS = {
     "draftkings": "DraftKings", "fanduel": "FanDuel", "espnbet": "theScore Bet",
     "betmgm": "BetMGM", "ballybet": "Bally Bet", "hardrockbet_az": "Hard Rock",
+    "hardrockbet": "Hard Rock",          # main feed: the Arizona one can be empty
     "betrivers": "BetRivers", "kalshi": "Kalshi", "polymarket_us": "Polymarket",
 }
 PAID_BOOKS = {"williamhill_us": "Caesars", "fanatics": "Fanatics"}
 EXCHANGES = {"kalshi", "polymarket_us", "polymarket"}
 KALSHI_FEE = 0.07          # taker fee per contract = 7% x P x (1 - P)
+
+# Quote sanity checks. Prediction markets list thin markets with no real
+# price (both sides -4900, or a total 35 points off the market); drop them.
+MAX_JUICE = 300                 # skip prices worse than -300 or better than +300
+OVERROUND = (0.95, 1.15)        # both sides' implied probabilities must sum to this range
+MAX_LINE_GAP = {"spread": 3.0, "total": 6.0}   # points from the sportsbook consensus
+
+
+def _sane_pair(a: int, b: int) -> bool:
+    if max(abs(a), abs(b)) > MAX_JUICE:
+        return False
+    tot = american_to_prob(a) + american_to_prob(b)
+    return OVERROUND[0] <= tot <= OVERROUND[1]
 
 
 def shop_books() -> dict:
@@ -391,7 +405,7 @@ def fetch_odds(api_key: str) -> pd.DataFrame:
                 outs = {o["name"]: o for o in m.get("outcomes", [])}
                 if m["key"] == "spreads" and home in outs and away in outs:
                     ph, pa = (normalize_price(outs[n]["price"], key) for n in (home, away))
-                    if ph is None or pa is None:
+                    if ph is None or pa is None or not _sane_pair(ph, pa):
                         continue
                     q["home"].append((float(outs[home]["point"]), ph, title))
                     q["away"].append((float(outs[away]["point"]), pa, title))
@@ -399,7 +413,7 @@ def fetch_odds(api_key: str) -> pd.DataFrame:
                         sp.append(outs[home]["point"]); sp_px_h.append(ph); sp_px_a.append(pa)
                 elif m["key"] == "totals" and "Over" in outs and "Under" in outs:
                     po, pu = (normalize_price(outs[n]["price"], key) for n in ("Over", "Under"))
-                    if po is None or pu is None:
+                    if po is None or pu is None or not _sane_pair(po, pu):
                         continue
                     q["over"].append((float(outs["Over"]["point"]), po, title))
                     q["under"].append((float(outs["Under"]["point"]), pu, title))
@@ -420,6 +434,21 @@ def fetch_odds(api_key: str) -> pd.DataFrame:
             "under_odds": int(np.median(px_u)) if px_u else -110,
             "n_books": n_books,
         }
+        # drop quotes far from the sportsbook consensus (stale or thin markets);
+        # one book per name per side (Hard Rock has two feeds)
+        c_sp, c_tot = row["spread_home"], row["total"]
+        if pd.notna(c_sp):
+            q["home"] = [x for x in q["home"] if abs(x[0] - c_sp) <= MAX_LINE_GAP["spread"]]
+            q["away"] = [x for x in q["away"] if abs(x[0] + c_sp) <= MAX_LINE_GAP["spread"]]
+        if pd.notna(c_tot):
+            for sd in ("over", "under"):
+                q[sd] = [x for x in q[sd] if abs(x[0] - c_tot) <= MAX_LINE_GAP["total"]]
+        for sd in q:
+            seen, keep = set(), []
+            for x in q[sd]:
+                if x[2] not in seen:
+                    seen.add(x[2]); keep.append(x)
+            q[sd] = keep
         # Fallback best number per side (line first, then price). The card
         # re-ranks every quote by expected value once it has a win probability.
         for side, pick in (("home", max), ("away", max), ("over", min), ("under", max)):
