@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-11-01T17:56+00:00",
+ "updated_at": "2026-11-01T20:32+00:00",
  "mode": "live",
  "model2_source": "KenPom (362 teams)",
  "hca": 3.0,
@@ -13,7 +13,14 @@
    "l": 0,
    "p": 0,
    "units": 0.0,
-   "pending": 3
+   "pending": 18
+  },
+  "TOTAL": {
+   "w": 0,
+   "l": 0,
+   "p": 0,
+   "units": 0.0,
+   "pending": 1
   }
  },
  "games": [
@@ -35,7 +42,7 @@
     "home": 84.2,
     "ats": -0.5,
     "tot": 2.0,
-    "tot_adj": -4.0
+    "tot_adj": -4.3
    },
    "ats_play": "",
    "ou_play": "",
@@ -62,7 +69,7 @@
     "home": 81.0,
     "ats": -2.1,
     "tot": 3.2,
-    "tot_adj": -2.8
+    "tot_adj": -3.1
    },
    "ats_play": "",
    "ou_play": "",
@@ -89,7 +96,7 @@
     "home": 78.9,
     "ats": -5.1,
     "tot": 10.0,
-    "tot_adj": 4.1
+    "tot_adj": 3.8
    },
    "ats_play": "",
    "ou_play": "",
@@ -116,7 +123,7 @@
     "home": 91.6,
     "ats": -7.8,
     "tot": 7.9,
-    "tot_adj": 2.0
+    "tot_adj": 1.7
    },
    "ats_play": "AWAY",
    "ou_play": "",
@@ -132,12 +139,6 @@
      "line": 27.5,
      "odds": -109,
      "ev": 0.1791
-    },
-    {
-     "book": "theScore Bet",
-     "line": 26.5,
-     "odds": -105,
-     "ev": 0.1756
     },
     {
      "book": "Hard Rock",
@@ -162,37 +163,16 @@
      "line": 26.5,
      "odds": -110,
      "ev": 0.1495
+    },
+    {
+     "book": "theScore Bet",
+     "line": 26.5,
+     "odds": -115,
+     "ev": 0.1257
     }
    ],
    "ou_books": [],
    "ats_play_to": 24.0,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401910994",
-   "start": "2026-11-02T23:00Z",
-   "home": "Georgia State Panthers",
-   "away": "Bowling Green Falcons",
-   "line": -3.5,
-   "total_line": 158.5,
-   "m1": {
-    "away": 75.6,
-    "home": 71.5,
-    "ats": -7.6,
-    "tot": -11.5
-   },
-   "m2": {
-    "away": 78.7,
-    "home": 80.3,
-    "ats": -1.9,
-    "tot": 0.5,
-    "tot_adj": -5.5
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
    "ou_play_to": null
   },
   {
@@ -213,11 +193,29 @@
     "home": 84.0,
     "ats": 6.1,
     "tot": 0.9,
-    "tot_adj": -5.0
+    "tot_adj": -5.3
    },
    "ats_play": "HOME",
    "ou_play": "",
    "ats_books": [
+    {
+     "book": "Hard Rock",
+     "line": 1.5,
+     "odds": 110,
+     "ev": 0.191
+    },
+    {
+     "book": "BetRivers",
+     "line": 1.5,
+     "odds": 108,
+     "ev": 0.1797
+    },
+    {
+     "book": "Bally Bet",
+     "line": 1.5,
+     "odds": 108,
+     "ev": 0.1797
+    },
     {
      "book": "theScore Bet",
      "line": 2.5,
@@ -227,8 +225,8 @@
     {
      "book": "DraftKings",
      "line": 2.5,
-     "odds": -112,
-     "ev": 0.0983
+     "odds": -110,
+     "ev": 0.1077
     },
     {
      "book": "FanDuel",
@@ -241,28 +239,64 @@
      "line": 2.5,
      "odds": -115,
      "ev": 0.0848
-    },
-    {
-     "book": "Hard Rock",
-     "line": 1.5,
-     "odds": -110,
-     "ev": 0.0827
-    },
-    {
-     "book": "BetRivers",
-     "line": 1.5,
-     "odds": -112,
-     "ev": 0.0735
-    },
-    {
-     "book": "Bally Bet",
-     "line": 1.5,
-     "odds": -112,
-     "ev": 0.0735
     }
    ],
    "ou_books": [],
    "ats_play_to": 1.5,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401909771",
+   "start": "2026-11-03T00:00Z",
+   "home": "Iowa State Cyclones",
+   "away": "Memphis Tigers",
+   "line": -13.5,
+   "total_line": 156.5,
+   "m1": {
+    "away": 73.6,
+    "home": 79.6,
+    "ats": -7.5,
+    "tot": -3.3
+   },
+   "m2": {
+    "away": 76.3,
+    "home": 85.6,
+    "ats": -4.2,
+    "tot": 5.4,
+    "tot_adj": -0.8
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401910994",
+   "start": "2026-11-02T23:00Z",
+   "home": "Georgia State Panthers",
+   "away": "Bowling Green Falcons",
+   "line": -4.5,
+   "total_line": 158.5,
+   "m1": {
+    "away": 75.6,
+    "home": 71.5,
+    "ats": -8.6,
+    "tot": -11.5
+   },
+   "m2": {
+    "away": 78.7,
+    "home": 80.3,
+    "ats": -2.9,
+    "tot": 0.5,
+    "tot_adj": -5.8
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
    "ou_play_to": null
   },
   {
@@ -283,22 +317,22 @@
     "home": 90.4,
     "ats": -6.4,
     "tot": 7.1,
-    "tot_adj": 1.2
+    "tot_adj": 0.9
    },
    "ats_play": "AWAY",
    "ou_play": "",
    "ats_books": [
     {
      "book": "DraftKings",
-     "line": 28.5,
-     "odds": -115,
-     "ev": 0.1158
+     "line": 27.5,
+     "odds": -105,
+     "ev": 0.1399
     },
     {
      "book": "theScore Bet",
-     "line": 28.5,
-     "odds": -115,
-     "ev": 0.1158
+     "line": 27.5,
+     "odds": -105,
+     "ev": 0.1399
     },
     {
      "book": "FanDuel",
@@ -347,7 +381,7 @@
     "home": 90.4,
     "ats": -5.5,
     "tot": 6.2,
-    "tot_adj": 0.3
+    "tot_adj": 0.0
    },
    "ats_play": "AWAY",
    "ou_play": "",
@@ -400,94 +434,51 @@
    "ou_play_to": null
   },
   {
-   "game_id": "401909705",
+   "game_id": "401921139",
    "start": "2026-11-03T00:00Z",
-   "home": "Pittsburgh Panthers",
-   "away": "Rider Broncs",
-   "line": -27.5,
-   "total_line": 142.5,
+   "home": "Columbia Lions",
+   "away": "Elon Phoenix",
+   "line": -3.5,
+   "total_line": 151.5,
    "m1": {
-    "away": 64.0,
-    "home": 71.1,
-    "ats": -20.4,
-    "tot": -7.4
+    "away": 75.0,
+    "home": 75.4,
+    "ats": -3.1,
+    "tot": -1.0
    },
    "m2": {
-    "away": 65.9,
-    "home": 85.4,
-    "ats": -8.0,
-    "tot": 8.9,
-    "tot_adj": 2.9
+    "away": 77.1,
+    "home": 79.9,
+    "ats": -0.7,
+    "tot": 5.6,
+    "tot_adj": -0.6
    },
-   "ats_play": "AWAY",
+   "ats_play": "",
    "ou_play": "",
-   "ats_books": [
-    {
-     "book": "BetMGM",
-     "line": 26.5,
-     "odds": -105,
-     "ev": 0.1556
-    },
-    {
-     "book": "DraftKings",
-     "line": 27.5,
-     "odds": -115,
-     "ev": 0.1307
-    },
-    {
-     "book": "theScore Bet",
-     "line": 27.5,
-     "odds": -115,
-     "ev": 0.1307
-    },
-    {
-     "book": "FanDuel",
-     "line": 26.5,
-     "odds": -110,
-     "ev": 0.13
-    },
-    {
-     "book": "Hard Rock",
-     "line": 27.5,
-     "odds": -120,
-     "ev": 0.1088
-    },
-    {
-     "book": "Bally Bet",
-     "line": 27.5,
-     "odds": -121,
-     "ev": 0.1046
-    },
-    {
-     "book": "BetRivers",
-     "line": 27.5,
-     "odds": -121,
-     "ev": 0.1046
-    }
-   ],
+   "ats_books": [],
    "ou_books": [],
-   "ats_play_to": 25.0,
+   "ats_play_to": null,
    "ou_play_to": null
   },
   {
-   "game_id": "401909771",
+   "game_id": "401920231",
    "start": "2026-11-03T00:00Z",
-   "home": "Iowa State Cyclones",
-   "away": "Memphis Tigers",
-   "line": -13.5,
-   "total_line": 156.5,
+   "home": "Marist Red Foxes",
+   "away": "Dartmouth Big Green",
+   "line": -6.5,
+   "total_line": 139.5,
    "m1": {
-    "away": 73.6,
-    "home": 79.6,
-    "ats": -7.5,
-    "tot": -3.3
+    "away": 68.8,
+    "home": 69.1,
+    "ats": -6.1,
+    "tot": -1.6
    },
    "m2": {
-    "away": 76.3,
-    "home": 85.6,
-    "ats": -4.2,
-    "tot": 5.4,
-    "tot_adj": -0.5
+    "away": 71.6,
+    "home": 73.7,
+    "ats": -4.4,
+    "tot": 5.8,
+    "tot_adj": -0.4
    },
    "ats_play": "",
    "ou_play": "",
@@ -502,25 +493,43 @@
    "home": "West Virginia Mountaineers",
    "away": "Niagara Purple Eagles",
    "line": -28.5,
-   "total_line": 139.5,
+   "total_line": 141.5,
    "m1": {
     "away": 58.2,
     "home": 69.9,
     "ats": -16.8,
-    "tot": -11.4
+    "tot": -13.4
    },
    "m2": {
     "away": 65.2,
     "home": 85.8,
     "ats": -8.0,
-    "tot": 11.5,
-    "tot_adj": 5.6
+    "tot": 9.5,
+    "tot_adj": 3.3
    },
    "ats_play": "AWAY",
    "ou_play": "",
    "ats_books": [
     {
+     "book": "Bally Bet",
+     "line": 28.5,
+     "odds": -108,
+     "ev": 0.165
+    },
+    {
+     "book": "BetRivers",
+     "line": 28.5,
+     "odds": -108,
+     "ev": 0.165
+    },
+    {
      "book": "theScore Bet",
+     "line": 28.5,
+     "odds": -110,
+     "ev": 0.1548
+    },
+    {
+     "book": "Hard Rock",
      "line": 28.5,
      "odds": -110,
      "ev": 0.1548
@@ -532,28 +541,10 @@
      "ev": 0.145
     },
     {
-     "book": "Hard Rock",
-     "line": 28.5,
-     "odds": -115,
-     "ev": 0.1309
-    },
-    {
      "book": "BetMGM",
      "line": 28.5,
      "odds": -115,
      "ev": 0.1309
-    },
-    {
-     "book": "Bally Bet",
-     "line": 28.5,
-     "odds": -117,
-     "ev": 0.1219
-    },
-    {
-     "book": "BetRivers",
-     "line": 28.5,
-     "odds": -117,
-     "ev": 0.1219
     },
     {
      "book": "FanDuel",
@@ -584,7 +575,7 @@
     "home": 78.8,
     "ats": 2.6,
     "tot": 6.1,
-    "tot_adj": 0.1
+    "tot_adj": -0.2
    },
    "ats_play": "",
    "ou_play": "",
@@ -594,78 +585,51 @@
    "ou_play_to": null
   },
   {
-   "game_id": "401920231",
+   "game_id": "401909541",
    "start": "2026-11-03T00:00Z",
-   "home": "Marist Red Foxes",
-   "away": "Dartmouth Big Green",
-   "line": -6.5,
-   "total_line": 141.5,
-   "m1": {
-    "away": 68.8,
-    "home": 69.1,
-    "ats": -6.1,
-    "tot": -3.6
-   },
-   "m2": {
-    "away": 71.6,
-    "home": 73.7,
-    "ats": -4.4,
-    "tot": 3.8,
-    "tot_adj": -2.1
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401921139",
-   "start": "2026-11-03T00:00Z",
-   "home": "Columbia Lions",
-   "away": "Elon Phoenix",
-   "line": -3.5,
-   "total_line": 151.5,
-   "m1": {
-    "away": 75.0,
-    "home": 75.4,
-    "ats": -3.1,
-    "tot": -1.0
-   },
-   "m2": {
-    "away": 77.1,
-    "home": 79.9,
-    "ats": -0.7,
-    "tot": 5.6,
-    "tot_adj": -0.4
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401910995",
-   "start": "2026-11-03T00:00Z",
-   "home": "Marshall Thundering Herd",
-   "away": "Buffalo Bulls",
-   "line": -1.5,
+   "home": "Xavier Musketeers",
+   "away": "Mount St. Mary's Mountaineers",
+   "line": -25.5,
    "total_line": 156.5,
    "m1": {
-    "away": 71.4,
-    "home": 79.2,
-    "ats": 6.3,
-    "tot": -5.8
+    "away": 62.2,
+    "home": 77.7,
+    "ats": -10.0,
+    "tot": -16.6
    },
    "m2": {
-    "away": 78.8,
-    "home": 80.3,
-    "ats": 0.1,
-    "tot": 2.6,
-    "tot_adj": -3.3
+    "away": 68.4,
+    "home": 92.1,
+    "ats": -1.7,
+    "tot": 4.0,
+    "tot_adj": -2.2
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401920893",
+   "start": "2026-11-03T00:30Z",
+   "home": "Wisconsin Badgers",
+   "away": "Denver Pioneers",
+   "line": -23.5,
+   "total_line": 159.5,
+   "m1": {
+    "away": 77.9,
+    "home": 82.4,
+    "ats": -19.0,
+    "tot": 0.8
+   },
+   "m2": {
+    "away": 72.6,
+    "home": 92.9,
+    "ats": -3.2,
+    "tot": 6.0,
+    "tot_adj": -0.2
    },
    "ats_play": "",
    "ou_play": "",
@@ -692,88 +656,7 @@
     "home": 81.3,
     "ats": 2.6,
     "tot": 4.1,
-    "tot_adj": -1.8
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401911004",
-   "start": "2026-11-03T00:00Z",
-   "home": "Georgia Southern Eagles",
-   "away": "Ball State Cardinals",
-   "line": 2.5,
-   "total_line": 158.5,
-   "m1": {
-    "away": 64.7,
-    "home": 80.0,
-    "ats": 17.7,
-    "tot": -13.8
-   },
-   "m2": {
-    "away": 78.6,
-    "home": 79.1,
-    "ats": 3.0,
-    "tot": -0.7,
-    "tot_adj": -6.7
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401911002",
-   "start": "2026-11-03T00:00Z",
-   "home": "James Madison Dukes",
-   "away": "Miami (OH) RedHawks",
-   "line": 0.5,
-   "total_line": 155.5,
-   "m1": {
-    "away": 80.8,
-    "home": 72.6,
-    "ats": -7.6,
-    "tot": -2.1
-   },
-   "m2": {
-    "away": 80.5,
-    "home": 79.5,
-    "ats": -0.5,
-    "tot": 4.5,
-    "tot_adj": -1.4
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401911001",
-   "start": "2026-11-03T00:00Z",
-   "home": "Troy Trojans",
-   "away": "Massachusetts Minutemen",
-   "line": -3.5,
-   "total_line": 154.5,
-   "m1": {
-    "away": 75.4,
-    "home": 78.7,
-    "ats": -0.3,
-    "tot": -0.4
-   },
-   "m2": {
-    "away": 77.0,
-    "home": 79.1,
-    "ats": -1.4,
-    "tot": 1.5,
-    "tot_adj": -4.4
+    "tot_adj": -2.1
    },
    "ats_play": "",
    "ou_play": "",
@@ -787,20 +670,20 @@
    "start": "2026-11-03T00:00Z",
    "home": "Coastal Carolina Chanticleers",
    "away": "Eastern Michigan Eagles",
-   "line": 0.5,
+   "line": -0.5,
    "total_line": 143.5,
    "m1": {
     "away": 66.6,
     "home": 73.8,
-    "ats": 7.6,
+    "ats": 6.6,
     "tot": -3.1
    },
    "m2": {
     "away": 76.0,
     "home": 76.5,
-    "ats": 1.1,
+    "ats": 0.1,
     "tot": 9.0,
-    "tot_adj": 3.1
+    "tot_adj": 2.8
    },
    "ats_play": "",
    "ou_play": "",
@@ -810,73 +693,30 @@
    "ou_play_to": null
   },
   {
-   "game_id": "401911261",
+   "game_id": "401913099",
    "start": "2026-11-03T00:00Z",
-   "home": "St. Bonaventure Bonnies",
-   "away": "Youngstown State Penguins",
-   "line": -10.5,
-   "total_line": 153.5,
+   "home": "North Carolina Tar Heels",
+   "away": "Western Carolina Catamounts",
+   "line": -22.5,
+   "total_line": 155.5,
    "m1": {
-    "away": 70.6,
-    "home": 75.7,
-    "ats": -5.5,
-    "tot": -7.2
+    "away": 76.7,
+    "home": 79.4,
+    "ats": -19.8,
+    "tot": 0.6
    },
    "m2": {
-    "away": 75.2,
-    "home": 79.3,
-    "ats": -6.4,
-    "tot": 1.1,
-    "tot_adj": -4.9
+    "away": 72.3,
+    "home": 90.1,
+    "ats": -4.7,
+    "tot": 6.9,
+    "tot_adj": 0.7
    },
-   "ats_play": "AWAY",
+   "ats_play": "",
    "ou_play": "",
-   "ats_books": [
-    {
-     "book": "FanDuel",
-     "line": 10.5,
-     "odds": -110,
-     "ev": 0.0928
-    },
-    {
-     "book": "BetMGM",
-     "line": 10.5,
-     "odds": -110,
-     "ev": 0.0928
-    },
-    {
-     "book": "theScore Bet",
-     "line": 9.5,
-     "odds": -105,
-     "ev": 0.092
-    },
-    {
-     "book": "DraftKings",
-     "line": 10.5,
-     "odds": -112,
-     "ev": 0.0835
-    },
-    {
-     "book": "Hard Rock",
-     "line": 10.5,
-     "odds": -120,
-     "ev": 0.0494
-    },
-    {
-     "book": "Bally Bet",
-     "line": 10.5,
-     "odds": -121,
-     "ev": 0.0455
-    },
-    {
-     "book": "BetRivers",
-     "line": 10.5,
-     "odds": -121,
-     "ev": 0.0455
-    }
-   ],
+   "ats_books": [],
    "ou_books": [],
-   "ats_play_to": 10.5,
+   "ats_play_to": null,
    "ou_play_to": null
   },
   {
@@ -885,96 +725,69 @@
    "home": "Wright State Raiders",
    "away": "Air Force Falcons",
    "line": -10.5,
-   "total_line": 159.5,
+   "total_line": 160.5,
    "m1": {
     "away": 54.6,
     "home": 79.0,
     "ats": 13.9,
-    "tot": -25.9
+    "tot": -26.9
    },
    "m2": {
     "away": 73.3,
     "home": 82.2,
     "ats": -1.6,
-    "tot": -4.0,
-    "tot_adj": -10.0
+    "tot": -5.0,
+    "tot_adj": -11.2
    },
    "ats_play": "",
    "ou_play": "UNDER",
    "ats_books": [],
    "ou_books": [
     {
-     "book": "DraftKings",
-     "line": 159.5,
-     "odds": -110,
-     "ev": 0.1334
+     "book": "FanDuel",
+     "line": 160.5,
+     "odds": -105,
+     "ev": 0.1822
     },
     {
      "book": "theScore Bet",
      "line": 159.5,
-     "odds": -110,
-     "ev": 0.1334
+     "odds": -105,
+     "ev": 0.1643
     },
     {
      "book": "BetMGM",
      "line": 159.5,
-     "odds": -110,
-     "ev": 0.1334
+     "odds": -105,
+     "ev": 0.1643
     },
     {
-     "book": "FanDuel",
-     "line": 159.5,
-     "odds": -110,
-     "ev": 0.1334
+     "book": "DraftKings",
+     "line": 160.5,
+     "odds": -112,
+     "ev": 0.1462
     },
     {
      "book": "Bally Bet",
-     "line": 156.5,
-     "odds": 100,
-     "ev": 0.1315
+     "line": 160.5,
+     "odds": -114,
+     "ev": 0.1367
     },
     {
      "book": "BetRivers",
-     "line": 156.5,
-     "odds": 100,
-     "ev": 0.1315
+     "line": 160.5,
+     "odds": -114,
+     "ev": 0.1367
     },
     {
      "book": "Hard Rock",
-     "line": 156.5,
-     "odds": 100,
-     "ev": 0.1315
+     "line": 160.5,
+     "odds": -115,
+     "ev": 0.1321
     }
    ],
    "ats_play_to": null,
-   "ou_play_to": 157.0
-  },
-  {
-   "game_id": "401913099",
-   "start": "2026-11-03T00:00Z",
-   "home": "North Carolina Tar Heels",
-   "away": "Western Carolina Catamounts",
-   "line": -22.5,
-   "total_line": 154.5,
-   "m1": {
-    "away": 76.7,
-    "home": 79.4,
-    "ats": -19.8,
-    "tot": 1.6
-   },
-   "m2": {
-    "away": 72.3,
-    "home": 90.1,
-    "ats": -4.7,
-    "tot": 7.9,
-    "tot_adj": 2.0
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
-   "ou_play_to": null
+   "ou_play_to": 156.5
   },
   {
    "game_id": "401916286",
@@ -994,7 +807,7 @@
     "home": 90.2,
     "ats": -6.8,
     "tot": 9.1,
-    "tot_adj": 3.2
+    "tot_adj": 2.9
    },
    "ats_play": "AWAY",
    "ou_play": "",
@@ -1047,6 +860,362 @@
    "ou_play_to": null
   },
   {
+   "game_id": "401920959",
+   "start": "2026-11-03T00:30Z",
+   "home": "Western Kentucky Hilltoppers",
+   "away": "Morehead State Eagles",
+   "line": -16.5,
+   "total_line": 153.5,
+   "m1": {
+    "away": 72.0,
+    "home": 81.2,
+    "ats": -7.4,
+    "tot": -0.3
+   },
+   "m2": {
+    "away": 70.1,
+    "home": 86.4,
+    "ats": -0.2,
+    "tot": 3.1,
+    "tot_adj": -3.2
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401910995",
+   "start": "2026-11-03T00:00Z",
+   "home": "Marshall Thundering Herd",
+   "away": "Buffalo Bulls",
+   "line": -1.5,
+   "total_line": 156.5,
+   "m1": {
+    "away": 71.4,
+    "home": 79.2,
+    "ats": 6.3,
+    "tot": -5.8
+   },
+   "m2": {
+    "away": 78.8,
+    "home": 80.3,
+    "ats": 0.1,
+    "tot": 2.6,
+    "tot_adj": -3.6
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401909705",
+   "start": "2026-11-03T00:00Z",
+   "home": "Pittsburgh Panthers",
+   "away": "Rider Broncs",
+   "line": -26.5,
+   "total_line": 142.5,
+   "m1": {
+    "away": 64.0,
+    "home": 71.1,
+    "ats": -19.4,
+    "tot": -7.4
+   },
+   "m2": {
+    "away": 65.9,
+    "home": 85.4,
+    "ats": -7.0,
+    "tot": 8.9,
+    "tot_adj": 2.7
+   },
+   "ats_play": "AWAY",
+   "ou_play": "",
+   "ats_books": [
+    {
+     "book": "DraftKings",
+     "line": 26.5,
+     "odds": -108,
+     "ev": 0.1399
+    },
+    {
+     "book": "FanDuel",
+     "line": 26.5,
+     "odds": -110,
+     "ev": 0.13
+    },
+    {
+     "book": "theScore Bet",
+     "line": 26.5,
+     "odds": -110,
+     "ev": 0.13
+    },
+    {
+     "book": "BetMGM",
+     "line": 26.5,
+     "odds": -110,
+     "ev": 0.13
+    },
+    {
+     "book": "Hard Rock",
+     "line": 27.5,
+     "odds": -120,
+     "ev": 0.1088
+    },
+    {
+     "book": "Bally Bet",
+     "line": 27.5,
+     "odds": -121,
+     "ev": 0.1046
+    },
+    {
+     "book": "BetRivers",
+     "line": 27.5,
+     "odds": -121,
+     "ev": 0.1046
+    }
+   ],
+   "ou_books": [],
+   "ats_play_to": 25.0,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401911004",
+   "start": "2026-11-03T00:00Z",
+   "home": "Georgia Southern Eagles",
+   "away": "Ball State Cardinals",
+   "line": 2.5,
+   "total_line": 158.5,
+   "m1": {
+    "away": 64.7,
+    "home": 80.0,
+    "ats": 17.7,
+    "tot": -13.8
+   },
+   "m2": {
+    "away": 78.6,
+    "home": 79.1,
+    "ats": 3.0,
+    "tot": -0.7,
+    "tot_adj": -6.9
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401911261",
+   "start": "2026-11-03T00:00Z",
+   "home": "St. Bonaventure Bonnies",
+   "away": "Youngstown State Penguins",
+   "line": -10.5,
+   "total_line": 153.5,
+   "m1": {
+    "away": 70.6,
+    "home": 75.7,
+    "ats": -5.5,
+    "tot": -7.2
+   },
+   "m2": {
+    "away": 75.2,
+    "home": 79.3,
+    "ats": -6.4,
+    "tot": 1.1,
+    "tot_adj": -5.2
+   },
+   "ats_play": "AWAY",
+   "ou_play": "",
+   "ats_books": [
+    {
+     "book": "FanDuel",
+     "line": 10.5,
+     "odds": -110,
+     "ev": 0.0928
+    },
+    {
+     "book": "BetMGM",
+     "line": 10.5,
+     "odds": -110,
+     "ev": 0.0928
+    },
+    {
+     "book": "theScore Bet",
+     "line": 9.5,
+     "odds": -105,
+     "ev": 0.092
+    },
+    {
+     "book": "DraftKings",
+     "line": 10.5,
+     "odds": -112,
+     "ev": 0.0835
+    },
+    {
+     "book": "Hard Rock",
+     "line": 10.5,
+     "odds": -120,
+     "ev": 0.0494
+    },
+    {
+     "book": "Bally Bet",
+     "line": 10.5,
+     "odds": -121,
+     "ev": 0.0455
+    },
+    {
+     "book": "BetRivers",
+     "line": 10.5,
+     "odds": -121,
+     "ev": 0.0455
+    }
+   ],
+   "ou_books": [],
+   "ats_play_to": 10.5,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401911002",
+   "start": "2026-11-03T00:00Z",
+   "home": "James Madison Dukes",
+   "away": "Miami (OH) RedHawks",
+   "line": 0.5,
+   "total_line": 155.5,
+   "m1": {
+    "away": 80.8,
+    "home": 72.6,
+    "ats": -7.6,
+    "tot": -2.1
+   },
+   "m2": {
+    "away": 80.5,
+    "home": 79.5,
+    "ats": -0.5,
+    "tot": 4.5,
+    "tot_adj": -1.7
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401911001",
+   "start": "2026-11-03T00:00Z",
+   "home": "Troy Trojans",
+   "away": "Massachusetts Minutemen",
+   "line": -3.5,
+   "total_line": 154.5,
+   "m1": {
+    "away": 75.4,
+    "home": 78.7,
+    "ats": -0.3,
+    "tot": -0.4
+   },
+   "m2": {
+    "away": 77.0,
+    "home": 79.1,
+    "ats": -1.4,
+    "tot": 1.5,
+    "tot_adj": -4.7
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401920758",
+   "start": "2026-11-03T00:30Z",
+   "home": "Belmont Bruins",
+   "away": "Southern Indiana Screaming Eagles",
+   "line": -16.5,
+   "total_line": 154.5,
+   "m1": {
+    "away": 68.6,
+    "home": 77.4,
+    "ats": -7.7,
+    "tot": -8.5
+   },
+   "m2": {
+    "away": 71.5,
+    "home": 83.2,
+    "ats": -4.8,
+    "tot": 0.1,
+    "tot_adj": -6.1
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401920886",
+   "start": "2026-11-03T00:30Z",
+   "home": "Seton Hall Pirates",
+   "away": "Saint Peter's Peacocks",
+   "line": -20.5,
+   "total_line": 136.5,
+   "m1": {
+    "away": 70.1,
+    "home": 72.0,
+    "ats": -18.6,
+    "tot": 5.6
+   },
+   "m2": {
+    "away": 65.6,
+    "home": 83.4,
+    "ats": -2.7,
+    "tot": 12.5,
+    "tot_adj": 6.3
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401906791",
+   "start": "2026-11-03T00:30Z",
+   "home": "Mississippi State Bulldogs",
+   "away": "Tennessee Tech Golden Eagles",
+   "line": -18.5,
+   "total_line": 157.5,
+   "m1": {
+    "away": 68.2,
+    "home": 77.2,
+    "ats": -9.6,
+    "tot": -12.1
+   },
+   "m2": {
+    "away": 74.4,
+    "home": 88.7,
+    "ats": -4.2,
+    "tot": 5.7,
+    "tot_adj": -0.5
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
    "game_id": "401916313",
    "start": "2026-11-03T02:00Z",
    "home": "BYU Cougars",
@@ -1064,61 +1233,7 @@
     "home": 84.7,
     "ats": -3.3,
     "tot": 8.8,
-    "tot_adj": 2.9
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401909738",
-   "start": "2026-11-03T03:00Z",
-   "home": "UCLA Bruins",
-   "away": "Arizona Wildcats",
-   "line": 4.5,
-   "total_line": 150.5,
-   "m1": {
-    "away": 84.1,
-    "home": 74.7,
-    "ats": -4.9,
-    "tot": 8.3
-   },
-   "m2": {
-    "away": 84.0,
-    "home": 76.8,
-    "ats": -2.7,
-    "tot": 10.2,
-    "tot_adj": 4.3
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401911707",
-   "start": "2026-11-02T16:30Z",
-   "home": "Tennessee State Tigers",
-   "away": "Murray State Racers",
-   "line": 9.5,
-   "total_line": 161.5,
-   "m1": {
-    "away": 79.3,
-    "home": 78.7,
-    "ats": 8.9,
-    "tot": -3.4
-   },
-   "m2": {
-    "away": 85.8,
-    "home": 77.3,
-    "ats": 1.0,
-    "tot": 1.6,
-    "tot_adj": -4.3
+    "tot_adj": 2.6
    },
    "ats_play": "",
    "ou_play": "",
@@ -1155,6 +1270,33 @@
    "ou_play_to": null
   },
   {
+   "game_id": "401906769",
+   "start": "2026-11-02T23:00Z",
+   "home": "Florida Gators",
+   "away": "Miami Hurricanes",
+   "line": -5.5,
+   "total_line": 160.5,
+   "m1": {
+    "away": 78.7,
+    "home": 87.0,
+    "ats": 2.8,
+    "tot": 5.2
+   },
+   "m2": {
+    "away": 80.5,
+    "home": 88.8,
+    "ats": 2.7,
+    "tot": 8.8,
+    "tot_adj": 2.6
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
    "game_id": "401921704",
    "start": "2026-11-03T00:30Z",
    "home": "Purdue Boilermakers",
@@ -1172,7 +1314,7 @@
     "home": 80.1,
     "ats": 1.5,
     "tot": 8.7,
-    "tot_adj": 2.8
+    "tot_adj": 2.5
    },
    "ats_play": "",
    "ou_play": "",
@@ -1199,7 +1341,142 @@
     "home": 75.3,
     "ats": 0.4,
     "tot": 3.3,
-    "tot_adj": -2.7
+    "tot_adj": -2.9
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401911707",
+   "start": "2026-11-02T16:30Z",
+   "home": "Tennessee State Tigers",
+   "away": "Murray State Racers",
+   "line": 9.5,
+   "total_line": 162.5,
+   "m1": {
+    "away": 79.3,
+    "home": 78.7,
+    "ats": 8.9,
+    "tot": -4.4
+   },
+   "m2": {
+    "away": 85.8,
+    "home": 77.3,
+    "ats": 1.0,
+    "tot": 0.6,
+    "tot_adj": -5.6
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401920912",
+   "start": "2026-11-02T08:00Z",
+   "home": "Grambling Tigers",
+   "away": "Northern Illinois Huskies",
+   "line": 6.5,
+   "total_line": 143.5,
+   "m1": {
+    "away": 66.5,
+    "home": 65.9,
+    "ats": 5.9,
+    "tot": -11.1
+   },
+   "m2": {
+    "away": 76.9,
+    "home": 75.2,
+    "ats": 4.8,
+    "tot": 8.6,
+    "tot_adj": 2.4
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401917173",
+   "start": "2026-11-03T00:30Z",
+   "home": "Penn State Nittany Lions",
+   "away": "Canisius Golden Griffins",
+   "line": -21.5,
+   "total_line": 152.5,
+   "m1": {
+    "away": 59.6,
+    "home": 70.9,
+    "ats": -10.2,
+    "tot": -21.9
+   },
+   "m2": {
+    "away": 68.5,
+    "home": 88.9,
+    "ats": -1.1,
+    "tot": 4.9,
+    "tot_adj": -1.3
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401909784",
+   "start": "2026-11-03T01:00Z",
+   "home": "Kansas Jayhawks",
+   "away": "Fordham Rams",
+   "line": -23.5,
+   "total_line": 145.5,
+   "m1": {
+    "away": 68.1,
+    "home": 73.8,
+    "ats": -17.8,
+    "tot": -3.6
+   },
+   "m2": {
+    "away": 69.6,
+    "home": 88.7,
+    "ats": -4.3,
+    "tot": 12.8,
+    "tot_adj": 6.6
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401911000",
+   "start": "2026-11-03T00:30Z",
+   "home": "Louisiana Tech Bulldogs",
+   "away": "Kent State Golden Flashes",
+   "line": 5.5,
+   "total_line": 144.5,
+   "m1": {
+    "away": 79.2,
+    "home": 71.2,
+    "ats": -2.6,
+    "tot": 5.9
+   },
+   "m2": {
+    "away": 80.1,
+    "home": 72.2,
+    "ats": -2.4,
+    "tot": 7.8,
+    "tot_adj": 1.6
    },
    "ats_play": "",
    "ou_play": "",
@@ -1226,34 +1503,7 @@
     "home": 78.5,
     "ats": 3.4,
     "tot": 2.7,
-    "tot_adj": -3.2
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401906791",
-   "start": "2026-11-03T00:30Z",
-   "home": "Mississippi State Bulldogs",
-   "away": "Tennessee Tech Golden Eagles",
-   "line": -18.5,
-   "total_line": 157.5,
-   "m1": {
-    "away": 68.2,
-    "home": 77.2,
-    "ats": -9.6,
-    "tot": -12.1
-   },
-   "m2": {
-    "away": 74.4,
-    "home": 88.7,
-    "ats": -4.2,
-    "tot": 5.7,
-    "tot_adj": -0.3
+    "tot_adj": -3.5
    },
    "ats_play": "",
    "ou_play": "",
@@ -1280,7 +1530,7 @@
     "home": 91.3,
     "ats": -5.9,
     "tot": 5.4,
-    "tot_adj": -0.5
+    "tot_adj": -0.8
    },
    "ats_play": "AWAY",
    "ou_play": "",
@@ -1333,159 +1583,24 @@
    "ou_play_to": null
   },
   {
-   "game_id": "401917173",
-   "start": "2026-11-03T00:30Z",
-   "home": "Penn State Nittany Lions",
-   "away": "Canisius Golden Griffins",
-   "line": -21.5,
-   "total_line": 152.5,
+   "game_id": "401928995",
+   "start": "2026-11-03T01:00Z",
+   "home": "Valparaiso Beacons",
+   "away": "Western Illinois Leathernecks",
+   "line": -18.5,
+   "total_line": 143.5,
    "m1": {
-    "away": 59.6,
-    "home": 70.9,
-    "ats": -10.2,
-    "tot": -21.9
+    "away": 62.8,
+    "home": 73.8,
+    "ats": -7.5,
+    "tot": -6.9
    },
    "m2": {
-    "away": 68.5,
-    "home": 88.9,
-    "ats": -1.1,
-    "tot": 4.9,
-    "tot_adj": -1.0
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401911000",
-   "start": "2026-11-03T00:30Z",
-   "home": "Louisiana Tech Bulldogs",
-   "away": "Kent State Golden Flashes",
-   "line": 5.5,
-   "total_line": 144.5,
-   "m1": {
-    "away": 79.2,
-    "home": 71.2,
-    "ats": -2.6,
-    "tot": 5.9
-   },
-   "m2": {
-    "away": 80.1,
-    "home": 72.2,
-    "ats": -2.4,
-    "tot": 7.8,
-    "tot_adj": 1.9
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401920758",
-   "start": "2026-11-03T00:30Z",
-   "home": "Belmont Bruins",
-   "away": "Southern Indiana Screaming Eagles",
-   "line": -16.5,
-   "total_line": 154.5,
-   "m1": {
-    "away": 68.6,
-    "home": 77.4,
-    "ats": -7.7,
-    "tot": -8.5
-   },
-   "m2": {
-    "away": 71.5,
-    "home": 83.2,
-    "ats": -4.8,
-    "tot": 0.1,
-    "tot_adj": -5.8
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401920893",
-   "start": "2026-11-03T00:30Z",
-   "home": "Wisconsin Badgers",
-   "away": "Denver Pioneers",
-   "line": -22.5,
-   "total_line": 159.5,
-   "m1": {
-    "away": 77.9,
-    "home": 82.4,
-    "ats": -18.0,
-    "tot": 0.8
-   },
-   "m2": {
-    "away": 72.6,
-    "home": 92.9,
-    "ats": -2.2,
-    "tot": 6.0,
-    "tot_adj": 0.1
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401920886",
-   "start": "2026-11-03T00:30Z",
-   "home": "Seton Hall Pirates",
-   "away": "Saint Peter's Peacocks",
-   "line": -20.5,
-   "total_line": 138.5,
-   "m1": {
-    "away": 70.1,
-    "home": 72.0,
-    "ats": -18.6,
-    "tot": 3.6
-   },
-   "m2": {
-    "away": 65.6,
-    "home": 83.4,
-    "ats": -2.7,
-    "tot": 10.5,
-    "tot_adj": 4.5
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401920959",
-   "start": "2026-11-03T00:30Z",
-   "home": "Western Kentucky Hilltoppers",
-   "away": "Morehead State Eagles",
-   "line": -16.5,
-   "total_line": 153.5,
-   "m1": {
-    "away": 72.0,
-    "home": 81.2,
-    "ats": -7.4,
-    "tot": -0.3
-   },
-   "m2": {
-    "away": 70.1,
-    "home": 86.4,
+    "away": 65.7,
+    "home": 84.0,
     "ats": -0.2,
-    "tot": 3.1,
-    "tot_adj": -2.9
+    "tot": 6.2,
+    "tot_adj": -0.1
    },
    "ats_play": "",
    "ou_play": "",
@@ -1495,51 +1610,179 @@
    "ou_play_to": null
   },
   {
-   "game_id": "401909541",
-   "start": "2026-11-03T00:00Z",
-   "home": "Xavier Musketeers",
-   "away": "Mount St. Mary's Mountaineers",
-   "line": -25.5,
-   "total_line": 156.5,
+   "game_id": "401920071",
+   "start": "2026-11-02T21:00Z",
+   "home": "George Mason Patriots",
+   "away": "UMBC Retrievers",
+   "line": -17.0,
+   "total_line": 147.5,
    "m1": {
-    "away": 62.2,
-    "home": 77.7,
-    "ats": -10.0,
-    "tot": -16.6
+    "away": 70.5,
+    "home": 71.2,
+    "ats": -16.4,
+    "tot": -5.8
    },
    "m2": {
-    "away": 68.4,
-    "home": 92.1,
-    "ats": -1.7,
-    "tot": 4.0,
-    "tot_adj": -1.9
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401906769",
-   "start": "2026-11-02T23:00Z",
-   "home": "Florida Gators",
-   "away": "Miami Hurricanes",
-   "line": -5.5,
-   "total_line": 160.5,
-   "m1": {
-    "away": 78.7,
-    "home": 87.0,
-    "ats": 2.8,
-    "tot": 5.2
-   },
-   "m2": {
-    "away": 80.5,
-    "home": 88.8,
-    "ats": 2.7,
+    "away": 73.0,
+    "home": 83.4,
+    "ats": -6.6,
     "tot": 8.8,
-    "tot_adj": 2.9
+    "tot_adj": 2.6
+   },
+   "ats_play": "AWAY",
+   "ou_play": "",
+   "ats_books": [
+    {
+     "book": "DraftKings",
+     "line": 16.5,
+     "odds": -110,
+     "ev": 0.108
+    },
+    {
+     "book": "theScore Bet",
+     "line": 16.5,
+     "odds": -110,
+     "ev": 0.108
+    },
+    {
+     "book": "FanDuel",
+     "line": 14.5,
+     "odds": -102,
+     "ev": 0.0975
+    },
+    {
+     "book": "BetRivers",
+     "line": 17.5,
+     "odds": -118,
+     "ev": 0.0962
+    },
+    {
+     "book": "Bally Bet",
+     "line": 17.5,
+     "odds": -118,
+     "ev": 0.0962
+    },
+    {
+     "book": "Hard Rock",
+     "line": 17.5,
+     "odds": -120,
+     "ev": 0.0878
+    }
+   ],
+   "ou_books": [],
+   "ats_play_to": 15.5,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401910993",
+   "start": "2026-11-03T01:00Z",
+   "home": "Louisiana Ragin' Cajuns",
+   "away": "Akron Zips",
+   "line": 5.5,
+   "total_line": 149.5,
+   "m1": {
+    "away": 82.0,
+    "home": 64.4,
+    "ats": -12.2,
+    "tot": -3.1
+   },
+   "m2": {
+    "away": 80.9,
+    "home": 73.5,
+    "ats": -1.9,
+    "tot": 4.9,
+    "tot_adj": -1.3
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401925811",
+   "start": "2026-11-03T02:00Z",
+   "home": "Houston Cougars",
+   "away": "La Salle Explorers",
+   "line": -29.5,
+   "total_line": 139.0,
+   "m1": {
+    "away": 65.5,
+    "home": 79.9,
+    "ats": -15.2,
+    "tot": 6.4
+   },
+   "m2": {
+    "away": 65.5,
+    "home": 86.7,
+    "ats": -8.3,
+    "tot": 13.2,
+    "tot_adj": 6.9
+   },
+   "ats_play": "AWAY",
+   "ou_play": "",
+   "ats_books": [
+    {
+     "book": "theScore Bet",
+     "line": 29.5,
+     "odds": -105,
+     "ev": 0.1881
+    },
+    {
+     "book": "BetMGM",
+     "line": 29.5,
+     "odds": -105,
+     "ev": 0.1881
+    },
+    {
+     "book": "DraftKings",
+     "line": 29.5,
+     "odds": -108,
+     "ev": 0.172
+    },
+    {
+     "book": "Bally Bet",
+     "line": 29.5,
+     "odds": -110,
+     "ev": 0.1617
+    },
+    {
+     "book": "Hard Rock",
+     "line": 29.5,
+     "odds": -110,
+     "ev": 0.1617
+    },
+    {
+     "book": "BetRivers",
+     "line": 29.5,
+     "odds": -112,
+     "ev": 0.1519
+    }
+   ],
+   "ou_books": [],
+   "ats_play_to": 26.5,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401909500",
+   "start": "2026-11-03T01:00Z",
+   "home": "DePaul Blue Demons",
+   "away": "West Georgia Wolves",
+   "line": -22.5,
+   "total_line": 145.0,
+   "m1": {
+    "away": 74.2,
+    "home": 69.2,
+    "ats": -27.5,
+    "tot": -1.6
+   },
+   "m2": {
+    "away": 66.5,
+    "home": 86.0,
+    "ats": -3.0,
+    "tot": 7.6,
+    "tot_adj": 1.3
    },
    "ats_play": "",
    "ou_play": "",
@@ -1566,7 +1809,7 @@
     "home": 82.8,
     "ats": -1.6,
     "tot": 4.1,
-    "tot_adj": -1.8
+    "tot_adj": -2.1
    },
    "ats_play": "",
    "ou_play": "",
@@ -1593,61 +1836,7 @@
     "home": 82.2,
     "ats": -2.4,
     "tot": 1.3,
-    "tot_adj": -4.6
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401911003",
-   "start": "2026-11-03T01:00Z",
-   "home": "South Alabama Jaguars",
-   "away": "Ohio Bobcats",
-   "line": -1.5,
-   "total_line": 153.5,
-   "m1": {
-    "away": 73.3,
-    "home": 73.8,
-    "ats": -1.0,
-    "tot": -6.4
-   },
-   "m2": {
-    "away": 81.2,
-    "home": 76.1,
-    "ats": -6.6,
-    "tot": 3.8,
-    "tot_adj": -2.1
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401919001",
-   "start": "2026-11-03T01:00Z",
-   "home": "Tulane Green Wave",
-   "away": "UT Martin Skyhawks",
-   "line": -8.5,
-   "total_line": 144.5,
-   "m1": {
-    "away": 67.0,
-    "home": 69.8,
-    "ats": -5.7,
-    "tot": -7.7
-   },
-   "m2": {
-    "away": 69.2,
-    "home": 83.1,
-    "ats": 5.4,
-    "tot": 7.8,
-    "tot_adj": 1.9
+    "tot_adj": -4.9
    },
    "ats_play": "",
    "ou_play": "",
@@ -1674,7 +1863,7 @@
     "home": 81.4,
     "ats": -4.2,
     "tot": 8.5,
-    "tot_adj": 2.6
+    "tot_adj": 2.3
    },
    "ats_play": "",
    "ou_play": "",
@@ -1701,7 +1890,34 @@
     "home": 83.1,
     "ats": 5.3,
     "tot": 8.4,
-    "tot_adj": 2.4
+    "tot_adj": 2.1
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401909738",
+   "start": "2026-11-03T03:00Z",
+   "home": "UCLA Bruins",
+   "away": "Arizona Wildcats",
+   "line": 4.5,
+   "total_line": 150.5,
+   "m1": {
+    "away": 84.1,
+    "home": 74.7,
+    "ats": -4.9,
+    "tot": 8.3
+   },
+   "m2": {
+    "away": 84.0,
+    "home": 76.8,
+    "ats": -2.7,
+    "tot": 10.2,
+    "tot_adj": 4.0
    },
    "ats_play": "",
    "ou_play": "",
@@ -1728,7 +1944,7 @@
     "home": 94.9,
     "ats": -5.2,
     "tot": 6.5,
-    "tot_adj": 0.5
+    "tot_adj": 0.3
    },
    "ats_play": "AWAY",
    "ou_play": "",
@@ -1775,142 +1991,51 @@
    "ou_play_to": null
   },
   {
-   "game_id": "401925811",
-   "start": "2026-11-03T02:00Z",
-   "home": "Houston Cougars",
-   "away": "La Salle Explorers",
-   "line": -28.5,
-   "total_line": 139.0,
-   "m1": {
-    "away": 65.5,
-    "home": 79.9,
-    "ats": -14.2,
-    "tot": 6.4
-   },
-   "m2": {
-    "away": 65.5,
-    "home": 86.7,
-    "ats": -7.3,
-    "tot": 13.2,
-    "tot_adj": 7.2
-   },
-   "ats_play": "AWAY",
-   "ou_play": "",
-   "ats_books": [
-    {
-     "book": "theScore Bet",
-     "line": 29.5,
-     "odds": -105,
-     "ev": 0.1881
-    },
-    {
-     "book": "BetMGM",
-     "line": 29.5,
-     "odds": -105,
-     "ev": 0.1881
-    },
-    {
-     "book": "DraftKings",
-     "line": 29.5,
-     "odds": -108,
-     "ev": 0.172
-    },
-    {
-     "book": "Bally Bet",
-     "line": 27.5,
-     "odds": -109,
-     "ev": 0.1173
-    },
-    {
-     "book": "BetRivers",
-     "line": 27.5,
-     "odds": -110,
-     "ev": 0.1124
-    },
-    {
-     "book": "Hard Rock",
-     "line": 27.5,
-     "odds": -110,
-     "ev": 0.1124
-    }
-   ],
-   "ou_books": [],
-   "ats_play_to": 26.5,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401910993",
+   "game_id": "401919001",
    "start": "2026-11-03T01:00Z",
-   "home": "Louisiana Ragin' Cajuns",
-   "away": "Akron Zips",
-   "line": 5.5,
-   "total_line": 149.5,
+   "home": "Tulane Green Wave",
+   "away": "UT Martin Skyhawks",
+   "line": -8.5,
+   "total_line": 144.5,
    "m1": {
-    "away": 82.0,
-    "home": 64.4,
-    "ats": -12.2,
-    "tot": -3.1
+    "away": 67.0,
+    "home": 69.8,
+    "ats": -5.7,
+    "tot": -7.7
    },
    "m2": {
-    "away": 80.9,
-    "home": 73.5,
-    "ats": -1.9,
-    "tot": 4.9,
-    "tot_adj": -1.0
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401909784",
-   "start": "2026-11-03T01:00Z",
-   "home": "Kansas Jayhawks",
-   "away": "Fordham Rams",
-   "line": -23.0,
-   "total_line": 145.5,
-   "m1": {
-    "away": 68.1,
-    "home": 73.8,
-    "ats": -17.3,
-    "tot": -3.6
-   },
-   "m2": {
-    "away": 69.6,
-    "home": 88.7,
-    "ats": -3.8,
-    "tot": 12.8,
-    "tot_adj": 6.9
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401909500",
-   "start": "2026-11-03T01:00Z",
-   "home": "DePaul Blue Demons",
-   "away": "West Georgia Wolves",
-   "line": -22.5,
-   "total_line": 145.0,
-   "m1": {
-    "away": 74.2,
-    "home": 69.2,
-    "ats": -27.5,
-    "tot": -1.6
-   },
-   "m2": {
-    "away": 66.5,
-    "home": 86.0,
-    "ats": -3.0,
-    "tot": 7.6,
+    "away": 69.2,
+    "home": 83.1,
+    "ats": 5.4,
+    "tot": 7.8,
     "tot_adj": 1.6
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401911003",
+   "start": "2026-11-03T01:00Z",
+   "home": "South Alabama Jaguars",
+   "away": "Ohio Bobcats",
+   "line": -1.5,
+   "total_line": 153.5,
+   "m1": {
+    "away": 73.3,
+    "home": 73.8,
+    "ats": -1.0,
+    "tot": -6.4
+   },
+   "m2": {
+    "away": 81.2,
+    "home": 76.1,
+    "ats": -6.6,
+    "tot": 3.8,
+    "tot_adj": -2.4
    },
    "ats_play": "",
    "ou_play": "",
@@ -1937,7 +2062,7 @@
     "home": 88.1,
     "ats": -13.6,
     "tot": 6.8,
-    "tot_adj": 0.9
+    "tot_adj": 0.6
    },
    "ats_play": "AWAY",
    "ou_play": "",
@@ -1984,33 +2109,6 @@
    "ou_play_to": null
   },
   {
-   "game_id": "401928995",
-   "start": "2026-11-03T01:00Z",
-   "home": "Valparaiso Beacons",
-   "away": "Western Illinois Leathernecks",
-   "line": -18.5,
-   "total_line": 143.5,
-   "m1": {
-    "away": 62.8,
-    "home": 73.8,
-    "ats": -7.5,
-    "tot": -6.9
-   },
-   "m2": {
-    "away": 65.7,
-    "home": 84.0,
-    "ats": -0.2,
-    "tot": 6.2,
-    "tot_adj": 0.2
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
-   "ou_play_to": null
-  },
-  {
    "game_id": "401925947",
    "start": "2026-11-03T02:30Z",
    "home": "Oregon State Beavers",
@@ -2028,107 +2126,7 @@
     "home": 86.6,
     "ats": -4.1,
     "tot": 4.3,
-    "tot_adj": -1.7
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401921731",
-   "start": "2026-11-03T03:00Z",
-   "home": "Arizona State Sun Devils",
-   "away": "East Tennessee State Buccaneers",
-   "line": -17.5,
-   "total_line": 145.5,
-   "m1": {
-    "away": 72.1,
-    "home": 74.0,
-    "ats": -15.6,
-    "tot": 0.6
-   },
-   "m2": {
-    "away": 73.0,
-    "home": 83.8,
-    "ats": -6.7,
-    "tot": 11.2,
-    "tot_adj": 5.3
-   },
-   "ats_play": "AWAY",
-   "ou_play": "",
-   "ats_books": [
-    {
-     "book": "DraftKings",
-     "line": 17.5,
-     "odds": -110,
-     "ev": 0.1232
-    },
-    {
-     "book": "theScore Bet",
-     "line": 17.5,
-     "odds": -110,
-     "ev": 0.1232
-    },
-    {
-     "book": "Kalshi",
-     "line": 17.5,
-     "odds": -121,
-     "ev": 0.0746
-    }
-   ],
-   "ou_books": [],
-   "ats_play_to": 16.0,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401911517",
-   "start": "2026-11-03T03:00Z",
-   "home": "UC Davis Aggies",
-   "away": "North Alabama Lions",
-   "line": -9.5,
-   "total_line": 148.5,
-   "m1": {
-    "away": 66.5,
-    "home": 73.9,
-    "ats": -2.2,
-    "tot": -8.1
-   },
-   "m2": {
-    "away": 69.8,
-    "home": 80.6,
-    "ats": 1.4,
-    "tot": 1.9,
-    "tot_adj": -4.0
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401917506",
-   "start": "2026-11-03T04:59Z",
-   "home": "Hawai'i Rainbow Warriors",
-   "away": "Seattle U Redhawks",
-   "line": -1.5,
-   "total_line": 145.5,
-   "m1": {
-    "away": 66.9,
-    "home": 76.3,
-    "ats": 7.8,
-    "tot": -2.3
-   },
-   "m2": {
-    "away": 75.4,
-    "home": 76.5,
-    "ats": -0.4,
-    "tot": 6.4,
-    "tot_adj": 0.4
+    "tot_adj": -1.9
    },
    "ats_play": "",
    "ou_play": "",
@@ -2142,20 +2140,20 @@
    "start": "2026-11-03T03:00Z",
    "home": "Nevada Wolf Pack",
    "away": "Robert Morris Colonials",
-   "line": -12.5,
-   "total_line": 144.5,
+   "line": -13.5,
+   "total_line": 145.5,
    "m1": {
     "away": 73.5,
     "home": 76.2,
-    "ats": -9.8,
-    "tot": 5.2
+    "ats": -10.8,
+    "tot": 4.2
    },
    "m2": {
     "away": 70.9,
     "home": 82.4,
-    "ats": -1.1,
-    "tot": 8.8,
-    "tot_adj": 2.9
+    "ats": -2.1,
+    "tot": 7.8,
+    "tot_adj": 1.6
    },
    "ats_play": "",
    "ou_play": "",
@@ -2165,57 +2163,119 @@
    "ou_play_to": null
   },
   {
-   "game_id": "401922029",
+   "game_id": "401909694",
+   "start": "2026-11-03T01:30Z",
+   "home": "Florida State Seminoles",
+   "away": "Florida A&M Rattlers",
+   "line": -24.5,
+   "total_line": 155.5,
+   "m1": {
+    "away": 66.0,
+    "home": 78.3,
+    "ats": -12.2,
+    "tot": -11.2
+   },
+   "m2": {
+    "away": 70.1,
+    "home": 88.5,
+    "ats": -6.1,
+    "tot": 3.1,
+    "tot_adj": -3.1
+   },
+   "ats_play": "AWAY",
+   "ou_play": "",
+   "ats_books": [
+    {
+     "book": "DraftKings",
+     "line": 24.5,
+     "odds": -105,
+     "ev": 0.1329
+    },
+    {
+     "book": "theScore Bet",
+     "line": 24.5,
+     "odds": -105,
+     "ev": 0.1329
+    },
+    {
+     "book": "Bally Bet",
+     "line": 24.5,
+     "odds": -109,
+     "ev": 0.1126
+    },
+    {
+     "book": "BetRivers",
+     "line": 24.5,
+     "odds": -110,
+     "ev": 0.1078
+    },
+    {
+     "book": "Hard Rock",
+     "line": 24.5,
+     "odds": -110,
+     "ev": 0.1078
+    }
+   ],
+   "ou_books": [],
+   "ats_play_to": 23.5,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401921731",
    "start": "2026-11-03T03:00Z",
-   "home": "Oregon Ducks",
-   "away": "Montana Grizzlies",
+   "home": "Arizona State Sun Devils",
+   "away": "East Tennessee State Buccaneers",
    "line": -17.5,
-   "total_line": 153.5,
+   "total_line": 146.5,
    "m1": {
-    "away": 66.5,
-    "home": 70.4,
-    "ats": -13.5,
-    "tot": -16.6
+    "away": 72.1,
+    "home": 74.0,
+    "ats": -15.6,
+    "tot": -0.4
    },
    "m2": {
-    "away": 72.4,
-    "home": 88.1,
-    "ats": -1.8,
-    "tot": 7.0,
-    "tot_adj": 1.0
+    "away": 73.0,
+    "home": 83.8,
+    "ats": -6.7,
+    "tot": 10.2,
+    "tot_adj": 4.0
    },
-   "ats_play": "",
+   "ats_play": "AWAY",
    "ou_play": "",
-   "ats_books": [],
+   "ats_books": [
+    {
+     "book": "Kalshi",
+     "line": 17.5,
+     "odds": -107,
+     "ev": 0.1382
+    },
+    {
+     "book": "theScore Bet",
+     "line": 17.5,
+     "odds": -110,
+     "ev": 0.1232
+    },
+    {
+     "book": "BetRivers",
+     "line": 17.5,
+     "odds": -120,
+     "ev": 0.0786
+    },
+    {
+     "book": "Bally Bet",
+     "line": 17.5,
+     "odds": -120,
+     "ev": 0.0786
+    },
+    {
+     "book": "Hard Rock",
+     "line": 17.5,
+     "odds": -120,
+     "ev": 0.0786
+    }
+   ],
    "ou_books": [],
-   "ats_play_to": null,
-   "ou_play_to": null
-  },
-  {
-   "game_id": "401925878",
-   "start": "2026-11-03T03:00Z",
-   "home": "Colorado State Rams",
-   "away": "Montana State Bobcats",
-   "line": -11.5,
-   "total_line": 145.5,
-   "m1": {
-    "away": 72.7,
-    "home": 70.3,
-    "ats": -14.0,
-    "tot": -2.5
-   },
-   "m2": {
-    "away": 74.9,
-    "home": 82.3,
-    "ats": -4.1,
-    "tot": 11.8,
-    "tot_adj": 5.8
-   },
-   "ats_play": "",
-   "ou_play": "",
-   "ats_books": [],
-   "ou_books": [],
-   "ats_play_to": null,
+   "ats_play_to": 16.0,
    "ou_play_to": null
   },
   {
@@ -2236,7 +2296,7 @@
     "home": 89.1,
     "ats": -4.7,
     "tot": 10.0,
-    "tot_adj": 4.1
+    "tot_adj": 3.8
    },
    "ats_play": "",
    "ou_play": "",
@@ -2246,76 +2306,543 @@
    "ou_play_to": null
   },
   {
-   "game_id": "401920716",
-   "start": "2026-11-03T03:00Z",
-   "home": "Stanford Cardinal",
-   "away": "Eastern Washington Eagles",
-   "line": -14.5,
-   "total_line": 154.5,
+   "game_id": "401909716",
+   "start": "2026-11-03T00:00Z",
+   "home": "Syracuse Orange",
+   "away": "New Haven Chargers",
+   "line": -26.5,
+   "total_line": 140.5,
    "m1": {
-    "away": 71.7,
-    "home": 76.1,
-    "ats": -10.1,
+    "away": 60.0,
+    "home": 73.8,
+    "ats": -12.7,
     "tot": -6.7
    },
    "m2": {
-    "away": 75.5,
-    "home": 84.7,
-    "ats": -5.3,
+    "away": 61.7,
+    "home": 84.5,
+    "ats": -3.7,
     "tot": 5.7,
-    "tot_adj": -0.2
+    "tot_adj": -0.6
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401902275",
+   "start": "2026-11-03T00:00Z",
+   "home": "Butler Bulldogs",
+   "away": "Lafayette Leopards",
+   "line": -21.0,
+   "total_line": 149.5,
+   "m1": {
+    "away": 66.2,
+    "home": 79.5,
+    "ats": -7.7,
+    "tot": -3.7
+   },
+   "m2": {
+    "away": 66.9,
+    "home": 87.0,
+    "ats": -0.9,
+    "tot": 4.4,
+    "tot_adj": -1.8
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401921036",
+   "start": "2026-11-03T00:00Z",
+   "home": "Texas Tech Red Raiders",
+   "away": "Jackson State Tigers",
+   "line": -33.5,
+   "total_line": 155.0,
+   "m1": {
+    "away": 66.6,
+    "home": 79.2,
+    "ats": -20.9,
+    "tot": -9.1
+   },
+   "m2": {
+    "away": 67.9,
+    "home": 93.5,
+    "ats": -7.8,
+    "tot": 6.4,
+    "tot_adj": 0.2
+   },
+   "ats_play": "AWAY",
+   "ou_play": "",
+   "ats_books": [
+    {
+     "book": "DraftKings",
+     "line": 33.5,
+     "odds": -110,
+     "ev": 0.1505
+    },
+    {
+     "book": "theScore Bet",
+     "line": 33.5,
+     "odds": -110,
+     "ev": 0.1505
+    },
+    {
+     "book": "BetRivers",
+     "line": 33.5,
+     "odds": -118,
+     "ev": 0.1134
+    },
+    {
+     "book": "Bally Bet",
+     "line": 33.5,
+     "odds": -118,
+     "ev": 0.1134
+    }
+   ],
+   "ou_books": [],
+   "ats_play_to": 31.0,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401925857",
+   "start": "2026-11-02T23:30Z",
+   "home": "Temple Owls",
+   "away": "Central Connecticut Blue Devils",
+   "line": -15.5,
+   "total_line": 144.0,
+   "m1": {
+    "away": 68.4,
+    "home": 74.1,
+    "ats": -9.8,
+    "tot": -1.6
+   },
+   "m2": {
+    "away": 67.1,
+    "home": 83.9,
+    "ats": 1.3,
+    "tot": 6.9,
+    "tot_adj": 0.7
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401918073",
+   "start": "2026-11-03T00:00Z",
+   "home": "Clemson Tigers",
+   "away": "Stetson Hatters",
+   "line": -26.5,
+   "total_line": 146.5,
+   "m1": {
+    "away": 67.4,
+    "home": 73.1,
+    "ats": -20.8,
+    "tot": -6.0
+   },
+   "m2": {
+    "away": 69.9,
+    "home": 87.2,
+    "ats": -9.2,
+    "tot": 10.6,
+    "tot_adj": 4.4
+   },
+   "ats_play": "AWAY",
+   "ou_play": "",
+   "ats_books": [
+    {
+     "book": "Bally Bet",
+     "line": 26.5,
+     "odds": -114,
+     "ev": 0.1658
+    },
+    {
+     "book": "BetRivers",
+     "line": 26.5,
+     "odds": -114,
+     "ev": 0.1658
+    },
+    {
+     "book": "DraftKings",
+     "line": 26.5,
+     "odds": -115,
+     "ev": 0.161
+    }
+   ],
+   "ou_books": [],
+   "ats_play_to": 22.5,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401921424",
+   "start": "2026-11-03T01:00Z",
+   "home": "Bethune-Cookman Wildcats",
+   "away": "Furman Paladins",
+   "line": 4.5,
+   "total_line": 150.5,
+   "m1": {
+    "away": 72.2,
+    "home": 70.8,
+    "ats": 3.1,
+    "tot": -7.5
+   },
+   "m2": {
+    "away": 79.7,
+    "home": 77.2,
+    "ats": 1.9,
+    "tot": 6.4,
+    "tot_adj": 0.2
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401909759",
+   "start": "2026-11-03T02:00Z",
+   "home": "Colorado Buffaloes",
+   "away": "Abilene Christian Wildcats",
+   "line": -18.5,
+   "total_line": 151.5,
+   "m1": {
+    "away": 65.5,
+    "home": 78.3,
+    "ats": -5.6,
+    "tot": -7.7
+   },
+   "m2": {
+    "away": 72.1,
+    "home": 84.5,
+    "ats": -6.1,
+    "tot": 5.1,
+    "tot_adj": -1.1
+   },
+   "ats_play": "AWAY",
+   "ou_play": "",
+   "ats_books": [
+    {
+     "book": "DraftKings",
+     "line": 18.5,
+     "odds": -110,
+     "ev": 0.0968
+    },
+    {
+     "book": "theScore Bet",
+     "line": 18.5,
+     "odds": -110,
+     "ev": 0.0968
+    },
+    {
+     "book": "BetMGM",
+     "line": 18.5,
+     "odds": -110,
+     "ev": 0.0968
+    },
+    {
+     "book": "Kalshi",
+     "line": 18.5,
+     "odds": -136,
+     "ev": -0.0031
+    }
+   ],
+   "ou_books": [],
+   "ats_play_to": 18.0,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401924894",
+   "start": "2026-11-03T02:00Z",
+   "home": "New Mexico Lobos",
+   "away": "Utah Tech Trailblazers",
+   "line": -21.5,
+   "total_line": 155.5,
+   "m1": {
+    "away": 70.3,
+    "home": 79.9,
+    "ats": -11.9,
+    "tot": -5.3
+   },
+   "m2": {
+    "away": 73.3,
+    "home": 87.9,
+    "ats": -6.9,
+    "tot": 5.7,
+    "tot_adj": -0.5
    },
    "ats_play": "AWAY",
    "ou_play": "",
    "ats_books": [
     {
      "book": "BetMGM",
-     "line": 13.5,
-     "odds": -102,
-     "ev": 0.1039
+     "line": 21.5,
+     "odds": -110,
+     "ev": 0.1278
     },
     {
      "book": "DraftKings",
-     "line": 14.5,
-     "odds": -112,
-     "ev": 0.08
+     "line": 21.5,
+     "odds": -115,
+     "ev": 0.1044
     },
     {
      "book": "theScore Bet",
-     "line": 14.5,
+     "line": 21.5,
      "odds": -115,
-     "ev": 0.0667
-    },
-    {
-     "book": "Kalshi",
-     "line": 13.5,
-     "odds": -116,
-     "ev": 0.038
+     "ev": 0.1044
     }
    ],
    "ou_books": [],
-   "ats_play_to": 14.5,
+   "ats_play_to": 20.0,
    "ou_play_to": null
   },
   {
-   "game_id": "401917509",
-   "start": "2026-11-03T03:00Z",
-   "home": "Santa Clara Broncos",
-   "away": "Towson Tigers",
-   "line": -15.5,
-   "total_line": 148.5,
+   "game_id": "401911374",
+   "start": "2026-11-03T00:00Z",
+   "home": "South Florida Bulls",
+   "away": "Charleston Southern Buccaneers",
+   "line": -19.5,
+   "total_line": 158.5,
    "m1": {
-    "away": 69.7,
-    "home": 82.7,
-    "ats": -2.4,
-    "tot": 3.9
+    "away": 77.2,
+    "home": 89.9,
+    "ats": -6.8,
+    "tot": 8.6
    },
    "m2": {
-    "away": 70.7,
-    "home": 87.5,
-    "ats": 1.2,
-    "tot": 9.7,
-    "tot_adj": 3.8
+    "away": 71.9,
+    "home": 87.4,
+    "ats": -4.1,
+    "tot": 0.8,
+    "tot_adj": -5.4
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401911304",
+   "start": "2026-11-03T00:00Z",
+   "home": "Brown Bears",
+   "away": "New Hampshire Wildcats",
+   "line": -9.5,
+   "total_line": 142.5,
+   "m1": {
+    "away": 67.0,
+    "home": 69.2,
+    "ats": -7.3,
+    "tot": -6.3
+   },
+   "m2": {
+    "away": 69.0,
+    "home": 78.9,
+    "ats": 0.4,
+    "tot": 5.4,
+    "tot_adj": -0.8
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401920690",
+   "start": "2026-11-03T00:00Z",
+   "home": "Iona Gaels",
+   "away": "Vermont Catamounts",
+   "line": -1.5,
+   "total_line": 146.5,
+   "m1": {
+    "away": 68.7,
+    "home": 71.9,
+    "ats": 1.7,
+    "tot": -5.9
+   },
+   "m2": {
+    "away": 73.7,
+    "home": 78.0,
+    "ats": 2.8,
+    "tot": 5.3,
+    "tot_adj": -0.9
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401921104",
+   "start": "2026-11-03T00:00Z",
+   "home": "Vanderbilt Commodores",
+   "away": "Bellarmine Knights",
+   "line": -33.5,
+   "total_line": 157.5,
+   "m1": {
+    "away": 70.1,
+    "home": 84.7,
+    "ats": -18.9,
+    "tot": -2.8
+   },
+   "m2": {
+    "away": 68.2,
+    "home": 96.6,
+    "ats": -5.1,
+    "tot": 7.3,
+    "tot_adj": 1.1
+   },
+   "ats_play": "AWAY",
+   "ou_play": "",
+   "ats_books": [
+    {
+     "book": "DraftKings",
+     "line": 33.5,
+     "odds": -110,
+     "ev": 0.0826
+    },
+    {
+     "book": "theScore Bet",
+     "line": 33.5,
+     "odds": -110,
+     "ev": 0.0826
+    }
+   ],
+   "ou_books": [],
+   "ats_play_to": 33.5,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401925878",
+   "start": "2026-11-03T03:00Z",
+   "home": "Colorado State Rams",
+   "away": "Montana State Bobcats",
+   "line": -12.0,
+   "total_line": 145.0,
+   "m1": {
+    "away": 72.7,
+    "home": 70.3,
+    "ats": -14.5,
+    "tot": -2.0
+   },
+   "m2": {
+    "away": 74.9,
+    "home": 82.3,
+    "ats": -4.6,
+    "tot": 12.3,
+    "tot_adj": 6.1
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401916296",
+   "start": "2026-11-03T00:00Z",
+   "home": "Maryland Terrapins",
+   "away": "Bucknell Bison",
+   "line": -31.5,
+   "total_line": 147.5,
+   "m1": {
+    "away": 62.3,
+    "home": 70.1,
+    "ats": -23.6,
+    "tot": -15.1
+   },
+   "m2": {
+    "away": 66.8,
+    "home": 88.7,
+    "ats": -9.6,
+    "tot": 8.0,
+    "tot_adj": 1.8
+   },
+   "ats_play": "AWAY",
+   "ou_play": "",
+   "ats_books": [
+    {
+     "book": "DraftKings",
+     "line": 31.5,
+     "odds": -110,
+     "ev": 0.1943
+    },
+    {
+     "book": "theScore Bet",
+     "line": 31.5,
+     "odds": -110,
+     "ev": 0.1943
+    }
+   ],
+   "ou_books": [],
+   "ats_play_to": 27.0,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401911237",
+   "start": "2026-11-03T00:00Z",
+   "home": "Richmond Spiders",
+   "away": "UNC Asheville Bulldogs",
+   "line": -12.5,
+   "total_line": 147.5,
+   "m1": {
+    "away": 68.7,
+    "home": 74.6,
+    "ats": -6.5,
+    "tot": -4.2
+   },
+   "m2": {
+    "away": 70.9,
+    "home": 83.9,
+    "ats": 0.5,
+    "tot": 7.3,
+    "tot_adj": 1.1
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401920842",
+   "start": "2026-11-03T00:00Z",
+   "home": "Presbyterian Blue Hose",
+   "away": "St. Thomas Tommies",
+   "line": 2.5,
+   "total_line": 146.5,
+   "m1": {
+    "away": 73.8,
+    "home": 70.1,
+    "ats": -1.2,
+    "tot": -2.5
+   },
+   "m2": {
+    "away": 77.8,
+    "home": 77.1,
+    "ats": 1.8,
+    "tot": 8.4,
+    "tot_adj": 2.2
    },
    "ats_play": "",
    "ou_play": "",
@@ -2342,7 +2869,194 @@
     "home": 81.4,
     "ats": 0.0,
     "tot": 7.9,
-    "tot_adj": 1.9
+    "tot_adj": 1.7
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401913525",
+   "start": "2026-11-03T01:00Z",
+   "home": "Illinois Fighting Illini",
+   "away": "Fairleigh Dickinson Knights",
+   "line": -39.5,
+   "total_line": 152.5,
+   "m1": {
+    "away": 65.2,
+    "home": 85.1,
+    "ats": -19.6,
+    "tot": -2.3
+   },
+   "m2": {
+    "away": 63.9,
+    "home": 97.0,
+    "ats": -6.4,
+    "tot": 8.4,
+    "tot_adj": 2.2
+   },
+   "ats_play": "AWAY",
+   "ou_play": "",
+   "ats_books": [
+    {
+     "book": "DraftKings",
+     "line": 39.5,
+     "odds": -110,
+     "ev": 0.1158
+    },
+    {
+     "book": "theScore Bet",
+     "line": 39.5,
+     "odds": -110,
+     "ev": 0.1158
+    }
+   ],
+   "ou_books": [],
+   "ats_play_to": 38.5,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401909522",
+   "start": "2026-11-03T00:30Z",
+   "home": "Marquette Golden Eagles",
+   "away": "Mercyhurst Lakers",
+   "line": -30.5,
+   "total_line": 148.5,
+   "m1": {
+    "away": 66.4,
+    "home": 75.0,
+    "ats": -21.9,
+    "tot": -7.2
+   },
+   "m2": {
+    "away": 65.8,
+    "home": 90.1,
+    "ats": -6.2,
+    "tot": 7.4,
+    "tot_adj": 1.2
+   },
+   "ats_play": "AWAY",
+   "ou_play": "",
+   "ats_books": [
+    {
+     "book": "DraftKings",
+     "line": 30.5,
+     "odds": -110,
+     "ev": 0.1101
+    },
+    {
+     "book": "theScore Bet",
+     "line": 30.5,
+     "odds": -110,
+     "ev": 0.1101
+    }
+   ],
+   "ou_books": [],
+   "ats_play_to": 29.5,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401919780",
+   "start": "2026-11-03T00:30Z",
+   "home": "Nebraska Cornhuskers",
+   "away": "Le Moyne Dolphins",
+   "line": -34.5,
+   "total_line": 153.5,
+   "m1": {
+    "away": 65.3,
+    "home": 74.5,
+    "ats": -25.3,
+    "tot": -13.7
+   },
+   "m2": {
+    "away": 67.5,
+    "home": 93.0,
+    "ats": -9.0,
+    "tot": 7.0,
+    "tot_adj": 0.8
+   },
+   "ats_play": "AWAY",
+   "ou_play": "",
+   "ats_books": [
+    {
+     "book": "DraftKings",
+     "line": 34.5,
+     "odds": -110,
+     "ev": 0.1795
+    },
+    {
+     "book": "theScore Bet",
+     "line": 34.5,
+     "odds": -110,
+     "ev": 0.1795
+    }
+   ],
+   "ou_books": [],
+   "ats_play_to": 31.0,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401906863",
+   "start": "2026-11-03T02:00Z",
+   "home": "Texas Longhorns",
+   "away": "Chicago State Cougars",
+   "line": -40.0,
+   "total_line": 149.5,
+   "m1": {
+    "away": 64.6,
+    "home": 81.9,
+    "ats": -22.8,
+    "tot": -3.0
+   },
+   "m2": {
+    "away": 63.7,
+    "home": 95.0,
+    "ats": -8.8,
+    "tot": 9.2,
+    "tot_adj": 3.0
+   },
+   "ats_play": "AWAY",
+   "ou_play": "",
+   "ats_books": [
+    {
+     "book": "DraftKings",
+     "line": 40.5,
+     "odds": -110,
+     "ev": 0.186
+    },
+    {
+     "book": "theScore Bet",
+     "line": 39.5,
+     "odds": -110,
+     "ev": 0.1617
+    }
+   ],
+   "ou_books": [],
+   "ats_play_to": 36.5,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401917509",
+   "start": "2026-11-03T03:00Z",
+   "home": "Santa Clara Broncos",
+   "away": "Towson Tigers",
+   "line": -15.5,
+   "total_line": 148.5,
+   "m1": {
+    "away": 69.7,
+    "home": 82.7,
+    "ats": -2.4,
+    "tot": 3.9
+   },
+   "m2": {
+    "away": 70.7,
+    "home": 87.5,
+    "ats": 1.2,
+    "tot": 9.7,
+    "tot_adj": 3.5
    },
    "ats_play": "",
    "ou_play": "",
@@ -2356,20 +3070,101 @@
    "start": "2026-11-03T03:30Z",
    "home": "USC Trojans",
    "away": "Milwaukee Panthers",
-   "line": -25.5,
-   "total_line": 157.5,
+   "line": -26.0,
+   "total_line": 158.5,
    "m1": {
     "away": 75.0,
     "home": 77.2,
-    "ats": -23.3,
-    "tot": -5.3
+    "ats": -23.8,
+    "tot": -6.3
    },
    "m2": {
     "away": 69.9,
     "home": 92.1,
-    "ats": -3.3,
-    "tot": 4.5,
-    "tot_adj": -1.4
+    "ats": -3.8,
+    "tot": 3.5,
+    "tot_adj": -2.7
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401917506",
+   "start": "2026-11-03T04:59Z",
+   "home": "Hawai'i Rainbow Warriors",
+   "away": "Seattle U Redhawks",
+   "line": -1.5,
+   "total_line": 145.5,
+   "m1": {
+    "away": 66.9,
+    "home": 76.3,
+    "ats": 7.8,
+    "tot": -2.3
+   },
+   "m2": {
+    "away": 75.4,
+    "home": 76.5,
+    "ats": -0.4,
+    "tot": 6.4,
+    "tot_adj": 0.2
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401920716",
+   "start": "2026-11-03T03:00Z",
+   "home": "Stanford Cardinal",
+   "away": "Eastern Washington Eagles",
+   "line": -13.5,
+   "total_line": 154.0,
+   "m1": {
+    "away": 71.7,
+    "home": 76.1,
+    "ats": -9.1,
+    "tot": -6.2
+   },
+   "m2": {
+    "away": 75.5,
+    "home": 84.7,
+    "ats": -4.3,
+    "tot": 6.2,
+    "tot_adj": -0.0
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401922029",
+   "start": "2026-11-03T03:00Z",
+   "home": "Oregon Ducks",
+   "away": "Montana Grizzlies",
+   "line": -17.5,
+   "total_line": 153.0,
+   "m1": {
+    "away": 66.5,
+    "home": 70.4,
+    "ats": -13.5,
+    "tot": -16.1
+   },
+   "m2": {
+    "away": 72.4,
+    "home": 88.1,
+    "ats": -1.8,
+    "tot": 7.5,
+    "tot_adj": 1.2
    },
    "ats_play": "",
    "ou_play": "",
@@ -2396,7 +3191,7 @@
     "home": 87.5,
     "ats": -5.4,
     "tot": 8.3,
-    "tot_adj": 2.4
+    "tot_adj": 2.1
    },
    "ats_play": "AWAY",
    "ou_play": "",
@@ -2412,12 +3207,6 @@
      "line": 25.5,
      "odds": -110,
      "ev": 0.0906
-    },
-    {
-     "book": "DraftKings",
-     "line": 25.5,
-     "odds": -112,
-     "ev": 0.0814
     }
    ],
    "ou_books": [],
@@ -2425,91 +3214,290 @@
    "ou_play_to": null
   },
   {
-   "game_id": "401909759",
-   "start": "2026-11-03T02:00Z",
-   "home": "Colorado Buffaloes",
-   "away": "Abilene Christian Wildcats",
-   "line": -18.5,
-   "total_line": 151.5,
+   "game_id": "401911517",
+   "start": "2026-11-03T03:00Z",
+   "home": "UC Davis Aggies",
+   "away": "North Alabama Lions",
+   "line": -9.0,
+   "total_line": 148.5,
    "m1": {
-    "away": 65.5,
-    "home": 78.3,
-    "ats": -5.6,
-    "tot": -7.7
+    "away": 66.5,
+    "home": 73.9,
+    "ats": -1.7,
+    "tot": -8.1
    },
    "m2": {
-    "away": 72.1,
-    "home": 84.5,
-    "ats": -6.1,
-    "tot": 5.1,
-    "tot_adj": -0.8
+    "away": 69.8,
+    "home": 80.6,
+    "ats": 1.9,
+    "tot": 1.9,
+    "tot_adj": -4.3
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401921753",
+   "start": "2026-11-03T00:00Z",
+   "home": "UCF Knights",
+   "away": "Florida Gulf Coast Eagles",
+   "line": -22.5,
+   "total_line": 151.5,
+   "m1": {
+    "away": 74.7,
+    "home": 80.8,
+    "ats": -16.4,
+    "tot": 4.0
+   },
+   "m2": {
+    "away": 68.5,
+    "home": 89.5,
+    "ats": -1.5,
+    "tot": 6.6,
+    "tot_adj": 0.4
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401911185",
+   "start": "2026-11-03T00:00Z",
+   "home": "Dayton Flyers",
+   "away": "NJIT Highlanders",
+   "line": -23.5,
+   "total_line": 145.5,
+   "m1": {
+    "away": 64.2,
+    "home": 71.1,
+    "ats": -16.7,
+    "tot": -10.2
+   },
+   "m2": {
+    "away": 66.2,
+    "home": 86.3,
+    "ats": -3.4,
+    "tot": 7.0,
+    "tot_adj": 0.8
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401924743",
+   "start": "2026-11-03T00:00Z",
+   "home": "Yale Bulldogs",
+   "away": "Howard Bison",
+   "line": -6.5,
+   "total_line": 151.5,
+   "m1": {
+    "away": 72.8,
+    "home": 79.7,
+    "ats": 0.4,
+    "tot": 1.1
+   },
+   "m2": {
+    "away": 77.3,
+    "home": 81.9,
+    "ats": -1.9,
+    "tot": 7.7,
+    "tot_adj": 1.5
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401918976",
+   "start": "2026-11-03T00:00Z",
+   "home": "East Carolina Pirates",
+   "away": "South Carolina Upstate Spartans",
+   "line": -12.5,
+   "total_line": 150.5,
+   "m1": {
+    "away": 70.3,
+    "home": 72.9,
+    "ats": -10.0,
+    "tot": -7.3
+   },
+   "m2": {
+    "away": 72.2,
+    "home": 83.2,
+    "ats": -1.5,
+    "tot": 4.9,
+    "tot_adj": -1.3
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401909531",
+   "start": "2026-11-03T00:00Z",
+   "home": "Providence Friars",
+   "away": "Maine Black Bears",
+   "line": -28.5,
+   "total_line": 146.5,
+   "m1": {
+    "away": 55.9,
+    "home": 81.8,
+    "ats": -2.7,
+    "tot": -8.8
+   },
+   "m2": {
+    "away": 63.2,
+    "home": 90.4,
+    "ats": -1.3,
+    "tot": 7.0,
+    "tot_adj": 0.8
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401925683",
+   "start": "2026-11-03T01:30Z",
+   "home": "Ole Miss Rebels",
+   "away": "Alcorn State Braves",
+   "line": -30.5,
+   "total_line": 146.5,
+   "m1": {
+    "away": 62.1,
+    "home": 75.9,
+    "ats": -16.8,
+    "tot": -8.5
+   },
+   "m2": {
+    "away": 66.4,
+    "home": 87.7,
+    "ats": -9.2,
+    "tot": 7.5,
+    "tot_adj": 1.3
    },
    "ats_play": "AWAY",
    "ou_play": "",
    "ats_books": [
     {
      "book": "DraftKings",
-     "line": 18.5,
-     "odds": -110,
-     "ev": 0.0968
-    },
-    {
-     "book": "theScore Bet",
-     "line": 18.5,
-     "odds": -110,
-     "ev": 0.0968
-    },
-    {
-     "book": "BetMGM",
-     "line": 18.5,
-     "odds": -110,
-     "ev": 0.0968
+     "line": 30.5,
+     "odds": -105,
+     "ev": 0.2116
     }
    ],
    "ou_books": [],
-   "ats_play_to": 18.0,
+   "ats_play_to": 26.5,
    "ou_play_to": null
   },
   {
-   "game_id": "401909694",
-   "start": "2026-11-03T01:30Z",
-   "home": "Florida State Seminoles",
-   "away": "Florida A&M Rattlers",
-   "line": -24.5,
-   "total_line": 155.5,
+   "game_id": "401909725",
+   "start": "2026-11-03T01:00Z",
+   "home": "Wake Forest Demon Deacons",
+   "away": "Maryland Eastern Shore Hawks",
+   "line": -31.5,
+   "total_line": 141.5,
    "m1": {
-    "away": 66.0,
-    "home": 78.3,
-    "ats": -12.2,
-    "tot": -11.2
+    "away": 58.2,
+    "home": 76.8,
+    "ats": -12.9,
+    "tot": -6.5
    },
    "m2": {
-    "away": 70.1,
-    "home": 88.5,
-    "ats": -6.1,
-    "tot": 3.1,
-    "tot_adj": -2.8
+    "away": 61.7,
+    "home": 87.7,
+    "ats": -5.5,
+    "tot": 7.9,
+    "tot_adj": 1.6
    },
    "ats_play": "AWAY",
    "ou_play": "",
    "ats_books": [
     {
-     "book": "Bally Bet",
-     "line": 24.5,
-     "odds": -109,
-     "ev": 0.1126
-    },
-    {
-     "book": "BetRivers",
-     "line": 24.5,
+     "book": "DraftKings",
+     "line": 31.5,
      "odds": -110,
-     "ev": 0.1078
-    },
+     "ev": 0.0942
+    }
+   ],
+   "ou_books": [],
+   "ats_play_to": 31.0,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401911248",
+   "start": "2026-11-03T01:00Z",
+   "home": "Saint Louis Billikens",
+   "away": "Lehigh Mountain Hawks",
+   "line": -23.5,
+   "total_line": 153.5,
+   "m1": {
+    "away": 65.5,
+    "home": 81.5,
+    "ats": -7.5,
+    "tot": -6.5
+   },
+   "m2": {
+    "away": 69.8,
+    "home": 91.6,
+    "ats": -1.7,
+    "tot": 7.9,
+    "tot_adj": 1.7
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401918967",
+   "start": "2026-11-03T01:00Z",
+   "home": "SMU Mustangs",
+   "away": "Southern Jaguars",
+   "line": -26.5,
+   "total_line": 154.5,
+   "m1": {
+    "away": 76.0,
+    "home": 82.8,
+    "ats": -19.7,
+    "tot": 4.3
+   },
+   "m2": {
+    "away": 70.3,
+    "home": 88.5,
+    "ats": -8.2,
+    "tot": 4.3,
+    "tot_adj": -1.9
+   },
+   "ats_play": "AWAY",
+   "ou_play": "",
+   "ats_books": [
     {
-     "book": "Hard Rock",
-     "line": 24.5,
+     "book": "DraftKings",
+     "line": 26.5,
      "odds": -110,
-     "ev": 0.1078
+     "ev": 0.161
     }
    ],
    "ou_books": [],
@@ -2517,55 +3505,213 @@
    "ou_play_to": null
   },
   {
-   "game_id": "401924894",
-   "start": "2026-11-03T02:00Z",
-   "home": "New Mexico Lobos",
-   "away": "Utah Tech Trailblazers",
-   "line": -21.5,
-   "total_line": 155.5,
+   "game_id": "401919039",
+   "start": "2026-11-03T01:00Z",
+   "home": "Oklahoma State Cowboys",
+   "away": "Incarnate Word Cardinals",
+   "line": -28.5,
+   "total_line": 159.5,
    "m1": {
-    "away": 70.3,
-    "home": 79.9,
-    "ats": -11.9,
-    "tot": -5.3
+    "away": 71.1,
+    "home": 82.2,
+    "ats": -17.4,
+    "tot": -6.3
    },
    "m2": {
-    "away": 73.3,
-    "home": 87.9,
-    "ats": -6.9,
-    "tot": 5.7,
-    "tot_adj": -0.2
+    "away": 70.0,
+    "home": 94.6,
+    "ats": -3.8,
+    "tot": 5.1,
+    "tot_adj": -1.1
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401923269",
+   "start": "2026-11-03T01:00Z",
+   "home": "Bryant Bulldogs",
+   "away": "Siena Saints",
+   "line": -2.5,
+   "total_line": 148.5,
+   "m1": {
+    "away": 67.1,
+    "home": 63.4,
+    "ats": -6.2,
+    "tot": -18.0
+   },
+   "m2": {
+    "away": 74.5,
+    "home": 76.2,
+    "ats": -0.9,
+    "tot": 2.2,
+    "tot_adj": -4.0
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401920732",
+   "start": "2026-11-03T01:00Z",
+   "home": "Northwestern Wildcats",
+   "away": "Binghamton Bearcats",
+   "line": -23.5,
+   "total_line": 145.5,
+   "m1": {
+    "away": 60.2,
+    "home": 73.0,
+    "ats": -10.7,
+    "tot": -12.2
+   },
+   "m2": {
+    "away": 68.4,
+    "home": 86.8,
+    "ats": -5.1,
+    "tot": 9.7,
+    "tot_adj": 3.5
    },
    "ats_play": "AWAY",
    "ou_play": "",
    "ats_books": [
     {
-     "book": "BetMGM",
-     "line": 21.5,
-     "odds": -110,
-     "ev": 0.1278
-    },
-    {
-     "book": "Kalshi",
-     "line": 20.5,
-     "odds": -107,
-     "ev": 0.1177
-    },
-    {
      "book": "DraftKings",
-     "line": 21.5,
-     "odds": -115,
-     "ev": 0.1044
-    },
-    {
-     "book": "theScore Bet",
-     "line": 21.5,
-     "odds": -115,
-     "ev": 0.1044
+     "line": 23.5,
+     "odds": -108,
+     "ev": 0.0937
     }
    ],
    "ou_books": [],
-   "ats_play_to": 20.0,
+   "ats_play_to": 23.5,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401906779",
+   "start": "2026-11-03T00:30Z",
+   "home": "Georgia Bulldogs",
+   "away": "North Carolina Central Eagles",
+   "line": -35.5,
+   "total_line": 157.5,
+   "m1": {
+    "away": 67.9,
+    "home": 89.3,
+    "ats": -14.1,
+    "tot": -0.3
+   },
+   "m2": {
+    "away": 65.6,
+    "home": 95.4,
+    "ats": -5.7,
+    "tot": 3.5,
+    "tot_adj": -2.8
+   },
+   "ats_play": "AWAY",
+   "ou_play": "",
+   "ats_books": [
+    {
+     "book": "DraftKings",
+     "line": 35.5,
+     "odds": -115,
+     "ev": 0.0756
+    }
+   ],
+   "ou_books": [],
+   "ats_play_to": 35.0,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401906801",
+   "start": "2026-11-03T01:00Z",
+   "home": "Oklahoma Sooners",
+   "away": "East Texas A&M Lions",
+   "line": -30.5,
+   "total_line": 150.5,
+   "m1": {
+    "away": 64.8,
+    "home": 81.7,
+    "ats": -13.6,
+    "tot": -3.9
+   },
+   "m2": {
+    "away": 68.7,
+    "home": 91.2,
+    "ats": -8.0,
+    "tot": 9.4,
+    "tot_adj": 3.2
+   },
+   "ats_play": "AWAY",
+   "ou_play": "",
+   "ats_books": [
+    {
+     "book": "DraftKings",
+     "line": 30.5,
+     "odds": -115,
+     "ev": 0.1325
+    }
+   ],
+   "ou_books": [],
+   "ats_play_to": 27.5,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401909750",
+   "start": "2026-11-03T02:30Z",
+   "home": "Baylor Bears",
+   "away": "Northwestern State Demons",
+   "line": -29.5,
+   "total_line": 147.5,
+   "m1": {
+    "away": 63.2,
+    "home": 81.0,
+    "ats": -11.7,
+    "tot": -3.3
+   },
+   "m2": {
+    "away": 65.9,
+    "home": 90.5,
+    "ats": -4.9,
+    "tot": 8.9,
+    "tot_adj": 2.7
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
+   "ou_play_to": null
+  },
+  {
+   "game_id": "401911389",
+   "start": "2026-11-03T02:00Z",
+   "home": "Grand Canyon Lopes",
+   "away": "Texas Southern Tigers",
+   "line": -26.5,
+   "total_line": 145.5,
+   "m1": {
+    "away": 69.3,
+    "home": 73.1,
+    "ats": -22.7,
+    "tot": -3.1
+   },
+   "m2": {
+    "away": 64.8,
+    "home": 88.8,
+    "ats": -2.5,
+    "tot": 8.1,
+    "tot_adj": 1.8
+   },
+   "ats_play": "",
+   "ou_play": "",
+   "ats_books": [],
+   "ou_books": [],
+   "ats_play_to": null,
    "ou_play_to": null
   }
  ]
