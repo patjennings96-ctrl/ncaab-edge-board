@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-10-31T20:00+00:00",
+ "updated_at": "2026-11-01T01:13+00:00",
  "season_start": "2026-10-01",
  "edge": {
   "staked": {},
@@ -9,7 +9,7 @@
     "l": 0,
     "p": 0,
     "units": 0.0,
-    "pending": 4,
+    "pending": 12,
     "roi": null,
     "clv": null,
     "beat_close": null
@@ -19,13 +19,24 @@
     "l": 0,
     "p": 0,
     "units": 0.0,
-    "pending": 4,
+    "pending": 10,
     "roi": null,
     "clv": null,
     "beat_close": null
    }
   },
-  "both_models": {},
+  "both_models": {
+   "SPREAD": {
+    "w": 0,
+    "l": 0,
+    "p": 0,
+    "units": 0.0,
+    "pending": 3,
+    "roi": null,
+    "clv": null,
+    "beat_close": null
+   }
+  },
   "all": {
    "w": 0,
    "l": 0,
@@ -38,7 +49,27 @@
   },
   "recent": []
  },
- "cal": {},
+ "cal": {
+  "record": {
+   "ATS": {
+    "w": 0,
+    "l": 0,
+    "p": 0,
+    "units": 0.0,
+    "pending": 3,
+    "roi": null
+   }
+  },
+  "all": {
+   "w": 0,
+   "l": 0,
+   "p": 0,
+   "units": 0.0,
+   "pending": 3,
+   "roi": null
+  },
+  "recent": []
+ },
  "check": {
   "edge": {},
   "cal": {}

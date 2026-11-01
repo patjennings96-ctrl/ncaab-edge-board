@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-10-31T20:00+00:00",
+  "updated_at": "2026-11-01T01:13+00:00",
   "mode": "live",
   "settings": {
     "kelly_mult": 0.25,
@@ -156,13 +156,6 @@
           "odds": -115,
           "prob": 0.5626,
           "ev": 0.0518
-        },
-        {
-          "book": "Kalshi",
-          "line": -4.5,
-          "odds": -131,
-          "prob": 0.5626,
-          "ev": -0.0079
         }
       ]
     },
@@ -386,18 +379,18 @@
           "ev": 0.1148
         },
         {
-          "book": "Kalshi",
-          "line": 6.5,
-          "odds": -116,
-          "prob": 0.5969,
-          "ev": 0.1115
-        },
-        {
           "book": "FanDuel",
           "line": 5.5,
           "odds": -112,
           "prob": 0.5839,
           "ev": 0.1053
+        },
+        {
+          "book": "Kalshi",
+          "line": 5.5,
+          "odds": -121,
+          "prob": 0.5839,
+          "ev": 0.0665
         }
       ]
     },
@@ -455,13 +448,6 @@
           "ev": 0.0499
         },
         {
-          "book": "BetMGM",
-          "line": 155.5,
-          "odds": -110,
-          "prob": 0.5499,
-          "ev": 0.0499
-        },
-        {
           "book": "DraftKings",
           "line": 155.5,
           "odds": -115,
@@ -476,11 +462,543 @@
           "ev": 0.0282
         },
         {
-          "book": "Kalshi",
+          "book": "BetMGM",
           "line": 155.5,
-          "odds": -121,
+          "odds": -115,
           "prob": 0.5499,
-          "ev": 0.0044
+          "ev": 0.0282
+        },
+        {
+          "book": "Kalshi",
+          "line": 154.5,
+          "odds": -121,
+          "prob": 0.5405,
+          "ev": -0.0128
+        }
+      ]
+    },
+    {
+      "game_id": "401909784",
+      "start": "2026-11-03T01:00Z",
+      "home": "Kansas Jayhawks",
+      "away": "Fordham Rams",
+      "mkt": "SPREAD",
+      "side": "Fordham Rams",
+      "side_code": "AWAY",
+      "line": 22.5,
+      "odds": -106,
+      "proj": 14.4,
+      "total": 143.3,
+      "p": 0.6062,
+      "edge": 11.69,
+      "stake": 0.0,
+      "notes": "",
+      "best_line": 22.5,
+      "best_odds": -106,
+      "book": "Bally Bet",
+      "agree": false,
+      "play_to": 16.5,
+      "tracking": true,
+      "reason": "Outside betting window",
+      "gap": 8.08,
+      "quotes": [
+        {
+          "book": "Bally Bet",
+          "line": 22.5,
+          "odds": -106,
+          "prob": 0.6062,
+          "ev": 0.1781
+        },
+        {
+          "book": "BetRivers",
+          "line": 22.5,
+          "odds": -107,
+          "prob": 0.6062,
+          "ev": 0.1728
+        }
+      ]
+    },
+    {
+      "game_id": "401909784",
+      "start": "2026-11-03T01:00Z",
+      "home": "Kansas Jayhawks",
+      "away": "Fordham Rams",
+      "mkt": "TOTAL",
+      "side": "UNDER",
+      "side_code": "UNDER",
+      "line": 148.5,
+      "odds": -108,
+      "proj": 14.4,
+      "total": 143.3,
+      "p": 0.5492,
+      "edge": 5.46,
+      "stake": 0.0,
+      "notes": "",
+      "best_line": 148.5,
+      "best_odds": -108,
+      "book": "Bally Bet",
+      "agree": false,
+      "play_to": 146.5,
+      "tracking": true,
+      "reason": "Over 5 pts off the market",
+      "gap": 5.19,
+      "quotes": [
+        {
+          "book": "Bally Bet",
+          "line": 148.5,
+          "odds": -108,
+          "prob": 0.5492,
+          "ev": 0.0577
+        },
+        {
+          "book": "BetRivers",
+          "line": 148.5,
+          "odds": -109,
+          "prob": 0.5492,
+          "ev": 0.053
+        }
+      ]
+    },
+    {
+      "game_id": "401925811",
+      "start": "2026-11-03T02:00Z",
+      "home": "Houston Cougars",
+      "away": "La Salle Explorers",
+      "mkt": "SPREAD",
+      "side": "La Salle Explorers",
+      "side_code": "AWAY",
+      "line": 27.5,
+      "odds": -105,
+      "proj": 19.5,
+      "total": 137.8,
+      "p": 0.6049,
+      "edge": 11.77,
+      "stake": 0.0,
+      "notes": "",
+      "best_line": 27.5,
+      "best_odds": -105,
+      "book": "Bally Bet",
+      "agree": true,
+      "play_to": 22.0,
+      "tracking": true,
+      "reason": "Outside betting window",
+      "gap": 7.98,
+      "quotes": [
+        {
+          "book": "Bally Bet",
+          "line": 27.5,
+          "odds": -105,
+          "prob": 0.6049,
+          "ev": 0.1809
+        },
+        {
+          "book": "BetRivers",
+          "line": 27.5,
+          "odds": -106,
+          "prob": 0.6049,
+          "ev": 0.1755
+        }
+      ]
+    },
+    {
+      "game_id": "401925733",
+      "start": "2026-11-02T23:00Z",
+      "home": "Michigan Wolverines",
+      "away": "Oakland Golden Grizzlies",
+      "mkt": "SPREAD",
+      "side": "Oakland Golden Grizzlies",
+      "side_code": "AWAY",
+      "line": 27.5,
+      "odds": -108,
+      "proj": 21.9,
+      "total": 160.8,
+      "p": 0.5736,
+      "edge": 7.89,
+      "stake": 0.0,
+      "notes": "",
+      "best_line": 27.5,
+      "best_odds": -108,
+      "book": "Bally Bet",
+      "agree": true,
+      "play_to": 24.0,
+      "tracking": true,
+      "reason": "Outside betting window",
+      "gap": 5.56,
+      "quotes": [
+        {
+          "book": "Bally Bet",
+          "line": 27.5,
+          "odds": -108,
+          "prob": 0.5736,
+          "ev": 0.1046
+        },
+        {
+          "book": "BetRivers",
+          "line": 27.5,
+          "odds": -109,
+          "prob": 0.5736,
+          "ev": 0.0998
+        }
+      ]
+    },
+    {
+      "game_id": "401925733",
+      "start": "2026-11-02T23:00Z",
+      "home": "Michigan Wolverines",
+      "away": "Oakland Golden Grizzlies",
+      "mkt": "TOTAL",
+      "side": "OVER",
+      "side_code": "OVER",
+      "line": 157.5,
+      "odds": -111,
+      "proj": 21.9,
+      "total": 160.8,
+      "p": 0.5312,
+      "edge": 3.12,
+      "stake": 0.0,
+      "notes": "",
+      "best_line": 157.5,
+      "best_odds": -110,
+      "book": "Bally Bet",
+      "agree": false,
+      "play_to": 157.5,
+      "tracking": true,
+      "reason": "Outside betting window",
+      "gap": 3.29,
+      "quotes": [
+        {
+          "book": "Bally Bet",
+          "line": 157.5,
+          "odds": -110,
+          "prob": 0.5312,
+          "ev": 0.0142
+        },
+        {
+          "book": "BetRivers",
+          "line": 157.5,
+          "odds": -112,
+          "prob": 0.5312,
+          "ev": 0.0056
+        }
+      ]
+    },
+    {
+      "game_id": "401909694",
+      "start": "2026-11-03T01:30Z",
+      "home": "Florida State Seminoles",
+      "away": "Florida A&M Rattlers",
+      "mkt": "SPREAD",
+      "side": "Florida A&M Rattlers",
+      "side_code": "AWAY",
+      "line": 24.5,
+      "odds": -107,
+      "proj": 16.2,
+      "total": 150.8,
+      "p": 0.6085,
+      "edge": 11.6,
+      "stake": 0.0,
+      "notes": "",
+      "best_line": 24.5,
+      "best_odds": -107,
+      "book": "Bally Bet",
+      "agree": true,
+      "play_to": 18.5,
+      "tracking": true,
+      "reason": "Outside betting window",
+      "gap": 8.26,
+      "quotes": [
+        {
+          "book": "Bally Bet",
+          "line": 24.5,
+          "odds": -107,
+          "prob": 0.6085,
+          "ev": 0.1771
+        },
+        {
+          "book": "BetRivers",
+          "line": 24.5,
+          "odds": -108,
+          "prob": 0.6085,
+          "ev": 0.1718
+        }
+      ]
+    },
+    {
+      "game_id": "401909694",
+      "start": "2026-11-03T01:30Z",
+      "home": "Florida State Seminoles",
+      "away": "Florida A&M Rattlers",
+      "mkt": "TOTAL",
+      "side": "UNDER",
+      "side_code": "UNDER",
+      "line": 156.5,
+      "odds": -112,
+      "proj": 16.2,
+      "total": 150.8,
+      "p": 0.5539,
+      "edge": 5.07,
+      "stake": 0.0,
+      "notes": "",
+      "best_line": 156.5,
+      "best_odds": -112,
+      "book": "Bally Bet",
+      "agree": false,
+      "play_to": 154.0,
+      "tracking": true,
+      "reason": "Over 5 pts off the market",
+      "gap": 5.69,
+      "quotes": [
+        {
+          "book": "Bally Bet",
+          "line": 156.5,
+          "odds": -112,
+          "prob": 0.5539,
+          "ev": 0.0485
+        },
+        {
+          "book": "BetRivers",
+          "line": 156.5,
+          "odds": -113,
+          "prob": 0.5539,
+          "ev": 0.0441
+        }
+      ]
+    },
+    {
+      "game_id": "401921423",
+      "start": "2026-11-02T14:00Z",
+      "home": "Queens University Royals",
+      "away": "Winthrop Eagles",
+      "mkt": "TOTAL",
+      "side": "UNDER",
+      "side_code": "UNDER",
+      "line": 165.5,
+      "odds": -110,
+      "proj": 3.5,
+      "total": 160.4,
+      "p": 0.5479,
+      "edge": 4.79,
+      "stake": 0.0,
+      "notes": "",
+      "best_line": 165.5,
+      "best_odds": -110,
+      "book": "DraftKings",
+      "agree": false,
+      "play_to": 163.5,
+      "tracking": true,
+      "reason": "Over 5 pts off the market",
+      "gap": 5.05,
+      "quotes": [
+        {
+          "book": "DraftKings",
+          "line": 165.5,
+          "odds": -110,
+          "prob": 0.5479,
+          "ev": 0.046
+        }
+      ]
+    },
+    {
+      "game_id": "401919014",
+      "start": "2026-11-02T22:30Z",
+      "home": "McNeese Cowboys",
+      "away": "UAB Blazers",
+      "mkt": "SPREAD",
+      "side": "McNeese Cowboys",
+      "side_code": "HOME",
+      "line": -3.5,
+      "odds": -110,
+      "proj": 5.7,
+      "total": 149.0,
+      "p": 0.5294,
+      "edge": 2.94,
+      "stake": 0.0,
+      "notes": "",
+      "best_line": -3.5,
+      "best_odds": -110,
+      "book": "DraftKings",
+      "agree": false,
+      "play_to": -3.5,
+      "tracking": true,
+      "reason": "Outside betting window",
+      "gap": 2.21,
+      "quotes": [
+        {
+          "book": "DraftKings",
+          "line": -3.5,
+          "odds": -110,
+          "prob": 0.5294,
+          "ev": 0.0106
+        }
+      ]
+    },
+    {
+      "game_id": "401920912",
+      "start": "2026-11-02T08:00Z",
+      "home": "Northern Illinois Huskies",
+      "away": "Grambling Tigers",
+      "mkt": "SPREAD",
+      "side": "Grambling Tigers",
+      "side_code": "AWAY",
+      "line": 5.5,
+      "odds": -110,
+      "proj": 0.8,
+      "total": 143.0,
+      "p": 0.5628,
+      "edge": 6.28,
+      "stake": 0.0,
+      "notes": "",
+      "best_line": 5.5,
+      "best_odds": -110,
+      "book": "DraftKings",
+      "agree": false,
+      "play_to": 3.0,
+      "tracking": true,
+      "reason": "Outside betting window",
+      "gap": 4.74,
+      "quotes": [
+        {
+          "book": "DraftKings",
+          "line": 5.5,
+          "odds": -110,
+          "prob": 0.5628,
+          "ev": 0.0745
+        }
+      ]
+    },
+    {
+      "game_id": "401920912",
+      "start": "2026-11-02T08:00Z",
+      "home": "Northern Illinois Huskies",
+      "away": "Grambling Tigers",
+      "mkt": "TOTAL",
+      "side": "UNDER",
+      "side_code": "UNDER",
+      "line": 147.5,
+      "odds": -110,
+      "proj": 0.8,
+      "total": 143.0,
+      "p": 0.543,
+      "edge": 4.3,
+      "stake": 0.0,
+      "notes": "",
+      "best_line": 147.5,
+      "best_odds": -110,
+      "book": "DraftKings",
+      "agree": false,
+      "play_to": 146.0,
+      "tracking": true,
+      "reason": "Outside betting window",
+      "gap": 4.54,
+      "quotes": [
+        {
+          "book": "DraftKings",
+          "line": 147.5,
+          "odds": -110,
+          "prob": 0.543,
+          "ev": 0.0366
+        }
+      ]
+    },
+    {
+      "game_id": "401911532",
+      "start": "2026-11-02T19:00Z",
+      "home": "Northern Kentucky Norse",
+      "away": "UTEP Miners",
+      "mkt": "SPREAD",
+      "side": "Northern Kentucky Norse",
+      "side_code": "HOME",
+      "line": 1.5,
+      "odds": -108,
+      "proj": 1.1,
+      "total": 144.0,
+      "p": 0.5347,
+      "edge": 3.91,
+      "stake": 0.0,
+      "notes": "",
+      "best_line": 1.5,
+      "best_odds": -108,
+      "book": "DraftKings",
+      "agree": false,
+      "play_to": 1.0,
+      "tracking": true,
+      "reason": "Outside betting window",
+      "gap": 2.62,
+      "quotes": [
+        {
+          "book": "DraftKings",
+          "line": 1.5,
+          "odds": -108,
+          "prob": 0.5347,
+          "ev": 0.0299
+        }
+      ]
+    },
+    {
+      "game_id": "401911532",
+      "start": "2026-11-02T19:00Z",
+      "home": "Northern Kentucky Norse",
+      "away": "UTEP Miners",
+      "mkt": "TOTAL",
+      "side": "UNDER",
+      "side_code": "UNDER",
+      "line": 148.5,
+      "odds": -110,
+      "proj": 1.1,
+      "total": 144.0,
+      "p": 0.5426,
+      "edge": 4.26,
+      "stake": 0.0,
+      "notes": "",
+      "best_line": 148.5,
+      "best_odds": -110,
+      "book": "DraftKings",
+      "agree": false,
+      "play_to": 147.5,
+      "tracking": true,
+      "reason": "Outside betting window",
+      "gap": 4.49,
+      "quotes": [
+        {
+          "book": "DraftKings",
+          "line": 148.5,
+          "odds": -110,
+          "prob": 0.5426,
+          "ev": 0.0358
+        }
+      ]
+    },
+    {
+      "game_id": "401911707",
+      "start": "2026-11-02T16:30Z",
+      "home": "Tennessee State Tigers",
+      "away": "Murray State Racers",
+      "mkt": "SPREAD",
+      "side": "Tennessee State Tigers",
+      "side_code": "HOME",
+      "line": 8.5,
+      "odds": -115,
+      "proj": -4.7,
+      "total": 161.2,
+      "p": 0.55,
+      "edge": 3.92,
+      "stake": 0.0,
+      "notes": "",
+      "best_line": 8.5,
+      "best_odds": -115,
+      "book": "DraftKings",
+      "agree": false,
+      "play_to": 7.0,
+      "tracking": true,
+      "reason": "Outside betting window",
+      "gap": 3.77,
+      "quotes": [
+        {
+          "book": "DraftKings",
+          "line": 8.5,
+          "odds": -115,
+          "prob": 0.55,
+          "ev": 0.0283
         }
       ]
     }
