@@ -224,10 +224,12 @@ TOTAL_MAX_GAP = 5.0
 # (the market's margins matched results), and ~1.0x from January. Stretch the
 # team-strength part of the margin (home court left as is) by a factor that
 # fades with the starting rating's weight (in games):
-#   k = min(1 + 0.10 * max(weight - 11.5, 0), 1.7)
-# 18.5+ games (preseason, November) -> 1.7, 15 -> 1.35, 13 -> 1.15, under 11.5 -> 1.0.
+#   k = min(1 + 0.10 * max(weight - 11.5, 0), 1.6)
+# 17.5+ games (preseason, November) -> 1.6, 15 -> 1.35, 13 -> 1.15, under 11.5 -> 1.0.
+# (Backtest weeks started at 17.6 games, k = 1.6 observed; the preseason cap is
+# kept there rather than extrapolated. 1.7 put opening-week margins 16% past the market.)
 # Backtest margin RMSE: Nov 13.59 -> 12.98, Dec 12.71 -> 12.35, Jan-Mar unchanged.
-STRETCH_SLOPE, STRETCH_FROM, STRETCH_CAP = 0.10, 11.5, 1.7
+STRETCH_SLOPE, STRETCH_FROM, STRETCH_CAP = 0.10, 11.5, 1.6
 
 
 def _stretch_weight(prior_games) -> np.ndarray:
