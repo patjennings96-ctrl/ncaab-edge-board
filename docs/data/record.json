@@ -1,28 +1,28 @@
 {
- "updated_at": "2026-11-02T03:25+00:00",
+ "updated_at": "2026-11-02T21:41+00:00",
  "season_start": "2026-10-01",
  "edge": {
   "staked": {},
   "tracking": {
    "SPREAD": {
-    "w": 0,
+    "w": 2,
     "l": 0,
     "p": 0,
-    "units": 0.0,
-    "pending": 117,
-    "roi": null,
-    "clv": 0.5,
-    "beat_close": 1.0
+    "units": 1.87,
+    "pending": 116,
+    "roi": 0.935,
+    "clv": 1.33,
+    "beat_close": 0.333
    },
    "TOTAL": {
-    "w": 0,
+    "w": 1,
     "l": 0,
     "p": 0,
-    "units": 0.0,
-    "pending": 104,
-    "roi": null,
-    "clv": null,
-    "beat_close": null
+    "units": 0.93,
+    "pending": 108,
+    "roi": 0.93,
+    "clv": 0.57,
+    "beat_close": 0.143
    }
   },
   "both_models": {
@@ -33,15 +33,15 @@
     "units": 0.0,
     "pending": 34,
     "roi": null,
-    "clv": null,
-    "beat_close": null
+    "clv": -0.5,
+    "beat_close": 0.0
    },
    "TOTAL": {
     "w": 0,
     "l": 0,
     "p": 0,
     "units": 0.0,
-    "pending": 1,
+    "pending": 2,
     "roi": null,
     "clv": null,
     "beat_close": null
@@ -57,7 +57,44 @@
    "clv": null,
    "beat_close": null
   },
-  "recent": []
+  "recent": [
+   {
+    "start": "2026-11-02T04:59Z",
+    "away": "Liberty Flames",
+    "home": "High Point Panthers",
+    "mkt": "TOTAL",
+    "side": "UNDER",
+    "line": 155.5,
+    "stake": 0.0,
+    "result": "W",
+    "units": 0.0,
+    "clv": 0.0
+   },
+   {
+    "start": "2026-11-02T04:59Z",
+    "away": "Liberty Flames",
+    "home": "High Point Panthers",
+    "mkt": "SPREAD",
+    "side": "High Point Panthers",
+    "line": -7.5,
+    "stake": 0.0,
+    "result": "W",
+    "units": 0.0,
+    "clv": 2.0
+   },
+   {
+    "start": "2026-11-01T14:30Z",
+    "away": "Notre Dame Fighting Irish",
+    "home": "Villanova Wildcats",
+    "mkt": "SPREAD",
+    "side": "Notre Dame Fighting Irish",
+    "line": 8.0,
+    "stake": 0.0,
+    "result": "W",
+    "units": 0.0,
+    "clv": 0.5
+   }
+  ]
  },
  "cal": {
   "record": {
@@ -66,7 +103,7 @@
     "l": 0,
     "p": 0,
     "units": 0.0,
-    "pending": 39,
+    "pending": 48,
     "roi": null
    },
    "TOTAL": {
@@ -74,7 +111,7 @@
     "l": 0,
     "p": 0,
     "units": 0.0,
-    "pending": 1,
+    "pending": 6,
     "roi": null
    }
   },
@@ -83,13 +120,133 @@
    "l": 0,
    "p": 0,
    "units": 0.0,
-   "pending": 40,
+   "pending": 54,
    "roi": null
   },
   "recent": []
  },
  "check": {
-  "edge": {},
+  "edge": {
+   "SPREAD": {
+    "buckets": [
+     {
+      "gap": "2-3",
+      "w": 1,
+      "l": 0,
+      "pct": 1.0,
+      "expected": 0.531,
+      "clv": 0.5
+     },
+     {
+      "gap": "3-4",
+      "w": 0,
+      "l": 0,
+      "pct": null,
+      "expected": null,
+      "clv": null
+     },
+     {
+      "gap": "4-5",
+      "w": 0,
+      "l": 0,
+      "pct": null,
+      "expected": null,
+      "clv": null
+     },
+     {
+      "gap": "5+",
+      "w": 1,
+      "l": 0,
+      "pct": 1.0,
+      "expected": 0.594,
+      "clv": 2.0
+     }
+    ],
+    "agree": {
+     "w": 0,
+     "l": 0,
+     "pct": null
+    },
+    "no_agree": {
+     "w": 2,
+     "l": 0,
+     "pct": 1.0
+    },
+    "sides": {
+     "fav": {
+      "w": 1,
+      "l": 0,
+      "pct": 1.0
+     },
+     "dog": {
+      "w": 1,
+      "l": 0,
+      "pct": 1.0
+     },
+     "under 5": {
+      "w": 0,
+      "l": 0,
+      "pct": null
+     },
+     "5-15": {
+      "w": 2,
+      "l": 0,
+      "pct": 1.0
+     },
+     "15+": {
+      "w": 0,
+      "l": 0,
+      "pct": null
+     }
+    }
+   },
+   "TOTAL": {
+    "buckets": [
+     {
+      "gap": "3-4",
+      "w": 1,
+      "l": 0,
+      "pct": 1.0,
+      "expected": 0.535,
+      "clv": 0.0
+     },
+     {
+      "gap": "4-5",
+      "w": 0,
+      "l": 0,
+      "pct": null,
+      "expected": null,
+      "clv": null
+     },
+     {
+      "gap": "5-7",
+      "w": 0,
+      "l": 0,
+      "pct": null,
+      "expected": null,
+      "clv": null
+     },
+     {
+      "gap": "7+",
+      "w": 0,
+      "l": 0,
+      "pct": null,
+      "expected": null,
+      "clv": null
+     }
+    ],
+    "agree": {
+     "w": 0,
+     "l": 0,
+     "pct": null
+    },
+    "no_agree": {
+     "w": 1,
+     "l": 0,
+     "pct": 1.0
+    }
+   }
+  },
   "cal": {}
  }
 }
