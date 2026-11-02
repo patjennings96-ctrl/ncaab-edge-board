@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-02T03:22+00:00",
+  "updated_at": "2026-11-02T03:25+00:00",
   "mode": "live",
   "settings": {
     "kelly_mult": 0.25,
@@ -75,6 +75,13 @@
           "ev": 0.0253
         },
         {
+          "book": "Kalshi",
+          "line": -7.5,
+          "odds": -121,
+          "prob": 0.5594,
+          "ev": 0.0217
+        },
+        {
           "book": "BetRivers",
           "line": -8.5,
           "odds": -115,
@@ -87,13 +94,6 @@
           "odds": -115,
           "prob": 0.5462,
           "ev": 0.0212
-        },
-        {
-          "book": "Kalshi",
-          "line": -7.5,
-          "odds": -126,
-          "prob": 0.5594,
-          "ev": 0.0033
         }
       ]
     },
@@ -356,10 +356,10 @@
       "side_code": "HOME",
       "line": -27.5,
       "odds": -110,
-      "proj": 34.6,
+      "proj": 34.9,
       "total": 166.8,
-      "p": 0.5939,
-      "edge": 9.39,
+      "p": 0.5976,
+      "edge": 9.76,
       "stake": 0.0,
       "notes": "",
       "best_line": -27.5,
@@ -369,56 +369,56 @@
       "play_to": -32.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 7.13,
+      "gap": 7.42,
       "quotes": [
         {
           "book": "theScore Bet",
           "line": -27.5,
           "odds": -105,
-          "prob": 0.5939,
-          "ev": 0.1596
+          "prob": 0.5976,
+          "ev": 0.1668
         },
         {
           "book": "FanDuel",
           "line": -26.5,
           "odds": -110,
-          "prob": 0.6068,
-          "ev": 0.1584
+          "prob": 0.6105,
+          "ev": 0.1654
         },
         {
           "book": "BetMGM",
           "line": -26.5,
           "odds": -115,
-          "prob": 0.6068,
-          "ev": 0.1344
+          "prob": 0.6105,
+          "ev": 0.1413
         },
         {
           "book": "DraftKings",
           "line": -27.5,
           "odds": -110,
-          "prob": 0.5939,
-          "ev": 0.1338
+          "prob": 0.5976,
+          "ev": 0.1409
         },
         {
           "book": "Hard Rock",
           "line": -27.5,
           "odds": -110,
-          "prob": 0.5939,
-          "ev": 0.1338
+          "prob": 0.5976,
+          "ev": 0.1409
         },
         {
           "book": "Bally Bet",
           "line": -27.5,
           "odds": -113,
-          "prob": 0.5939,
-          "ev": 0.1195
+          "prob": 0.5976,
+          "ev": 0.1265
         },
         {
           "book": "BetRivers",
           "line": -27.5,
           "odds": -114,
-          "prob": 0.5939,
-          "ev": 0.1149
+          "prob": 0.5976,
+          "ev": 0.1218
         }
       ]
     },
@@ -432,10 +432,10 @@
       "side_code": "OVER",
       "line": 156.5,
       "odds": -114,
-      "proj": 34.6,
+      "proj": 34.9,
       "total": 166.8,
-      "p": 0.5966,
-      "edge": 8.79,
+      "p": 0.5973,
+      "edge": 8.86,
       "stake": 0.0,
       "notes": "",
       "best_line": 157.5,
@@ -445,56 +445,63 @@
       "play_to": 163.5,
       "tracking": true,
       "reason": "Over 5 pts off the market",
-      "gap": 10.27,
+      "gap": 10.35,
       "quotes": [
         {
           "book": "Bally Bet",
           "line": 157.5,
           "odds": -110,
-          "prob": 0.5874,
-          "ev": 0.1213
+          "prob": 0.588,
+          "ev": 0.1226
         },
         {
           "book": "Hard Rock",
           "line": 157.5,
           "odds": -110,
-          "prob": 0.5874,
-          "ev": 0.1213
+          "prob": 0.588,
+          "ev": 0.1226
         },
         {
           "book": "FanDuel",
           "line": 156.5,
           "odds": -114,
-          "prob": 0.5966,
-          "ev": 0.1199
+          "prob": 0.5973,
+          "ev": 0.1212
         },
         {
           "book": "DraftKings",
           "line": 156.5,
           "odds": -115,
-          "prob": 0.5966,
-          "ev": 0.1154
+          "prob": 0.5973,
+          "ev": 0.1167
         },
         {
           "book": "theScore Bet",
           "line": 156.5,
           "odds": -115,
-          "prob": 0.5966,
-          "ev": 0.1154
+          "prob": 0.5973,
+          "ev": 0.1167
         },
         {
           "book": "BetMGM",
           "line": 156.5,
           "odds": -115,
-          "prob": 0.5966,
-          "ev": 0.1154
+          "prob": 0.5973,
+          "ev": 0.1167
         },
         {
           "book": "BetRivers",
           "line": 157.5,
           "odds": -112,
-          "prob": 0.5874,
-          "ev": 0.1118
+          "prob": 0.588,
+          "ev": 0.1131
+        },
+        {
+          "book": "Kalshi",
+          "line": 156.5,
+          "odds": -116,
+          "prob": 0.5973,
+          "ev": 0.1122
         }
       ]
     },
@@ -508,10 +515,10 @@
       "side_code": "HOME",
       "line": 3.5,
       "odds": -105,
-      "proj": 6.4,
+      "proj": 6.2,
       "total": 171.6,
-      "p": 0.6287,
-      "edge": 13.96,
+      "p": 0.6265,
+      "edge": 13.74,
       "stake": 0.0,
       "notes": "",
       "best_line": 1.5,
@@ -521,63 +528,63 @@
       "play_to": -4.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 9.85,
+      "gap": 9.68,
       "quotes": [
         {
           "book": "Hard Rock",
           "line": 1.5,
           "odds": 110,
-          "prob": 0.6033,
-          "ev": 0.2669
+          "prob": 0.601,
+          "ev": 0.2622
         },
         {
           "book": "BetRivers",
           "line": 1.5,
           "odds": 108,
-          "prob": 0.6033,
-          "ev": 0.2548
+          "prob": 0.601,
+          "ev": 0.2502
         },
         {
           "book": "Bally Bet",
           "line": 1.5,
           "odds": 108,
-          "prob": 0.6033,
-          "ev": 0.2548
+          "prob": 0.601,
+          "ev": 0.2502
         },
         {
           "book": "theScore Bet",
           "line": 3.5,
           "odds": -105,
-          "prob": 0.6287,
-          "ev": 0.2275
+          "prob": 0.6265,
+          "ev": 0.2232
         },
         {
           "book": "FanDuel",
           "line": 3.5,
           "odds": -108,
-          "prob": 0.6287,
-          "ev": 0.2109
+          "prob": 0.6265,
+          "ev": 0.2067
         },
         {
           "book": "DraftKings",
           "line": 3.5,
           "odds": -110,
-          "prob": 0.6287,
-          "ev": 0.2003
+          "prob": 0.6265,
+          "ev": 0.1961
         },
         {
           "book": "BetMGM",
           "line": 3.5,
           "odds": -110,
-          "prob": 0.6287,
-          "ev": 0.2003
+          "prob": 0.6265,
+          "ev": 0.1961
         },
         {
           "book": "Kalshi",
           "line": 4.5,
           "odds": -131,
-          "prob": 0.6413,
-          "ev": 0.1308
+          "prob": 0.6391,
+          "ev": 0.127
         }
       ]
     },
@@ -591,10 +598,10 @@
       "side_code": "OVER",
       "line": 163.5,
       "odds": -110,
-      "proj": 6.4,
+      "proj": 6.2,
       "total": 171.6,
-      "p": 0.5762,
-      "edge": 8.04,
+      "p": 0.576,
+      "edge": 8.02,
       "stake": 0.0,
       "notes": "",
       "best_line": 163.5,
@@ -604,63 +611,63 @@
       "play_to": 168.5,
       "tracking": true,
       "reason": "Over 5 pts off the market",
-      "gap": 8.07,
+      "gap": 8.05,
       "quotes": [
         {
           "book": "FanDuel",
           "line": 163.5,
           "odds": -106,
-          "prob": 0.5762,
-          "ev": 0.1197
+          "prob": 0.576,
+          "ev": 0.1194
         },
         {
           "book": "theScore Bet",
           "line": 163.5,
           "odds": -110,
-          "prob": 0.5762,
-          "ev": 0.1
+          "prob": 0.576,
+          "ev": 0.0996
         },
         {
           "book": "Hard Rock",
           "line": 163.5,
           "odds": -110,
-          "prob": 0.5762,
-          "ev": 0.1
+          "prob": 0.576,
+          "ev": 0.0996
         },
         {
           "book": "BetMGM",
           "line": 163.5,
           "odds": -110,
-          "prob": 0.5762,
-          "ev": 0.1
+          "prob": 0.576,
+          "ev": 0.0996
         },
         {
           "book": "Kalshi",
           "line": 163.5,
           "odds": -112,
-          "prob": 0.5762,
-          "ev": 0.0906
+          "prob": 0.576,
+          "ev": 0.0903
         },
         {
           "book": "DraftKings",
           "line": 163.5,
           "odds": -112,
-          "prob": 0.5762,
-          "ev": 0.0906
+          "prob": 0.576,
+          "ev": 0.0903
         },
         {
           "book": "BetRivers",
           "line": 163.5,
           "odds": -112,
-          "prob": 0.5762,
-          "ev": 0.0906
+          "prob": 0.576,
+          "ev": 0.0903
         },
         {
           "book": "Bally Bet",
           "line": 163.5,
           "odds": -112,
-          "prob": 0.5762,
-          "ev": 0.0906
+          "prob": 0.576,
+          "ev": 0.0903
         }
       ]
     },
@@ -674,69 +681,69 @@
       "side_code": "HOME",
       "line": -42.5,
       "odds": -114,
-      "proj": 52.2,
-      "total": 152.1,
-      "p": 0.6273,
-      "edge": 12.09,
+      "proj": 52.7,
+      "total": 152.3,
+      "p": 0.6328,
+      "edge": 12.64,
       "stake": 0.0,
       "notes": "",
       "best_line": -42.5,
       "best_odds": -114,
       "book": "Bally Bet",
       "agree": false,
-      "play_to": -50.0,
+      "play_to": -50.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 9.74,
+      "gap": 10.18,
       "quotes": [
         {
           "book": "Bally Bet",
           "line": -42.5,
           "odds": -114,
-          "prob": 0.6273,
-          "ev": 0.1775
+          "prob": 0.6328,
+          "ev": 0.188
         },
         {
           "book": "DraftKings",
           "line": -43.5,
           "odds": -110,
-          "prob": 0.6146,
-          "ev": 0.1733
+          "prob": 0.6202,
+          "ev": 0.184
         },
         {
           "book": "theScore Bet",
           "line": -43.5,
           "odds": -110,
-          "prob": 0.6146,
-          "ev": 0.1733
+          "prob": 0.6202,
+          "ev": 0.184
         },
         {
           "book": "BetMGM",
           "line": -43.5,
           "odds": -110,
-          "prob": 0.6146,
-          "ev": 0.1733
+          "prob": 0.6202,
+          "ev": 0.184
         },
         {
           "book": "BetRivers",
           "line": -42.5,
           "odds": -115,
-          "prob": 0.6273,
-          "ev": 0.1727
+          "prob": 0.6328,
+          "ev": 0.1831
         },
         {
           "book": "Hard Rock",
           "line": -42.5,
           "odds": -115,
-          "prob": 0.6273,
-          "ev": 0.1727
+          "prob": 0.6328,
+          "ev": 0.1831
         },
         {
           "book": "FanDuel",
           "line": -42.5,
           "odds": -118,
-          "prob": 0.6273,
-          "ev": 0.1589
+          "prob": 0.6328,
+          "ev": 0.1691
         }
       ]
     },
@@ -835,8 +842,8 @@
       "odds": -115,
       "proj": 28.7,
       "total": 156.1,
-      "p": 0.5342,
-      "edge": 2.9,
+      "p": 0.534,
+      "edge": 2.88,
       "stake": 0.0,
       "notes": "",
       "best_line": 153.5,
@@ -846,56 +853,56 @@
       "play_to": 153.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 3.6,
+      "gap": 3.58,
       "quotes": [
         {
           "book": "DraftKings",
           "line": 153.5,
           "odds": -105,
-          "prob": 0.5247,
-          "ev": 0.0245
+          "prob": 0.5245,
+          "ev": 0.0241
         },
         {
           "book": "theScore Bet",
           "line": 153.5,
           "odds": -105,
-          "prob": 0.5247,
-          "ev": 0.0245
+          "prob": 0.5245,
+          "ev": 0.0241
         },
         {
           "book": "BetMGM",
           "line": 153.5,
           "odds": -105,
-          "prob": 0.5247,
-          "ev": 0.0245
+          "prob": 0.5245,
+          "ev": 0.0241
         },
         {
           "book": "FanDuel",
           "line": 152.5,
           "odds": -115,
-          "prob": 0.5342,
-          "ev": -0.0013
+          "prob": 0.534,
+          "ev": -0.0016
         },
         {
           "book": "Bally Bet",
           "line": 152.5,
           "odds": -115,
-          "prob": 0.5342,
-          "ev": -0.0013
+          "prob": 0.534,
+          "ev": -0.0016
         },
         {
           "book": "BetRivers",
           "line": 152.5,
           "odds": -115,
-          "prob": 0.5342,
-          "ev": -0.0013
+          "prob": 0.534,
+          "ev": -0.0016
         },
         {
           "book": "Hard Rock",
           "line": 152.5,
           "odds": -115,
-          "prob": 0.5342,
-          "ev": -0.0013
+          "prob": 0.534,
+          "ev": -0.0016
         }
       ]
     },
@@ -1123,7 +1130,7 @@
           "line": 139.5,
           "odds": -112,
           "prob": 0.5716,
-          "ev": 0.082
+          "ev": 0.0821
         },
         {
           "book": "BetRivers",
@@ -1144,7 +1151,7 @@
           "line": 139.5,
           "odds": -116,
           "prob": 0.5716,
-          "ev": 0.0644
+          "ev": 0.0645
         }
       ]
     },
@@ -1247,7 +1254,7 @@
       "play_to": 151.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 4.0,
+      "gap": 4.01,
       "quotes": [
         {
           "book": "DraftKings",
@@ -1317,10 +1324,10 @@
       "side_code": "HOME",
       "line": -29.5,
       "odds": -112,
-      "proj": 39.3,
+      "proj": 39.1,
       "total": 153.7,
-      "p": 0.6276,
-      "edge": 12.55,
+      "p": 0.625,
+      "edge": 12.29,
       "stake": 0.0,
       "notes": "",
       "best_line": -29.5,
@@ -1330,56 +1337,56 @@
       "play_to": -37.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 9.77,
+      "gap": 9.56,
       "quotes": [
         {
           "book": "FanDuel",
           "line": -29.5,
           "odds": -110,
-          "prob": 0.6276,
-          "ev": 0.1982
+          "prob": 0.625,
+          "ev": 0.1932
         },
         {
           "book": "theScore Bet",
           "line": -29.5,
           "odds": -110,
-          "prob": 0.6276,
-          "ev": 0.1982
+          "prob": 0.625,
+          "ev": 0.1932
         },
         {
           "book": "Hard Rock",
           "line": -29.5,
           "odds": -110,
-          "prob": 0.6276,
-          "ev": 0.1982
+          "prob": 0.625,
+          "ev": 0.1932
         },
         {
           "book": "DraftKings",
           "line": -29.5,
           "odds": -112,
-          "prob": 0.6276,
-          "ev": 0.188
+          "prob": 0.625,
+          "ev": 0.183
         },
         {
           "book": "BetRivers",
           "line": -29.5,
           "odds": -113,
-          "prob": 0.6276,
-          "ev": 0.1831
+          "prob": 0.625,
+          "ev": 0.1781
         },
         {
           "book": "Bally Bet",
           "line": -29.5,
           "odds": -113,
-          "prob": 0.6276,
-          "ev": 0.1831
+          "prob": 0.625,
+          "ev": 0.1781
         },
         {
           "book": "BetMGM",
           "line": -29.5,
           "odds": -115,
-          "prob": 0.6276,
-          "ev": 0.1734
+          "prob": 0.625,
+          "ev": 0.1685
         }
       ]
     },
@@ -1393,10 +1400,10 @@
       "side_code": "OVER",
       "line": 150.5,
       "odds": -110,
-      "proj": 39.3,
+      "proj": 39.1,
       "total": 153.7,
-      "p": 0.5303,
-      "edge": 3.03,
+      "p": 0.5308,
+      "edge": 3.08,
       "stake": 0.0,
       "notes": "",
       "best_line": 150.5,
@@ -1406,56 +1413,56 @@
       "play_to": 150.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 3.2,
+      "gap": 3.24,
       "quotes": [
         {
           "book": "BetMGM",
           "line": 150.5,
           "odds": -105,
-          "prob": 0.5303,
-          "ev": 0.0354
+          "prob": 0.5308,
+          "ev": 0.0363
         },
         {
           "book": "FanDuel",
           "line": 150.5,
           "odds": -110,
-          "prob": 0.5303,
-          "ev": 0.0124
+          "prob": 0.5308,
+          "ev": 0.0133
         },
         {
           "book": "Bally Bet",
           "line": 150.5,
           "odds": -110,
-          "prob": 0.5303,
-          "ev": 0.0124
+          "prob": 0.5308,
+          "ev": 0.0133
         },
         {
           "book": "Hard Rock",
           "line": 150.5,
           "odds": -110,
-          "prob": 0.5303,
-          "ev": 0.0124
+          "prob": 0.5308,
+          "ev": 0.0133
         },
         {
           "book": "DraftKings",
           "line": 149.5,
           "odds": -115,
-          "prob": 0.5398,
-          "ev": 0.0092
+          "prob": 0.5402,
+          "ev": 0.01
         },
         {
           "book": "theScore Bet",
           "line": 149.5,
           "odds": -115,
-          "prob": 0.5398,
-          "ev": 0.0092
+          "prob": 0.5402,
+          "ev": 0.01
         },
         {
           "book": "BetRivers",
           "line": 150.5,
           "odds": -112,
-          "prob": 0.5303,
-          "ev": 0.0038
+          "prob": 0.5308,
+          "ev": 0.0047
         }
       ]
     },
@@ -1469,10 +1476,10 @@
       "side_code": "HOME",
       "line": -13.5,
       "odds": -105,
-      "proj": 22.4,
+      "proj": 22.3,
       "total": 159.1,
-      "p": 0.6161,
-      "edge": 12.69,
+      "p": 0.6154,
+      "edge": 12.62,
       "stake": 0.0,
       "notes": "",
       "best_line": -13.5,
@@ -1482,63 +1489,63 @@
       "play_to": -20.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 8.85,
+      "gap": 8.8,
       "quotes": [
         {
           "book": "DraftKings",
           "line": -13.5,
           "odds": -102,
-          "prob": 0.6161,
-          "ev": 0.22
+          "prob": 0.6154,
+          "ev": 0.2188
         },
         {
           "book": "FanDuel",
           "line": -13.5,
           "odds": -104,
-          "prob": 0.6161,
-          "ev": 0.2084
+          "prob": 0.6154,
+          "ev": 0.2072
         },
         {
           "book": "theScore Bet",
           "line": -13.5,
           "odds": -105,
-          "prob": 0.6161,
-          "ev": 0.2028
+          "prob": 0.6154,
+          "ev": 0.2015
         },
         {
           "book": "BetMGM",
           "line": -13.5,
           "odds": -105,
-          "prob": 0.6161,
-          "ev": 0.2028
+          "prob": 0.6154,
+          "ev": 0.2015
         },
         {
           "book": "Hard Rock",
           "line": -13.5,
           "odds": -110,
-          "prob": 0.6161,
-          "ev": 0.1761
+          "prob": 0.6154,
+          "ev": 0.1749
         },
         {
           "book": "Kalshi",
           "line": -13.5,
           "odds": -112,
-          "prob": 0.6161,
-          "ev": 0.1661
+          "prob": 0.6154,
+          "ev": 0.1649
         },
         {
           "book": "Bally Bet",
           "line": -13.5,
           "odds": -113,
-          "prob": 0.6161,
-          "ev": 0.1612
+          "prob": 0.6154,
+          "ev": 0.16
         },
         {
           "book": "BetRivers",
           "line": -13.5,
           "odds": -114,
-          "prob": 0.6161,
-          "ev": 0.1565
+          "prob": 0.6154,
+          "ev": 0.1552
         }
       ]
     },
@@ -1552,10 +1559,10 @@
       "side_code": "HOME",
       "line": -33.5,
       "odds": -110,
-      "proj": 44.7,
+      "proj": 44.8,
       "total": 158.9,
-      "p": 0.6455,
-      "edge": 15.08,
+      "p": 0.6465,
+      "edge": 15.17,
       "stake": 0.0,
       "notes": "",
       "best_line": -33.5,
@@ -1565,56 +1572,56 @@
       "play_to": -42.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 11.2,
+      "gap": 11.28,
       "quotes": [
         {
           "book": "BetRivers",
           "line": -33.5,
           "odds": -108,
-          "prob": 0.6455,
-          "ev": 0.2433
+          "prob": 0.6465,
+          "ev": 0.2451
         },
         {
           "book": "Bally Bet",
           "line": -33.5,
           "odds": -108,
-          "prob": 0.6455,
-          "ev": 0.2433
+          "prob": 0.6465,
+          "ev": 0.2451
         },
         {
           "book": "BetMGM",
           "line": -34.5,
           "odds": -105,
-          "prob": 0.6331,
-          "ev": 0.236
+          "prob": 0.634,
+          "ev": 0.2379
         },
         {
           "book": "FanDuel",
           "line": -33.5,
           "odds": -110,
-          "prob": 0.6455,
-          "ev": 0.2324
+          "prob": 0.6465,
+          "ev": 0.2343
         },
         {
           "book": "Hard Rock",
           "line": -33.5,
           "odds": -110,
-          "prob": 0.6455,
-          "ev": 0.2324
+          "prob": 0.6465,
+          "ev": 0.2343
         },
         {
           "book": "DraftKings",
           "line": -34.5,
           "odds": -110,
-          "prob": 0.6331,
-          "ev": 0.2086
+          "prob": 0.634,
+          "ev": 0.2105
         },
         {
           "book": "theScore Bet",
           "line": -34.5,
           "odds": -110,
-          "prob": 0.6331,
-          "ev": 0.2086
+          "prob": 0.634,
+          "ev": 0.2105
         }
       ]
     },
@@ -1628,7 +1635,7 @@
       "side_code": "OVER",
       "line": 155.5,
       "odds": -105,
-      "proj": 44.7,
+      "proj": 44.8,
       "total": 158.9,
       "p": 0.5324,
       "edge": 4.32,
@@ -1676,20 +1683,20 @@
           "line": 155.5,
           "odds": -106,
           "prob": 0.5324,
-          "ev": 0.0347
+          "ev": 0.0346
         },
         {
           "book": "Bally Bet",
           "line": 155.5,
           "odds": -106,
           "prob": 0.5324,
-          "ev": 0.0347
+          "ev": 0.0346
         },
         {
           "book": "FanDuel",
           "line": 154.5,
           "odds": -115,
-          "prob": 0.5419,
+          "prob": 0.5418,
           "ev": 0.013
         }
       ]
@@ -1704,10 +1711,10 @@
       "side_code": "HOME",
       "line": -32.5,
       "odds": -110,
-      "proj": 37.5,
+      "proj": 37.7,
       "total": 163.3,
-      "p": 0.5663,
-      "edge": 6.63,
+      "p": 0.5688,
+      "edge": 6.88,
       "stake": 0.0,
       "notes": "",
       "best_line": -31.5,
@@ -1717,56 +1724,56 @@
       "play_to": -35.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 5.01,
+      "gap": 5.2,
       "quotes": [
         {
           "book": "FanDuel",
           "line": -31.5,
           "odds": -110,
-          "prob": 0.5794,
-          "ev": 0.1062
+          "prob": 0.5819,
+          "ev": 0.1108
         },
         {
           "book": "BetMGM",
           "line": -32.5,
           "odds": -105,
-          "prob": 0.5663,
-          "ev": 0.1057
+          "prob": 0.5688,
+          "ev": 0.1105
         },
         {
           "book": "DraftKings",
           "line": -32.5,
           "odds": -110,
-          "prob": 0.5663,
-          "ev": 0.0812
+          "prob": 0.5688,
+          "ev": 0.0859
         },
         {
           "book": "theScore Bet",
           "line": -32.5,
           "odds": -110,
-          "prob": 0.5663,
-          "ev": 0.0812
+          "prob": 0.5688,
+          "ev": 0.0859
         },
         {
           "book": "Hard Rock",
           "line": -32.5,
           "odds": -110,
-          "prob": 0.5663,
-          "ev": 0.0812
+          "prob": 0.5688,
+          "ev": 0.0859
         },
         {
           "book": "BetRivers",
           "line": -32.5,
           "odds": -113,
-          "prob": 0.5663,
-          "ev": 0.0675
+          "prob": 0.5688,
+          "ev": 0.0722
         },
         {
           "book": "Bally Bet",
           "line": -32.5,
           "odds": -113,
-          "prob": 0.5663,
-          "ev": 0.0675
+          "prob": 0.5688,
+          "ev": 0.0722
         }
       ]
     },
@@ -1780,10 +1787,10 @@
       "side_code": "OVER",
       "line": 158.5,
       "odds": -112,
-      "proj": 37.5,
+      "proj": 37.7,
       "total": 163.3,
-      "p": 0.5459,
-      "edge": 4.38,
+      "p": 0.5457,
+      "edge": 4.35,
       "stake": 0.0,
       "notes": "",
       "best_line": 157.5,
@@ -1793,63 +1800,63 @@
       "play_to": 160.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 4.84,
+      "gap": 4.82,
       "quotes": [
         {
           "book": "Hard Rock",
           "line": 157.5,
           "odds": -110,
-          "prob": 0.5553,
-          "ev": 0.0602
+          "prob": 0.5551,
+          "ev": 0.0597
         },
         {
           "book": "BetRivers",
           "line": 157.5,
           "odds": -112,
-          "prob": 0.5553,
-          "ev": 0.0512
+          "prob": 0.5551,
+          "ev": 0.0507
         },
         {
           "book": "Bally Bet",
           "line": 157.5,
           "odds": -112,
-          "prob": 0.5553,
-          "ev": 0.0512
+          "prob": 0.5551,
+          "ev": 0.0507
         },
         {
           "book": "theScore Bet",
           "line": 158.5,
           "odds": -110,
-          "prob": 0.5459,
-          "ev": 0.0422
+          "prob": 0.5457,
+          "ev": 0.0417
         },
         {
           "book": "FanDuel",
           "line": 158.5,
           "odds": -110,
-          "prob": 0.5459,
-          "ev": 0.0422
+          "prob": 0.5457,
+          "ev": 0.0417
         },
         {
           "book": "Kalshi",
           "line": 159.5,
           "odds": -107,
-          "prob": 0.5365,
-          "ev": 0.0378
+          "prob": 0.5362,
+          "ev": 0.0373
         },
         {
           "book": "DraftKings",
           "line": 158.5,
           "odds": -112,
-          "prob": 0.5459,
-          "ev": 0.0333
+          "prob": 0.5457,
+          "ev": 0.0328
         },
         {
           "book": "BetMGM",
           "line": 158.5,
           "odds": -115,
-          "prob": 0.5459,
-          "ev": 0.0206
+          "prob": 0.5457,
+          "ev": 0.0201
         }
       ]
     },
@@ -1946,10 +1953,10 @@
       "side_code": "UNDER",
       "line": 141.5,
       "odds": -109,
-      "proj": 29.1,
-      "total": 135.7,
-      "p": 0.5547,
-      "edge": 5.89,
+      "proj": 29.5,
+      "total": 135.8,
+      "p": 0.5543,
+      "edge": 5.86,
       "stake": 0.0,
       "notes": "",
       "best_line": 141.5,
@@ -1959,63 +1966,63 @@
       "play_to": 139.0,
       "tracking": true,
       "reason": "Over 5 pts off the market",
-      "gap": 5.77,
+      "gap": 5.74,
       "quotes": [
         {
           "book": "Bally Bet",
           "line": 141.5,
           "odds": -108,
-          "prob": 0.5547,
-          "ev": 0.0682
+          "prob": 0.5543,
+          "ev": 0.0676
         },
         {
           "book": "DraftKings",
           "line": 140.5,
           "odds": -105,
-          "prob": 0.5452,
-          "ev": 0.0645
+          "prob": 0.5449,
+          "ev": 0.0639
         },
         {
           "book": "BetMGM",
           "line": 140.5,
           "odds": -105,
-          "prob": 0.5452,
-          "ev": 0.0645
+          "prob": 0.5449,
+          "ev": 0.0639
         },
         {
           "book": "BetRivers",
           "line": 141.5,
           "odds": -109,
-          "prob": 0.5547,
-          "ev": 0.0635
+          "prob": 0.5543,
+          "ev": 0.0629
         },
         {
           "book": "FanDuel",
           "line": 141.5,
           "odds": -110,
-          "prob": 0.5547,
-          "ev": 0.0589
+          "prob": 0.5543,
+          "ev": 0.0583
         },
         {
           "book": "Hard Rock",
           "line": 141.5,
           "odds": -110,
-          "prob": 0.5547,
-          "ev": 0.0589
+          "prob": 0.5543,
+          "ev": 0.0583
         },
         {
           "book": "theScore Bet",
           "line": 140.5,
           "odds": -110,
-          "prob": 0.5452,
-          "ev": 0.0409
+          "prob": 0.5449,
+          "ev": 0.0403
         },
         {
           "book": "Kalshi",
           "line": 141.5,
           "odds": -121,
-          "prob": 0.5547,
-          "ev": 0.0131
+          "prob": 0.5543,
+          "ev": 0.0125
         }
       ]
     },
@@ -2031,8 +2038,8 @@
       "odds": -113,
       "proj": 28.1,
       "total": 158.1,
-      "p": 0.6129,
-      "edge": 11.29,
+      "p": 0.6128,
+      "edge": 11.28,
       "stake": 0.0,
       "notes": "",
       "best_line": -19.5,
@@ -2042,56 +2049,56 @@
       "play_to": -26.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 8.61,
+      "gap": 8.6,
       "quotes": [
         {
           "book": "FanDuel",
           "line": -19.5,
           "odds": -105,
-          "prob": 0.6129,
-          "ev": 0.1967
+          "prob": 0.6128,
+          "ev": 0.1963
         },
         {
           "book": "BetMGM",
           "line": -19.5,
           "odds": -105,
-          "prob": 0.6129,
-          "ev": 0.1967
+          "prob": 0.6128,
+          "ev": 0.1963
         },
         {
           "book": "DraftKings",
           "line": -18.5,
           "odds": -115,
-          "prob": 0.6256,
-          "ev": 0.1697
+          "prob": 0.6255,
+          "ev": 0.1693
         },
         {
           "book": "theScore Bet",
           "line": -18.5,
           "odds": -115,
-          "prob": 0.6256,
-          "ev": 0.1697
+          "prob": 0.6255,
+          "ev": 0.1693
         },
         {
           "book": "Hard Rock",
           "line": -20.5,
           "odds": -110,
-          "prob": 0.6001,
-          "ev": 0.1457
+          "prob": 0.5999,
+          "ev": 0.1453
         },
         {
           "book": "BetRivers",
           "line": -20.5,
           "odds": -113,
-          "prob": 0.6001,
-          "ev": 0.1312
+          "prob": 0.5999,
+          "ev": 0.1309
         },
         {
           "book": "Bally Bet",
           "line": -20.5,
           "odds": -113,
-          "prob": 0.6001,
-          "ev": 0.1312
+          "prob": 0.5999,
+          "ev": 0.1309
         }
       ]
     },
@@ -2107,8 +2114,8 @@
       "odds": -112,
       "proj": 28.1,
       "total": 158.1,
-      "p": 0.5435,
-      "edge": 4.56,
+      "p": 0.5434,
+      "edge": 4.55,
       "stake": 0.0,
       "notes": "",
       "best_line": 154.5,
@@ -2118,56 +2125,56 @@
       "play_to": 155.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 4.59,
+      "gap": 4.58,
       "quotes": [
         {
           "book": "theScore Bet",
           "line": 154.5,
           "odds": -105,
           "prob": 0.534,
-          "ev": 0.0426
+          "ev": 0.0425
         },
         {
           "book": "Hard Rock",
           "line": 153.5,
           "odds": -110,
-          "prob": 0.5435,
-          "ev": 0.0375
+          "prob": 0.5434,
+          "ev": 0.0374
         },
         {
           "book": "BetRivers",
           "line": 153.5,
           "odds": -112,
-          "prob": 0.5435,
-          "ev": 0.0287
+          "prob": 0.5434,
+          "ev": 0.0286
         },
         {
           "book": "Bally Bet",
           "line": 153.5,
           "odds": -112,
-          "prob": 0.5435,
-          "ev": 0.0287
+          "prob": 0.5434,
+          "ev": 0.0286
         },
         {
           "book": "DraftKings",
           "line": 153.5,
           "odds": -115,
-          "prob": 0.5435,
-          "ev": 0.0161
+          "prob": 0.5434,
+          "ev": 0.0159
         },
         {
           "book": "BetMGM",
           "line": 153.5,
           "odds": -115,
-          "prob": 0.5435,
-          "ev": 0.0161
+          "prob": 0.5434,
+          "ev": 0.0159
         },
         {
           "book": "FanDuel",
           "line": 153.5,
           "odds": -118,
-          "prob": 0.5435,
-          "ev": 0.004
+          "prob": 0.5434,
+          "ev": 0.0039
         }
       ]
     },
@@ -2227,9 +2234,9 @@
         {
           "book": "Kalshi",
           "line": -3.5,
-          "odds": -116,
+          "odds": -112,
           "prob": 0.535,
-          "ev": -0.0039
+          "ev": 0.0126
         },
         {
           "book": "Bally Bet",
@@ -2318,7 +2325,7 @@
           "book": "FanDuel",
           "line": 152.5,
           "odds": -105,
-          "prob": 0.5286,
+          "prob": 0.5287,
           "ev": 0.0321
         },
         {
@@ -2446,6 +2453,13 @@
           "ev": 0.0666
         },
         {
+          "book": "Kalshi",
+          "line": 155.5,
+          "odds": -107,
+          "prob": 0.5463,
+          "ev": 0.0569
+        },
+        {
           "book": "FanDuel",
           "line": 155.5,
           "odds": -108,
@@ -2479,13 +2493,6 @@
           "odds": -115,
           "prob": 0.5557,
           "ev": 0.039
-        },
-        {
-          "book": "Kalshi",
-          "line": 155.5,
-          "odds": -112,
-          "prob": 0.5463,
-          "ev": 0.0341
         }
       ]
     },
@@ -2582,69 +2589,69 @@
       "side_code": "HOME",
       "line": -22.5,
       "odds": -108,
-      "proj": 24.8,
+      "proj": 25.2,
       "total": 160.3,
-      "p": 0.5308,
-      "edge": 3.83,
+      "p": 0.536,
+      "edge": 4.34,
       "stake": 0.0,
       "notes": "",
       "best_line": -22.5,
       "best_odds": -105,
       "book": "FanDuel",
       "agree": false,
-      "play_to": -22.5,
+      "play_to": -23.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 2.32,
+      "gap": 2.71,
       "quotes": [
         {
           "book": "FanDuel",
           "line": -22.5,
           "odds": -105,
-          "prob": 0.5308,
-          "ev": 0.0364
+          "prob": 0.536,
+          "ev": 0.0465
         },
         {
           "book": "DraftKings",
           "line": -22.5,
           "odds": -108,
-          "prob": 0.5308,
-          "ev": 0.0224
+          "prob": 0.536,
+          "ev": 0.0323
         },
         {
           "book": "BetRivers",
           "line": -22.5,
           "odds": -108,
-          "prob": 0.5308,
-          "ev": 0.0224
+          "prob": 0.536,
+          "ev": 0.0323
         },
         {
           "book": "Bally Bet",
           "line": -22.5,
           "odds": -108,
-          "prob": 0.5308,
-          "ev": 0.0224
+          "prob": 0.536,
+          "ev": 0.0323
         },
         {
           "book": "theScore Bet",
           "line": -22.5,
           "odds": -110,
-          "prob": 0.5308,
-          "ev": 0.0134
+          "prob": 0.536,
+          "ev": 0.0233
         },
         {
           "book": "Hard Rock",
           "line": -22.5,
           "odds": -110,
-          "prob": 0.5308,
-          "ev": 0.0134
+          "prob": 0.536,
+          "ev": 0.0233
         },
         {
           "book": "BetMGM",
           "line": -22.5,
           "odds": -110,
-          "prob": 0.5308,
-          "ev": 0.0134
+          "prob": 0.536,
+          "ev": 0.0233
         }
       ]
     },
@@ -2658,10 +2665,10 @@
       "side_code": "OVER",
       "line": 155.5,
       "odds": -112,
-      "proj": 24.8,
+      "proj": 25.2,
       "total": 160.3,
-      "p": 0.5453,
-      "edge": 4.32,
+      "p": 0.5452,
+      "edge": 4.31,
       "stake": 0.0,
       "notes": "",
       "best_line": 154.5,
@@ -2671,56 +2678,56 @@
       "play_to": 157.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 4.78,
+      "gap": 4.77,
       "quotes": [
         {
           "book": "Hard Rock",
           "line": 154.5,
           "odds": -110,
           "prob": 0.5547,
-          "ev": 0.059
+          "ev": 0.0589
         },
         {
           "book": "Bally Bet",
           "line": 154.5,
           "odds": -112,
           "prob": 0.5547,
-          "ev": 0.05
+          "ev": 0.0499
         },
         {
           "book": "BetRivers",
           "line": 154.5,
           "odds": -113,
           "prob": 0.5547,
-          "ev": 0.0456
+          "ev": 0.0455
         },
         {
           "book": "theScore Bet",
           "line": 155.5,
           "odds": -110,
-          "prob": 0.5453,
-          "ev": 0.041
+          "prob": 0.5452,
+          "ev": 0.0409
         },
         {
           "book": "DraftKings",
           "line": 155.5,
           "odds": -112,
-          "prob": 0.5453,
-          "ev": 0.0322
+          "prob": 0.5452,
+          "ev": 0.0321
         },
         {
           "book": "BetMGM",
           "line": 155.5,
           "odds": -115,
-          "prob": 0.5453,
-          "ev": 0.0195
+          "prob": 0.5452,
+          "ev": 0.0194
         },
         {
           "book": "FanDuel",
           "line": 157.5,
           "odds": -110,
-          "prob": 0.5264,
-          "ev": 0.0049
+          "prob": 0.5263,
+          "ev": 0.0048
         }
       ]
     },
@@ -2734,69 +2741,69 @@
       "side_code": "AWAY",
       "line": 31.5,
       "odds": -110,
-      "proj": 28.3,
+      "proj": 28.9,
       "total": 150.0,
-      "p": 0.5418,
-      "edge": 4.18,
+      "p": 0.5351,
+      "edge": 3.51,
       "stake": 0.0,
       "notes": "",
       "best_line": 31.5,
       "best_odds": -110,
       "book": "DraftKings",
       "agree": true,
-      "play_to": 30.5,
+      "play_to": 31.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 3.15,
+      "gap": 2.64,
       "quotes": [
         {
           "book": "DraftKings",
           "line": 31.5,
           "odds": -110,
-          "prob": 0.5418,
-          "ev": 0.0344
+          "prob": 0.5351,
+          "ev": 0.0216
         },
         {
           "book": "theScore Bet",
           "line": 31.5,
           "odds": -110,
-          "prob": 0.5418,
-          "ev": 0.0344
+          "prob": 0.5351,
+          "ev": 0.0216
         },
         {
           "book": "FanDuel",
           "line": 31.5,
           "odds": -110,
-          "prob": 0.5418,
-          "ev": 0.0344
+          "prob": 0.5351,
+          "ev": 0.0216
         },
         {
           "book": "BetMGM",
           "line": 31.5,
           "odds": -110,
-          "prob": 0.5418,
-          "ev": 0.0344
+          "prob": 0.5351,
+          "ev": 0.0216
         },
         {
           "book": "BetRivers",
           "line": 31.5,
           "odds": -115,
-          "prob": 0.5418,
-          "ev": 0.013
+          "prob": 0.5351,
+          "ev": 0.0004
         },
         {
           "book": "Bally Bet",
           "line": 31.5,
           "odds": -115,
-          "prob": 0.5418,
-          "ev": 0.013
+          "prob": 0.5351,
+          "ev": 0.0004
         },
         {
           "book": "Hard Rock",
           "line": 31.5,
           "odds": -115,
-          "prob": 0.5418,
-          "ev": 0.013
+          "prob": 0.5351,
+          "ev": 0.0004
         }
       ]
     },
@@ -3472,42 +3479,42 @@
           "book": "Bally Bet",
           "line": -22.5,
           "odds": -109,
-          "prob": 0.6107,
-          "ev": 0.1709
+          "prob": 0.6106,
+          "ev": 0.1708
         },
         {
           "book": "BetRivers",
           "line": -22.5,
           "odds": -109,
-          "prob": 0.6107,
-          "ev": 0.1709
+          "prob": 0.6106,
+          "ev": 0.1708
         },
         {
           "book": "DraftKings",
           "line": -23.5,
           "odds": -105,
           "prob": 0.5978,
-          "ev": 0.1672
+          "ev": 0.1671
         },
         {
           "book": "theScore Bet",
           "line": -23.5,
           "odds": -105,
           "prob": 0.5978,
-          "ev": 0.1672
+          "ev": 0.1671
         },
         {
           "book": "Hard Rock",
           "line": -22.5,
           "odds": -110,
-          "prob": 0.6107,
-          "ev": 0.1658
+          "prob": 0.6106,
+          "ev": 0.1657
         },
         {
           "book": "FanDuel",
           "line": -24.5,
           "odds": -106,
-          "prob": 0.5849,
+          "prob": 0.5848,
           "ev": 0.1366
         },
         {
@@ -3522,7 +3529,7 @@
           "line": -23.5,
           "odds": -116,
           "prob": 0.5978,
-          "ev": 0.1132
+          "ev": 0.1131
         }
       ]
     },
@@ -3538,8 +3545,8 @@
       "odds": -110,
       "proj": 30.9,
       "total": 166.8,
-      "p": 0.5692,
-      "edge": 7.44,
+      "p": 0.569,
+      "edge": 7.43,
       "stake": 0.0,
       "notes": "",
       "best_line": 159.5,
@@ -3549,56 +3556,56 @@
       "play_to": 163.5,
       "tracking": true,
       "reason": "Over 5 pts off the market",
-      "gap": 7.32,
+      "gap": 7.31,
       "quotes": [
         {
           "book": "theScore Bet",
           "line": 159.5,
           "odds": -105,
-          "prob": 0.5692,
-          "ev": 0.1112
+          "prob": 0.569,
+          "ev": 0.111
         },
         {
           "book": "DraftKings",
           "line": 159.5,
           "odds": -108,
-          "prob": 0.5692,
-          "ev": 0.0962
+          "prob": 0.569,
+          "ev": 0.0959
         },
         {
           "book": "Bally Bet",
           "line": 159.5,
           "odds": -110,
-          "prob": 0.5692,
-          "ev": 0.0866
+          "prob": 0.569,
+          "ev": 0.0864
         },
         {
           "book": "BetRivers",
           "line": 159.5,
           "odds": -110,
-          "prob": 0.5692,
-          "ev": 0.0866
+          "prob": 0.569,
+          "ev": 0.0864
         },
         {
           "book": "Hard Rock",
           "line": 159.5,
           "odds": -110,
-          "prob": 0.5692,
-          "ev": 0.0866
+          "prob": 0.569,
+          "ev": 0.0864
         },
         {
           "book": "BetMGM",
           "line": 159.5,
           "odds": -110,
-          "prob": 0.5692,
-          "ev": 0.0866
+          "prob": 0.569,
+          "ev": 0.0864
         },
         {
           "book": "FanDuel",
           "line": 159.5,
           "odds": -110,
-          "prob": 0.5692,
-          "ev": 0.0866
+          "prob": 0.569,
+          "ev": 0.0864
         }
       ]
     },
@@ -3750,14 +3757,14 @@
           "line": 136.5,
           "odds": -115,
           "prob": 0.5379,
-          "ev": 0.0055
+          "ev": 0.0056
         },
         {
           "book": "theScore Bet",
           "line": 136.5,
           "odds": -115,
           "prob": 0.5379,
-          "ev": 0.0055
+          "ev": 0.0056
         }
       ]
     },
@@ -3771,10 +3778,10 @@
       "side_code": "HOME",
       "line": -25.5,
       "odds": -110,
-      "proj": 28.5,
-      "total": 160.4,
-      "p": 0.5399,
-      "edge": 3.99,
+      "proj": 28.6,
+      "total": 160.3,
+      "p": 0.5406,
+      "edge": 4.06,
       "stake": 0.0,
       "notes": "",
       "best_line": -25.5,
@@ -3784,56 +3791,56 @@
       "play_to": -26.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 3.0,
+      "gap": 3.06,
       "quotes": [
         {
           "book": "FanDuel",
           "line": -25.5,
           "odds": -110,
-          "prob": 0.5399,
-          "ev": 0.0307
+          "prob": 0.5406,
+          "ev": 0.0321
         },
         {
           "book": "theScore Bet",
           "line": -26.5,
           "odds": -105,
-          "prob": 0.5266,
-          "ev": 0.0282
+          "prob": 0.5274,
+          "ev": 0.0296
         },
         {
           "book": "BetMGM",
           "line": -26.5,
           "odds": -105,
-          "prob": 0.5266,
-          "ev": 0.0282
+          "prob": 0.5274,
+          "ev": 0.0296
         },
         {
           "book": "DraftKings",
           "line": -26.5,
           "odds": -108,
-          "prob": 0.5266,
-          "ev": 0.0143
+          "prob": 0.5274,
+          "ev": 0.0157
         },
         {
           "book": "Bally Bet",
           "line": -25.5,
           "odds": -115,
-          "prob": 0.5399,
-          "ev": 0.0093
+          "prob": 0.5406,
+          "ev": 0.0107
         },
         {
           "book": "BetRivers",
           "line": -25.5,
           "odds": -115,
-          "prob": 0.5399,
-          "ev": 0.0093
+          "prob": 0.5406,
+          "ev": 0.0107
         },
         {
           "book": "Hard Rock",
           "line": -25.5,
           "odds": -115,
-          "prob": 0.5399,
-          "ev": 0.0093
+          "prob": 0.5406,
+          "ev": 0.0107
         }
       ]
     },
@@ -3847,10 +3854,10 @@
       "side_code": "OVER",
       "line": 156.5,
       "odds": -110,
-      "proj": 28.5,
-      "total": 160.4,
-      "p": 0.5367,
-      "edge": 4.09,
+      "proj": 28.6,
+      "total": 160.3,
+      "p": 0.5364,
+      "edge": 4.06,
       "stake": 0.0,
       "notes": "",
       "best_line": 156.5,
@@ -3860,56 +3867,56 @@
       "play_to": 157.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 3.87,
+      "gap": 3.84,
       "quotes": [
         {
           "book": "FanDuel",
           "line": 156.5,
           "odds": -106,
-          "prob": 0.5367,
-          "ev": 0.043
+          "prob": 0.5364,
+          "ev": 0.0425
         },
         {
           "book": "Bally Bet",
           "line": 156.5,
           "odds": -109,
-          "prob": 0.5367,
-          "ev": 0.0291
+          "prob": 0.5364,
+          "ev": 0.0286
         },
         {
           "book": "BetRivers",
           "line": 156.5,
           "odds": -109,
-          "prob": 0.5367,
-          "ev": 0.0291
+          "prob": 0.5364,
+          "ev": 0.0286
         },
         {
           "book": "DraftKings",
           "line": 156.5,
           "odds": -110,
-          "prob": 0.5367,
-          "ev": 0.0246
+          "prob": 0.5364,
+          "ev": 0.0241
         },
         {
           "book": "theScore Bet",
           "line": 156.5,
           "odds": -110,
-          "prob": 0.5367,
-          "ev": 0.0246
+          "prob": 0.5364,
+          "ev": 0.0241
         },
         {
           "book": "Hard Rock",
           "line": 156.5,
           "odds": -110,
-          "prob": 0.5367,
-          "ev": 0.0246
+          "prob": 0.5364,
+          "ev": 0.0241
         },
         {
           "book": "BetMGM",
           "line": 156.5,
           "odds": -110,
-          "prob": 0.5367,
-          "ev": 0.0246
+          "prob": 0.5364,
+          "ev": 0.0241
         }
       ]
     },
@@ -4199,21 +4206,21 @@
           "line": 152.5,
           "odds": -115,
           "prob": 0.5781,
-          "ev": 0.0807
+          "ev": 0.0808
         },
         {
           "book": "theScore Bet",
           "line": 152.5,
           "odds": -115,
           "prob": 0.5781,
-          "ev": 0.0807
+          "ev": 0.0808
         },
         {
           "book": "BetMGM",
           "line": 152.5,
           "odds": -115,
           "prob": 0.5781,
-          "ev": 0.0807
+          "ev": 0.0808
         },
         {
           "book": "Kalshi",
@@ -4227,14 +4234,14 @@
           "line": 153.5,
           "odds": -113,
           "prob": 0.5687,
-          "ev": 0.072
+          "ev": 0.0721
         },
         {
           "book": "Bally Bet",
           "line": 153.5,
           "odds": -113,
           "prob": 0.5687,
-          "ev": 0.072
+          "ev": 0.0721
         }
       ]
     },
@@ -4379,7 +4386,7 @@
           "line": 143.5,
           "odds": -105,
           "prob": 0.5527,
-          "ev": 0.0791
+          "ev": 0.0792
         },
         {
           "book": "FanDuel",
@@ -4400,69 +4407,69 @@
       "side_code": "AWAY",
       "line": 3.5,
       "odds": -111,
-      "proj": -1.5,
-      "total": 164.7,
-      "p": 0.5667,
-      "edge": 6.46,
+      "proj": -1.4,
+      "total": 164.9,
+      "p": 0.5648,
+      "edge": 6.27,
       "stake": 0.0,
       "notes": "",
       "best_line": 3.5,
       "best_odds": -107,
       "book": "Kalshi",
       "agree": false,
-      "play_to": 0.5,
+      "play_to": 1.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 5.04,
+      "gap": 4.9,
       "quotes": [
         {
           "book": "Kalshi",
           "line": 3.5,
           "odds": -107,
-          "prob": 0.5667,
-          "ev": 0.0964
+          "prob": 0.5648,
+          "ev": 0.0927
         },
         {
           "book": "DraftKings",
           "line": 3.5,
           "odds": -110,
-          "prob": 0.5667,
-          "ev": 0.0819
+          "prob": 0.5648,
+          "ev": 0.0783
         },
         {
           "book": "Hard Rock",
           "line": 3.5,
           "odds": -110,
-          "prob": 0.5667,
-          "ev": 0.0819
+          "prob": 0.5648,
+          "ev": 0.0783
         },
         {
           "book": "FanDuel",
           "line": 3.5,
           "odds": -110,
-          "prob": 0.5667,
-          "ev": 0.0819
+          "prob": 0.5648,
+          "ev": 0.0783
         },
         {
           "book": "Bally Bet",
           "line": 3.5,
           "odds": -113,
-          "prob": 0.5667,
-          "ev": 0.0682
+          "prob": 0.5648,
+          "ev": 0.0647
         },
         {
           "book": "BetRivers",
           "line": 3.5,
           "odds": -114,
-          "prob": 0.5667,
-          "ev": 0.0638
+          "prob": 0.5648,
+          "ev": 0.0603
         },
         {
           "book": "theScore Bet",
           "line": 3.5,
           "odds": -115,
-          "prob": 0.5667,
-          "ev": 0.0595
+          "prob": 0.5648,
+          "ev": 0.056
         }
       ]
     },
@@ -4476,10 +4483,10 @@
       "side_code": "OVER",
       "line": 160.5,
       "odds": -109,
-      "proj": -1.5,
-      "total": 164.7,
-      "p": 0.5403,
-      "edge": 4.46,
+      "proj": -1.4,
+      "total": 164.9,
+      "p": 0.5413,
+      "edge": 4.56,
       "stake": 0.0,
       "notes": "",
       "best_line": 160.5,
@@ -4489,63 +4496,63 @@
       "play_to": 161.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 4.25,
+      "gap": 4.36,
       "quotes": [
         {
           "book": "DraftKings",
           "line": 160.5,
           "odds": -105,
-          "prob": 0.5403,
-          "ev": 0.0549
+          "prob": 0.5413,
+          "ev": 0.0568
         },
         {
           "book": "theScore Bet",
           "line": 160.5,
           "odds": -105,
-          "prob": 0.5403,
-          "ev": 0.0549
+          "prob": 0.5413,
+          "ev": 0.0568
         },
         {
           "book": "BetMGM",
           "line": 160.5,
           "odds": -105,
-          "prob": 0.5403,
-          "ev": 0.0549
+          "prob": 0.5413,
+          "ev": 0.0568
         },
         {
           "book": "Bally Bet",
           "line": 160.5,
           "odds": -109,
-          "prob": 0.5403,
-          "ev": 0.036
+          "prob": 0.5413,
+          "ev": 0.0379
         },
         {
           "book": "BetRivers",
           "line": 160.5,
           "odds": -110,
-          "prob": 0.5403,
-          "ev": 0.0315
+          "prob": 0.5413,
+          "ev": 0.0334
         },
         {
           "book": "Hard Rock",
           "line": 160.5,
           "odds": -110,
-          "prob": 0.5403,
-          "ev": 0.0315
+          "prob": 0.5413,
+          "ev": 0.0334
         },
         {
           "book": "FanDuel",
           "line": 160.5,
           "odds": -110,
-          "prob": 0.5403,
-          "ev": 0.0315
+          "prob": 0.5413,
+          "ev": 0.0334
         },
         {
           "book": "Kalshi",
           "line": 160.5,
           "odds": -112,
-          "prob": 0.5403,
-          "ev": 0.0227
+          "prob": 0.5413,
+          "ev": 0.0246
         }
       ]
     },
@@ -4642,69 +4649,69 @@
       "side_code": "HOME",
       "line": -5.5,
       "odds": -108,
-      "proj": 13.1,
+      "proj": 12.9,
       "total": 165.1,
-      "p": 0.5998,
-      "edge": 10.52,
+      "p": 0.5977,
+      "edge": 10.3,
       "stake": 0.0,
       "notes": "",
       "best_line": -5.5,
       "best_odds": 105,
       "book": "Kalshi",
       "agree": false,
-      "play_to": -11.0,
+      "play_to": -10.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 7.58,
+      "gap": 7.42,
       "quotes": [
         {
           "book": "Kalshi",
           "line": -5.5,
           "odds": 105,
-          "prob": 0.5998,
-          "ev": 0.2295
+          "prob": 0.5977,
+          "ev": 0.2252
         },
         {
           "book": "theScore Bet",
           "line": -4.5,
           "odds": -105,
-          "prob": 0.6126,
-          "ev": 0.196
+          "prob": 0.6105,
+          "ev": 0.1919
         },
         {
           "book": "FanDuel",
           "line": -5.5,
           "odds": -105,
-          "prob": 0.5998,
-          "ev": 0.171
+          "prob": 0.5977,
+          "ev": 0.1669
         },
         {
           "book": "DraftKings",
           "line": -4.5,
           "odds": -112,
-          "prob": 0.6126,
-          "ev": 0.1596
+          "prob": 0.6105,
+          "ev": 0.1556
         },
         {
           "book": "Bally Bet",
           "line": -5.5,
           "odds": -108,
-          "prob": 0.5998,
-          "ev": 0.1551
+          "prob": 0.5977,
+          "ev": 0.151
         },
         {
           "book": "BetRivers",
           "line": -5.5,
           "odds": -109,
-          "prob": 0.5998,
-          "ev": 0.15
+          "prob": 0.5977,
+          "ev": 0.146
         },
         {
           "book": "Hard Rock",
           "line": -5.5,
           "odds": -110,
-          "prob": 0.5998,
-          "ev": 0.145
+          "prob": 0.5977,
+          "ev": 0.141
         }
       ]
     },
@@ -4718,10 +4725,10 @@
       "side_code": "OVER",
       "line": 160.5,
       "odds": -110,
-      "proj": 13.1,
+      "proj": 12.9,
       "total": 165.1,
-      "p": 0.5433,
-      "edge": 4.33,
+      "p": 0.5435,
+      "edge": 4.35,
       "stake": 0.0,
       "notes": "",
       "best_line": 161.5,
@@ -4731,56 +4738,56 @@
       "play_to": 162.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 4.56,
+      "gap": 4.59,
       "quotes": [
         {
           "book": "BetMGM",
           "line": 161.5,
           "odds": 100,
-          "prob": 0.5338,
-          "ev": 0.0676
+          "prob": 0.5341,
+          "ev": 0.0681
         },
         {
           "book": "Bally Bet",
           "line": 160.5,
           "odds": -109,
-          "prob": 0.5433,
-          "ev": 0.0417
+          "prob": 0.5435,
+          "ev": 0.0421
         },
         {
           "book": "BetRivers",
           "line": 160.5,
           "odds": -110,
-          "prob": 0.5433,
-          "ev": 0.0371
+          "prob": 0.5435,
+          "ev": 0.0376
         },
         {
           "book": "Hard Rock",
           "line": 160.5,
           "odds": -110,
-          "prob": 0.5433,
-          "ev": 0.0371
+          "prob": 0.5435,
+          "ev": 0.0376
         },
         {
           "book": "theScore Bet",
           "line": 160.5,
           "odds": -110,
-          "prob": 0.5433,
-          "ev": 0.0371
+          "prob": 0.5435,
+          "ev": 0.0376
         },
         {
           "book": "DraftKings",
           "line": 160.5,
           "odds": -112,
-          "prob": 0.5433,
-          "ev": 0.0283
+          "prob": 0.5435,
+          "ev": 0.0288
         },
         {
           "book": "FanDuel",
           "line": 160.5,
           "odds": -118,
-          "prob": 0.5433,
-          "ev": 0.0037
+          "prob": 0.5435,
+          "ev": 0.0041
         }
       ]
     },
@@ -4794,10 +4801,10 @@
       "side_code": "HOME",
       "line": 5.5,
       "odds": -112,
-      "proj": -0.9,
+      "proj": -0.7,
       "total": 157.5,
-      "p": 0.561,
-      "edge": 5.66,
+      "p": 0.5641,
+      "edge": 5.98,
       "stake": 0.0,
       "notes": "",
       "best_line": 4.5,
@@ -4807,63 +4814,63 @@
       "play_to": 3.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 4.6,
+      "gap": 4.84,
       "quotes": [
         {
           "book": "Bally Bet",
           "line": 4.5,
           "odds": -104,
-          "prob": 0.5478,
-          "ev": 0.0745
+          "prob": 0.551,
+          "ev": 0.0807
         },
         {
           "book": "BetRivers",
           "line": 4.5,
           "odds": -105,
-          "prob": 0.5478,
-          "ev": 0.0695
+          "prob": 0.551,
+          "ev": 0.0757
         },
         {
           "book": "Hard Rock",
           "line": 4.5,
           "odds": -105,
-          "prob": 0.5478,
-          "ev": 0.0695
+          "prob": 0.551,
+          "ev": 0.0757
         },
         {
           "book": "FanDuel",
           "line": 5.5,
           "odds": -112,
-          "prob": 0.561,
-          "ev": 0.0618
+          "prob": 0.5641,
+          "ev": 0.0678
         },
         {
           "book": "BetMGM",
           "line": 5.5,
           "odds": -115,
-          "prob": 0.561,
-          "ev": 0.0488
+          "prob": 0.5641,
+          "ev": 0.0546
         },
         {
           "book": "Kalshi",
           "line": 5.5,
           "odds": -116,
-          "prob": 0.561,
-          "ev": 0.0446
+          "prob": 0.5641,
+          "ev": 0.0504
         },
         {
           "book": "DraftKings",
           "line": 5.5,
           "odds": -118,
-          "prob": 0.561,
-          "ev": 0.0364
+          "prob": 0.5641,
+          "ev": 0.0422
         },
         {
           "book": "theScore Bet",
           "line": 5.5,
           "odds": -120,
-          "prob": 0.561,
-          "ev": 0.0284
+          "prob": 0.5641,
+          "ev": 0.0342
         }
       ]
     },
@@ -4880,7 +4887,7 @@
       "proj": -9.1,
       "total": 171.1,
       "p": 0.5624,
-      "edge": 5.37,
+      "edge": 5.38,
       "stake": 0.0,
       "notes": "",
       "best_line": 165.5,
@@ -4911,21 +4918,14 @@
           "line": 165.5,
           "odds": -110,
           "prob": 0.553,
-          "ev": 0.0557
+          "ev": 0.0558
         },
         {
           "book": "BetMGM",
           "line": 165.5,
           "odds": -110,
           "prob": 0.553,
-          "ev": 0.0557
-        },
-        {
-          "book": "Kalshi",
-          "line": 165.5,
-          "odds": -112,
-          "prob": 0.553,
-          "ev": 0.0468
+          "ev": 0.0558
         },
         {
           "book": "Bally Bet",
@@ -5045,8 +5045,8 @@
       "odds": -105,
       "proj": 11.7,
       "total": 159.0,
-      "p": 0.5293,
-      "edge": 4.01,
+      "p": 0.5287,
+      "edge": 3.95,
       "stake": 0.0,
       "notes": "",
       "best_line": -9.5,
@@ -5056,63 +5056,63 @@
       "play_to": -9.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 2.21,
+      "gap": 2.16,
       "quotes": [
         {
           "book": "FanDuel",
           "line": -9.5,
           "odds": -102,
-          "prob": 0.5293,
-          "ev": 0.0482
+          "prob": 0.5287,
+          "ev": 0.0469
+        },
+        {
+          "book": "Kalshi",
+          "line": -9.5,
+          "odds": -103,
+          "prob": 0.5287,
+          "ev": 0.0419
         },
         {
           "book": "Bally Bet",
           "line": -9.5,
           "odds": -105,
-          "prob": 0.5293,
-          "ev": 0.0334
+          "prob": 0.5287,
+          "ev": 0.0321
         },
         {
           "book": "Hard Rock",
           "line": -9.5,
           "odds": -105,
-          "prob": 0.5293,
-          "ev": 0.0334
+          "prob": 0.5287,
+          "ev": 0.0321
         },
         {
           "book": "BetMGM",
           "line": -9.5,
           "odds": -105,
-          "prob": 0.5293,
-          "ev": 0.0334
+          "prob": 0.5287,
+          "ev": 0.0321
         },
         {
           "book": "BetRivers",
           "line": -9.5,
           "odds": -106,
-          "prob": 0.5293,
-          "ev": 0.0287
-        },
-        {
-          "book": "Kalshi",
-          "line": -9.5,
-          "odds": -107,
-          "prob": 0.5293,
-          "ev": 0.024
+          "prob": 0.5287,
+          "ev": 0.0274
         },
         {
           "book": "DraftKings",
           "line": -9.5,
           "odds": -108,
-          "prob": 0.5293,
-          "ev": 0.0194
+          "prob": 0.5287,
+          "ev": 0.0181
         },
         {
           "book": "theScore Bet",
           "line": -9.5,
           "odds": -115,
-          "prob": 0.5293,
-          "ev": -0.0104
+          "prob": 0.5287,
+          "ev": -0.0116
         }
       ]
     },
@@ -5128,8 +5128,8 @@
       "odds": -109,
       "proj": 11.7,
       "total": 159.0,
-      "p": 0.5336,
-      "edge": 3.79,
+      "p": 0.5334,
+      "edge": 3.77,
       "stake": 0.0,
       "notes": "",
       "best_line": 155.5,
@@ -5139,63 +5139,63 @@
       "play_to": 156.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 3.54,
+      "gap": 3.52,
       "quotes": [
         {
           "book": "Bally Bet",
           "line": 155.5,
           "odds": -108,
-          "prob": 0.5336,
-          "ev": 0.0276
+          "prob": 0.5334,
+          "ev": 0.0273
         },
         {
           "book": "DraftKings",
           "line": 156.5,
           "odds": -105,
-          "prob": 0.5241,
-          "ev": 0.0233
+          "prob": 0.5239,
+          "ev": 0.0229
         },
         {
           "book": "theScore Bet",
           "line": 156.5,
           "odds": -105,
-          "prob": 0.5241,
-          "ev": 0.0233
+          "prob": 0.5239,
+          "ev": 0.0229
         },
         {
           "book": "BetRivers",
           "line": 155.5,
           "odds": -109,
-          "prob": 0.5336,
-          "ev": 0.0231
+          "prob": 0.5334,
+          "ev": 0.0227
         },
         {
           "book": "Hard Rock",
           "line": 155.5,
           "odds": -110,
-          "prob": 0.5336,
-          "ev": 0.0187
+          "prob": 0.5334,
+          "ev": 0.0183
         },
         {
           "book": "FanDuel",
           "line": 155.5,
           "odds": -110,
-          "prob": 0.5336,
-          "ev": 0.0187
-        },
-        {
-          "book": "Kalshi",
-          "line": 155.5,
-          "odds": -112,
-          "prob": 0.5336,
-          "ev": 0.01
+          "prob": 0.5334,
+          "ev": 0.0183
         },
         {
           "book": "BetMGM",
           "line": 155.5,
           "odds": -115,
-          "prob": 0.5336,
-          "ev": -0.0024
+          "prob": 0.5334,
+          "ev": -0.0028
+        },
+        {
+          "book": "Kalshi",
+          "line": 155.5,
+          "odds": -116,
+          "prob": 0.5334,
+          "ev": -0.0068
         }
       ]
     },
@@ -5211,8 +5211,8 @@
       "odds": -110,
       "proj": 35.5,
       "total": 156.5,
-      "p": 0.6174,
-      "edge": 11.74,
+      "p": 0.6179,
+      "edge": 11.79,
       "stake": 0.0,
       "notes": "",
       "best_line": -26.5,
@@ -5222,56 +5222,56 @@
       "play_to": -33.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 8.96,
+      "gap": 9.0,
       "quotes": [
         {
           "book": "DraftKings",
           "line": -26.5,
           "odds": -108,
-          "prob": 0.6174,
-          "ev": 0.189
+          "prob": 0.6179,
+          "ev": 0.19
         },
         {
           "book": "theScore Bet",
           "line": -26.5,
           "odds": -110,
-          "prob": 0.6174,
-          "ev": 0.1786
+          "prob": 0.6179,
+          "ev": 0.1796
         },
         {
           "book": "BetMGM",
           "line": -26.5,
           "odds": -110,
-          "prob": 0.6174,
-          "ev": 0.1786
+          "prob": 0.6179,
+          "ev": 0.1796
         },
         {
           "book": "FanDuel",
           "line": -26.5,
           "odds": -110,
-          "prob": 0.6174,
-          "ev": 0.1786
+          "prob": 0.6179,
+          "ev": 0.1796
         },
         {
           "book": "Bally Bet",
           "line": -26.5,
           "odds": -114,
-          "prob": 0.6174,
-          "ev": 0.1589
+          "prob": 0.6179,
+          "ev": 0.1599
         },
         {
           "book": "BetRivers",
           "line": -26.5,
           "odds": -114,
-          "prob": 0.6174,
-          "ev": 0.1589
+          "prob": 0.6179,
+          "ev": 0.1599
         },
         {
           "book": "Hard Rock",
           "line": -26.5,
           "odds": -115,
-          "prob": 0.6174,
-          "ev": 0.1542
+          "prob": 0.6179,
+          "ev": 0.1552
         }
       ]
     },
@@ -5287,8 +5287,8 @@
       "odds": -112,
       "proj": 35.5,
       "total": 156.5,
-      "p": 0.5288,
-      "edge": 3.09,
+      "p": 0.5286,
+      "edge": 3.07,
       "stake": 0.0,
       "notes": "",
       "best_line": 154.5,
@@ -5298,56 +5298,56 @@
       "play_to": 153.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 3.04,
+      "gap": 3.02,
       "quotes": [
         {
           "book": "BetMGM",
           "line": 154.5,
           "odds": -105,
-          "prob": 0.5193,
-          "ev": 0.0139
+          "prob": 0.5192,
+          "ev": 0.0136
         },
         {
           "book": "theScore Bet",
           "line": 153.5,
           "odds": -110,
-          "prob": 0.5288,
-          "ev": 0.0096
+          "prob": 0.5286,
+          "ev": 0.0092
         },
         {
           "book": "Hard Rock",
           "line": 153.5,
           "odds": -110,
-          "prob": 0.5288,
-          "ev": 0.0096
+          "prob": 0.5286,
+          "ev": 0.0092
         },
         {
           "book": "DraftKings",
           "line": 153.5,
           "odds": -112,
-          "prob": 0.5288,
-          "ev": 0.001
+          "prob": 0.5286,
+          "ev": 0.0007
         },
         {
           "book": "Bally Bet",
           "line": 153.5,
           "odds": -112,
-          "prob": 0.5288,
-          "ev": 0.001
+          "prob": 0.5286,
+          "ev": 0.0007
         },
         {
           "book": "BetRivers",
           "line": 153.5,
           "odds": -112,
-          "prob": 0.5288,
-          "ev": 0.001
+          "prob": 0.5286,
+          "ev": 0.0007
         },
         {
           "book": "FanDuel",
           "line": 154.5,
           "odds": -115,
-          "prob": 0.5193,
-          "ev": -0.0291
+          "prob": 0.5192,
+          "ev": -0.0294
         }
       ]
     },
@@ -5361,69 +5361,69 @@
       "side_code": "HOME",
       "line": -30.5,
       "odds": -118,
-      "proj": 37.7,
+      "proj": 38.1,
       "total": 162.7,
-      "p": 0.5948,
-      "edge": 8.1,
+      "p": 0.6001,
+      "edge": 8.63,
       "stake": 0.0,
       "notes": "",
       "best_line": -31.5,
       "best_odds": -112,
       "book": "DraftKings",
       "agree": false,
-      "play_to": -35.5,
+      "play_to": -36.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 7.2,
+      "gap": 7.61,
       "quotes": [
         {
           "book": "DraftKings",
           "line": -31.5,
           "odds": -112,
-          "prob": 0.5818,
-          "ev": 0.1013
+          "prob": 0.5872,
+          "ev": 0.1114
         },
         {
           "book": "BetRivers",
           "line": -30.5,
           "odds": -118,
-          "prob": 0.5948,
-          "ev": 0.0988
+          "prob": 0.6001,
+          "ev": 0.1087
         },
         {
           "book": "Bally Bet",
           "line": -30.5,
           "odds": -118,
-          "prob": 0.5948,
-          "ev": 0.0988
+          "prob": 0.6001,
+          "ev": 0.1087
         },
         {
           "book": "Hard Rock",
           "line": -30.5,
           "odds": -120,
-          "prob": 0.5948,
-          "ev": 0.0904
+          "prob": 0.6001,
+          "ev": 0.1002
         },
         {
           "book": "FanDuel",
           "line": -30.5,
           "odds": -120,
-          "prob": 0.5948,
-          "ev": 0.0904
+          "prob": 0.6001,
+          "ev": 0.1002
         },
         {
           "book": "theScore Bet",
           "line": -31.5,
           "odds": -115,
-          "prob": 0.5818,
-          "ev": 0.0877
+          "prob": 0.5872,
+          "ev": 0.0977
         },
         {
           "book": "BetMGM",
           "line": -31.5,
           "odds": -115,
-          "prob": 0.5818,
-          "ev": 0.0877
+          "prob": 0.5872,
+          "ev": 0.0977
         }
       ]
     },
@@ -5437,10 +5437,10 @@
       "side_code": "OVER",
       "line": 158.5,
       "odds": -115,
-      "proj": 37.7,
+      "proj": 38.1,
       "total": 162.7,
-      "p": 0.5398,
-      "edge": 3.46,
+      "p": 0.5403,
+      "edge": 3.51,
       "stake": 0.0,
       "notes": "",
       "best_line": 158.5,
@@ -5450,63 +5450,63 @@
       "play_to": 159.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 4.2,
+      "gap": 4.25,
       "quotes": [
         {
           "book": "FanDuel",
           "line": 158.5,
           "odds": -110,
-          "prob": 0.5398,
-          "ev": 0.0306
+          "prob": 0.5403,
+          "ev": 0.0315
         },
         {
           "book": "BetRivers",
           "line": 157.5,
           "odds": -115,
-          "prob": 0.5493,
-          "ev": 0.0269
+          "prob": 0.5497,
+          "ev": 0.0278
         },
         {
           "book": "Bally Bet",
           "line": 157.5,
           "odds": -115,
-          "prob": 0.5493,
-          "ev": 0.0269
+          "prob": 0.5497,
+          "ev": 0.0278
         },
         {
           "book": "Hard Rock",
           "line": 157.5,
           "odds": -115,
-          "prob": 0.5493,
-          "ev": 0.0269
+          "prob": 0.5497,
+          "ev": 0.0278
         },
         {
           "book": "Kalshi",
           "line": 159.5,
           "odds": -107,
-          "prob": 0.5304,
-          "ev": 0.026
+          "prob": 0.5308,
+          "ev": 0.0269
         },
         {
           "book": "DraftKings",
           "line": 158.5,
           "odds": -115,
-          "prob": 0.5398,
-          "ev": 0.0092
+          "prob": 0.5403,
+          "ev": 0.0101
         },
         {
           "book": "theScore Bet",
           "line": 158.5,
           "odds": -115,
-          "prob": 0.5398,
-          "ev": 0.0092
+          "prob": 0.5403,
+          "ev": 0.0101
         },
         {
           "book": "BetMGM",
           "line": 158.5,
           "odds": -115,
-          "prob": 0.5398,
-          "ev": 0.0092
+          "prob": 0.5403,
+          "ev": 0.0101
         }
       ]
     },
@@ -5520,10 +5520,10 @@
       "side_code": "HOME",
       "line": -29.5,
       "odds": -115,
-      "proj": 34.3,
+      "proj": 34.5,
       "total": 141.2,
-      "p": 0.5637,
-      "edge": 5.29,
+      "p": 0.566,
+      "edge": 5.51,
       "stake": 0.0,
       "notes": "",
       "best_line": -29.5,
@@ -5533,56 +5533,56 @@
       "play_to": -32.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 4.81,
+      "gap": 4.98,
       "quotes": [
         {
           "book": "Bally Bet",
           "line": -29.5,
           "odds": -110,
-          "prob": 0.5637,
-          "ev": 0.0762
+          "prob": 0.566,
+          "ev": 0.0805
         },
         {
           "book": "Hard Rock",
           "line": -29.5,
           "odds": -110,
-          "prob": 0.5637,
-          "ev": 0.0762
+          "prob": 0.566,
+          "ev": 0.0805
         },
         {
           "book": "BetRivers",
           "line": -29.5,
           "odds": -112,
-          "prob": 0.5637,
-          "ev": 0.067
+          "prob": 0.566,
+          "ev": 0.0713
         },
         {
           "book": "FanDuel",
           "line": -28.5,
           "odds": -118,
-          "prob": 0.5768,
-          "ev": 0.0656
+          "prob": 0.579,
+          "ev": 0.0698
         },
         {
           "book": "DraftKings",
           "line": -29.5,
           "odds": -115,
-          "prob": 0.5637,
-          "ev": 0.0539
+          "prob": 0.566,
+          "ev": 0.0581
         },
         {
           "book": "theScore Bet",
           "line": -29.5,
           "odds": -115,
-          "prob": 0.5637,
-          "ev": 0.0539
+          "prob": 0.566,
+          "ev": 0.0581
         },
         {
           "book": "BetMGM",
           "line": -29.5,
           "odds": -115,
-          "prob": 0.5637,
-          "ev": 0.0539
+          "prob": 0.566,
+          "ev": 0.0581
         }
       ]
     },
@@ -5596,10 +5596,10 @@
       "side_code": "OVER",
       "line": 157.5,
       "odds": -110,
-      "proj": 20.1,
+      "proj": 20.3,
       "total": 160.6,
-      "p": 0.5297,
-      "edge": 3.5,
+      "p": 0.5293,
+      "edge": 3.45,
       "stake": 0.0,
       "notes": "",
       "best_line": 157.5,
@@ -5609,63 +5609,63 @@
       "play_to": 157.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 3.13,
+      "gap": 3.09,
       "quotes": [
         {
           "book": "theScore Bet",
           "line": 157.5,
           "odds": -105,
-          "prob": 0.5297,
-          "ev": 0.0343
+          "prob": 0.5293,
+          "ev": 0.0334
         },
         {
           "book": "Kalshi",
           "line": 157.5,
           "odds": -107,
-          "prob": 0.5297,
-          "ev": 0.0248
+          "prob": 0.5293,
+          "ev": 0.0239
         },
         {
           "book": "DraftKings",
           "line": 157.5,
           "odds": -108,
-          "prob": 0.5297,
-          "ev": 0.0202
+          "prob": 0.5293,
+          "ev": 0.0194
         },
         {
           "book": "Bally Bet",
           "line": 157.5,
           "odds": -110,
-          "prob": 0.5297,
-          "ev": 0.0113
+          "prob": 0.5293,
+          "ev": 0.0104
         },
         {
           "book": "BetRivers",
           "line": 157.5,
           "odds": -110,
-          "prob": 0.5297,
-          "ev": 0.0113
+          "prob": 0.5293,
+          "ev": 0.0104
         },
         {
           "book": "Hard Rock",
           "line": 157.5,
           "odds": -110,
-          "prob": 0.5297,
-          "ev": 0.0113
+          "prob": 0.5293,
+          "ev": 0.0104
         },
         {
           "book": "BetMGM",
           "line": 157.5,
           "odds": -110,
-          "prob": 0.5297,
-          "ev": 0.0113
+          "prob": 0.5293,
+          "ev": 0.0104
         },
         {
           "book": "FanDuel",
           "line": 157.5,
           "odds": -110,
-          "prob": 0.5297,
-          "ev": 0.0113
+          "prob": 0.5293,
+          "ev": 0.0104
         }
       ]
     },
@@ -5679,69 +5679,69 @@
       "side_code": "OVER",
       "line": 143.5,
       "odds": -110,
-      "proj": 22.5,
-      "total": 147.9,
-      "p": 0.5416,
-      "edge": 4.16,
+      "proj": 25.0,
+      "total": 148.1,
+      "p": 0.544,
+      "edge": 4.4,
       "stake": 0.0,
       "notes": "",
       "best_line": 143.5,
       "best_odds": -110,
       "book": "Hard Rock",
       "agree": false,
-      "play_to": 144.5,
+      "play_to": 145.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 4.38,
+      "gap": 4.64,
       "quotes": [
         {
           "book": "Hard Rock",
           "line": 143.5,
           "odds": -110,
-          "prob": 0.5416,
-          "ev": 0.0339
+          "prob": 0.544,
+          "ev": 0.0385
         },
         {
           "book": "theScore Bet",
           "line": 143.5,
           "odds": -110,
-          "prob": 0.5416,
-          "ev": 0.0339
+          "prob": 0.544,
+          "ev": 0.0385
         },
         {
           "book": "BetMGM",
           "line": 143.5,
           "odds": -110,
-          "prob": 0.5416,
-          "ev": 0.0339
+          "prob": 0.544,
+          "ev": 0.0385
         },
         {
           "book": "FanDuel",
           "line": 143.5,
           "odds": -110,
-          "prob": 0.5416,
-          "ev": 0.0339
+          "prob": 0.544,
+          "ev": 0.0385
         },
         {
           "book": "Bally Bet",
           "line": 143.5,
           "odds": -112,
-          "prob": 0.5416,
-          "ev": 0.0251
+          "prob": 0.544,
+          "ev": 0.0297
         },
         {
           "book": "DraftKings",
           "line": 143.5,
           "odds": -112,
-          "prob": 0.5416,
-          "ev": 0.0251
+          "prob": 0.544,
+          "ev": 0.0297
         },
         {
           "book": "BetRivers",
           "line": 143.5,
           "odds": -113,
-          "prob": 0.5416,
-          "ev": 0.0208
+          "prob": 0.544,
+          "ev": 0.0254
         }
       ]
     },
@@ -5755,10 +5755,10 @@
       "side_code": "OVER",
       "line": 144.5,
       "odds": -114,
-      "proj": -4.6,
+      "proj": -4.7,
       "total": 149.6,
-      "p": 0.5485,
-      "edge": 4.43,
+      "p": 0.5484,
+      "edge": 4.42,
       "stake": 0.0,
       "notes": "",
       "best_line": 145.5,
@@ -5768,63 +5768,63 @@
       "play_to": 146.5,
       "tracking": true,
       "reason": "Over 5 pts off the market",
-      "gap": 5.12,
+      "gap": 5.11,
       "quotes": [
         {
           "book": "BetMGM",
           "line": 145.5,
           "odds": -105,
-          "prob": 0.539,
-          "ev": 0.0524
+          "prob": 0.5389,
+          "ev": 0.0522
         },
         {
           "book": "Bally Bet",
           "line": 144.5,
           "odds": -114,
-          "prob": 0.5485,
-          "ev": 0.0296
+          "prob": 0.5484,
+          "ev": 0.0294
         },
         {
           "book": "BetRivers",
           "line": 144.5,
           "odds": -114,
-          "prob": 0.5485,
-          "ev": 0.0296
+          "prob": 0.5484,
+          "ev": 0.0294
         },
         {
           "book": "FanDuel",
           "line": 145.5,
           "odds": -110,
-          "prob": 0.539,
-          "ev": 0.0291
+          "prob": 0.5389,
+          "ev": 0.0289
         },
         {
           "book": "DraftKings",
           "line": 144.5,
           "odds": -115,
-          "prob": 0.5485,
-          "ev": 0.0254
+          "prob": 0.5484,
+          "ev": 0.0252
         },
         {
           "book": "theScore Bet",
           "line": 144.5,
           "odds": -115,
-          "prob": 0.5485,
-          "ev": 0.0254
+          "prob": 0.5484,
+          "ev": 0.0252
         },
         {
           "book": "Hard Rock",
           "line": 144.5,
           "odds": -115,
-          "prob": 0.5485,
-          "ev": 0.0254
+          "prob": 0.5484,
+          "ev": 0.0252
         },
         {
           "book": "Kalshi",
           "line": 144.5,
           "odds": -121,
-          "prob": 0.5485,
-          "ev": 0.0018
+          "prob": 0.5484,
+          "ev": 0.0016
         }
       ]
     },
@@ -5898,9 +5898,9 @@
         {
           "book": "Kalshi",
           "line": -6.5,
-          "odds": -116,
+          "odds": -112,
           "prob": 0.5484,
-          "ev": 0.0212
+          "ev": 0.038
         }
       ]
     },
@@ -6085,21 +6085,21 @@
           "book": "BetMGM",
           "line": 148.5,
           "odds": -110,
-          "prob": 0.5557,
+          "prob": 0.5558,
           "ev": 0.061
         },
         {
           "book": "DraftKings",
           "line": 148.5,
           "odds": -110,
-          "prob": 0.5557,
+          "prob": 0.5558,
           "ev": 0.061
         },
         {
           "book": "theScore Bet",
           "line": 148.5,
           "odds": -110,
-          "prob": 0.5557,
+          "prob": 0.5558,
           "ev": 0.061
         },
         {
@@ -6113,7 +6113,7 @@
           "book": "Kalshi",
           "line": 148.5,
           "odds": -121,
-          "prob": 0.5557,
+          "prob": 0.5558,
           "ev": 0.015
         },
         {
@@ -6142,69 +6142,69 @@
       "side_code": "AWAY",
       "line": -4.5,
       "odds": -115,
-      "proj": -8.3,
-      "total": 155.9,
-      "p": 0.5499,
-      "edge": 4.02,
+      "proj": -9.2,
+      "total": 156.2,
+      "p": 0.562,
+      "edge": 5.23,
       "stake": 0.0,
       "notes": "",
       "best_line": -4.5,
       "best_odds": -110,
       "book": "FanDuel",
       "agree": false,
-      "play_to": -6.0,
+      "play_to": -7.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 3.76,
+      "gap": 4.68,
       "quotes": [
         {
           "book": "FanDuel",
           "line": -4.5,
           "odds": -110,
-          "prob": 0.5499,
-          "ev": 0.0498
+          "prob": 0.562,
+          "ev": 0.0729
         },
         {
           "book": "Bally Bet",
           "line": -4.5,
           "odds": -114,
-          "prob": 0.5499,
-          "ev": 0.0323
+          "prob": 0.562,
+          "ev": 0.055
         },
         {
           "book": "BetRivers",
           "line": -4.5,
           "odds": -115,
-          "prob": 0.5499,
-          "ev": 0.0281
+          "prob": 0.562,
+          "ev": 0.0507
         },
         {
           "book": "Hard Rock",
           "line": -4.5,
           "odds": -115,
-          "prob": 0.5499,
-          "ev": 0.0281
+          "prob": 0.562,
+          "ev": 0.0507
         },
         {
           "book": "BetMGM",
           "line": -4.5,
           "odds": -115,
-          "prob": 0.5499,
-          "ev": 0.0281
+          "prob": 0.562,
+          "ev": 0.0507
+        },
+        {
+          "book": "Kalshi",
+          "line": -4.5,
+          "odds": -116,
+          "prob": 0.562,
+          "ev": 0.0465
         },
         {
           "book": "theScore Bet",
           "line": -4.5,
           "odds": -120,
-          "prob": 0.5499,
-          "ev": 0.0081
-        },
-        {
-          "book": "Kalshi",
-          "line": -4.5,
-          "odds": -121,
-          "prob": 0.5499,
-          "ev": 0.0043
+          "prob": 0.562,
+          "ev": 0.0303
         }
       ]
     },
@@ -6218,69 +6218,69 @@
       "side_code": "OVER",
       "line": 150.5,
       "odds": -109,
-      "proj": -8.3,
-      "total": 155.9,
-      "p": 0.5512,
-      "edge": 5.33,
+      "proj": -9.2,
+      "total": 156.2,
+      "p": 0.5535,
+      "edge": 5.57,
       "stake": 0.0,
       "notes": "",
       "best_line": 149.5,
       "best_odds": -105,
       "book": "theScore Bet",
       "agree": false,
-      "play_to": 152.5,
+      "play_to": 153.0,
       "tracking": true,
       "reason": "Over 5 pts off the market",
-      "gap": 5.4,
+      "gap": 5.65,
       "quotes": [
         {
           "book": "theScore Bet",
           "line": 149.5,
           "odds": -105,
-          "prob": 0.5606,
-          "ev": 0.0945
+          "prob": 0.5629,
+          "ev": 0.099
         },
         {
           "book": "BetMGM",
           "line": 149.5,
           "odds": -110,
-          "prob": 0.5606,
-          "ev": 0.0702
+          "prob": 0.5629,
+          "ev": 0.0746
         },
         {
           "book": "Bally Bet",
           "line": 150.5,
           "odds": -108,
-          "prob": 0.5512,
-          "ev": 0.0615
+          "prob": 0.5535,
+          "ev": 0.066
         },
         {
           "book": "Kalshi",
           "line": 149.5,
           "odds": -112,
-          "prob": 0.5606,
-          "ev": 0.0611
+          "prob": 0.5629,
+          "ev": 0.0655
         },
         {
           "book": "BetRivers",
           "line": 150.5,
           "odds": -109,
-          "prob": 0.5512,
-          "ev": 0.0568
+          "prob": 0.5535,
+          "ev": 0.0613
         },
         {
           "book": "Hard Rock",
           "line": 150.5,
           "odds": -110,
-          "prob": 0.5512,
-          "ev": 0.0522
+          "prob": 0.5535,
+          "ev": 0.0567
         },
         {
           "book": "FanDuel",
           "line": 150.5,
           "odds": -110,
-          "prob": 0.5512,
-          "ev": 0.0522
+          "prob": 0.5535,
+          "ev": 0.0567
         }
       ]
     },
@@ -6535,21 +6535,21 @@
           "line": 145.5,
           "odds": -115,
           "prob": 0.5393,
-          "ev": 0.0082
+          "ev": 0.0083
         },
         {
           "book": "BetRivers",
           "line": 145.5,
           "odds": -115,
           "prob": 0.5393,
-          "ev": 0.0082
+          "ev": 0.0083
         },
         {
           "book": "Hard Rock",
           "line": 145.5,
           "odds": -115,
           "prob": 0.5393,
-          "ev": 0.0082
+          "ev": 0.0083
         },
         {
           "book": "Kalshi",
@@ -6586,8 +6586,8 @@
       "odds": -103,
       "proj": 12.8,
       "total": 153.3,
-      "p": 0.5625,
-      "edge": 8.52,
+      "p": 0.562,
+      "edge": 8.47,
       "stake": 0.0,
       "notes": "",
       "best_line": 17.5,
@@ -6597,49 +6597,49 @@
       "play_to": 15.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 4.72,
+      "gap": 4.68,
       "quotes": [
         {
           "book": "Kalshi",
           "line": 17.5,
           "odds": 101,
-          "prob": 0.5625,
-          "ev": 0.1307
+          "prob": 0.562,
+          "ev": 0.1296
         },
         {
           "book": "Hard Rock",
           "line": 17.5,
           "odds": 100,
-          "prob": 0.5625,
-          "ev": 0.1251
+          "prob": 0.562,
+          "ev": 0.124
         },
         {
           "book": "BetRivers",
           "line": 17.5,
           "odds": -103,
-          "prob": 0.5625,
-          "ev": 0.1087
+          "prob": 0.562,
+          "ev": 0.1076
         },
         {
           "book": "Bally Bet",
           "line": 17.5,
           "odds": -103,
-          "prob": 0.5625,
-          "ev": 0.1087
+          "prob": 0.562,
+          "ev": 0.1076
+        },
+        {
+          "book": "theScore Bet",
+          "line": 17.5,
+          "odds": -105,
+          "prob": 0.562,
+          "ev": 0.0973
         },
         {
           "book": "FanDuel",
           "line": 16.5,
           "odds": -102,
-          "prob": 0.5494,
-          "ev": 0.0879
-        },
-        {
-          "book": "theScore Bet",
-          "line": 17.5,
-          "odds": -115,
-          "prob": 0.5625,
-          "ev": 0.0517
+          "prob": 0.5488,
+          "ev": 0.0869
         }
       ]
     },
@@ -6655,8 +6655,8 @@
       "odds": -110,
       "proj": 12.8,
       "total": 153.3,
-      "p": 0.5645,
-      "edge": 6.87,
+      "p": 0.5643,
+      "edge": 6.85,
       "stake": 0.0,
       "notes": "",
       "best_line": 145.5,
@@ -6666,56 +6666,56 @@
       "play_to": 150.0,
       "tracking": true,
       "reason": "Over 5 pts off the market",
-      "gap": 6.82,
+      "gap": 6.8,
       "quotes": [
         {
           "book": "theScore Bet",
           "line": 145.5,
           "odds": -110,
-          "prob": 0.5738,
-          "ev": 0.0955
+          "prob": 0.5736,
+          "ev": 0.0951
         },
         {
           "book": "BetRivers",
           "line": 146.5,
           "odds": -108,
-          "prob": 0.5645,
-          "ev": 0.0872
+          "prob": 0.5643,
+          "ev": 0.0867
         },
         {
           "book": "Bally Bet",
           "line": 146.5,
           "odds": -108,
-          "prob": 0.5645,
-          "ev": 0.0872
+          "prob": 0.5643,
+          "ev": 0.0867
         },
         {
           "book": "Hard Rock",
           "line": 146.5,
           "odds": -110,
-          "prob": 0.5645,
-          "ev": 0.0776
+          "prob": 0.5643,
+          "ev": 0.0772
         },
         {
           "book": "FanDuel",
           "line": 146.5,
           "odds": -110,
-          "prob": 0.5645,
-          "ev": 0.0776
+          "prob": 0.5643,
+          "ev": 0.0772
         },
         {
           "book": "BetMGM",
           "line": 145.5,
           "odds": -115,
-          "prob": 0.5738,
-          "ev": 0.0728
+          "prob": 0.5736,
+          "ev": 0.0724
         },
         {
           "book": "Kalshi",
           "line": 145.5,
           "odds": -116,
-          "prob": 0.5738,
-          "ev": 0.0685
+          "prob": 0.5736,
+          "ev": 0.0681
         }
       ]
     },
@@ -6729,10 +6729,10 @@
       "side_code": "HOME",
       "line": -38.5,
       "odds": -111,
-      "proj": 48.3,
+      "proj": 48.2,
       "total": 151.8,
-      "p": 0.6285,
-      "edge": 12.74,
+      "p": 0.6269,
+      "edge": 12.58,
       "stake": 0.0,
       "notes": "",
       "best_line": -37.5,
@@ -6742,49 +6742,49 @@
       "play_to": -46.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 9.83,
+      "gap": 9.71,
       "quotes": [
         {
           "book": "theScore Bet",
           "line": -37.5,
           "odds": -110,
-          "prob": 0.641,
-          "ev": 0.2238
+          "prob": 0.6394,
+          "ev": 0.2207
         },
         {
           "book": "DraftKings",
           "line": -37.5,
           "odds": -112,
-          "prob": 0.641,
-          "ev": 0.2133
+          "prob": 0.6394,
+          "ev": 0.2104
         },
         {
           "book": "FanDuel",
           "line": -38.5,
           "odds": -110,
-          "prob": 0.6285,
-          "ev": 0.1998
+          "prob": 0.6269,
+          "ev": 0.1968
         },
         {
           "book": "Hard Rock",
           "line": -38.5,
           "odds": -110,
-          "prob": 0.6285,
-          "ev": 0.1998
+          "prob": 0.6269,
+          "ev": 0.1968
         },
         {
           "book": "BetRivers",
           "line": -38.5,
           "odds": -113,
-          "prob": 0.6285,
-          "ev": 0.1847
+          "prob": 0.6269,
+          "ev": 0.1817
         },
         {
           "book": "Bally Bet",
           "line": -38.5,
           "odds": -113,
-          "prob": 0.6285,
-          "ev": 0.1847
+          "prob": 0.6269,
+          "ev": 0.1817
         }
       ]
     },
@@ -6936,7 +6936,7 @@
           "line": 147.5,
           "odds": -121,
           "prob": 0.529,
-          "ev": -0.0338
+          "ev": -0.0337
         }
       ]
     },
@@ -6952,8 +6952,8 @@
       "odds": -113,
       "proj": 12.1,
       "total": 159.1,
-      "p": 0.5529,
-      "edge": 4.98,
+      "p": 0.5527,
+      "edge": 4.96,
       "stake": 0.0,
       "notes": "",
       "best_line": 153.5,
@@ -6963,56 +6963,56 @@
       "play_to": 156.0,
       "tracking": true,
       "reason": "Over 5 pts off the market",
-      "gap": 5.59,
+      "gap": 5.57,
       "quotes": [
         {
           "book": "theScore Bet",
           "line": 153.5,
           "odds": -110,
-          "prob": 0.5529,
-          "ev": 0.0556
+          "prob": 0.5527,
+          "ev": 0.0552
         },
         {
           "book": "FanDuel",
           "line": 153.5,
           "odds": -110,
-          "prob": 0.5529,
-          "ev": 0.0556
+          "prob": 0.5527,
+          "ev": 0.0552
         },
         {
           "book": "DraftKings",
           "line": 153.5,
           "odds": -112,
-          "prob": 0.5529,
-          "ev": 0.0466
+          "prob": 0.5527,
+          "ev": 0.0463
         },
         {
           "book": "Bally Bet",
           "line": 153.5,
           "odds": -114,
-          "prob": 0.5529,
-          "ev": 0.038
+          "prob": 0.5527,
+          "ev": 0.0376
         },
         {
           "book": "BetRivers",
           "line": 153.5,
           "odds": -114,
-          "prob": 0.5529,
-          "ev": 0.038
+          "prob": 0.5527,
+          "ev": 0.0376
         },
         {
           "book": "Hard Rock",
           "line": 153.5,
           "odds": -115,
-          "prob": 0.5529,
-          "ev": 0.0338
+          "prob": 0.5527,
+          "ev": 0.0334
         },
         {
           "book": "Kalshi",
           "line": 153.5,
           "odds": -121,
-          "prob": 0.5529,
-          "ev": 0.0099
+          "prob": 0.5527,
+          "ev": 0.0095
         }
       ]
     },
@@ -7046,14 +7046,14 @@
           "line": 151.5,
           "odds": -110,
           "prob": 0.5272,
-          "ev": 0.0065
+          "ev": 0.0066
         },
         {
           "book": "FanDuel",
           "line": 151.5,
           "odds": -110,
           "prob": 0.5272,
-          "ev": 0.0065
+          "ev": 0.0066
         },
         {
           "book": "Hard Rock",
@@ -7104,8 +7104,8 @@
       "odds": -110,
       "proj": 29.9,
       "total": 149.7,
-      "p": 0.5455,
-      "edge": 4.97,
+      "p": 0.5457,
+      "edge": 4.99,
       "stake": 0.0,
       "notes": "",
       "best_line": -25.5,
@@ -7115,49 +7115,49 @@
       "play_to": -27.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 3.43,
+      "gap": 3.44,
       "quotes": [
         {
           "book": "FanDuel",
           "line": -25.5,
           "odds": -110,
-          "prob": 0.5587,
-          "ev": 0.0665
+          "prob": 0.5589,
+          "ev": 0.0669
         },
         {
           "book": "DraftKings",
           "line": -26.5,
           "odds": -105,
-          "prob": 0.5455,
-          "ev": 0.065
+          "prob": 0.5457,
+          "ev": 0.0654
         },
         {
           "book": "theScore Bet",
           "line": -26.5,
           "odds": -105,
-          "prob": 0.5455,
-          "ev": 0.065
+          "prob": 0.5457,
+          "ev": 0.0654
         },
         {
           "book": "Hard Rock",
           "line": -26.5,
           "odds": -110,
-          "prob": 0.5455,
-          "ev": 0.0414
+          "prob": 0.5457,
+          "ev": 0.0418
         },
         {
           "book": "Bally Bet",
           "line": -26.5,
           "odds": -112,
-          "prob": 0.5455,
-          "ev": 0.0325
+          "prob": 0.5457,
+          "ev": 0.0329
         },
         {
           "book": "BetRivers",
           "line": -26.5,
           "odds": -112,
-          "prob": 0.5455,
-          "ev": 0.0325
+          "prob": 0.5457,
+          "ev": 0.0329
         }
       ]
     },
@@ -7173,8 +7173,8 @@
       "odds": -115,
       "proj": 29.9,
       "total": 149.7,
-      "p": 0.5403,
-      "edge": 3.5,
+      "p": 0.5402,
+      "edge": 3.49,
       "stake": 0.0,
       "notes": "",
       "best_line": 144.5,
@@ -7184,56 +7184,56 @@
       "play_to": 146.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 4.25,
+      "gap": 4.24,
       "quotes": [
         {
           "book": "DraftKings",
           "line": 144.5,
           "odds": -105,
-          "prob": 0.5497,
-          "ev": 0.0732
+          "prob": 0.5496,
+          "ev": 0.073
         },
         {
           "book": "FanDuel",
           "line": 144.5,
           "odds": -110,
-          "prob": 0.5497,
-          "ev": 0.0494
+          "prob": 0.5496,
+          "ev": 0.0492
         },
         {
           "book": "theScore Bet",
           "line": 143.5,
           "odds": -115,
-          "prob": 0.5591,
-          "ev": 0.0453
+          "prob": 0.559,
+          "ev": 0.0451
         },
         {
           "book": "Kalshi",
           "line": 143.5,
           "odds": -126,
-          "prob": 0.5591,
-          "ev": 0.0028
+          "prob": 0.559,
+          "ev": 0.0027
         },
         {
           "book": "Bally Bet",
           "line": 146.5,
           "odds": -115,
-          "prob": 0.5308,
-          "ev": -0.0076
+          "prob": 0.5307,
+          "ev": -0.0078
         },
         {
           "book": "BetRivers",
           "line": 146.5,
           "odds": -115,
-          "prob": 0.5308,
-          "ev": -0.0076
+          "prob": 0.5307,
+          "ev": -0.0078
         },
         {
           "book": "Hard Rock",
           "line": 146.5,
           "odds": -115,
-          "prob": 0.5308,
-          "ev": -0.0076
+          "prob": 0.5307,
+          "ev": -0.0078
         }
       ]
     },
@@ -7280,8 +7280,15 @@
           "book": "FanDuel",
           "line": 145.5,
           "odds": -115,
-          "prob": 0.5443,
+          "prob": 0.5444,
           "ev": 0.0177
+        },
+        {
+          "book": "Kalshi",
+          "line": 145.5,
+          "odds": -116,
+          "prob": 0.5444,
+          "ev": 0.0136
         },
         {
           "book": "Hard Rock",
@@ -7303,13 +7310,6 @@
           "odds": -112,
           "prob": 0.5254,
           "ev": -0.0054
-        },
-        {
-          "book": "Kalshi",
-          "line": 145.5,
-          "odds": -121,
-          "prob": 0.5443,
-          "ev": -0.0058
         }
       ]
     },
@@ -7440,7 +7440,7 @@
           "line": 152.5,
           "odds": -110,
           "prob": 0.5673,
-          "ev": 0.0829
+          "ev": 0.083
         },
         {
           "book": "DraftKings",
@@ -7551,10 +7551,10 @@
       "side_code": "HOME",
       "line": -21.5,
       "odds": -111,
-      "proj": 25.9,
+      "proj": 26.0,
       "total": 154.7,
-      "p": 0.5584,
-      "edge": 5.95,
+      "p": 0.5591,
+      "edge": 6.02,
       "stake": 0.0,
       "notes": "",
       "best_line": -20.5,
@@ -7564,56 +7564,56 @@
       "play_to": -23.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 4.41,
+      "gap": 4.46,
       "quotes": [
         {
           "book": "FanDuel",
           "line": -20.5,
           "odds": -110,
-          "prob": 0.5715,
-          "ev": 0.0911
+          "prob": 0.5722,
+          "ev": 0.0925
         },
         {
           "book": "theScore Bet",
           "line": -21.5,
           "odds": -110,
-          "prob": 0.5584,
-          "ev": 0.0661
+          "prob": 0.5591,
+          "ev": 0.0674
         },
         {
           "book": "Hard Rock",
           "line": -21.5,
           "odds": -110,
-          "prob": 0.5584,
-          "ev": 0.0661
+          "prob": 0.5591,
+          "ev": 0.0674
         },
         {
           "book": "Kalshi",
           "line": -20.5,
           "odds": -116,
-          "prob": 0.5715,
-          "ev": 0.0642
+          "prob": 0.5722,
+          "ev": 0.0656
         },
         {
           "book": "DraftKings",
           "line": -21.5,
           "odds": -112,
-          "prob": 0.5584,
-          "ev": 0.057
+          "prob": 0.5591,
+          "ev": 0.0583
         },
         {
           "book": "BetRivers",
           "line": -21.5,
           "odds": -112,
-          "prob": 0.5584,
-          "ev": 0.057
+          "prob": 0.5591,
+          "ev": 0.0583
         },
         {
           "book": "Bally Bet",
           "line": -21.5,
           "odds": -112,
-          "prob": 0.5584,
-          "ev": 0.057
+          "prob": 0.5591,
+          "ev": 0.0583
         }
       ]
     },
@@ -7627,10 +7627,10 @@
       "side_code": "OVER",
       "line": 149.5,
       "odds": -115,
-      "proj": 25.9,
+      "proj": 26.0,
       "total": 154.7,
-      "p": 0.5497,
-      "edge": 4.12,
+      "p": 0.5495,
+      "edge": 4.1,
       "stake": 0.0,
       "notes": "",
       "best_line": 149.5,
@@ -7640,56 +7640,56 @@
       "play_to": 151.5,
       "tracking": true,
       "reason": "Over 5 pts off the market",
-      "gap": 5.25,
+      "gap": 5.23,
       "quotes": [
         {
           "book": "DraftKings",
           "line": 149.5,
           "odds": -110,
-          "prob": 0.5497,
-          "ev": 0.0494
+          "prob": 0.5495,
+          "ev": 0.0491
         },
         {
           "book": "theScore Bet",
           "line": 149.5,
           "odds": -110,
-          "prob": 0.5497,
-          "ev": 0.0494
+          "prob": 0.5495,
+          "ev": 0.0491
         },
         {
           "book": "FanDuel",
           "line": 149.5,
           "odds": -110,
-          "prob": 0.5497,
-          "ev": 0.0494
+          "prob": 0.5495,
+          "ev": 0.0491
         },
         {
           "book": "Hard Rock",
           "line": 149.5,
           "odds": -120,
-          "prob": 0.5497,
-          "ev": 0.0078
+          "prob": 0.5495,
+          "ev": 0.0075
         },
         {
           "book": "Kalshi",
           "line": 149.5,
           "odds": -121,
-          "prob": 0.5497,
-          "ev": 0.004
+          "prob": 0.5495,
+          "ev": 0.0037
         },
         {
           "book": "BetRivers",
           "line": 149.5,
           "odds": -122,
-          "prob": 0.5497,
-          "ev": 0.0003
+          "prob": 0.5495,
+          "ev": -0.0
         },
         {
           "book": "Bally Bet",
           "line": 149.5,
           "odds": -122,
-          "prob": 0.5497,
-          "ev": 0.0003
+          "prob": 0.5495,
+          "ev": -0.0
         }
       ]
     },
@@ -7703,10 +7703,10 @@
       "side_code": "HOME",
       "line": -38.5,
       "odds": -111,
-      "proj": 49.0,
-      "total": 150.1,
-      "p": 0.6371,
-      "edge": 13.6,
+      "proj": 49.1,
+      "total": 150.2,
+      "p": 0.6381,
+      "edge": 13.7,
       "stake": 0.0,
       "notes": "",
       "best_line": -38.5,
@@ -7716,49 +7716,49 @@
       "play_to": -47.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 10.52,
+      "gap": 10.6,
       "quotes": [
         {
           "book": "DraftKings",
           "line": -38.5,
           "odds": -110,
-          "prob": 0.6371,
-          "ev": 0.2163
+          "prob": 0.6381,
+          "ev": 0.2181
         },
         {
           "book": "theScore Bet",
           "line": -38.5,
           "odds": -110,
-          "prob": 0.6371,
-          "ev": 0.2163
+          "prob": 0.6381,
+          "ev": 0.2181
         },
         {
           "book": "Hard Rock",
           "line": -38.5,
           "odds": -110,
-          "prob": 0.6371,
-          "ev": 0.2163
+          "prob": 0.6381,
+          "ev": 0.2181
         },
         {
           "book": "Bally Bet",
           "line": -38.5,
           "odds": -113,
-          "prob": 0.6371,
-          "ev": 0.2009
+          "prob": 0.6381,
+          "ev": 0.2027
         },
         {
           "book": "BetRivers",
           "line": -38.5,
           "odds": -113,
-          "prob": 0.6371,
-          "ev": 0.2009
+          "prob": 0.6381,
+          "ev": 0.2027
         },
         {
           "book": "FanDuel",
           "line": -37.5,
           "odds": -120,
-          "prob": 0.6495,
-          "ev": 0.1908
+          "prob": 0.6505,
+          "ev": 0.1925
         }
       ]
     },
@@ -7977,9 +7977,9 @@
         {
           "book": "Kalshi",
           "line": -13.5,
-          "odds": -131,
+          "odds": -126,
           "prob": 0.5648,
-          "ev": -0.0041
+          "ev": 0.013
         }
       ]
     },
@@ -7996,7 +7996,7 @@
       "proj": 18.4,
       "total": 152.3,
       "p": 0.5357,
-      "edge": 3.78,
+      "edge": 3.79,
       "stake": 0.0,
       "notes": "",
       "best_line": 148.5,
@@ -8006,7 +8006,7 @@
       "play_to": 149.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 3.76,
+      "gap": 3.77,
       "quotes": [
         {
           "book": "theScore Bet",
@@ -8386,14 +8386,14 @@
           "line": 162.5,
           "odds": -109,
           "prob": 0.5567,
-          "ev": 0.0674
+          "ev": 0.0675
         },
         {
           "book": "Bally Bet",
           "line": 162.5,
           "odds": -109,
           "prob": 0.5567,
-          "ev": 0.0674
+          "ev": 0.0675
         },
         {
           "book": "theScore Bet",
@@ -8583,7 +8583,7 @@
       "proj": 28.1,
       "total": 149.9,
       "p": 0.5413,
-      "edge": 4.97,
+      "edge": 4.98,
       "stake": 0.0,
       "notes": "",
       "best_line": 146.5,
@@ -8787,10 +8787,10 @@
       "side_code": "HOME",
       "line": -23.5,
       "odds": -113,
-      "proj": 31.1,
+      "proj": 31.2,
       "total": 148.3,
-      "p": 0.5997,
-      "edge": 9.65,
+      "p": 0.6009,
+      "edge": 9.77,
       "stake": 0.0,
       "notes": "",
       "best_line": -22.5,
@@ -8800,42 +8800,42 @@
       "play_to": -29.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 7.58,
+      "gap": 7.67,
       "quotes": [
         {
           "book": "DraftKings",
           "line": -22.5,
           "odds": -115,
-          "prob": 0.6125,
-          "ev": 0.1451
+          "prob": 0.6137,
+          "ev": 0.1474
         },
         {
           "book": "theScore Bet",
           "line": -22.5,
           "odds": -115,
-          "prob": 0.6125,
-          "ev": 0.1451
+          "prob": 0.6137,
+          "ev": 0.1474
         },
         {
           "book": "Hard Rock",
           "line": -23.5,
           "odds": -110,
-          "prob": 0.5997,
-          "ev": 0.1449
+          "prob": 0.6009,
+          "ev": 0.1472
         },
         {
           "book": "BetRivers",
           "line": -23.5,
           "odds": -113,
-          "prob": 0.5997,
-          "ev": 0.1304
+          "prob": 0.6009,
+          "ev": 0.1327
         },
         {
           "book": "Bally Bet",
           "line": -23.5,
           "odds": -113,
-          "prob": 0.5997,
-          "ev": 0.1304
+          "prob": 0.6009,
+          "ev": 0.1327
         }
       ]
     },
@@ -8849,55 +8849,55 @@
       "side_code": "HOME",
       "line": -27.5,
       "odds": -125,
-      "proj": 34.4,
+      "proj": 34.6,
       "total": 152.5,
-      "p": 0.591,
-      "edge": 6.83,
+      "p": 0.5942,
+      "edge": 7.15,
       "stake": 0.0,
       "notes": "",
       "best_line": -28.5,
       "best_odds": -115,
       "book": "DraftKings",
       "agree": false,
-      "play_to": -32.0,
+      "play_to": -32.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 6.9,
+      "gap": 7.15,
       "quotes": [
         {
           "book": "DraftKings",
           "line": -28.5,
           "odds": -115,
-          "prob": 0.578,
-          "ev": 0.0806
+          "prob": 0.5812,
+          "ev": 0.0866
         },
         {
           "book": "theScore Bet",
           "line": -28.5,
           "odds": -115,
-          "prob": 0.578,
-          "ev": 0.0806
+          "prob": 0.5812,
+          "ev": 0.0866
         },
         {
           "book": "Bally Bet",
           "line": -27.5,
           "odds": -125,
-          "prob": 0.591,
-          "ev": 0.0638
+          "prob": 0.5942,
+          "ev": 0.0695
         },
         {
           "book": "BetRivers",
           "line": -27.5,
           "odds": -125,
-          "prob": 0.591,
-          "ev": 0.0638
+          "prob": 0.5942,
+          "ev": 0.0695
         },
         {
           "book": "Hard Rock",
           "line": -27.5,
           "odds": -125,
-          "prob": 0.591,
-          "ev": 0.0638
+          "prob": 0.5942,
+          "ev": 0.0695
         }
       ]
     },
@@ -8911,10 +8911,10 @@
       "side_code": "OVER",
       "line": 148.5,
       "odds": -120,
-      "proj": 34.4,
+      "proj": 34.6,
       "total": 152.5,
-      "p": 0.5383,
-      "edge": 2.02,
+      "p": 0.5381,
+      "edge": 2.01,
       "stake": 0.0,
       "notes": "",
       "best_line": 148.5,
@@ -8924,49 +8924,49 @@
       "play_to": 149.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 4.03,
+      "gap": 4.02,
       "quotes": [
         {
           "book": "theScore Bet",
           "line": 148.5,
           "odds": -110,
-          "prob": 0.5383,
-          "ev": 0.0276
+          "prob": 0.5381,
+          "ev": 0.0274
         },
         {
           "book": "DraftKings",
           "line": 148.5,
           "odds": -112,
-          "prob": 0.5383,
-          "ev": 0.0189
+          "prob": 0.5381,
+          "ev": 0.0186
         },
         {
           "book": "Hard Rock",
           "line": 148.5,
           "odds": -120,
-          "prob": 0.5383,
-          "ev": -0.0132
+          "prob": 0.5381,
+          "ev": -0.0134
         },
         {
           "book": "Bally Bet",
           "line": 148.5,
           "odds": -121,
-          "prob": 0.5383,
-          "ev": -0.0169
+          "prob": 0.5381,
+          "ev": -0.0171
         },
         {
           "book": "BetRivers",
           "line": 148.5,
           "odds": -122,
-          "prob": 0.5383,
-          "ev": -0.0205
+          "prob": 0.5381,
+          "ev": -0.0207
         },
         {
           "book": "Kalshi",
           "line": 147.5,
           "odds": -136,
-          "prob": 0.5477,
-          "ev": -0.0496
+          "prob": 0.5476,
+          "ev": -0.0498
         }
       ]
     },
@@ -8982,8 +8982,8 @@
       "odds": -105,
       "proj": 24.1,
       "total": 159.2,
-      "p": 0.535,
-      "edge": 5.44,
+      "p": 0.5343,
+      "edge": 5.37,
       "stake": 0.0,
       "notes": "",
       "best_line": -21.5,
@@ -8993,49 +8993,49 @@
       "play_to": -22.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 2.63,
+      "gap": 2.58,
       "quotes": [
         {
           "book": "Kalshi",
           "line": -21.5,
           "odds": -103,
-          "prob": 0.535,
-          "ev": 0.0544
+          "prob": 0.5343,
+          "ev": 0.053
         },
         {
           "book": "Bally Bet",
           "line": -21.5,
           "odds": -104,
-          "prob": 0.535,
-          "ev": 0.0494
+          "prob": 0.5343,
+          "ev": 0.048
         },
         {
           "book": "BetRivers",
           "line": -21.5,
           "odds": -104,
-          "prob": 0.535,
-          "ev": 0.0494
+          "prob": 0.5343,
+          "ev": 0.048
         },
         {
           "book": "theScore Bet",
           "line": -21.5,
           "odds": -105,
-          "prob": 0.535,
-          "ev": 0.0445
+          "prob": 0.5343,
+          "ev": 0.0431
         },
         {
           "book": "Hard Rock",
           "line": -21.5,
           "odds": -105,
-          "prob": 0.535,
-          "ev": 0.0445
+          "prob": 0.5343,
+          "ev": 0.0431
         },
         {
           "book": "BetMGM",
           "line": -21.5,
           "odds": -110,
-          "prob": 0.535,
-          "ev": 0.0213
+          "prob": 0.5343,
+          "ev": 0.02
         }
       ]
     },
@@ -9051,8 +9051,8 @@
       "odds": -110,
       "proj": 24.1,
       "total": 159.2,
-      "p": 0.5351,
-      "edge": 4.04,
+      "p": 0.535,
+      "edge": 4.02,
       "stake": 0.0,
       "notes": "",
       "best_line": 155.5,
@@ -9062,49 +9062,49 @@
       "play_to": 156.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 3.7,
+      "gap": 3.69,
       "quotes": [
         {
           "book": "theScore Bet",
           "line": 155.5,
           "odds": -105,
-          "prob": 0.5351,
-          "ev": 0.0448
+          "prob": 0.535,
+          "ev": 0.0445
         },
         {
           "book": "BetMGM",
           "line": 155.5,
           "odds": -105,
-          "prob": 0.5351,
-          "ev": 0.0448
+          "prob": 0.535,
+          "ev": 0.0445
         },
         {
           "book": "Bally Bet",
           "line": 155.5,
           "odds": -110,
-          "prob": 0.5351,
-          "ev": 0.0216
+          "prob": 0.535,
+          "ev": 0.0214
         },
         {
           "book": "BetRivers",
           "line": 155.5,
           "odds": -110,
-          "prob": 0.5351,
-          "ev": 0.0216
+          "prob": 0.535,
+          "ev": 0.0214
         },
         {
           "book": "Hard Rock",
           "line": 155.5,
           "odds": -110,
-          "prob": 0.5351,
-          "ev": 0.0216
+          "prob": 0.535,
+          "ev": 0.0214
         },
         {
           "book": "Kalshi",
           "line": 155.5,
-          "odds": -116,
-          "prob": 0.5351,
-          "ev": -0.0035
+          "odds": -121,
+          "prob": 0.535,
+          "ev": -0.0229
         }
       ]
     },
@@ -9120,8 +9120,8 @@
       "odds": -110,
       "proj": 28.4,
       "total": 147.1,
-      "p": 0.5383,
-      "edge": 3.83,
+      "p": 0.5382,
+      "edge": 3.82,
       "stake": 0.0,
       "notes": "",
       "best_line": -25.5,
@@ -9131,42 +9131,42 @@
       "play_to": -26.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 2.89,
+      "gap": 2.88,
       "quotes": [
         {
           "book": "theScore Bet",
           "line": -25.5,
           "odds": -110,
-          "prob": 0.5383,
-          "ev": 0.0277
+          "prob": 0.5382,
+          "ev": 0.0276
         },
         {
           "book": "BetMGM",
           "line": -25.5,
           "odds": -110,
-          "prob": 0.5383,
-          "ev": 0.0277
+          "prob": 0.5382,
+          "ev": 0.0276
         },
         {
           "book": "Hard Rock",
           "line": -25.5,
           "odds": -110,
-          "prob": 0.5383,
-          "ev": 0.0277
+          "prob": 0.5382,
+          "ev": 0.0276
         },
         {
           "book": "BetRivers",
           "line": -25.5,
           "odds": -113,
-          "prob": 0.5383,
-          "ev": 0.0147
+          "prob": 0.5382,
+          "ev": 0.0146
         },
         {
           "book": "Bally Bet",
           "line": -25.5,
           "odds": -113,
-          "prob": 0.5383,
-          "ev": 0.0147
+          "prob": 0.5382,
+          "ev": 0.0146
         }
       ]
     },
@@ -9244,7 +9244,7 @@
       "odds": -115,
       "proj": -0.7,
       "total": 158.0,
-      "p": 0.5521,
+      "p": 0.5522,
       "edge": 4.58,
       "stake": 0.0,
       "notes": "",
@@ -9268,35 +9268,35 @@
           "book": "DraftKings",
           "line": 152.5,
           "odds": -115,
-          "prob": 0.5521,
+          "prob": 0.5522,
           "ev": 0.0323
         },
         {
           "book": "theScore Bet",
           "line": 152.5,
           "odds": -115,
-          "prob": 0.5521,
+          "prob": 0.5522,
           "ev": 0.0323
         },
         {
           "book": "Hard Rock",
           "line": 152.5,
           "odds": -115,
-          "prob": 0.5521,
+          "prob": 0.5522,
           "ev": 0.0323
         },
         {
           "book": "BetRivers",
           "line": 152.5,
           "odds": -117,
-          "prob": 0.5521,
+          "prob": 0.5522,
           "ev": 0.0241
         },
         {
           "book": "Bally Bet",
           "line": 152.5,
           "odds": -117,
-          "prob": 0.5521,
+          "prob": 0.5522,
           "ev": 0.0241
         }
       ]
@@ -9724,14 +9724,14 @@
           "line": 160.5,
           "odds": -110,
           "prob": 0.5309,
-          "ev": 0.0135
+          "ev": 0.0136
         },
         {
           "book": "theScore Bet",
           "line": 160.5,
           "odds": -110,
           "prob": 0.5309,
-          "ev": 0.0135
+          "ev": 0.0136
         },
         {
           "book": "Hard Rock",
@@ -9766,10 +9766,10 @@
       "side_code": "AWAY",
       "line": 30.5,
       "odds": -115,
-      "proj": 28.0,
+      "proj": 28.1,
       "total": 149.2,
-      "p": 0.5327,
-      "edge": 2.75,
+      "p": 0.5325,
+      "edge": 2.73,
       "stake": 0.0,
       "notes": "",
       "best_line": 30.5,
@@ -9779,42 +9779,42 @@
       "play_to": 30.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 2.46,
+      "gap": 2.45,
       "quotes": [
         {
           "book": "DraftKings",
           "line": 30.5,
           "odds": -105,
-          "prob": 0.5327,
-          "ev": 0.04
+          "prob": 0.5325,
+          "ev": 0.0396
         },
         {
           "book": "theScore Bet",
           "line": 30.5,
           "odds": -105,
-          "prob": 0.5327,
-          "ev": 0.04
+          "prob": 0.5325,
+          "ev": 0.0396
         },
         {
           "book": "Bally Bet",
           "line": 30.5,
           "odds": -115,
-          "prob": 0.5327,
-          "ev": -0.0041
+          "prob": 0.5325,
+          "ev": -0.0045
         },
         {
           "book": "BetRivers",
           "line": 30.5,
           "odds": -115,
-          "prob": 0.5327,
-          "ev": -0.0041
+          "prob": 0.5325,
+          "ev": -0.0045
         },
         {
           "book": "Hard Rock",
           "line": 30.5,
           "odds": -115,
-          "prob": 0.5327,
-          "ev": -0.0041
+          "prob": 0.5325,
+          "ev": -0.0045
         }
       ]
     },
@@ -9917,7 +9917,7 @@
           "line": 148.5,
           "odds": -110,
           "prob": 0.535,
-          "ev": 0.0213
+          "ev": 0.0214
         },
         {
           "book": "BetRivers",
@@ -9949,10 +9949,10 @@
         },
         {
           "book": "Kalshi",
-          "line": 149.5,
-          "odds": -112,
-          "prob": 0.5255,
-          "ev": -0.0053
+          "line": 147.5,
+          "odds": -136,
+          "prob": 0.5444,
+          "ev": -0.0552
         }
       ]
     },
@@ -9966,10 +9966,10 @@
       "side_code": "OVER",
       "line": 160.5,
       "odds": -107,
-      "proj": 27.8,
+      "proj": 28.1,
       "total": 167.0,
-      "p": 0.5619,
-      "edge": 7.34,
+      "p": 0.5616,
+      "edge": 7.32,
       "stake": 0.0,
       "notes": "",
       "best_line": 160.5,
@@ -9979,49 +9979,49 @@
       "play_to": 164.0,
       "tracking": true,
       "reason": "Over 5 pts off the market",
-      "gap": 6.54,
+      "gap": 6.52,
       "quotes": [
         {
           "book": "Hard Rock",
           "line": 160.5,
           "odds": -105,
-          "prob": 0.5619,
-          "ev": 0.097
+          "prob": 0.5616,
+          "ev": 0.0965
         },
         {
           "book": "theScore Bet",
           "line": 159.5,
           "odds": -110,
-          "prob": 0.5713,
-          "ev": 0.0906
+          "prob": 0.571,
+          "ev": 0.0901
         },
         {
           "book": "BetRivers",
           "line": 160.5,
           "odds": -107,
-          "prob": 0.5619,
-          "ev": 0.087
+          "prob": 0.5616,
+          "ev": 0.0865
         },
         {
           "book": "Bally Bet",
           "line": 160.5,
           "odds": -107,
-          "prob": 0.5619,
-          "ev": 0.087
+          "prob": 0.5616,
+          "ev": 0.0865
         },
         {
           "book": "FanDuel",
           "line": 159.5,
           "odds": -115,
-          "prob": 0.5713,
-          "ev": 0.068
+          "prob": 0.571,
+          "ev": 0.0675
         },
         {
           "book": "Kalshi",
           "line": 159.5,
           "odds": -126,
-          "prob": 0.5713,
-          "ev": 0.0247
+          "prob": 0.571,
+          "ev": 0.0242
         }
       ]
     },
@@ -10173,10 +10173,10 @@
       "side_code": "OVER",
       "line": 151.5,
       "odds": -110,
-      "proj": 32.4,
+      "proj": 32.5,
       "total": 156.6,
-      "p": 0.5484,
-      "edge": 5.66,
+      "p": 0.5481,
+      "edge": 5.63,
       "stake": 0.0,
       "notes": "",
       "best_line": 150.5,
@@ -10186,42 +10186,42 @@
       "play_to": 153.5,
       "tracking": true,
       "reason": "Over 5 pts off the market",
-      "gap": 5.11,
+      "gap": 5.08,
       "quotes": [
         {
           "book": "DraftKings",
           "line": 150.5,
           "odds": -110,
-          "prob": 0.5579,
-          "ev": 0.065
+          "prob": 0.5575,
+          "ev": 0.0644
         },
         {
           "book": "theScore Bet",
           "line": 150.5,
           "odds": -110,
-          "prob": 0.5579,
-          "ev": 0.065
+          "prob": 0.5575,
+          "ev": 0.0644
         },
         {
           "book": "Bally Bet",
           "line": 151.5,
           "odds": -108,
-          "prob": 0.5484,
-          "ev": 0.0563
+          "prob": 0.5481,
+          "ev": 0.0556
         },
         {
           "book": "BetRivers",
           "line": 151.5,
           "odds": -108,
-          "prob": 0.5484,
-          "ev": 0.0563
+          "prob": 0.5481,
+          "ev": 0.0556
         },
         {
           "book": "Hard Rock",
           "line": 151.5,
           "odds": -110,
-          "prob": 0.5484,
-          "ev": 0.047
+          "prob": 0.5481,
+          "ev": 0.0464
         }
       ]
     },
@@ -10235,10 +10235,10 @@
       "side_code": "HOME",
       "line": -6.5,
       "odds": -109,
-      "proj": 9.2,
+      "proj": 9.3,
       "total": 147.7,
-      "p": 0.536,
-      "edge": 4.33,
+      "p": 0.5376,
+      "edge": 4.49,
       "stake": 0.0,
       "notes": "",
       "best_line": -6.5,
@@ -10248,42 +10248,42 @@
       "play_to": -7.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 2.71,
+      "gap": 2.83,
       "quotes": [
         {
           "book": "theScore Bet",
           "line": -6.5,
           "odds": -105,
-          "prob": 0.536,
-          "ev": 0.0465
+          "prob": 0.5376,
+          "ev": 0.0496
         },
         {
           "book": "Bally Bet",
           "line": -6.5,
           "odds": -109,
-          "prob": 0.536,
-          "ev": 0.0278
+          "prob": 0.5376,
+          "ev": 0.0308
         },
         {
           "book": "BetRivers",
           "line": -6.5,
           "odds": -109,
-          "prob": 0.536,
-          "ev": 0.0278
+          "prob": 0.5376,
+          "ev": 0.0308
         },
         {
           "book": "Kalshi",
           "line": -6.5,
           "odds": -112,
-          "prob": 0.536,
-          "ev": 0.0146
+          "prob": 0.5376,
+          "ev": 0.0176
         },
         {
           "book": "FanDuel",
           "line": -6.5,
           "odds": -120,
-          "prob": 0.536,
-          "ev": -0.0173
+          "prob": 0.5376,
+          "ev": -0.0144
         }
       ]
     },
@@ -10368,8 +10368,8 @@
       "odds": -110,
       "proj": 39.0,
       "total": 155.4,
-      "p": 0.5724,
-      "edge": 7.45,
+      "p": 0.5727,
+      "edge": 7.48,
       "stake": 0.0,
       "notes": "",
       "best_line": -33.5,
@@ -10379,35 +10379,35 @@
       "play_to": -36.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 5.47,
+      "gap": 5.5,
       "quotes": [
         {
           "book": "DraftKings",
           "line": -33.5,
           "odds": -110,
-          "prob": 0.5724,
-          "ev": 0.0928
+          "prob": 0.5727,
+          "ev": 0.0933
         },
         {
           "book": "theScore Bet",
           "line": -33.5,
           "odds": -110,
-          "prob": 0.5724,
-          "ev": 0.0928
+          "prob": 0.5727,
+          "ev": 0.0933
         },
         {
           "book": "BetRivers",
           "line": -33.5,
           "odds": -110,
-          "prob": 0.5724,
-          "ev": 0.0928
+          "prob": 0.5727,
+          "ev": 0.0933
         },
         {
           "book": "Hard Rock",
           "line": -33.5,
           "odds": -110,
-          "prob": 0.5724,
-          "ev": 0.0928
+          "prob": 0.5727,
+          "ev": 0.0933
         }
       ]
     },
@@ -10467,9 +10467,9 @@
         {
           "book": "Kalshi",
           "line": 145.5,
-          "odds": -116,
+          "odds": -112,
           "prob": 0.5501,
-          "ev": 0.0244
+          "ev": 0.0413
         }
       ]
     },
@@ -10483,48 +10483,48 @@
       "side_code": "HOME",
       "line": -39.5,
       "odds": -112,
-      "proj": 42.0,
-      "total": 153.3,
-      "p": 0.5327,
-      "edge": 3.27,
+      "proj": 43.0,
+      "total": 153.4,
+      "p": 0.5467,
+      "edge": 4.67,
       "stake": 0.0,
       "notes": "",
       "best_line": -39.5,
       "best_odds": -112,
       "book": "Bally Bet",
       "agree": false,
-      "play_to": -39.5,
+      "play_to": -41.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 2.46,
+      "gap": 3.52,
       "quotes": [
         {
           "book": "Bally Bet",
           "line": -39.5,
           "odds": -112,
-          "prob": 0.5327,
-          "ev": 0.0083
+          "prob": 0.5467,
+          "ev": 0.0348
         },
         {
           "book": "BetRivers",
           "line": -39.5,
           "odds": -112,
-          "prob": 0.5327,
-          "ev": 0.0083
+          "prob": 0.5467,
+          "ev": 0.0348
         },
         {
           "book": "DraftKings",
           "line": -39.5,
           "odds": -115,
-          "prob": 0.5327,
-          "ev": -0.0041
+          "prob": 0.5467,
+          "ev": 0.0221
         },
         {
           "book": "theScore Bet",
           "line": -40.5,
           "odds": -110,
-          "prob": 0.5194,
-          "ev": -0.0084
+          "prob": 0.5335,
+          "ev": 0.0184
         }
       ]
     },
@@ -10538,10 +10538,10 @@
       "side_code": "OVER",
       "line": 149.5,
       "odds": -111,
-      "proj": 42.0,
-      "total": 153.3,
-      "p": 0.5361,
-      "edge": 3.72,
+      "proj": 43.0,
+      "total": 153.4,
+      "p": 0.5368,
+      "edge": 3.78,
       "stake": 0.0,
       "notes": "",
       "best_line": 149.5,
@@ -10551,35 +10551,35 @@
       "play_to": 150.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 3.81,
+      "gap": 3.88,
       "quotes": [
         {
           "book": "DraftKings",
           "line": 149.5,
           "odds": -110,
-          "prob": 0.5361,
-          "ev": 0.0235
+          "prob": 0.5368,
+          "ev": 0.0248
         },
         {
           "book": "theScore Bet",
           "line": 149.5,
           "odds": -110,
-          "prob": 0.5361,
-          "ev": 0.0235
+          "prob": 0.5368,
+          "ev": 0.0248
         },
         {
           "book": "Bally Bet",
           "line": 149.5,
           "odds": -112,
-          "prob": 0.5361,
-          "ev": 0.0148
+          "prob": 0.5368,
+          "ev": 0.0161
         },
         {
           "book": "BetRivers",
           "line": 149.5,
           "odds": -112,
-          "prob": 0.5361,
-          "ev": 0.0148
+          "prob": 0.5368,
+          "ev": 0.0161
         }
       ]
     },
@@ -10595,46 +10595,46 @@
       "odds": -107,
       "proj": 29.5,
       "total": 149.8,
-      "p": 0.579,
-      "edge": 8.75,
+      "p": 0.5797,
+      "edge": 8.82,
       "stake": 0.0,
       "notes": "",
       "best_line": -23.5,
       "best_odds": -105,
       "book": "DraftKings",
       "agree": false,
-      "play_to": -27.0,
+      "play_to": -27.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 5.98,
+      "gap": 6.03,
       "quotes": [
         {
           "book": "DraftKings",
           "line": -23.5,
           "odds": -105,
-          "prob": 0.579,
-          "ev": 0.1304
+          "prob": 0.5797,
+          "ev": 0.1317
         },
         {
           "book": "theScore Bet",
           "line": -23.5,
           "odds": -105,
-          "prob": 0.579,
-          "ev": 0.1304
+          "prob": 0.5797,
+          "ev": 0.1317
         },
         {
           "book": "Bally Bet",
           "line": -23.5,
           "odds": -110,
-          "prob": 0.579,
-          "ev": 0.1053
+          "prob": 0.5797,
+          "ev": 0.1066
         },
         {
           "book": "BetRivers",
           "line": -23.5,
           "odds": -110,
-          "prob": 0.579,
-          "ev": 0.1053
+          "prob": 0.5797,
+          "ev": 0.1066
         }
       ]
     },
@@ -10650,8 +10650,8 @@
       "odds": -111,
       "proj": 29.5,
       "total": 149.8,
-      "p": 0.531,
-      "edge": 3.21,
+      "p": 0.5309,
+      "edge": 3.19,
       "stake": 0.0,
       "notes": "",
       "best_line": 146.5,
@@ -10661,42 +10661,97 @@
       "play_to": 146.5,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 3.27,
+      "gap": 3.25,
       "quotes": [
         {
           "book": "DraftKings",
           "line": 146.5,
           "odds": -110,
-          "prob": 0.531,
-          "ev": 0.0138
+          "prob": 0.5309,
+          "ev": 0.0135
         },
         {
           "book": "theScore Bet",
           "line": 146.5,
           "odds": -110,
-          "prob": 0.531,
-          "ev": 0.0138
+          "prob": 0.5309,
+          "ev": 0.0135
         },
         {
           "book": "Bally Bet",
           "line": 146.5,
           "odds": -112,
-          "prob": 0.531,
-          "ev": 0.0052
+          "prob": 0.5309,
+          "ev": 0.0049
         },
         {
           "book": "BetRivers",
           "line": 146.5,
           "odds": -112,
-          "prob": 0.531,
-          "ev": 0.0052
+          "prob": 0.5309,
+          "ev": 0.0049
         },
         {
           "book": "Kalshi",
           "line": 145.5,
           "odds": -126,
-          "prob": 0.5405,
-          "ev": -0.0305
+          "prob": 0.5403,
+          "ev": -0.0308
+        }
+      ]
+    },
+    {
+      "game_id": "401920716",
+      "start": "2026-11-03T03:00Z",
+      "home": "Stanford Cardinal",
+      "away": "Eastern Washington Eagles",
+      "mkt": "SPREAD",
+      "side": "Stanford Cardinal",
+      "side_code": "HOME",
+      "line": -13.5,
+      "odds": -115,
+      "proj": 15.5,
+      "total": 158.6,
+      "p": 0.5271,
+      "edge": 1.63,
+      "stake": 0.0,
+      "notes": "",
+      "best_line": -13.5,
+      "best_odds": -115,
+      "book": "theScore Bet",
+      "agree": false,
+      "play_to": -13.5,
+      "tracking": true,
+      "reason": "Outside betting window",
+      "gap": 2.04,
+      "quotes": [
+        {
+          "book": "theScore Bet",
+          "line": -13.5,
+          "odds": -115,
+          "prob": 0.5271,
+          "ev": -0.0145
+        },
+        {
+          "book": "FanDuel",
+          "line": -13.5,
+          "odds": -115,
+          "prob": 0.5271,
+          "ev": -0.0145
+        },
+        {
+          "book": "BetMGM",
+          "line": -13.5,
+          "odds": -118,
+          "prob": 0.5271,
+          "ev": -0.0261
+        },
+        {
+          "book": "Kalshi",
+          "line": -13.5,
+          "odds": -126,
+          "prob": 0.5271,
+          "ev": -0.0545
         }
       ]
     },
@@ -10710,10 +10765,10 @@
       "side_code": "OVER",
       "line": 153.5,
       "odds": -115,
-      "proj": 15.3,
+      "proj": 15.5,
       "total": 158.6,
-      "p": 0.5483,
-      "edge": 3.75,
+      "p": 0.548,
+      "edge": 3.71,
       "stake": 0.0,
       "notes": "",
       "best_line": 153.5,
@@ -10723,35 +10778,35 @@
       "play_to": 155.5,
       "tracking": true,
       "reason": "Over 5 pts off the market",
-      "gap": 5.1,
+      "gap": 5.06,
       "quotes": [
         {
           "book": "FanDuel",
           "line": 153.5,
           "odds": -110,
-          "prob": 0.5483,
-          "ev": 0.0468
+          "prob": 0.548,
+          "ev": 0.0461
         },
         {
           "book": "Kalshi",
           "line": 154.5,
           "odds": -107,
-          "prob": 0.5389,
-          "ev": 0.0425
+          "prob": 0.5385,
+          "ev": 0.0418
         },
         {
           "book": "theScore Bet",
           "line": 153.5,
           "odds": -115,
-          "prob": 0.5483,
-          "ev": 0.0251
+          "prob": 0.548,
+          "ev": 0.0244
         },
         {
           "book": "BetMGM",
           "line": 153.5,
           "odds": -115,
-          "prob": 0.5483,
-          "ev": 0.0251
+          "prob": 0.548,
+          "ev": 0.0244
         }
       ]
     },
@@ -10820,41 +10875,41 @@
       "side_code": "HOME",
       "line": -25.5,
       "odds": -110,
-      "proj": 27.7,
-      "total": 162.1,
-      "p": 0.529,
-      "edge": 2.9,
+      "proj": 28.4,
+      "total": 162.2,
+      "p": 0.5379,
+      "edge": 3.79,
       "stake": 0.0,
       "notes": "",
       "best_line": -26.5,
       "best_odds": -102,
       "book": "BetMGM",
       "agree": false,
-      "play_to": -25.5,
+      "play_to": -26.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 2.19,
+      "gap": 2.86,
       "quotes": [
         {
           "book": "BetMGM",
           "line": -26.5,
           "odds": -102,
-          "prob": 0.5158,
-          "ev": 0.0214
+          "prob": 0.5247,
+          "ev": 0.039
         },
         {
           "book": "FanDuel",
           "line": -25.5,
           "odds": -110,
-          "prob": 0.529,
-          "ev": 0.01
+          "prob": 0.5379,
+          "ev": 0.0269
         },
         {
           "book": "theScore Bet",
           "line": -25.5,
           "odds": -115,
-          "prob": 0.529,
-          "ev": -0.0109
+          "prob": 0.5379,
+          "ev": 0.0057
         }
       ]
     },
@@ -10868,10 +10923,10 @@
       "side_code": "OVER",
       "line": 157.5,
       "odds": -110,
-      "proj": 27.7,
-      "total": 162.1,
-      "p": 0.5439,
-      "edge": 4.39,
+      "proj": 28.4,
+      "total": 162.2,
+      "p": 0.5449,
+      "edge": 4.49,
       "stake": 0.0,
       "notes": "",
       "best_line": 157.5,
@@ -10881,28 +10936,28 @@
       "play_to": 159.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 4.63,
+      "gap": 4.74,
       "quotes": [
         {
           "book": "FanDuel",
           "line": 157.5,
           "odds": -110,
-          "prob": 0.5439,
-          "ev": 0.0383
+          "prob": 0.5449,
+          "ev": 0.0403
         },
         {
           "book": "theScore Bet",
           "line": 158.5,
           "odds": -110,
-          "prob": 0.5344,
-          "ev": 0.0203
+          "prob": 0.5355,
+          "ev": 0.0222
         },
         {
           "book": "BetMGM",
           "line": 157.5,
           "odds": -115,
-          "prob": 0.5439,
-          "ev": 0.0168
+          "prob": 0.5449,
+          "ev": 0.0187
         }
       ]
     },
@@ -10917,7 +10972,7 @@
       "line": -14.5,
       "odds": -110,
       "proj": 19.4,
-      "total": 156.6,
+      "total": 156.7,
       "p": 0.5643,
       "edge": 6.43,
       "stake": 0.0,
@@ -10948,9 +11003,9 @@
         {
           "book": "Kalshi",
           "line": -14.5,
-          "odds": -112,
+          "odds": -116,
           "prob": 0.5643,
-          "ev": 0.0682
+          "ev": 0.0508
         }
       ]
     },
@@ -10965,7 +11020,7 @@
       "line": 153.0,
       "odds": -112,
       "proj": 19.4,
-      "total": 156.6,
+      "total": 156.7,
       "p": 0.5346,
       "edge": 2.92,
       "stake": 0.0,
@@ -11075,8 +11130,8 @@
       "odds": -120,
       "proj": 8.6,
       "total": 158.3,
-      "p": 0.5386,
-      "edge": 1.69,
+      "p": 0.5379,
+      "edge": 1.61,
       "stake": 0.0,
       "notes": "",
       "best_line": 11.5,
@@ -11086,21 +11141,21 @@
       "play_to": 11.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 2.91,
+      "gap": 2.85,
       "quotes": [
         {
           "book": "theScore Bet",
           "line": 11.5,
           "odds": -120,
-          "prob": 0.5386,
-          "ev": -0.0125
+          "prob": 0.5379,
+          "ev": -0.0139
         },
         {
           "book": "Kalshi",
           "line": 10.5,
           "odds": -121,
-          "prob": 0.5254,
-          "ev": -0.0404
+          "prob": 0.5246,
+          "ev": -0.0418
         }
       ]
     },
@@ -11116,8 +11171,8 @@
       "odds": -115,
       "proj": 8.6,
       "total": 158.3,
-      "p": 0.5455,
-      "edge": 3.47,
+      "p": 0.5453,
+      "edge": 3.44,
       "stake": 0.0,
       "notes": "",
       "best_line": 153.5,
@@ -11127,14 +11182,14 @@
       "play_to": 155.0,
       "tracking": true,
       "reason": "Outside betting window",
-      "gap": 4.81,
+      "gap": 4.78,
       "quotes": [
         {
           "book": "theScore Bet",
           "line": 153.5,
           "odds": -115,
-          "prob": 0.5455,
-          "ev": 0.0199
+          "prob": 0.5453,
+          "ev": 0.0194
         }
       ]
     },
@@ -11148,7 +11203,7 @@
       "side_code": "OVER",
       "line": 147.5,
       "odds": -115,
-      "proj": 30.5,
+      "proj": 31.0,
       "total": 152.5,
       "p": 0.547,
       "edge": 3.62,
