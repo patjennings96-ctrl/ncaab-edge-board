@@ -224,6 +224,23 @@ def fit_ratings(prev_long: pd.DataFrame, cur_long: pd.DataFrame, start: dict,
     return eff
 
 
+def conference_hca(prev_long: pd.DataFrame, cur_long: pd.DataFrame | None = None,
+                   alpha: float = 3.0) -> float:
+    """Home court fit on conference-season games (Jan 1 - Mar 8): last
+    season's, blended with this season's once it has enough of them."""
+    def window(g):
+        d = pd.to_datetime(g["date"])
+        return g[(d.dt.month.isin([1, 2])) | ((d.dt.month == 3) & (d.dt.day <= 8))]
+    prev = window(prev_long)
+    h_prev = R.fit_adjusted_ratings(prev, alpha=alpha).hca
+    if cur_long is not None and len(cur_long):
+        cur = window(cur_long)
+        if len(cur) >= 400:
+            w = min(len(cur) / 3000.0, 0.8)
+            return float((1 - w) * h_prev + w * R.fit_adjusted_ratings(cur, alpha=alpha).hca)
+    return float(h_prev)
+
+
 def build(season: int, prev_raw, cur_raw, prev_pg, cur_pg, d1: set):
     """Everything the daily run needs: ratings, start ratings, roster minutes."""
     prev_long = R.add_tempo_efficiency(live.to_long(prev_raw))
@@ -243,5 +260,7 @@ def build(season: int, prev_raw, cur_raw, prev_pg, cur_pg, d1: set):
     print(f"[preseason] {len(rstr)} rosters, avg returning minutes "
           f"{rstr.ret_min.mean() if len(rstr) else float('nan'):.0%}, "
           f"starting rating worth {ratings.prior_games:.1f} games")
-    return {"ratings": ratings, "start": start, "roster_strength": rstr,
+    conf_hca = conference_hca(prev_long, cur_long)
+    print(f"[preseason] home court per side per 100: Nov-Dec {ratings.hca:.2f}, conference season {conf_hca:.2f}")
+    return {"ratings": ratings, "start": start, "roster_strength": rstr, "conf_hca": conf_hca,
             "roster_minutes": minutes, "prior_games": ratings.prior_games}

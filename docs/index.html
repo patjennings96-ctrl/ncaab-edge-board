@@ -400,12 +400,16 @@ const LAST = {
   agree: {SPREAD: [.590,.547], TOTAL: [.581,.524]}
 };
 const pctf = v => v == null ? "—" : (100*v).toFixed(1) + "%";
-function checkTable(title, rows, last, extra){
+function checkTable(title, rows, last, extra, showExp){
   const body = rows.map(b => `<tr><td>${b.gap} pts</td><td class="num">${b.w}-${b.l}</td><td class="num">${pctf(b.pct)}</td>`
-    + (extra ? `<td class="num">${pctf(b.expected)}</td><td class="num">${b.clv==null?"—":sgn(b.clv)}</td>` : "")
+    + (showExp ? `<td class="num">${pctf(b.expected)}</td><td class="num">${b.clv==null?"—":sgn(b.clv)}</td>` : "")
     + `<td class="num muted">${pctf(last && last[b.gap])}</td></tr>`).join("");
-  const head = `<tr><th>Gap</th><th class="num">Record</th><th class="num">Win</th>${extra ? '<th class="num">Expected</th><th class="num">CLV</th>' : ""}<th class="num">Last season</th></tr>`;
+  const head = `<tr><th>Gap</th><th class="num">Record</th><th class="num">Win</th>${showExp ? '<th class="num">Expected</th><th class="num">CLV</th>' : ""}<th class="num">Last season</th></tr>`;
   return `<div class="model"><div class="model-head"><h3>${title}</h3></div><div class="table-wrap" style="border:0;border-radius:0"><table style="min-width:0"><thead>${head}</thead><tbody>${body}</tbody></table></div>${extra || ""}</div>`;
+}
+function sidesLine(s){
+  const f = (lab, v) => v ? `${lab} ${v.w}-${v.l}${v.pct!=null ? " (" + pctf(v.pct) + ")" : ""}` : "";
+  return `<div class="empty" style="padding:10px 14px 0">${[f("Favorites", s.fav), f("Underdogs", s.dog)].join(" · ")}<br>Spread size: ${[f("under 5", s["under 5"]), f("5–15", s["5-15"]), f("15+", s["15+"])].join(" · ")}</div>`;
 }
 function renderCheck(){
   const c = (REC && REC.check) || {}, e = c.edge || {}, k = c.cal || {};
@@ -413,12 +417,13 @@ function renderCheck(){
   for (const [m, t] of [["SPREAD","Edge Board · spreads"],["TOTAL","Edge Board · totals"]]) {
     const x = e[m];
     if (!x) { parts.push(`<div class="model"><div class="model-head"><h3>${t}</h3></div><div class="empty">No graded plays yet.</div></div>`); continue; }
-    const ag = `<div class="empty" style="padding:10px 14px">Cal agrees: ${x.agree.w}-${x.agree.l} (${pctf(x.agree.pct)}) · doesn't: ${x.no_agree.w}-${x.no_agree.l} (${pctf(x.no_agree.pct)}). Last season ${pctf(LAST.agree[m][0])} vs ${pctf(LAST.agree[m][1])}.</div>`;
-    parts.push(checkTable(t, x.buckets, LAST.edge[m], ag));
+    const sides = x.sides ? sidesLine(x.sides) : "";
+    const ag = sides + `<div class="empty" style="padding:10px 14px">Cal agrees: ${x.agree.w}-${x.agree.l} (${pctf(x.agree.pct)}) · doesn't: ${x.no_agree.w}-${x.no_agree.l} (${pctf(x.no_agree.pct)}). Last season ${pctf(LAST.agree[m][0])} vs ${pctf(LAST.agree[m][1])}.</div>`;
+    parts.push(checkTable(t, x.buckets, LAST.edge[m], ag, true));
   }
   for (const [m, t] of [["ATS","Cal's model · spreads"],["TOTAL","Cal's model · totals"]]) {
     const x = k[m];
-    parts.push(x ? checkTable(t + " (weaker model's gap)", x.buckets, LAST.cal[m], "")
+    parts.push(x ? checkTable(t + " (weaker model's gap)", x.buckets, LAST.cal[m], x.sides ? sidesLine(x.sides) : "", false)
                  : `<div class="model"><div class="model-head"><h3>${t}</h3></div><div class="empty">No graded plays yet.</div></div>`);
   }
   document.getElementById("check").innerHTML = parts.join("");

@@ -260,6 +260,14 @@ def _label(lo, hi):
     return f"{lo:g}+" if hi >= 99 else f"{lo:g}-{hi:g}"
 
 
+def _side_split(result: pd.Series, fav: pd.Series, size: pd.Series) -> dict:
+    """Favorites vs underdogs, and by size of the spread."""
+    out = {"fav": _wl(result[fav]), "dog": _wl(result[~fav])}
+    for lo, hi, lab in ((0, 5, "under 5"), (5, 15, "5-15"), (15, 99, "15+")):
+        out[lab] = _wl(result[(size >= lo) & (size < hi)])
+    return out
+
+
 def model_check(since: str) -> dict:
     out = {"edge": {}, "cal": {}}
     if os.path.exists(LOG_PATH):
@@ -281,6 +289,9 @@ def model_check(since: str) -> dict:
                 out["edge"][mkt] = {"buckets": rows,
                                     "agree": _wl(g[agree.loc[g.index]]["result"]),
                                     "no_agree": _wl(g[~agree.loc[g.index]]["result"])}
+                if mkt == "SPREAD" and not g.empty:
+                    ln = pd.to_numeric(g["line"], errors="coerce")
+                    out["edge"][mkt]["sides"] = _side_split(g["result"], ln < 0, ln.abs())
     if os.path.exists(CAL_LOG_PATH):
         log = pd.read_csv(CAL_LOG_PATH, dtype={"game_id": str, "units": str}).fillna({"units": ""})
         log = log[log["posted_at"].astype(str) >= since]
@@ -290,8 +301,14 @@ def model_check(since: str) -> dict:
             log["gap"] = pd.to_numeric(log["gap"], errors="coerce")
             for mkt, edges in CAL_BUCKETS.items():
                 g = log[log["market"] == mkt]
+                if mkt == "ATS" and not g.empty:
+                    ln = pd.to_numeric(g["line"], errors="coerce")          # home line
+                    fav = (ln < 0) == (g["play"] == "HOME")
+                    side_split = _side_split(g["result"], fav, ln.abs())
                 out["cal"][mkt] = {"buckets": [{"gap": _label(lo, hi), **_wl(g[(g["gap"] >= lo) & (g["gap"] < hi)]["result"])}
                                                for lo, hi in zip(edges[:-1], edges[1:])]}
+                if mkt == "ATS" and not g.empty:
+                    out["cal"][mkt]["sides"] = side_split
     return out
 
 

@@ -59,12 +59,38 @@ def build_training_frame(games_long: pd.DataFrame, ratings) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def build_slate_frame(slate: pd.DataFrame, ratings) -> pd.DataFrame:
+# Home court by season phase. Fit on 2024-25 and 2025-26, home court is worth
+# about twice as much in Nov-Dec (4.0 per side per 100 possessions) as in
+# conference play (1.9-2.2). The ratings carry last season's full-season value
+# (~2.5-2.7), which fits Nov-Dec best in the backtest; from Jan 1 the
+# conference-season value is used. Backtest, Jan 1 - Mar 8 2026: spread RMSE
+# 11.20 -> 11.15, ATS 2+ 55.1% (+69u) -> 56.8% (+96u).
+CONF_SEASON_START = (1, 1)
+
+
+def game_hca(start, ratings, conf_hca: float | None) -> float:
+    if conf_hca is None:
+        return ratings.hca
+    try:
+        d = pd.to_datetime(start, utc=True).tz_convert("America/New_York")
+    except Exception:
+        return ratings.hca
+    if pd.isna(d):
+        return ratings.hca
+    return conf_hca if 1 <= d.month <= 6 else ratings.hca
+
+
+def build_slate_frame(slate: pd.DataFrame, ratings, conf_hca: float | None = None) -> pd.DataFrame:
     """`slate`: today's games [home, away, neutral, spread_home, total,
     over_odds, under_odds]. Adds projection features for prediction."""
     rows = []
     for x in slate.itertuples(index=False):
-        pr = ratings.project(x.home, x.away, neutral=bool(getattr(x, "neutral", False)))
+        neutral = bool(getattr(x, "neutral", False))
+        pr = ratings.project(x.home, x.away, neutral=neutral)
+        h = 0.0 if neutral else game_hca(getattr(x, "start", ""), ratings, conf_hca)
+        if not neutral:
+            # project() used ratings.hca on each side; swap in this game's value
+            pr["proj_margin"] += 2.0 * (h - ratings.hca) * pr["proj_poss"] / 100.0
         rows.append({
             "home": x.home, "away": x.away,
             "game_id": getattr(x, "game_id", ""), "start": getattr(x, "start", ""),
@@ -72,7 +98,7 @@ def build_slate_frame(slate: pd.DataFrame, ratings) -> pd.DataFrame:
             "proj_poss": pr["proj_poss"],
             "adj_em_diff": ratings.adj_em(x.home) - ratings.adj_em(x.away),
             "tempo_sum": ratings.team_tempo(x.home) + ratings.team_tempo(x.away),
-            "custom_hca": 0.0 if getattr(x, "neutral", False) else ratings.hca,
+            "custom_hca": h,
             "spread_home": x.spread_home, "total": x.total,
             "home_odds": getattr(x, "home_odds", -110), "away_odds": getattr(x, "away_odds", -110),
             "over_odds": x.over_odds, "under_odds": x.under_odds,
@@ -86,6 +112,7 @@ def build_slate_frame(slate: pd.DataFrame, ratings) -> pd.DataFrame:
 # Error floors (points) = out-of-sample RMSE of the closing line itself in the
 # 2025-26 walk-forward test (margin 11.2, total 16.8). The model's in-sample
 # residuals understate uncertainty, so never price a bet tighter than this.
+USE_ML_LAYER = False
 SIGMA_FLOOR_MARGIN = 11.5
 SIGMA_FLOOR_TOTAL = 17.0
 
@@ -203,8 +230,66 @@ TOTAL_MAX_GAP = 5.0
 STRETCH_SLOPE, STRETCH_FROM, STRETCH_CAP = 0.10, 11.5, 1.7
 
 
-def early_margin_stretch(prior_games: float) -> float:
-    return float(min(1.0 + STRETCH_SLOPE * max(prior_games - STRETCH_FROM, 0.0), STRETCH_CAP))
+def _stretch_weight(prior_games) -> np.ndarray:
+    return np.maximum(np.asarray(prior_games, dtype=float) - STRETCH_FROM, 0.0)
+
+
+def early_margin_stretch(prior_games: float, slope: float = STRETCH_SLOPE) -> float:
+    return float(min(1.0 + slope * float(_stretch_weight(prior_games)), STRETCH_CAP))
+
+
+# Self-calibration: every run logs each untipped game's projection (strength
+# gap before the stretch, home-court points, starting-rating weight). Once
+# games finish, the stretch slope is re-fit on this season's results and
+# blended with last season's 0.10, weighted like STRETCH_PRIOR_GAMES games.
+PROJ_LOG = os.path.join(live.ROOT, "data", "history", "projections_{season}.csv")
+STRETCH_PRIOR_GAMES = 400
+
+
+def log_projections(preds: pd.DataFrame, season: int, prior_games: float, k: float) -> None:
+    if preds is None or preds.empty:
+        return
+    path = PROJ_LOG.format(season=season)
+    hca_pts = 2.0 * preds["custom_hca"].fillna(0.0) * preds["proj_poss"] / 100.0
+    new = pd.DataFrame({
+        "game_id": preds["game_id"].astype(str), "start": preds["start"].astype(str),
+        "home": preds["home"].astype(str), "away": preds["away"].astype(str),
+        "hca_pts": hca_pts.round(3), "strength0": (preds["pred_margin_raw"] - hca_pts).round(3),
+        "prior_games": round(prior_games, 3), "k": round(k, 4),
+        "pred_margin": preds["pred_margin"].round(2), "pred_total": preds["pred_total"].round(2),
+        "spread_home": preds["spread_home"], "total": preds["total"],
+        "logged_at": pd.Timestamp.now(tz="UTC").strftime("%Y-%m-%dT%H:%MZ")})
+    if os.path.exists(path):
+        old = pd.read_csv(path, dtype={"game_id": str})
+        # keep the last projection made before tip-off: replace only games that haven't started
+        now = pd.Timestamp.now(tz="UTC")
+        started = pd.to_datetime(old["start"], utc=True, errors="coerce") <= now
+        old = old[started | ~old["game_id"].isin(new["game_id"])]
+        new = pd.concat([old, new[~new["game_id"].isin(old["game_id"])]], ignore_index=True)
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    new.to_csv(path, index=False)
+
+
+def fitted_stretch_slope(season: int, games_raw: pd.DataFrame) -> tuple[float, int]:
+    """Slope c in actual strength = (1 + c*w) * projected strength, fit on this
+    season's finished games and shrunk toward last season's value."""
+    path = PROJ_LOG.format(season=season)
+    if not os.path.exists(path) or games_raw is None or games_raw.empty:
+        return STRETCH_SLOPE, 0
+    log = pd.read_csv(path, dtype={"game_id": str})
+    res = games_raw.dropna(subset=["home_score", "away_score"]).copy()
+    res["game_id"] = res["game_id"].astype(str)
+    d = log.merge(res[["game_id", "home_score", "away_score"]], on="game_id")
+    d["fw"] = _stretch_weight(d["prior_games"]) * d["strength0"]
+    d = d[d["fw"].abs() > 0]
+    if len(d) < 30:
+        return STRETCH_SLOPE, len(d)
+    actual = (d["home_score"] - d["away_score"]) - d["hca_pts"]
+    sxx = float((d["fw"] ** 2).sum())
+    c_obs = float(((actual - d["strength0"]) * d["fw"]).sum() / sxx)
+    n = len(d)
+    c = (STRETCH_PRIOR_GAMES * STRETCH_SLOPE + n * c_obs) / (STRETCH_PRIOR_GAMES + n)
+    return float(np.clip(c, 0.0, 0.25)), n
 
 
 def _cal_prob(gap_for_side: float, sigma: float) -> float:
@@ -326,8 +411,14 @@ def run(demo: bool = True, sheet_id: str | None = None):
         ctx = P.build_context(extra["season"], extra["prev_raw"], extra["cur_raw"],
                               extra["prev_long"], own_ratings, extra["weights"], ext_players,
                               roster_minutes=ps["roster_minutes"], prior_games=ps["prior_games"])
-    train = build_training_frame(games, ratings)
-    dual = M.DualModel.train(train, FEATURES)
+    # The ML layer (DualModel) was never backtested; every calibration on the
+    # card (early-season stretch, staking probabilities, point thresholds,
+    # home court) was fit on the ratings + lineup projection, so that is what
+    # gets priced. Set USE_ML_LAYER = True to go back.
+    dual = None
+    if USE_ML_LAYER or demo:
+        train = build_training_frame(games, ratings)
+        dual = M.DualModel.train(train, FEATURES)
 
     # --- today's slate ---
     if demo:
@@ -370,16 +461,28 @@ def run(demo: bool = True, sheet_id: str | None = None):
     if slate.empty:
         card = pd.DataFrame()
     else:
-        slate_feat = build_slate_frame(slate, ratings)
-        preds = dual.predict(slate_feat)
+        conf_hca = ps.get("conf_hca") if ps else None
+        slate_feat = build_slate_frame(slate, ratings, conf_hca)
+        if dual is not None:
+            preds = dual.predict(slate_feat)
+        else:
+            preds = slate_feat.copy()
+            preds["pred_margin"], preds["pred_total"] = preds["proj_margin"], preds["proj_total"]
+            preds["sigma_margin"], preds["sigma_total"] = SIGMA_FLOOR_MARGIN, SIGMA_FLOOR_TOTAL
+        preds["pred_margin_raw"] = preds["pred_margin"]
+        k = 1.0
         if ps is not None:
-            k = early_margin_stretch(ps["prior_games"])
+            slope, n_fit = fitted_stretch_slope(extra["season"], extra["cur_raw"])
+            k = early_margin_stretch(ps["prior_games"], slope)
+            print(f"[calibration] stretch slope {slope:.3f} ({n_fit} finished games this season)")
             if k != 1.0:
                 # stretch the strength gap, not home court
                 hca_pts = 2.0 * preds["custom_hca"].fillna(0.0) * preds["proj_poss"] / 100.0
                 preds["pred_margin"] = hca_pts + k * (preds["pred_margin"] - hca_pts)
                 print(f"[calibration] early-season margin stretch x{k:.2f} "
                       f"(starting rating worth {ps['prior_games']:.1f} games)")
+        if ps is not None:
+            log_projections(preds, extra["season"], ps["prior_games"], k)
         if ctx is not None:
             preds = apply_lineups(preds, ctx, names)
         card = make_card(preds, cal_plays=cal_plays)
