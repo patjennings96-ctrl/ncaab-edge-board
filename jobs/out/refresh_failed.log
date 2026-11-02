@@ -1,0 +1,32 @@
+[players 2026] 6300 games cached, fetching 0
+[players 2027] 0 games cached, fetching 0
+[ratings] season 2027: 0 games this season, 6298 last season at weight 0.50
+[preseason] 361 rosters, avg returning minutes 49%, starting rating worth 25.0 games
+[external] KenPom paste: 365 teams
+[external] 3 school names unmatched: Lindenwood, Queens, Southern Indiana
+[external] kenpom teams: 362 matched of 365
+[players] 0 rated this season, 0 with a report status
+[names] 13 sportsbook names unmatched -> /home/runner/work/ncaab-edge-board/ncaab-edge-board/data/unmatched_teams.csv
+[slate] 1225 untipped games through 2027-03-06, 137 with odds, 107 matched
+[external] 3 school names unmatched: Lindenwood, Queens, Southern Indiana
+[external] kenpom teams: 362 matched of 365
+[cal] 107 games priced, 35 ATS plays, 1 total plays (Model 2: KenPom (362 teams))
+Traceback (most recent call last):
+  File "/home/runner/work/ncaab-edge-board/ncaab-edge-board/src/run_daily.py", line 491, in <module>
+    run(demo=not args.live, sheet_id=args.sheet_id)
+  File "/home/runner/work/ncaab-edge-board/ncaab-edge-board/src/run_daily.py", line 361, in run
+    card = make_card(preds, cal_plays=cal_plays)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/ncaab-edge-board/ncaab-edge-board/src/run_daily.py", line 223, in make_card
+    sp = recommend_spread(row.pred_margin, sig, row.spread_home,
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/ncaab-edge-board/ncaab-edge-board/src/edge.py", line 128, in recommend_spread
+    stake = min(kelly_mult * kelly_fraction(p, odds) * 100.0, max_stake)
+                             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/ncaab-edge-board/ncaab-edge-board/src/edge.py", line 75, in kelly_fraction
+    b = american_to_decimal(american_odds) - 1.0
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/work/ncaab-edge-board/ncaab-edge-board/src/edge.py", line 34, in american_to_decimal
+    return 1.0 + (american / 100.0 if american > 0 else 100.0 / abs(american))
+                                                        ~~~~~~^~~~~~~~~~~~~~~
+ZeroDivisionError: float division by zero
