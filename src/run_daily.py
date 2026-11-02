@@ -412,7 +412,8 @@ def run(demo: bool = True, sheet_id: str | None = None):
         ext_players = X.load_player_sources(names, roster) if not roster.empty else None
         ctx = P.build_context(extra["season"], extra["prev_raw"], extra["cur_raw"],
                               extra["prev_long"], own_ratings, extra["weights"], ext_players,
-                              roster_minutes=ps["roster_minutes"], prior_games=ps["prior_games"])
+                              roster_minutes=ps["roster_minutes"], prior_games=ps["prior_games"],
+                              freshmen=ps.get("freshmen"))
     # The ML layer (DualModel) was never backtested; every calibration on the
     # card (early-season stretch, staking probabilities, point thresholds,
     # home court) was fit on the ratings + lineup projection, so that is what

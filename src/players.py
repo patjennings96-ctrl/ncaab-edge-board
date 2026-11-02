@@ -552,7 +552,8 @@ def cached_return_rates(prev_pg: pd.DataFrame, prev_season: int) -> dict:
 
 def build_context(season: int, prev_raw, cur_raw, prev_long, team_ratings,
                   game_weights: pd.Series, external_players: pd.DataFrame | None = None,
-                  roster_minutes: dict | None = None, prior_games: float = 0.0) -> dict:
+                  roster_minutes: dict | None = None, prior_games: float = 0.0,
+                  freshmen: pd.DataFrame | None = None) -> dict:
     """Player ratings, baselines, return rates and current statuses for the live run."""
     import ratings as R
     prev_pg, cur_pg = load_player_games(season - 1), load_player_games(season)
@@ -561,11 +562,21 @@ def build_context(season: int, prev_raw, cur_raw, prev_long, team_ratings,
     pl = prev_long[prev_long.team.isin(d1p) & prev_long.opp.isin(d1p)]
     prior = player_ratings(prev_pg[prev_pg.team_id.isin(d1p)], prev_raw,
                            R.fit_adjusted_ratings(pl, alpha=3.0)) if not prev_pg.empty else None
+    if freshmen is not None and not freshmen.empty and prior is not None:
+        # ranked freshmen are shrunk toward their recruit value, not replacement
+        # (player_ratings regresses the prior by 0.67, so undo that here)
+        fr = freshmen[~freshmen.index.isin(prior.index)][["o", "d"]] / 0.67
+        prior = pd.concat([prior, fr.assign(name="", team_id="", minutes=0.0, games=0,
+                                            rating=fr["o"] + fr["d"])])
     cur = player_ratings(cur_pg, cur_raw, team_ratings, prior=prior) if not cur_pg.empty else \
         pd.DataFrame(columns=["name", "team_id", "minutes", "games", "o", "d", "rating"])
     if external_players is not None and not external_players.empty:
         cur = blend_external(cur, external_players)
     allr = pd.concat([prior[~prior.index.isin(cur.index)], cur]) if prior is not None else cur
+    if freshmen is not None and not freshmen.empty:
+        idx = freshmen.index[freshmen.index.isin(allr.index) & ~freshmen.index.isin(cur.index)]
+        allr.loc[idx, ["o", "d"]] = freshmen.loc[idx, ["o", "d"]].values   # not yet played: recruit value
+        allr.loc[idx, "rating"] = allr.loc[idx, "o"] + allr.loc[idx, "d"]
     if roster_minutes:
         # Ratings come from this season's games plus a roster-based starting
         # rating, so the baseline is this season's lineups plus the projected

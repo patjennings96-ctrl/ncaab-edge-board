@@ -128,14 +128,69 @@ def last_season_players(prev_pg: pd.DataFrame, prev_raw: pd.DataFrame, prev_rati
     return pr
 
 
-def roster_strength(roster: pd.DataFrame, last_players: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
+# -----------------------------------------------------------------------------
+# Freshmen: value by 247Sports Composite rank
+# -----------------------------------------------------------------------------
+# Every newcomer without a D-I record used to start at the replacement rating
+# and 8 minutes. Calibrated on the 2025 class's freshman season (2025-26 box
+# scores), a ranked recruit's first-year rating and minutes fall off with the
+# log of his rank: rank 1 ~ +9 (o +6, d +3) and 30+ minutes, rank 10 ~ +4.3 and
+# 22, rank 50 ~ +1.0 and 14, rank 150 ~ -1.3 and 8. Each season the curve is
+# re-fit on the previous class (its recruit file plus last season's ratings)
+# and applied to the incoming class.
+FRESH_MAX_MPG = 32.0
+
+
+def fit_freshman_curve(class_df: pd.DataFrame, last_players_raw: pd.DataFrame,
+                       team_games: pd.Series) -> dict | None:
+    """class_df: a recruiting class matched to player_ids (recruits.match_players).
+    last_players_raw: that class's freshman-season ratings (unregressed)."""
+    if class_df is None or class_df.empty or "player_id" not in class_df:
+        return None
+    m = class_df.dropna(subset=["player_id"]).merge(
+        last_players_raw[["o", "d", "minutes"]], left_on="player_id", right_index=True, how="left")
+    if len(m) < 40:
+        return None
+    m["mpg_team"] = (m["minutes"] / m["team_id"].map(team_games)).fillna(0.0)
+    lr = np.log(m["rank"].astype(float))
+    fit = {}
+    for col in ("o", "d", "mpg_team"):
+        y = m[col].fillna(m[col].mean() if col != "mpg_team" else 0.0)
+        b = np.polyfit(lr, y, 1)
+        fit[col] = (float(b[1]), float(b[0]))          # intercept, slope on ln(rank)
+    fit["n"] = int(len(m))
+    return fit
+
+
+def freshman_values(class_df: pd.DataFrame, curve: dict) -> pd.DataFrame:
+    """player_id -> o, d, mpg for a matched incoming class."""
+    if curve is None or class_df is None or class_df.empty:
+        return pd.DataFrame(columns=["o", "d", "mpg"])
+    c = class_df.dropna(subset=["player_id"]).copy()
+    lr = np.log(c["rank"].astype(float))
+    out = pd.DataFrame(index=c["player_id"].astype(str))
+    rep_o, rep_d = P.REPLACEMENT * 0.6, P.REPLACEMENT * 0.4
+    out["o"] = np.maximum((curve["o"][0] + curve["o"][1] * lr).values, rep_o)
+    out["d"] = np.maximum((curve["d"][0] + curve["d"][1] * lr).values, rep_d)
+    out["mpg"] = np.clip((curve["mpg_team"][0] + curve["mpg_team"][1] * lr).values, NEW_MPG, FRESH_MAX_MPG)
+    return out[~out.index.duplicated()]
+
+
+def roster_strength(roster: pd.DataFrame, last_players: pd.DataFrame,
+                    freshmen: pd.DataFrame | None = None) -> tuple[pd.DataFrame, dict]:
     """
     Per team: roster O/D strength (points per 100 vs average), share of
     projected minutes from returning players, and the projected minutes
-    (player_id -> minutes) used as the lineup baseline.
+    (player_id -> minutes) used as the lineup baseline. `freshmen`: ranked
+    recruits' expected first-year o, d and minutes (freshman_values).
     """
     r = roster.merge(last_players[["team_id", "o", "d", "mpg"]].rename(columns={"team_id": "team_last"}),
                      left_on="player_id", right_index=True, how="left")
+    if freshmen is not None and not freshmen.empty:
+        f = freshmen.reindex(r["player_id"].astype(str))
+        new = r["mpg"].isna().values & f["mpg"].notna().values
+        for col in ("o", "d", "mpg"):
+            r.loc[new, col] = f[col].values[new]
     r["mpg"] = r["mpg"].fillna(NEW_MPG).clip(upper=MAX_MPG)
     rows, minutes = [], {}
     for t, g in r.groupby("team_id"):
@@ -241,6 +296,44 @@ def conference_hca(prev_long: pd.DataFrame, cur_long: pd.DataFrame | None = None
     return float(h_prev)
 
 
+def incoming_freshmen(season: int, roster: pd.DataFrame, cur_pg: pd.DataFrame,
+                      prev_pg: pd.DataFrame, lastp: pd.DataFrame | None) -> pd.DataFrame | None:
+    """Expected o, d, minutes for this season's ranked freshmen. The class that
+    enrolls for season S is 247's class of S-1; the curve is fit on the class
+    of S-2 using its freshman season (last season's ratings)."""
+    import recruits as RC
+    if lastp is None or lastp.empty:
+        return None
+    try:
+        prev_class, new_class = RC.load(season - 2), RC.load(season - 1)
+        if prev_class.empty or new_class.empty:
+            print("[freshmen] recruit files missing; freshmen use the default rating")
+            return None
+        names = []
+        if os.path.exists(roster_path(season)):
+            names.append(pd.read_csv(roster_path(season), dtype=str)[["player_id", "name", "team_id"]])
+        if cur_pg is not None and not cur_pg.empty:
+            names.append(cur_pg[["player_id", "name", "team_id"]].astype(str))
+        people_now = pd.concat(names).drop_duplicates("player_id", keep="last") if names else pd.DataFrame()
+        people_prev = prev_pg.sort_values("date").drop_duplicates("player_id", keep="last")[
+            ["player_id", "name", "team_id"]].astype(str)
+        raw = lastp.copy()
+        raw["o"], raw["d"] = raw["o"] / PLAYER_REGRESS, raw["d"] / PLAYER_REGRESS
+        curve = fit_freshman_curve(RC.match_players(prev_class, people_prev), raw,
+                                   prev_pg.groupby("team_id")["game_id"].nunique())
+        fresh = freshman_values(RC.match_players(new_class, people_now), curve)
+        # only players with no D-I record last season count as freshmen here
+        fresh = fresh[~fresh.index.isin(lastp.index.astype(str))]
+        if curve:
+            print(f"[freshmen] curve from {curve['n']} players of the {season - 2} class; "
+                  f"{len(fresh)} ranked freshmen valued (rank 1: {curve['o'][0] + curve['d'][0]:+.1f}, "
+                  f"rank 50: {curve['o'][0] + curve['d'][0] + (curve['o'][1] + curve['d'][1]) * np.log(50):+.1f})")
+        return fresh
+    except Exception as exc:                       # never block the daily run
+        print(f"[freshmen] skipped: {exc}")
+        return None
+
+
 def build(season: int, prev_raw, cur_raw, prev_pg, cur_pg, d1: set):
     """Everything the daily run needs: ratings, start ratings, roster minutes."""
     prev_long = R.add_tempo_efficiency(live.to_long(prev_raw))
@@ -251,8 +344,9 @@ def build(season: int, prev_raw, cur_raw, prev_pg, cur_pg, d1: set):
     lastp = last_season_players(prev_pg[prev_pg.team_id.isin(d1)], prev_raw, prev_ratings) \
         if not prev_pg.empty else None
     roster = load_roster(season, cur_pg)
+    fresh = incoming_freshmen(season, roster, cur_pg, prev_pg, lastp)
     if lastp is not None and not roster.empty:
-        rstr, minutes = roster_strength(roster[roster.team_id.isin(d1)], lastp)
+        rstr, minutes = roster_strength(roster[roster.team_id.isin(d1)], lastp, fresh)
     else:
         rstr, minutes = pd.DataFrame(columns=["so", "sd", "ret_min"]), {}
     start = starting_ratings(prev_ratings, rstr, sorted(d1))
@@ -263,4 +357,5 @@ def build(season: int, prev_raw, cur_raw, prev_pg, cur_pg, d1: set):
     conf_hca = conference_hca(prev_long, cur_long)
     print(f"[preseason] home court per side per 100: Nov-Dec {ratings.hca:.2f}, conference season {conf_hca:.2f}")
     return {"ratings": ratings, "start": start, "roster_strength": rstr, "conf_hca": conf_hca,
+            "freshmen": fresh,
             "roster_minutes": minutes, "prior_games": ratings.prior_games}
