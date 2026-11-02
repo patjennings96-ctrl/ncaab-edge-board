@@ -31,7 +31,10 @@ STANDARD_VIG_ODDS = -110
 
 # ---- odds conversions --------------------------------------------------------
 def american_to_decimal(american: float) -> float:
-    return 1.0 + (american / 100.0 if american > 0 else 100.0 / abs(american))
+    a = float(american)
+    if abs(a) < 100:            # not a valid American price; treat as even money
+        a = 100.0
+    return 1.0 + (a / 100.0 if a > 0 else 100.0 / abs(a))
 
 
 def american_to_prob(american: float) -> float:

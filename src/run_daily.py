@@ -191,6 +191,21 @@ TOTAL_FLAT_UNITS = 1.0
 TOTAL_MAX_GAP = 5.0
 
 
+# Early-season margin calibration. While the roster-based starting rating
+# still carries a lot of weight, projected margins are too compressed: in the
+# 2025-26 backtest actual margins ran 1.25-1.43x the projection in Nov-Dec
+# (the market's margins matched results), and ~1.0x from January. Stretch the
+# margin by a factor that fades with the starting rating's weight (in games):
+#   k = min(1 + 0.075 * max(weight - 11.5, 0), 1.7)
+# 25 games (preseason) -> 1.7, 17.6 -> 1.46, 13 -> 1.11, under 11.5 -> 1.0.
+# Backtest margin RMSE: Nov 13.57 -> 13.14, Dec 12.71 -> 12.39, Jan-Mar unchanged.
+STRETCH_SLOPE, STRETCH_FROM, STRETCH_CAP = 0.075, 11.5, 1.7
+
+
+def early_margin_stretch(prior_games: float) -> float:
+    return float(min(1.0 + STRETCH_SLOPE * max(prior_games - STRETCH_FROM, 0.0), STRETCH_CAP))
+
+
 def _cal_prob(gap_for_side: float, sigma: float) -> float:
     """Calibrated win probability for the picked side, given its gap in points."""
     from scipy.stats import norm
@@ -356,6 +371,12 @@ def run(demo: bool = True, sheet_id: str | None = None):
     else:
         slate_feat = build_slate_frame(slate, ratings)
         preds = dual.predict(slate_feat)
+        if ps is not None:
+            k = early_margin_stretch(ps["prior_games"])
+            if k != 1.0:
+                preds["pred_margin"] = preds["pred_margin"] * k
+                print(f"[calibration] early-season margin stretch x{k:.2f} "
+                      f"(starting rating worth {ps['prior_games']:.1f} games)")
         if ctx is not None:
             preds = apply_lineups(preds, ctx, names)
         card = make_card(preds, cal_plays=cal_plays)

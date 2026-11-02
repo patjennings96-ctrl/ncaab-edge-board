@@ -380,6 +380,12 @@ def normalize_price(price, book_key: str) -> int | None:
     return int(round(x))
 
 
+def _median_price(prices: list) -> int:
+    if not prices:
+        return -110
+    return prob_to_american(float(np.median([american_to_prob(p) for p in prices])))
+
+
 def fetch_odds(api_key: str) -> pd.DataFrame:
     """
     For each game: the consensus (median) spread and total across the
@@ -427,11 +433,13 @@ def fetch_odds(api_key: str) -> pd.DataFrame:
             "odds_id": ev["id"], "commence": ev["commence_time"],
             "home_name_odds": home, "away_name_odds": away,
             "spread_home": float(np.median(sp)) if sp else np.nan,
-            "home_odds": int(np.median(sp_px_h)) if sp_px_h else -110,
-            "away_odds": int(np.median(sp_px_a)) if sp_px_a else -110,
+            # American odds don't average (the median of -105 and +100 is -2.5):
+            # take the median implied probability and convert back
+            "home_odds": _median_price(sp_px_h),
+            "away_odds": _median_price(sp_px_a),
             "total": float(np.median(tot)) if tot else np.nan,
-            "over_odds": int(np.median(px_o)) if px_o else -110,
-            "under_odds": int(np.median(px_u)) if px_u else -110,
+            "over_odds": _median_price(px_o),
+            "under_odds": _median_price(px_u),
             "n_books": n_books,
         }
         # drop quotes far from the sportsbook consensus (stale or thin markets);
