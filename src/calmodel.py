@@ -390,7 +390,8 @@ def grade_log(games_raw: pd.DataFrame) -> None:
         g = res.loc[r["game_id"]]
         if pd.isna(g["home_score"]):
             continue
-        u = grade(r["play"], r["line"], r["total_line"], g["home_score"], g["away_score"])
+        hs, as_ = live.oriented_scores(g, r["home"], r["away"])
+        u = grade(r["play"], r["line"], r["total_line"], hs, as_)
         if u is not None:
             log.at[i, "units"] = str(u)
     log.to_csv(CAL_LOG, index=False)

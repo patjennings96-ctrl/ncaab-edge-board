@@ -393,8 +393,8 @@ async function fetchLive(){
       const j = await r.json();
       for (const e of j.events || []) {
         const c = e.competitions[0], st = c.status.type;
-        const t = {}, ab = {}; c.competitors.forEach(x => { t[x.homeAway] = +x.score || 0; ab[x.homeAway] = (x.team && x.team.abbreviation) || ""; });
-        out[e.id] = {state: st.state, detail: st.shortDetail, home: t.home, away: t.away, ha: ab.home, aa: ab.away};
+        const t = {}, ab = {}, nm = {}; c.competitors.forEach(x => { t[x.homeAway] = +x.score || 0; ab[x.homeAway] = (x.team && x.team.abbreviation) || ""; nm[x.homeAway] = (x.team && x.team.displayName) || ""; });
+        out[e.id] = {state: st.state, detail: st.shortDetail, home: t.home, away: t.away, ha: ab.home, aa: ab.away, hn: nm.home, an: nm.away};
       }
     } catch (err) { /* offline or blocked: show logged results only */ }
   }
@@ -405,8 +405,18 @@ function coverBy(mkt, sideHome, overSide, line, hs, as){
   if (mkt === "SPREAD" || mkt === "ATS") return (sideHome ? hs - as : as - hs) + line;
   const tot = hs + as; return overSide ? tot - line : line - tot;
 }
+// ESPN sometimes lists a neutral-site game the other way round from the books:
+// line the scores up with the play's own home/away teams by name.
+const nkey = s => String(s || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+function orient(L, homeName, awayName){
+  if (!L || !L.hn || !L.an) return L;
+  const h = nkey(homeName), a = nkey(awayName), eh = nkey(L.hn), ea = nkey(L.an);
+  if ((h === ea || a === eh) && !(h === eh || a === ea))
+    return {...L, home: L.away, away: L.home, ha: L.aa, aa: L.ha, hn: L.an, an: L.hn};
+  return L;
+}
 function statusLine(gid, mkt, sideHome, overSide, line, homeName, awayName, logged){
-  const L = LIVE[String(gid)];
+  const L = orient(LIVE[String(gid)], homeName, awayName);
   if (L && L.state === "in") {
     const c = coverBy(mkt, sideHome, overSide, line, L.home, L.away);
     const word = mkt === "TOTAL" ? (c > 0 ? "ahead of the number" : (c < 0 ? "behind the number" : "on the number")) : (c > 0 ? "covering" : (c < 0 ? "not covering" : "on the number"));

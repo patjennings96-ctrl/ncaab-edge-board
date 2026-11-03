@@ -163,9 +163,30 @@ def recent_finals(days: int = 2) -> pd.DataFrame:
         for e in espn_scoreboard(today - timedelta(days=k)):
             if e["completed"] and e["home_score"] is not None and e["away_score"] is not None:
                 rows.append({"game_id": str(e["game_id"]), "home_score": e["home_score"],
-                             "away_score": e["away_score"]})
+                             "away_score": e["away_score"], "home_name": e["home_name"],
+                             "away_name": e["away_name"]})
     return pd.DataFrame(rows).drop_duplicates("game_id") if rows else pd.DataFrame(
-        columns=["game_id", "home_score", "away_score"])
+        columns=["game_id", "home_score", "away_score", "home_name", "away_name"])
+
+
+def _norm(name) -> str:
+    return re.sub(r"[^a-z0-9]", "", str(name or "").lower())
+
+
+def oriented_scores(g, home: str, away: str) -> tuple[float, float]:
+    """(score of `home`, score of `away`) for a logged play.
+
+    ESPN and the sportsbooks sometimes list a neutral-site game the other way
+    round, so a play's "home" team is not always ESPN's home team. Match by
+    team name and swap when the play's teams are reversed."""
+    hs, as_ = float(g["home_score"]), float(g["away_score"])
+    gh, ga = _norm(g.get("home_name", "")), _norm(g.get("away_name", ""))
+    h, a = _norm(home), _norm(away)
+    if not gh or not ga:
+        return hs, as_
+    if (h == ga or a == gh) and not (h == gh or a == ga):
+        return as_, hs
+    return hs, as_
 
 
 def update_games(season: int, workers: int = 8, verbose: bool = True) -> pd.DataFrame:

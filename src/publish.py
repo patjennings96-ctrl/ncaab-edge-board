@@ -17,6 +17,8 @@ from datetime import datetime, timezone
 import numpy as np
 import pandas as pd
 
+import live
+
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 JSON_PATH = os.path.join(ROOT, "docs", "data", "plays.json")
 LOG_PATH = os.path.join(ROOT, "data", "history", "card_log.csv")
@@ -130,8 +132,8 @@ def update_clv(closes: pd.DataFrame, games_raw: pd.DataFrame) -> None:
             g = res.loc[gid]
             if pd.isna(g["home_score"]):
                 continue
-            margin = float(g["home_score"]) - float(g["away_score"])
-            total = float(g["home_score"]) + float(g["away_score"])
+            hs, as_ = live.oriented_scores(g, r["home"], r["away"])
+            margin, total = hs - as_, hs + as_
             if r["mkt"] == "SPREAD":
                 m = margin if r["side_code"] == "HOME" else -margin
                 x = m + float(r["line"])
