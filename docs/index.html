@@ -59,6 +59,19 @@ nav a:focus-visible,.seg button:focus-visible{outline:2px solid var(--accent);ou
 .phase:not(.live) strong{color:var(--warn)}
 #updated{font-size:.85rem}
 
+/* jump tabs */
+.tabs{position:sticky;top:0;z-index:20;margin:-20px -16px;padding:10px 16px;background:color-mix(in srgb, var(--bg) 92%, transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.tabs ul{list-style:none;margin:0;padding:0;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.tabs ul::-webkit-scrollbar{display:none}
+.tabs a{display:block;white-space:nowrap;font-family:var(--mono);font-size:.78rem;text-decoration:none;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:5px 12px;background:var(--surface)}
+.tabs a:hover{color:var(--ink);border-color:var(--ink)}
+.tabs a.on{color:var(--bg);background:var(--ink);border-color:var(--ink)}
+.tabs a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tabs .n{opacity:.7;margin-left:4px}
+section,.model{scroll-margin-top:64px}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
 /* plays */
 .agree-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
 .agree-card{background:var(--court);color:var(--bg);border-radius:6px;padding:12px 14px;display:flex;flex-direction:column;gap:2px}
@@ -143,26 +156,39 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
   <p class="muted" id="updated">Loading…</p>
 </header>
 
+<nav class="tabs" aria-label="Sections">
+  <ul>
+    <li id="tab-agree" hidden><a href="#agree-sec">Both agree<span class="n" id="tab-agree-n"></span></a></li>
+    <li><a href="#edge-sec">Edge plays<span class="n" id="tab-edge-n"></span></a></li>
+    <li><a href="#cal-sec">Cal's plays<span class="n" id="tab-cal-n"></span></a></li>
+    <li><a href="#slate-sec">All games</a></li>
+    <li><a href="#record-sec">Record</a></li>
+    <li><a href="#check-sec">Model check</a></li>
+    <li><a href="#results-sec">Results</a></li>
+    <li><a href="#rules-sec">Rules</a></li>
+  </ul>
+</nav>
+
 <section id="agree-sec" hidden>
   <div class="sec-head"><h2>Both models agree</h2><span class="muted mono" id="agree-n"></span></div>
   <div class="agree-list" id="agree"></div>
 </section>
 
-<section>
+<section id="plays-sec">
   <div class="sec-head"><h2>Upcoming plays</h2><span class="muted mono" id="plays-n"></span></div>
   <div class="cols">
-    <div class="model">
+    <div class="model" id="edge-sec">
       <div class="model-head"><h3>Edge Board</h3><a href="edge/">How it works →</a></div>
       <div id="edge-plays"><div class="empty">Loading…</div></div>
     </div>
-    <div class="model">
+    <div class="model" id="cal-sec">
       <div class="model-head"><h3>Cal's model</h3><a href="cal/">Full slate →</a></div>
       <div id="cal-plays"><div class="empty">Loading…</div></div>
     </div>
   </div>
 </section>
 
-<section>
+<section id="slate-sec">
   <div class="sec-head"><h2>All games with lines</h2><span class="muted mono" id="slate-n"></span></div>
   <p class="muted">Every game the books have priced, run through both models, whether or not it's a play. Spreads and margins are from the home team's side (−4.5 = home favored by 4.5). Highlighted numbers are plays.</p>
   <div class="table-wrap"><table class="slate">
@@ -171,7 +197,7 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
   </table></div>
 </section>
 
-<section>
+<section id="record-sec">
   <div class="sec-head"><h2>Season record</h2><span class="muted mono" id="rec-since"></span></div>
   <div class="rec-label">Edge Board · staked plays</div>
   <div class="rec-grid" id="edge-rec"></div>
@@ -181,13 +207,13 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
   <div class="rec-grid" id="cal-rec"></div>
 </section>
 
-<section>
+<section id="check-sec">
   <div class="sec-head"><h2>Model check</h2><span class="muted mono">all graded plays, staked and tracked</span></div>
   <p class="muted">Are bigger gaps winning more, and are the win probabilities used for staking holding up? "Expected" is the calibrated probability the stakes are based on. "Last season" is the 2025–26 backtest, Jan 1 – Mar 8. Watch for a bucket running well below its expected rate over 100+ plays.</p>
   <div class="cols" id="check"></div>
 </section>
 
-<section>
+<section id="results-sec">
   <div class="sec-head">
     <h2>Recent results</h2>
     <div class="seg" role="group" aria-label="Model">
@@ -201,7 +227,7 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
   </table></div>
 </section>
 
-<section>
+<section id="rules-sec">
   <div class="sec-head"><h2>Rules</h2></div>
   <div class="rules">
     <div>
@@ -211,6 +237,7 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
         <li>Books shopped: DraftKings, FanDuel, theScore Bet, BetMGM, Bally Bet, Hard Rock, BetRivers, Kalshi and Polymarket (prediction-market prices converted to American odds, Kalshi's fee included). The best book is the one with the highest expected value, weighing line and price together.</li>
         <li>Every play risks enough to win 1u at the price taken: 1.1u at −110, 1.05u at −105, 1u at even money.</li>
         <li><strong>Tracking only for now:</strong> Edge Board plays are posted and graded, not staked. When staking is turned on, it runs Jan 1 – Mar 8 only.</li>
+        <li>Spreads of 15+ points are tracked, not bet.</li>
         <li>Totals more than 5 points off the market are tracked, not bet, even then: last season those lost.</li>
         <li>Totals that Cal's model also picks are sized to win 1.5u (1.65u at −110), graded that way while tracking.</li>
         <li id="sizing-rule">Spread sizing: flat to win 1u. From Dec 1, spreads switch to ¼ Kelly on the calibrated win probability (cap 3u) if 300+ graded plays have won at the rate the model predicted.</li>
@@ -231,7 +258,7 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
       <ul>
         <li>Morning run at 5:15 AM Arizona time: new results, ratings, injuries, today's slate.</li>
         <li>Lines re-priced at 9:15 AM, 12:15, 3:15 and 5:15 PM, and whenever new injury news is logged.</li>
-        <li>Results and closing-line value are graded automatically after games finish.</li>
+        <li>Plays show live scores while games are on (refreshed every minute) and grade themselves when they end. The season record catches up within about 20 minutes, 10 AM – 12:40 AM.</li>
       </ul>
     </div>
   </div>
@@ -451,6 +478,8 @@ function renderPlays(){
 
   const agree = ep.filter(r => r.agree);
   document.getElementById("agree-sec").hidden = !agree.length;
+  document.getElementById("tab-agree").hidden = !agree.length;
+  document.getElementById("tab-agree-n").textContent = agree.length || "";
   document.getElementById("agree-n").textContent = agree.length ? `${agree.length} play${agree.length>1?"s":""}` : "";
   document.getElementById("agree").innerHTML = [...agree].sort((a,b) => new Date(a.start) - new Date(b.start)).map(r => {
     const L = r.best_line ?? r.line;
@@ -597,6 +626,30 @@ async function load(){
   if (ks) document.getElementById("sizing-rule").textContent = `Spread sizing: ${ks.mode === "kelly" ? "¼ Kelly on the calibrated win probability (cap 3u)" : "flat to win 1u"}. Kelly check (from Dec 1, 300+ graded plays must win at the predicted rate): ${ks.reason || "pending"}.`;
   renderPlays(); renderSlate(); renderRecord(); renderCheck(); renderResults();
   liveLoop();
+  tabCounts(); spy();
+}
+function tabCounts(){
+  const ep = ((EDGE && EDGE.plays) || []).length, cp = ((CAL && CAL.games) || []).flatMap(calPicks).length;
+  document.getElementById("tab-edge-n").textContent = ep || "";
+  document.getElementById("tab-cal-n").textContent = cp || "";
+}
+let spyOn = false;
+function spy(){
+  if (spyOn || !("IntersectionObserver" in window)) return; spyOn = true;
+  const links = [...document.querySelectorAll(".tabs a")];
+  const byId = Object.fromEntries(links.map(a => [a.getAttribute("href").slice(1), a]));
+  const seen = new Map();
+  const io = new IntersectionObserver(es => {
+    es.forEach(e => seen.set(e.target.id, e.isIntersecting ? e.boundingClientRect.top : null));
+    const vis = [...seen].filter(([, t]) => t !== null).sort((a, b) => a[1] - b[1]);
+    links.forEach(a => a.classList.remove("on"));
+    if (vis.length && byId[vis[0][0]]) {
+      const a = byId[vis[0][0]]; a.classList.add("on");
+      const ul = a.closest("ul"), li = a.parentElement;
+      if (li.offsetLeft < ul.scrollLeft || li.offsetLeft + li.offsetWidth > ul.scrollLeft + ul.clientWidth) ul.scrollLeft = li.offsetLeft - 16;
+    }
+  }, {rootMargin: "-70px 0px -55% 0px"});
+  Object.keys(byId).forEach(id => { const el = document.getElementById(id); if (el) io.observe(el); });
 }
 load();
 </script>
