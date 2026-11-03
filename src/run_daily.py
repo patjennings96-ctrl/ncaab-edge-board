@@ -225,6 +225,70 @@ TOTAL_FLAT_UNITS = 1.0
 TO_WIN_UNITS = 1.0
 EDGE_TRACKING_ONLY = True
 
+# Kelly switch (Pat, Nov 2): after the first month, spreads move from flat
+# to quarter Kelly on the calibrated probabilities (cap 3u) IF the win rates
+# have matched those probabilities. Checked every run from KELLY_FROM; it
+# switches back to flat whenever the test stops passing. Totals stay flat.
+KELLY_FROM = (12, 1)            # (month, day), Eastern
+KELLY_MIN_PLAYS = 300
+KELLY_MIN_BUCKET = 75
+KELLY_BUCKETS = (2, 3, 4, 5, 99)
+
+
+def kelly_check(today=None) -> dict:
+    """Is the Edge Board's spread win rate tracking its calibrated probability?"""
+    import publish
+    out = {"ready": False, "mode": "flat", "reason": ""}
+    now = pd.Timestamp(today) if today is not None else pd.Timestamp.now(tz="America/New_York")
+    in_season_after = (now.month, now.day) >= KELLY_FROM or now.month <= 4
+    if not in_season_after:
+        out["reason"] = f"Kelly check starts {KELLY_FROM[0]}/{KELLY_FROM[1]}"
+        return out
+    if not os.path.exists(publish.LOG_PATH):
+        out["reason"] = "no graded plays yet"
+        return out
+    log = pd.read_csv(publish.LOG_PATH, dtype={"game_id": str})
+    log = log[(log["posted_at"].astype(str) >= publish._season_start()) & (log["mkt"] == "SPREAD")
+              & log["result"].astype(str).isin(["W", "L"])]
+    if "p" not in log or "gap" not in log:
+        out["reason"] = "log has no probabilities yet"
+        return out
+    p = pd.to_numeric(log["p"], errors="coerce"); gap = pd.to_numeric(log["gap"], errors="coerce")
+    ok = p.notna() & gap.notna()
+    log, p, gap = log[ok], p[ok], gap[ok]
+    win = (log["result"] == "W").astype(float)
+    n = len(log)
+    out.update({"plays": n})
+    if n < KELLY_MIN_PLAYS:
+        out["reason"] = f"{n} graded spread plays; needs {KELLY_MIN_PLAYS}"
+        return out
+    exp, act = float(p.mean()), float(win.mean())
+    se = float(np.sqrt((p * (1 - p)).sum()) / n)
+    out.update({"expected": round(exp, 4), "actual": round(act, 4)})
+    if abs(act - exp) > 1.5 * se:
+        out["reason"] = f"win rate {act:.1%} vs expected {exp:.1%} (not close enough)"
+        return out
+    if act < 0.524:
+        out["reason"] = f"win rate {act:.1%} doesn't beat the 52.4% break-even"
+        return out
+    clv = pd.to_numeric(log.get("clv_points"), errors="coerce").dropna()
+    if len(clv) >= 100 and clv.mean() < 0:
+        out["reason"] = f"average closing-line value {clv.mean():+.2f} pts (needs to be positive)"
+        return out
+    for lo, hi in zip(KELLY_BUCKETS[:-1], KELLY_BUCKETS[1:]):
+        b = (gap >= lo) & (gap < hi)
+        if b.sum() >= KELLY_MIN_BUCKET:
+            e, a = float(p[b].mean()), float(win[b].mean())
+            s_ = float(np.sqrt((p[b] * (1 - p[b])).sum()) / b.sum())
+            if abs(a - e) > 2 * s_:
+                out["reason"] = f"gap {lo}-{hi if hi < 99 else '+'}: {a:.1%} vs expected {e:.1%}"
+                return out
+    # size by the share of the predicted edge that has actually shown up
+    scale = float(np.clip((act - 0.524) / max(exp - 0.524, 1e-6), 0.0, 1.0))
+    out.update({"ready": True, "mode": "kelly", "edge_scale": round(scale, 2),
+                "reason": f"{n} plays: {act:.1%} won vs {exp:.1%} expected; Kelly at {scale:.0%} of full"})
+    return out
+
 
 def to_win_risk(odds, to_win: float = TO_WIN_UNITS) -> float:
     """Units risked to win `to_win` at American odds."""
@@ -332,6 +396,8 @@ def make_card(pred_df: pd.DataFrame, kelly_mult=0.25, min_edge=0.025,
     from edge import kelly_fraction
     cal_plays = cal_plays or {}
     card = []
+    kc = kelly_check()
+    print(f"[sizing] spreads: {kc['mode']} ({kc['reason']})")
     for row in pred_df.itertuples(index=False):
         gid = str(getattr(row, "game_id", ""))
         start = getattr(row, "start", "")
@@ -362,10 +428,21 @@ def make_card(pred_df: pd.DataFrame, kelly_mult=0.25, min_edge=0.025,
                 r.update(_shop(row, sp.side, pf, kelly_mult, max_stake=MAX_STAKE_SPREAD))
                 r["play_to"] = play_to("SPREAD", sp.side, row.pred_margin, sig, MIN_POINTS_SPREAD, min_edge)
                 r["agree"] = cal.get("ATS", "") == sp.side
-                r["to_win"] = TO_WIN_UNITS
-                r["stake_units"] = to_win_risk(r.get("best_odds", sp.odds), r["to_win"])
+                if kc["ready"]:
+                    # quarter Kelly at the best book (from _shop), cap 3u
+                    from edge import american_to_decimal
+                    size = float(r["stake_units"]) * kc.get("edge_scale", 1.0)
+                    r["to_win"] = round(size * (american_to_decimal(r.get("best_odds", sp.odds)) - 1), 3)
+                    r["stake_units"] = round(size, 3)
+                else:
+                    r["to_win"] = TO_WIN_UNITS
+                    r["stake_units"] = to_win_risk(r.get("best_odds", sp.odds), r["to_win"])
+                r["sizing"] = kc["mode"]
+                kelly_zero = kc["ready"] and r["stake_units"] <= 0
                 r["reason"] = ""
-                if EDGE_TRACKING_ONLY:
+                if kelly_zero:
+                    r["stake_units"], r["to_win"], r["reason"] = 0.0, 0.0, "No edge at this price"
+                elif EDGE_TRACKING_ONLY:
                     r["stake_units"], r["reason"] = 0.0, "Tracking only"
                 elif not window:
                     r["stake_units"], r["reason"] = 0.0, "Outside betting window"
@@ -401,7 +478,7 @@ def make_card(pred_df: pd.DataFrame, kelly_mult=0.25, min_edge=0.025,
                 card.append(r)
     cols = ["game_id", "start", "home", "away", "mkt", "side", "line", "odds",
             "best_line", "best_odds", "best_book", "proj_margin", "proj_total",
-            "model_prob", "edge_pct", "stake_units", "to_win", "play_to", "gap", "agree", "reason", "notes", "quotes"]
+            "model_prob", "edge_pct", "stake_units", "to_win", "sizing", "play_to", "gap", "agree", "reason", "notes", "quotes"]
     df = pd.DataFrame(card)
     return df[[c for c in cols if c in df.columns]] if not df.empty else df
 
@@ -532,7 +609,7 @@ def run(demo: bool = True, sheet_id: str | None = None):
                 "cal_sigma_spread": CAL_SIGMA_SPREAD,
                 "min_points_spread": MIN_POINTS_SPREAD, "min_points_total": MIN_POINTS_TOTAL,
                 "bet_window": "Jan 1 - Mar 8", "staking": "risk to win 1u (1.5u on totals both models agree on)",
-                "edge_tracking_only": EDGE_TRACKING_ONLY}
+                "edge_tracking_only": EDGE_TRACKING_ONLY, "spread_sizing": kelly_check()}
     print("\nWrote", publish.write_json(card, mode, settings))
     print("Wrote", publish.write_slate(preds, priced, card, names))
     log = publish.append_log(card, mode)

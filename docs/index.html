@@ -208,6 +208,7 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
         <li><strong>Tracking only for now:</strong> Edge Board plays are posted and graded, not staked. When staking is turned on, it runs Jan 1 – Mar 8 only.</li>
         <li>Totals more than 5 points off the market are tracked, not bet, even then: last season those lost.</li>
         <li>Totals that Cal's model also picks are sized to win 1.5u (1.65u at −110), graded that way while tracking.</li>
+        <li id="sizing-rule">Spread sizing: flat to win 1u. From Dec 1, spreads switch to ¼ Kelly on the calibrated win probability (cap 3u) if 300+ graded plays have won at the rate the model predicted.</li>
         <li><strong>Play to</strong> is the worst line that still meets these rules at −110. Past it, pass.</li>
       </ul>
     </div>
@@ -502,6 +503,8 @@ async function load(){
     ? "Updated " + new Date(ts).toLocaleString("en-US", {weekday:"short", month:"short", day:"numeric", hour:"numeric", minute:"2-digit", timeZone:AZ}) + " MST"
       + (EDGE && EDGE.mode === "demo" ? " · demo data" : "")
     : "Couldn't load the latest plays.";
+  const ks = EDGE && EDGE.settings && EDGE.settings.spread_sizing;
+  if (ks) document.getElementById("sizing-rule").textContent = `Spread sizing: ${ks.mode === "kelly" ? "¼ Kelly on the calibrated win probability (cap 3u)" : "flat to win 1u"}. Kelly check (from Dec 1, 300+ graded plays must win at the predicted rate): ${ks.reason || "pending"}.`;
   renderPlays(); renderSlate(); renderRecord(); renderCheck(); renderResults();
 }
 load();
