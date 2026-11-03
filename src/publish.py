@@ -47,6 +47,7 @@ def card_to_records(card: pd.DataFrame) -> list[dict]:
             "agree": bool(r.get("agree", False)),
             "play_to": None if pd.isna(r.get("play_to", np.nan)) else float(r["play_to"]),
             "tracking": float(r["stake_units"]) == 0.0,
+            "to_win": float(r.get("to_win", 1.0) if pd.notna(r.get("to_win", 1.0)) else 1.0),
             "reason": str(r.get("reason", "") or ""),
             "gap": None if pd.isna(r.get("gap", np.nan)) else float(r["gap"]),
             "quotes": json.loads(r["quotes"]) if isinstance(r.get("quotes"), str) and r.get("quotes") else [],
@@ -173,7 +174,8 @@ def _summ(df: pd.DataFrame, units_col: str = "units") -> dict:
            "units": round(float(u.sum()), 2), "pending": int(len(df) - len(graded))}
     if units_col == "flat" and "odds" in df:
         o = pd.to_numeric(df.get("best_odds", df["odds"]), errors="coerce").fillna(pd.to_numeric(df["odds"], errors="coerce"))
-        risk = float((1.0 / o.loc[graded.index].map(_payout)).sum())
+        tw = df["to_win_n"].loc[graded.index] if "to_win_n" in df else 1.0
+        risk = float((tw / o.loc[graded.index].map(_payout)).sum())
         out["roi"] = round(out["units"] / risk, 4) if risk > 0 else None
     elif units_col != "units" or "risked" not in df:
         out["roi"] = round(out["units"] / len(graded), 4) if len(graded) else None
@@ -204,7 +206,9 @@ def edge_record(since: str) -> dict:
     # tracking plays (0u) are graded as a bet to win 1u (risk 1.1u at -110),
     # the same rule as staked plays and Cal's model
     risk1 = 1.0 / odds.map(_payout)
-    log["flat"] = np.where(res == "W", 1.0, np.where(res == "L", -risk1,
+    tw = pd.to_numeric(log.get("to_win", pd.Series(1.0, index=log.index)), errors="coerce").fillna(1.0)
+    log["to_win_n"] = tw
+    log["flat"] = np.where(res == "W", tw, np.where(res == "L", -risk1 * tw,
                   np.where(res == "P", 0.0, np.nan)))
     staked, tracking = log[log["stake"] > 0], log[log["stake"] <= 0]
     agree = log[log.get("agree", pd.Series(False, index=log.index)).astype(str).str.lower() == "true"]

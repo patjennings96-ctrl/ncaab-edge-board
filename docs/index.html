@@ -207,6 +207,7 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
         <li>Every play risks enough to win 1u at the price taken: 1.1u at −110, 1.05u at −105, 1u at even money.</li>
         <li><strong>Tracking only for now:</strong> Edge Board plays are posted and graded, not staked. When staking is turned on, it runs Jan 1 – Mar 8 only.</li>
         <li>Totals more than 5 points off the market are tracked, not bet, even then: last season those lost.</li>
+        <li>Totals that Cal's model also picks are sized to win 1.5u (1.65u at −110), graded that way while tracking.</li>
         <li><strong>Play to</strong> is the worst line that still meets these rules at −110. Past it, pass.</li>
       </ul>
     </div>
@@ -282,7 +283,7 @@ function edgePlay(r){
     <div class="pick">${esc(r.side)} ${ln} <span class="muted mono">${fmtOdds(o)}${book}</span>${tags}</div>
     <div class="ptrow">${playTo(r.mkt, r.play_to)}</div>
     ${booksLine(r.quotes, r.mkt, 1)}
-    <div class="stake">${r.tracking ? "Track" : r.stake.toFixed(2) + "u"}<small>${r.tracking ? "edge " + r.edge.toFixed(1) + "%" : "to win 1u"}</small></div>
+    <div class="stake">${r.tracking ? "Track" : r.stake.toFixed(2) + "u"}<small>${r.tracking ? (r.to_win > 1 ? "to win " + r.to_win + "u" : "edge " + r.edge.toFixed(1) + "%") : "to win " + (r.to_win || 1) + "u"}</small></div>
     <div class="meta">${model} · win prob ${(r.p*100).toFixed(0)}%${r.notes ? " · Lineup: " + esc(r.notes) : ""}</div>
   </div>`;
 }
@@ -364,7 +365,7 @@ function renderPlays(){
     const L = r.best_line ?? r.line;
     return `<div class="agree-card"><span class="k">${r.mkt==="SPREAD"?"Spread":"Total"} · ${esc(r.away)} @ ${esc(r.home)}${startLabel(r.start) ? " · " + dayLabel(dayKey(r.start)).replace(/^(Today|Tomorrow) · .*/, "$1") + " " + startLabel(r.start) : ""}</span>
       <span class="v">${esc(r.side)} ${r.mkt==="SPREAD"?sgn(L):L.toFixed(1)}</span>
-      <span class="s">${r.tracking ? "Edge tracking only" : r.stake.toFixed(2)+"u Edge Board"} · Cal 1.1u to win 1u${r.book ? " · best at " + esc(r.book) : ""}${agreePT(r)}</span></div>`;
+      <span class="s">${r.tracking ? "Edge tracking" + (r.to_win > 1 ? " (to win " + r.to_win + "u)" : "") : r.stake.toFixed(2)+"u Edge Board"} · Cal 1.1u to win 1u${r.book ? " · best at " + esc(r.book) : ""}${agreePT(r)}</span></div>`;
   }).join("");
 }
 

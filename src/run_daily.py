@@ -217,7 +217,8 @@ MAX_STAKE_SPREAD = 3.0
 TOTAL_FLAT_UNITS = 1.0
 
 # Staking (Pat, Nov 2026): every play risks whatever wins 1 unit at the price
-# taken (1.1u at -110, 1.05u at -105, 1.0u at +100), the same as Cal's model.
+# taken (1.1u at -110, 1.05u at -105, 1.0u at +100), the same as Cal's model;
+# totals that Cal's model also picks are sized to win 1.5u (AGREE_TOTAL_MULT).
 # The Kelly sizing above is kept only for the win-probability/edge columns.
 # EDGE_TRACKING_ONLY keeps every Edge Board play at 0u (graded, not staked)
 # until Pat turns staking on; the Jan 1 - Mar 8 window applies after that.
@@ -361,7 +362,8 @@ def make_card(pred_df: pd.DataFrame, kelly_mult=0.25, min_edge=0.025,
                 r.update(_shop(row, sp.side, pf, kelly_mult, max_stake=MAX_STAKE_SPREAD))
                 r["play_to"] = play_to("SPREAD", sp.side, row.pred_margin, sig, MIN_POINTS_SPREAD, min_edge)
                 r["agree"] = cal.get("ATS", "") == sp.side
-                r["stake_units"] = to_win_risk(r.get("best_odds", sp.odds))
+                r["to_win"] = TO_WIN_UNITS
+                r["stake_units"] = to_win_risk(r.get("best_odds", sp.odds), r["to_win"])
                 r["reason"] = ""
                 if EDGE_TRACKING_ONLY:
                     r["stake_units"], r["reason"] = 0.0, "Tracking only"
@@ -386,7 +388,9 @@ def make_card(pred_df: pd.DataFrame, kelly_mult=0.25, min_edge=0.025,
                 r.update(_shop(row, tot.side, pf, kelly_mult))
                 r["play_to"] = play_to("TOTAL", tot.side, row.pred_total, sig, MIN_POINTS_TOTAL, min_edge)
                 r["agree"] = cal.get("TOTAL", "") == tot.side
-                r["stake_units"] = to_win_risk(r.get("best_odds", tot.odds))
+                # totals both models agree on: to win 1.5u (Pat: keep it to see how it does)
+                r["to_win"] = TO_WIN_UNITS * (AGREE_TOTAL_MULT if r["agree"] else 1.0)
+                r["stake_units"] = to_win_risk(r.get("best_odds", tot.odds), r["to_win"])
                 r["reason"] = ""
                 if abs(row.pred_total - row.total) > TOTAL_MAX_GAP:
                     r["stake_units"], r["reason"] = 0.0, f"Over {TOTAL_MAX_GAP:g} pts off the market"
@@ -397,7 +401,7 @@ def make_card(pred_df: pd.DataFrame, kelly_mult=0.25, min_edge=0.025,
                 card.append(r)
     cols = ["game_id", "start", "home", "away", "mkt", "side", "line", "odds",
             "best_line", "best_odds", "best_book", "proj_margin", "proj_total",
-            "model_prob", "edge_pct", "stake_units", "play_to", "gap", "agree", "reason", "notes", "quotes"]
+            "model_prob", "edge_pct", "stake_units", "to_win", "play_to", "gap", "agree", "reason", "notes", "quotes"]
     df = pd.DataFrame(card)
     return df[[c for c in cols if c in df.columns]] if not df.empty else df
 
@@ -527,7 +531,7 @@ def run(demo: bool = True, sheet_id: str | None = None):
                 "total_flat_units": TOTAL_FLAT_UNITS, "total_max_gap": TOTAL_MAX_GAP,
                 "cal_sigma_spread": CAL_SIGMA_SPREAD,
                 "min_points_spread": MIN_POINTS_SPREAD, "min_points_total": MIN_POINTS_TOTAL,
-                "bet_window": "Jan 1 - Mar 8", "staking": "risk to win 1u",
+                "bet_window": "Jan 1 - Mar 8", "staking": "risk to win 1u (1.5u on totals both models agree on)",
                 "edge_tracking_only": EDGE_TRACKING_ONLY}
     print("\nWrote", publish.write_json(card, mode, settings))
     print("Wrote", publish.write_slate(preds, priced, card, names))
