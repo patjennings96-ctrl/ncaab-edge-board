@@ -240,6 +240,7 @@ const fmtOdds = o => (o > 0 ? "+" : "") + o;
 const units = v => (v > 0 ? "+" : "") + v.toFixed(1) + "u";
 const cls = v => v > 0 ? "pos" : (v < 0 ? "neg" : "");
 const ET = "America/New_York";
+const AZ = "America/Phoenix";   // all times shown in Arizona time
 const ptFmt = (mkt, v) => v == null ? "" : (mkt === "SPREAD" || mkt === "ATS" ? sgn(v) : v.toFixed(1));
 const playTo = (mkt, v) => v == null ? "" : `<span class="pt">play to ${ptFmt(mkt, v)}</span>`;
 
@@ -258,7 +259,7 @@ function startLabel(s){
   if (!s) return "";
   if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return "";
   const t = new Date(s); if (isNaN(t)) return "";
-  return t.toLocaleTimeString([], {hour:"numeric", minute:"2-digit", timeZoneName:"short"});
+  return t.toLocaleTimeString("en-US", {hour:"numeric", minute:"2-digit", timeZone:AZ}) + " AZ";
 }
 
 let SLATE = null, EDGE = null, CAL = null, REC = null, resModel = "edge";
@@ -325,7 +326,7 @@ function agreePT(r){
 function dayKey(s){
   const t = new Date(s);
   if (!s || isNaN(t)) return /^\d{4}-\d{2}-\d{2}/.test(s||"") ? s.slice(0,10) : "";
-  return new Intl.DateTimeFormat("en-CA",{timeZone:ET,year:"numeric",month:"2-digit",day:"2-digit"}).format(t);
+  return new Intl.DateTimeFormat("en-CA",{timeZone:AZ,year:"numeric",month:"2-digit",day:"2-digit"}).format(t);
 }
 function dayLabel(k){
   if (!k) return "Date TBD";
@@ -341,7 +342,7 @@ function byDay(items, startOf, render, within){
   items.forEach(x => (groups[dayKey(startOf(x))] ||= []).push(x));
   return Object.keys(groups).sort().map(k =>
     `<div class="dayhead">${esc(dayLabel(k))}<span>${groups[k].length}</span></div>` +
-    groups[k].sort((a,b) => within(a,b) || String(startOf(a)).localeCompare(String(startOf(b)))).map(render).join("")).join("");
+    groups[k].sort((a,b) => (new Date(startOf(a)) - new Date(startOf(b))) || within(a,b)).map(render).join("")).join("");
 }
 function renderPlays(){
   const ep = (EDGE && EDGE.plays) || [];
@@ -359,9 +360,9 @@ function renderPlays(){
   const agree = ep.filter(r => r.agree);
   document.getElementById("agree-sec").hidden = !agree.length;
   document.getElementById("agree-n").textContent = agree.length ? `${agree.length} play${agree.length>1?"s":""}` : "";
-  document.getElementById("agree").innerHTML = agree.map(r => {
+  document.getElementById("agree").innerHTML = [...agree].sort((a,b) => new Date(a.start) - new Date(b.start)).map(r => {
     const L = r.best_line ?? r.line;
-    return `<div class="agree-card"><span class="k">${r.mkt==="SPREAD"?"Spread":"Total"} · ${esc(r.away)} @ ${esc(r.home)}</span>
+    return `<div class="agree-card"><span class="k">${r.mkt==="SPREAD"?"Spread":"Total"} · ${esc(r.away)} @ ${esc(r.home)}${startLabel(r.start) ? " · " + dayLabel(dayKey(r.start)).replace(/^(Today|Tomorrow) · .*/, "$1") + " " + startLabel(r.start) : ""}</span>
       <span class="v">${esc(r.side)} ${r.mkt==="SPREAD"?sgn(L):L.toFixed(1)}</span>
       <span class="s">${r.tracking ? "Tracking only" : r.stake.toFixed(1)+"u Edge Board"} · Cal 1u${r.book ? " · best at " + esc(r.book) : ""}${agreePT(r)}</span></div>`;
   }).join("");
@@ -436,7 +437,7 @@ function renderSlate(){
   const mk = (v, play) => `<span class="${play ? "hl" : ""}">${v}</span>`;
   if (!gs.length) { document.getElementById("slate-rows").innerHTML = '<tr><td colspan="7" class="muted">No games with lines yet. The board picks them up as books post them.</td></tr>'; return; }
   const groups = {};
-  gs.forEach(g => (groups[dayKey(g.start)] ||= []).push(g));
+  [...gs].sort((a,b) => new Date(a.start) - new Date(b.start)).forEach(g => (groups[dayKey(g.start)] ||= []).push(g));
   document.getElementById("slate-rows").innerHTML = Object.keys(groups).sort().map(k =>
     `<tr class="dayrow"><td colspan="7">${esc(dayLabel(k))}</td></tr>` + groups[k].map(g => {
       const c = g.cal || {}, e = g.edge || {};
@@ -453,7 +454,7 @@ function renderSlate(){
 }
 function renderResults(){
   const head = document.getElementById("res-head"), body = document.getElementById("res-rows");
-  const day = s => { const t = new Date(s); return isNaN(t) ? esc(s) : t.toLocaleDateString([], {month:"short", day:"numeric", timeZone: /^\d{4}-\d{2}-\d{2}$/.test(s) ? "UTC" : undefined}); };
+  const day = s => { const t = new Date(s); return isNaN(t) ? esc(s) : t.toLocaleDateString("en-US", {month:"short", day:"numeric", timeZone: /^\d{4}-\d{2}-\d{2}$/.test(s) ? "UTC" : AZ}); };
   if (resModel === "edge") {
     head.innerHTML = '<tr><th>Date</th><th>Matchup</th><th>Play</th><th class="num">Stake</th><th class="num">CLV</th><th>Result</th><th class="num">Units</th></tr>';
     const rows = ((REC && REC.edge && REC.edge.recent) || []);
@@ -489,7 +490,7 @@ async function getJSON(u){
 }
 async function load(){
   const now = new Date();
-  document.getElementById("today").textContent = now.toLocaleDateString([], {weekday:"long", month:"long", day:"numeric", timeZone:ET});
+  document.getElementById("today").textContent = now.toLocaleDateString("en-US", {weekday:"long", month:"long", day:"numeric", timeZone:AZ});
   const ph = phase(now);
   document.getElementById("phase").classList.toggle("live", ph.live);
   document.getElementById("phase-k").textContent = ph.k;
@@ -497,7 +498,7 @@ async function load(){
   [EDGE, CAL, REC, SLATE] = await Promise.all([getJSON("data/plays.json"), getJSON("cal/data/plays.json"), getJSON("data/record.json"), getJSON("data/slate.json")]);
   const ts = [EDGE && EDGE.updated_at, CAL && CAL.updated_at].filter(Boolean).sort().pop();
   document.getElementById("updated").textContent = ts
-    ? "Updated " + new Date(ts).toLocaleString([], {weekday:"short", month:"short", day:"numeric", hour:"numeric", minute:"2-digit"})
+    ? "Updated " + new Date(ts).toLocaleString("en-US", {weekday:"short", month:"short", day:"numeric", hour:"numeric", minute:"2-digit", timeZone:AZ}) + " AZ"
       + (EDGE && EDGE.mode === "demo" ? " · demo data" : "")
     : "Couldn't load the latest plays.";
   renderPlays(); renderSlate(); renderRecord(); renderCheck(); renderResults();

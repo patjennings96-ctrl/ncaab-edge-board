@@ -379,7 +379,7 @@ Stake    = ¼ · (P·b − (1−P)) / b   ·  b = decimal − 1</div>
 <script>
 let PLAYS = [];
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const gameTime = s => { const t = new Date(s); return !s || isNaN(t) ? "" : t.toLocaleString([], {weekday:"short", month:"short", day:"numeric", hour:"numeric", minute:"2-digit"}); };
+const gameTime = s => { const t = new Date(s); return !s || isNaN(t) ? "" : t.toLocaleString("en-US", {weekday:"short", month:"short", day:"numeric", hour:"numeric", minute:"2-digit", timeZone:"America/Phoenix"}) + " AZ"; };
 const fmtLine = v => (v>0?"+":"") + v.toFixed(1);
 let filter = "ALL";
 const fmtOdds = o => (o>0?"+":"") + o;
@@ -392,7 +392,7 @@ function bestPlay(r){
 }
 function render(){
   if(!PLAYS.length){document.getElementById("rows").innerHTML='<tr><td colspan="7" class="muted">No plays clear the edge threshold right now.</td></tr>';document.getElementById("summary").textContent="0 plays";return;}
-  const rows = PLAYS.filter(r => filter==="ALL" || r.mkt===filter).sort((a,b)=>String(a.start).slice(0,10).localeCompare(String(b.start).slice(0,10)) || b.edge-a.edge);
+  const rows = PLAYS.filter(r => filter==="ALL" || r.mkt===filter).sort((a,b)=>(new Date(a.start)-new Date(b.start)) || b.edge-a.edge);   // tip-off order
   const maxEdge = Math.max(...PLAYS.map(r=>r.edge));
   document.getElementById("rows").innerHTML = rows.map(r=>{
     const play = r.mkt==="SPREAD" ? `${r.side} ${fmtLine(r.line)}` : `${r.side} ${r.line.toFixed(1)}`;
@@ -424,7 +424,7 @@ async function load(){
     PLAYS=d.plays||[];
     document.getElementById("demo-note").hidden = d.mode!=="demo";
     const t=new Date(d.updated_at);
-    up.textContent="Updated "+t.toLocaleString([], {weekday:"short",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})+(d.mode==="live"?" · live lines":" · demo run");
+    up.textContent="Updated "+t.toLocaleString("en-US", {weekday:"short",month:"short",day:"numeric",hour:"numeric",minute:"2-digit",timeZone:"America/Phoenix"})+" AZ"+(d.mode==="live"?" · live lines":" · demo run");
   }catch(e){
     up.textContent="Couldn't load the latest card (data/plays.json). Check that the Refresh board workflow has run.";
   }
