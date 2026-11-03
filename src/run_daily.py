@@ -300,6 +300,8 @@ def to_win_risk(odds, to_win: float = TO_WIN_UNITS) -> float:
         o = -110.0
     return round(to_win * (-o / 100.0 if o < 0 else 100.0 / o), 3)
 TOTAL_MAX_GAP = 5.0
+# Pat's rule: no Edge Board bets on spreads of 15+ points (tracked only)
+MAX_SPREAD_LINE = 15.0
 
 
 # Early-season margin calibration. While the roster-based starting rating
@@ -442,6 +444,8 @@ def make_card(pred_df: pd.DataFrame, kelly_mult=0.25, min_edge=0.025,
                 r["reason"] = ""
                 if kelly_zero:
                     r["stake_units"], r["to_win"], r["reason"] = 0.0, 0.0, "No edge at this price"
+                elif abs(float(r.get("best_line", sp.line))) >= MAX_SPREAD_LINE:
+                    r["stake_units"], r["reason"] = 0.0, "15+ point spread"
                 elif EDGE_TRACKING_ONLY:
                     r["stake_units"], r["reason"] = 0.0, "Tracking only"
                 elif not window:
