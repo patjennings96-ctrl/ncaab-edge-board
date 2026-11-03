@@ -99,7 +99,16 @@ html{scroll-behavior:smooth}
 .slate td.match small{display:block;font-weight:400;color:var(--muted);font-size:.75rem}
 .slate .dayrow td{font-family:var(--mono);font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
 .hl{background:var(--good-soft);color:var(--good);padding:1px 5px;border-radius:3px;font-weight:600}
-.dayhead{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--bg);padding:7px 14px;border-bottom:1px solid var(--line)}
+.dayhead{display:flex;justify-content:space-between;align-items:center;gap:10px;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--bg);padding:9px 14px;border-bottom:1px solid var(--line);cursor:pointer;list-style:none;user-select:none}
+.dayhead::-webkit-details-marker{display:none}
+.dayhead:hover{color:var(--ink)}
+.dayhead:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.dayhead .dl{display:flex;align-items:center;gap:8px}
+.dayhead .dl::before{content:"";width:0;height:0;border-left:5px solid currentColor;border-top:4px solid transparent;border-bottom:4px solid transparent;transition:transform .15s}
+details[open] > .dayhead .dl::before{transform:rotate(90deg)}
+details.day.today > .dayhead{color:var(--ink)}
+.dayhead .dn{display:flex;gap:10px}
+.dayhead .rec{color:var(--ink)}
 .pt{font-family:var(--mono);font-size:.78rem;color:var(--good);background:var(--good-soft);padding:1px 7px;border-radius:3px}
 .toplist{list-style:none;margin:0;padding:0;counter-reset:t}
 .toplist li{counter-increment:t;display:grid;grid-template-columns:28px 1fr auto;gap:2px 10px;padding:10px 14px;border-top:1px solid var(--line);align-items:baseline}
@@ -429,12 +438,32 @@ function dayLabel(k){
   return k === today ? "Today · " + s : (k === tm ? "Tomorrow · " + s : s);
 }
 // group plays under date headings (Eastern dates), earliest first
-function byDay(items, startOf, render, within){
+// Each day is a collapsible group. Today (or the next day with plays) starts
+// open, other days start closed; whatever the viewer opens or closes is kept
+// across the minute-by-minute live refresh.
+const DAY_OPEN = {};
+document.addEventListener("toggle", e => {
+  const d = e.target;
+  if (d.classList && d.classList.contains("day")) DAY_OPEN[d.dataset.k] = d.open;
+}, true);
+function byDay(items, startOf, render, within, list){
   const groups = {};
   items.forEach(x => (groups[dayKey(startOf(x))] ||= []).push(x));
-  return Object.keys(groups).sort().map(k =>
-    `<div class="dayhead">${esc(dayLabel(k))}<span>${groups[k].length}</span></div>` +
-    groups[k].sort((a,b) => (new Date(startOf(a)) - new Date(startOf(b))) || within(a,b)).map(render).join("")).join("");
+  const keys = Object.keys(groups).sort();
+  const today = dayKey(new Date().toISOString());
+  const first = keys.find(k => k >= today) || keys[keys.length - 1];
+  return keys.map(k => {
+    const id = (list || "") + ":" + k;
+    const open = id in DAY_OPEN ? DAY_OPEN[id] : k === first;
+    const g = groups[k];
+    // finished plays: show the day's record in the header so a closed day still tells you how it went
+    const res = g.map(x => x.result || (x.x && x.x.result) || "").filter(Boolean);
+    const w = res.filter(r => r === "W").length, l = res.filter(r => r === "L").length;
+    const rec = res.length ? `<span class="rec">${w}-${l}${res.length < g.length ? " so far" : ""}</span>` : "";
+    return `<details class="day${k === today ? " today" : ""}" data-k="${esc(id)}"${open ? " open" : ""}>
+      <summary class="dayhead"><span class="dl">${esc(dayLabel(k))}</span><span class="dn">${rec}<span>${g.length} play${g.length === 1 ? "" : "s"}</span></span></summary>` +
+      g.sort((a,b) => (new Date(startOf(a)) - new Date(startOf(b))) || within(a,b)).map(render).join("") + `</details>`;
+  }).join("");
 }
 // ---- live scores (ESPN, straight from the browser) ----------------------
 let LIVE = {}, liveTimer = null;
@@ -534,10 +563,10 @@ function renderPlays(){
   const cRecent = (CAL && CAL.recent) || [];
   const cp = [...cRecent.map(x => ({started: true, x})), ...cpUp.filter(p => !cRecent.some(x => x.game_id === p.g.game_id && (x.market === "ATS") === (p.mkt === "SPREAD")))];
   document.getElementById("edge-plays").innerHTML = ep.length
-    ? byDay(ep, r => r.start, r => r.started ? edgeStarted(r) : edgePlay(r), (a,b) => (b.edge || 0) - (a.edge || 0))
+    ? byDay(ep, r => r.start, r => r.started ? edgeStarted(r) : edgePlay(r), (a,b) => (b.edge || 0) - (a.edge || 0), "edge")
     : `<div class="empty">No Edge Board plays right now.${EDGE ? "" : " (Couldn't load data/plays.json.)"}</div>`;
   document.getElementById("cal-plays").innerHTML = cp.length
-    ? byDay(cp, p => p.started ? p.x.start : p.g.start, p => p.started ? calStarted(p.x) : calPlay(p), () => 0)
+    ? byDay(cp, p => p.started ? p.x.start : p.g.start, p => p.started ? calStarted(p.x) : calPlay(p), () => 0, "cal")
     : `<div class="empty">No games clear Cal's thresholds right now.${CAL ? "" : " (Couldn't load cal/data/plays.json.)"}</div>`;
   const su = upcoming.reduce((s,r)=>s+(r.tracking?0:r.stake),0);
   document.getElementById("plays-n").textContent = `Edge ${upcoming.length} (${su.toFixed(1)}u) · Cal ${cpUp.length} to come`;

@@ -389,7 +389,6 @@ def write_slate(preds, cal_priced, card, names: dict) -> str:
 # by the page from ESPN) until the next day is well under way
 # -----------------------------------------------------------------------------
 CAL_JSON_PATH = os.path.join(ROOT, "docs", "cal", "data", "plays.json")
-RECENT_HOURS = 36
 
 
 def _num(x, default=None):
@@ -403,7 +402,9 @@ def _num(x, default=None):
 def _recent_window(df: pd.DataFrame, col: str = "start") -> pd.DataFrame:
     now = pd.Timestamp.now(tz="UTC")
     st = pd.to_datetime(df[col], utc=True, errors="coerce")
-    return df[(st <= now) & (st >= now - pd.Timedelta(hours=RECENT_HOURS))]
+    # whole days, as the site groups them (Arizona dates): yesterday and today
+    since = now.tz_convert("America/Phoenix").normalize() - pd.Timedelta(days=1)
+    return df[(st <= now) & (st >= since)]
 
 
 def recent_edge_plays() -> list[dict]:
