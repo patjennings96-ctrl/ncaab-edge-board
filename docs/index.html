@@ -291,7 +291,7 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
       <ul>
         <li>Morning run at 5:15 AM Arizona time: new results, ratings, injuries, today's slate.</li>
         <li>Lines re-priced at 9:15 AM, 12:15, 3:15 and 5:15 PM, and whenever new injury news is logged.</li>
-        <li>Plays show live scores while games are on (refreshed every minute) and grade themselves when they end. The season record catches up within about 20 minutes, 10 AM – 12:40 AM.</li>
+        <li>Plays show live scores and the live in-game spread and total (DraftKings live odds via ESPN) while games are on, refreshed every minute, and grade themselves when they end. The season record catches up within about 20 minutes, 10 AM – 12:40 AM.</li>
       </ul>
     </div>
   </div>
@@ -483,6 +483,20 @@ async function fetchLive(){
       }
     } catch (err) { /* offline or blocked: show logged results only */ }
   }
+  // live in-game lines (DraftKings live odds via ESPN) for games we have plays on
+  const ours = new Set([...((EDGE && EDGE.plays) || []), ...((EDGE && EDGE.recent) || []),
+                        ...((CAL && CAL.games) || []), ...((CAL && CAL.recent) || [])].map(x => String(x.game_id)));
+  const inPlay = Object.keys(out).filter(id => out[id].state === "in" && ours.has(id));
+  await Promise.all(inPlay.map(async id => {
+    try {
+      const r = await fetch(`https://sports.core.api.espn.com/v2/sports/basketball/leagues/mens-college-basketball/events/${id}/competitions/${id}/odds`, {cache:"no-store"});
+      if (!r.ok) return;
+      const items = (await r.json()).items || [];
+      const lv = items.find(o => /live/i.test((o.provider && o.provider.name) || ""));
+      if (lv && (lv.spread != null || lv.overUnder != null))
+        out[id].lv = {spread: lv.spread, total: lv.overUnder, book: lv.provider.name.replace(/\s*-\s*Live Odds/i, "").replace(/^Draft Kings$/, "DraftKings")};
+    } catch (err) { /* no live line: fall back to the score */ }
+  }));
   LIVE = out;
 }
 // how the play stands: positive = covering / winning
@@ -497,15 +511,30 @@ function orient(L, homeName, awayName){
   if (!L || !L.hn || !L.an) return L;
   const h = nkey(homeName), a = nkey(awayName), eh = nkey(L.hn), ea = nkey(L.an);
   if ((h === ea || a === eh) && !(h === eh || a === ea))
-    return {...L, home: L.away, away: L.home, ha: L.aa, aa: L.ha, hn: L.an, an: L.hn};
+    return {...L, home: L.away, away: L.home, ha: L.aa, aa: L.ha, hn: L.an, an: L.hn,
+            lv: L.lv ? {...L.lv, spread: L.lv.spread == null ? null : -L.lv.spread} : L.lv};
   return L;
 }
 function statusLine(gid, mkt, sideHome, overSide, line, homeName, awayName, logged){
   const L = orient(LIVE[String(gid)], homeName, awayName);
   if (L && L.state === "in") {
-    const c = coverBy(mkt, sideHome, overSide, line, L.home, L.away);
-    const word = mkt === "TOTAL" ? (c > 0 ? "ahead of the number" : (c < 0 ? "behind the number" : "on the number")) : (c > 0 ? "covering" : (c < 0 ? "not covering" : "on the number"));
-    return `<div class="live in"><b>LIVE</b> ${esc(L.detail)} · ${esc(L.aa || awayName)} ${L.away}, ${esc(L.ha || homeName)} ${L.home} · ${word}${c ? " by " + Math.abs(c).toFixed(1) : ""}</div>`;
+    const score = `${esc(L.aa || awayName)} ${L.away}, ${esc(L.ha || homeName)} ${L.home}`;
+    let tail;
+    if (L.lv) {
+      // live line from the picked side: spread for the team we're on, plus the live total
+      const isSpread = mkt === "SPREAD" || mkt === "ATS";
+      const team = sideHome ? (L.ha || homeName) : (L.aa || awayName);
+      const sp = L.lv.spread == null ? null : (sideHome ? L.lv.spread : -L.lv.spread);
+      const spTxt = sp == null ? "" : `${esc(team)} ${sp === 0 ? "PK" : sgn(sp)}`;
+      const totTxt = L.lv.total == null ? "" : `O/U ${(+L.lv.total).toFixed(1)}`;
+      const parts = isSpread ? [spTxt, totTxt] : [totTxt, sp == null ? "" : `${esc(L.ha || homeName)} ${sgn(L.lv.spread)}`];
+      tail = `live ${parts.filter(Boolean).join(" · ")} <span class="muted">(${esc(L.lv.book)})</span>`;
+    } else {
+      const c = coverBy(mkt, sideHome, overSide, line, L.home, L.away);
+      const word = mkt === "TOTAL" ? (c > 0 ? "ahead of the number" : (c < 0 ? "behind the number" : "on the number")) : (c > 0 ? "covering" : (c < 0 ? "not covering" : "on the number"));
+      tail = `${word}${c ? " by " + Math.abs(c).toFixed(1) : ""}`;
+    }
+    return `<div class="live in"><b>LIVE</b> ${esc(L.detail)} · ${score} · ${tail}</div>`;
   }
   const fin = L && L.state === "post";
   if (fin || (logged && logged.result)) {
