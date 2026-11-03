@@ -483,10 +483,13 @@ function renderPlays(){
   document.getElementById("cal-plays").innerHTML = cp.length
     ? byDay(cp, p => p.started ? p.x.start : p.g.start, p => p.started ? calStarted(p.x) : calPlay(p), () => 0)
     : `<div class="empty">No games clear Cal's thresholds right now.${CAL ? "" : " (Couldn't load cal/data/plays.json.)"}</div>`;
-  const su = ep.reduce((s,r)=>s+(r.tracking?0:r.stake),0);
-  document.getElementById("plays-n").textContent = `Edge ${ep.length} (${su.toFixed(1)}u) · Cal ${cp.length}`;
+  const su = upcoming.reduce((s,r)=>s+(r.tracking?0:r.stake),0);
+  document.getElementById("plays-n").textContent = `Edge ${upcoming.length} (${su.toFixed(1)}u) · Cal ${cpUp.length} to come`;
 
-  const agree = ep.filter(r => r.agree);
+  // Both-agree board: today's (Arizona date) and later plays only; yesterday's
+  // tipped plays stay in the model columns as results.
+  const today = dayKey(new Date().toISOString());
+  const agree = ep.filter(r => r.agree && dayKey(r.start) >= today);
   document.getElementById("agree-sec").hidden = !agree.length;
   document.getElementById("tab-agree").hidden = !agree.length;
   document.getElementById("tab-agree-n").textContent = agree.length || "";
