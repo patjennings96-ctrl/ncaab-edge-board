@@ -623,6 +623,7 @@ def run(demo: bool = True, sheet_id: str | None = None):
         publish.update_clv(live.closing_lines(), games_raw=names_and_results())
         print("Wrote", publish.write_record())
         publish.refresh_recent()
+    publish.attach_similar()
 
     # --- Google Sheets (only when a sheet id and credentials are configured) ---
     creds = os.environ.get("GOOGLE_CREDS_PATH", "credentials.json")
@@ -749,6 +750,7 @@ def grade_only() -> None:
     calmodel.grade_log(games)
     print("Wrote", publish.write_record())
     publish.refresh_recent()
+    publish.attach_similar()
     done = int(cur["home_score"].notna().sum()) if not cur.empty else 0
     print(f"[grade] {done} finished games this season")
 

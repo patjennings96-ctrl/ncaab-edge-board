@@ -101,6 +101,14 @@ html{scroll-behavior:smooth}
 .hl{background:var(--good-soft);color:var(--good);padding:1px 5px;border-radius:3px;font-weight:600}
 .dayhead{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--bg);padding:7px 14px;border-bottom:1px solid var(--line)}
 .pt{font-family:var(--mono);font-size:.78rem;color:var(--good);background:var(--good-soft);padding:1px 7px;border-radius:3px}
+.toplist{list-style:none;margin:0;padding:0;counter-reset:t}
+.toplist li{counter-increment:t;display:grid;grid-template-columns:28px 1fr auto;gap:2px 10px;padding:10px 14px;border-top:1px solid var(--line);align-items:baseline}
+.toplist li:first-child{border-top:0}
+.toplist li::before{content:counter(t);font-family:var(--display);font-weight:700;font-size:1.2rem;color:var(--accent);grid-row:span 2}
+.toplist .tp{font-weight:600}
+.toplist .tv{font-family:var(--mono);font-size:.85rem;text-align:right;white-space:nowrap}
+.toplist .tm{grid-column:2/-1;font-size:.8rem;color:var(--muted)}
+.toplist .empty{padding:12px 14px}
 .play .meta{grid-column:1/-1;font-size:.8rem;color:var(--muted)}
 .play .stake{grid-row:1/4;grid-column:2;text-align:right;align-self:center;font-family:var(--display);font-size:1.4rem;font-weight:700;font-variant-numeric:tabular-nums}
 .play .stake small{display:block;font-family:var(--mono);font-size:.68rem;font-weight:400;color:var(--muted)}
@@ -159,6 +167,7 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
 <nav class="tabs" aria-label="Sections">
   <ul>
     <li id="tab-agree" hidden><a href="#agree-sec">Both agree<span class="n" id="tab-agree-n"></span></a></li>
+    <li id="tab-top" hidden><a href="#top-sec">Top plays</a></li>
     <li><a href="#edge-sec">Edge plays<span class="n" id="tab-edge-n"></span></a></li>
     <li><a href="#cal-sec">Cal's plays<span class="n" id="tab-cal-n"></span></a></li>
     <li><a href="#slate-sec">All games</a></li>
@@ -172,6 +181,21 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
 <section id="agree-sec" hidden>
   <div class="sec-head"><h2>Both models agree</h2><span class="muted mono" id="agree-n"></span></div>
   <div class="agree-list" id="agree"></div>
+</section>
+
+<section id="top-sec" hidden>
+  <div class="sec-head"><h2>Top plays</h2><span class="muted mono" id="top-day"></span></div>
+  <div class="cols">
+    <div class="model">
+      <div class="model-head"><h3>By edge %</h3><span class="muted mono">Edge Board</span></div>
+      <ol class="toplist" id="top-edge"></ol>
+    </div>
+    <div class="model">
+      <div class="model-head"><h3>By similar plays</h3><span class="muted mono">both models</span></div>
+      <ol class="toplist" id="top-sim"></ol>
+    </div>
+  </div>
+  <p class="muted" style="font-size:.82rem">Similar plays: how plays with the same traits did in last season's backtest plus this season's graded plays (season phase, gap size, favorite or underdog and spread size; over or under for totals). Ranked by win rate pulled toward 50% for small samples. Edge Board plays its rules exclude (15+ point spreads, totals 5+ off the market) are left out. Hover or long-press a record to see what was matched.</p>
 </section>
 
 <section id="plays-sec">
@@ -303,6 +327,8 @@ function booksLine(list, mkt, skip){
   const rest = (list || []).slice(skip, skip + 4);
   return rest.length ? `<div class="books">Next best: ${rest.map(fmt).join(" · ")}</div>` : "";
 }
+const simTxt = s => s ? `similar plays ${s.w}-${s.l} (${(s.pct*100).toFixed(1)}%)` : "";
+const simTitle = s => s ? ` title="Matched on: ${esc(s.match)}. ${s.w + s.l} plays, ${units(s.units)} at -110."` : "";
 function edgePlay(r){
   const L = r.best_line ?? r.line, o = r.best_odds ?? r.odds;
   const ln = r.mkt === "SPREAD" ? sgn(L) : L.toFixed(1);
@@ -318,17 +344,17 @@ function edgePlay(r){
     ${booksLine(r.quotes, r.mkt, 1)}
     ${LIVE[String(r.game_id)] && LIVE[String(r.game_id)].state !== "pre" ? statusLine(r.game_id, r.mkt, r.side_code === "HOME", r.side_code === "OVER", r.line, r.home, r.away, null) : ""}
     <div class="stake">${r.tracking || r.stake == null ? "Track" : r.stake.toFixed(2) + "u"}<small>${r.tracking ? (r.to_win > 1 ? "to win " + r.to_win + "u" : "edge " + r.edge.toFixed(1) + "%") : "to win " + (r.to_win || 1) + "u"}</small></div>
-    <div class="meta">${model} · win prob ${(r.p*100).toFixed(0)}%${r.notes ? " · Lineup: " + esc(r.notes) : ""}</div>
+    <div class="meta">${model} · win prob ${(r.p*100).toFixed(0)}%${r.similar ? ` · <span${simTitle(r.similar)}>${simTxt(r.similar)}</span>` : ""}${r.notes ? " · Lineup: " + esc(r.notes) : ""}</div>
   </div>`;
 }
 function calPicks(g){
   const out = [];
   if (g.ats_play) {
     const home = g.ats_play === "HOME", team = home ? g.home : g.away, L = home ? g.line : -g.line;
-    out.push({mkt:"SPREAD", text:`${team} ${sgn(L)}`, pt:g.ats_play_to, books:g.ats_books, gap:`Model 1 ${sgn(g.m1.ats)}, Model 2 ${sgn(g.m2.ats)}`});
+    out.push({mkt:"SPREAD", text:`${team} ${sgn(L)}`, pt:g.ats_play_to, books:g.ats_books, sim:g.ats_similar, gap:`Model 1 ${sgn(g.m1.ats)}, Model 2 ${sgn(g.m2.ats)}`});
   }
   if (g.ou_play) {
-    out.push({mkt:"TOTAL", text:`${g.ou_play === "OVER" ? "Over" : "Under"} ${g.total_line.toFixed(1)}`, pt:g.ou_play_to, books:g.ou_books,
+    out.push({mkt:"TOTAL", text:`${g.ou_play === "OVER" ? "Over" : "Under"} ${g.total_line.toFixed(1)}`, pt:g.ou_play_to, books:g.ou_books, sim:g.ou_similar,
               gap:`Model 1 ${sgn(g.m1.tot)}, Model 2 ${sgn(g.m2.tot_adj ?? g.m2.tot)}`});
   }
   return out.map(p => ({...p, g}));
@@ -343,10 +369,40 @@ function calPlay(p){
     ${booksLine(p.books, p.mkt, 1)}
     ${LIVE[String(g.game_id)] && LIVE[String(g.game_id)].state !== "pre" ? statusLine(g.game_id, p.mkt === "SPREAD" ? "ATS" : "TOTAL", p.mkt === "SPREAD" ? g.ats_play === "HOME" : false, g.ou_play === "OVER", p.mkt === "SPREAD" ? (g.ats_play === "HOME" ? g.line : -g.line) : g.total_line, g.home, g.away, null) : ""}
     <div class="stake">1.1u<small>to win 1u</small></div>
-    <div class="meta">${p.gap} · ${proj}</div>
+    <div class="meta">${p.gap} · ${proj}${p.sim ? ` · <span${simTitle(p.sim)}>${simTxt(p.sim)}</span>` : ""}</div>
   </div>`;
 }
 
+function renderTop(upcoming, cpUp){
+  // the next slate day that still has plays to come (today, else the next one)
+  const now = Date.now();
+  const live = upcoming.filter(r => new Date(r.start).getTime() > now);
+  const calLive = cpUp.filter(p => new Date(p.g.start).getTime() > now);
+  const days = [...live.map(r => dayKey(r.start)), ...calLive.map(p => dayKey(p.g.start))].filter(Boolean).sort();
+  const sec = document.getElementById("top-sec");
+  sec.hidden = !days.length; document.getElementById("tab-top").hidden = !days.length;
+  if (!days.length) return;
+  const day = days[0];
+  document.getElementById("top-day").textContent = dayLabel(day);
+  // Edge plays its own rules keep off the board (15+ spreads, totals 5+ off) are left out
+  const RULED_OUT = ["15+ point spread", "Over 5 pts off the market"];
+  const eD = live.filter(r => dayKey(r.start) === day && !RULED_OUT.includes(r.reason)), cD = calLive.filter(p => dayKey(p.g.start) === day);
+  const lineTxt = r => { const L = r.best_line ?? r.line; return `${esc(r.side)} ${r.mkt === "SPREAD" ? sgn(L) : L.toFixed(1)}`; };
+  const tags = r => (r.agree ? " · both models" : "") + (r.tracking ? ` · ${esc(r.reason || "tracking")}` : "");
+  const byEdge = [...eD].sort((a, b) => b.edge - a.edge).slice(0, 5);
+  document.getElementById("top-edge").innerHTML = byEdge.length ? byEdge.map(r => `<li>
+      <span class="tp">${lineTxt(r)}</span><span class="tv">${r.edge.toFixed(1)}%</span>
+      <span class="tm">${esc(r.away)} @ ${esc(r.home)} · ${startLabel(r.start)}${r.book ? " · " + esc(r.book) + " " + fmtOdds(r.best_odds ?? r.odds) : ""}${tags(r)}${r.similar ? ` · <span${simTitle(r.similar)}>${simTxt(r.similar)}</span>` : ""}</span></li>`).join("")
+    : `<li class="empty muted">No Edge Board plays left on this day.</li>`;
+  const pool = [
+    ...eD.filter(r => r.similar).map(r => ({s: r.similar, who: "Edge Board", pick: lineTxt(r), game: `${esc(r.away)} @ ${esc(r.home)}`, start: r.start, extra: `edge ${r.edge.toFixed(1)}%` + tags(r)})),
+    ...cD.filter(p => p.sim).map(p => ({s: p.sim, who: "Cal's model", pick: esc(p.text), game: `${esc(p.g.away)} @ ${esc(p.g.home)}`, start: p.g.start, extra: "1.1u to win 1u"}))];
+  const bySim = pool.sort((a, b) => b.s.score - a.s.score).slice(0, 5);
+  document.getElementById("top-sim").innerHTML = bySim.length ? bySim.map(x => `<li>
+      <span class="tp">${x.pick}</span><span class="tv"${simTitle(x.s)}>${x.s.w}-${x.s.l} · ${(x.s.pct*100).toFixed(1)}%</span>
+      <span class="tm">${x.who} · ${x.game} · ${startLabel(x.start)} · ${x.extra}<br>like: ${esc(x.s.match)} (${units(x.s.units)})</span></li>`).join("")
+    : `<li class="empty muted">No similar-play records yet.</li>`;
+}
 function agreePT(r){
   const g = ((CAL && CAL.games) || []).find(x => String(x.game_id) === String(r.game_id));
   const c = g ? (r.mkt === "SPREAD" ? g.ats_play_to : g.ou_play_to) : null;
@@ -485,6 +541,8 @@ function renderPlays(){
     : `<div class="empty">No games clear Cal's thresholds right now.${CAL ? "" : " (Couldn't load cal/data/plays.json.)"}</div>`;
   const su = upcoming.reduce((s,r)=>s+(r.tracking?0:r.stake),0);
   document.getElementById("plays-n").textContent = `Edge ${upcoming.length} (${su.toFixed(1)}u) · Cal ${cpUp.length} to come`;
+
+  renderTop(upcoming, cpUp);
 
   // Both-agree board: today's (Arizona date) and later plays only; yesterday's
   // tipped plays stay in the model columns as results.

@@ -70,6 +70,22 @@ def write_json(card: pd.DataFrame, mode: str, settings: dict) -> str:
     return JSON_PATH
 
 
+def attach_similar() -> None:
+    """Add "how have similar plays done" records to both plays.json files."""
+    import similar
+    try:
+        P = similar.pool()
+        e = json.load(open(JSON_PATH)) if os.path.exists(JSON_PATH) else None
+        c = json.load(open(CAL_JSON_PATH)) if os.path.exists(CAL_JSON_PATH) else None
+        similar.attach((e or {}).get("plays", []), (c or {}).get("games", []), P)
+        for path, obj in ((JSON_PATH, e), (CAL_JSON_PATH, c)):
+            if obj is not None:
+                with open(path, "w") as f:
+                    json.dump(obj, f, indent=2)
+    except Exception as exc:
+        print(f"[similar] skipped: {exc}")
+
+
 def append_log(card: pd.DataFrame, mode: str) -> str | None:
     """Append live plays only, so demo runs never pollute the CLV record."""
     if mode != "live" or card.empty:
