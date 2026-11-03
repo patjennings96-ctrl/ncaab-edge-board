@@ -215,6 +215,25 @@ CAL_SIGMA_SPREAD = 30.0
 CAL_SIGMA_TOTAL = 42.0          # display only (fit on 3-5 point totals)
 MAX_STAKE_SPREAD = 3.0
 TOTAL_FLAT_UNITS = 1.0
+
+# Staking (Pat, Nov 2026): every play risks whatever wins 1 unit at the price
+# taken (1.1u at -110, 1.05u at -105, 1.0u at +100), the same as Cal's model.
+# The Kelly sizing above is kept only for the win-probability/edge columns.
+# EDGE_TRACKING_ONLY keeps every Edge Board play at 0u (graded, not staked)
+# until Pat turns staking on; the Jan 1 - Mar 8 window applies after that.
+TO_WIN_UNITS = 1.0
+EDGE_TRACKING_ONLY = True
+
+
+def to_win_risk(odds, to_win: float = TO_WIN_UNITS) -> float:
+    """Units risked to win `to_win` at American odds."""
+    try:
+        o = float(odds)
+    except (TypeError, ValueError):
+        o = -110.0
+    if not np.isfinite(o) or abs(o) < 100:
+        o = -110.0
+    return round(to_win * (-o / 100.0 if o < 0 else 100.0 / o), 3)
 TOTAL_MAX_GAP = 5.0
 
 
@@ -342,9 +361,12 @@ def make_card(pred_df: pd.DataFrame, kelly_mult=0.25, min_edge=0.025,
                 r.update(_shop(row, sp.side, pf, kelly_mult, max_stake=MAX_STAKE_SPREAD))
                 r["play_to"] = play_to("SPREAD", sp.side, row.pred_margin, sig, MIN_POINTS_SPREAD, min_edge)
                 r["agree"] = cal.get("ATS", "") == sp.side
-                r["reason"] = "" if window else "Outside betting window"
-                if not window:
-                    r["stake_units"] = 0.0
+                r["stake_units"] = to_win_risk(r.get("best_odds", sp.odds))
+                r["reason"] = ""
+                if EDGE_TRACKING_ONLY:
+                    r["stake_units"], r["reason"] = 0.0, "Tracking only"
+                elif not window:
+                    r["stake_units"], r["reason"] = 0.0, "Outside betting window"
                 card.append(r)
         if pd.notna(row.total) and abs(row.pred_total - row.total) >= MIN_POINTS_TOTAL:
             sig = max(row.sigma_total, SIGMA_FLOOR_TOTAL)
@@ -364,10 +386,12 @@ def make_card(pred_df: pd.DataFrame, kelly_mult=0.25, min_edge=0.025,
                 r.update(_shop(row, tot.side, pf, kelly_mult))
                 r["play_to"] = play_to("TOTAL", tot.side, row.pred_total, sig, MIN_POINTS_TOTAL, min_edge)
                 r["agree"] = cal.get("TOTAL", "") == tot.side
-                r["stake_units"] = TOTAL_FLAT_UNITS * (AGREE_TOTAL_MULT if r["agree"] else 1.0)
+                r["stake_units"] = to_win_risk(r.get("best_odds", tot.odds))
                 r["reason"] = ""
                 if abs(row.pred_total - row.total) > TOTAL_MAX_GAP:
                     r["stake_units"], r["reason"] = 0.0, f"Over {TOTAL_MAX_GAP:g} pts off the market"
+                elif EDGE_TRACKING_ONLY:
+                    r["stake_units"], r["reason"] = 0.0, "Tracking only"
                 elif not window:
                     r["stake_units"], r["reason"] = 0.0, "Outside betting window"
                 card.append(r)
@@ -503,7 +527,8 @@ def run(demo: bool = True, sheet_id: str | None = None):
                 "total_flat_units": TOTAL_FLAT_UNITS, "total_max_gap": TOTAL_MAX_GAP,
                 "cal_sigma_spread": CAL_SIGMA_SPREAD,
                 "min_points_spread": MIN_POINTS_SPREAD, "min_points_total": MIN_POINTS_TOTAL,
-                "bet_window": "Jan 1 - Mar 8", "agree_total_mult": AGREE_TOTAL_MULT}
+                "bet_window": "Jan 1 - Mar 8", "staking": "risk to win 1u",
+                "edge_tracking_only": EDGE_TRACKING_ONLY}
     print("\nWrote", publish.write_json(card, mode, settings))
     print("Wrote", publish.write_slate(preds, priced, card, names))
     log = publish.append_log(card, mode)

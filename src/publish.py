@@ -171,7 +171,11 @@ def _summ(df: pd.DataFrame, units_col: str = "units") -> dict:
     res = graded["result"] if "result" in graded else np.sign(u[u.notna()]).map({1: "W", -1: "L", 0: "P"})
     out = {"w": int((res == "W").sum()), "l": int((res == "L").sum()), "p": int((res == "P").sum()),
            "units": round(float(u.sum()), 2), "pending": int(len(df) - len(graded))}
-    if units_col != "units" or "risked" not in df:
+    if units_col == "flat" and "odds" in df:
+        o = pd.to_numeric(df.get("best_odds", df["odds"]), errors="coerce").fillna(pd.to_numeric(df["odds"], errors="coerce"))
+        risk = float((1.0 / o.loc[graded.index].map(_payout)).sum())
+        out["roi"] = round(out["units"] / risk, 4) if risk > 0 else None
+    elif units_col != "units" or "risked" not in df:
         out["roi"] = round(out["units"] / len(graded), 4) if len(graded) else None
     else:
         risk = float(pd.to_numeric(graded["risked"], errors="coerce").sum())
@@ -197,8 +201,10 @@ def edge_record(since: str) -> dict:
     log["units"] = np.where(res == "W", log["stake"] * odds.map(_payout),
                    np.where(res == "L", -log["stake"], np.where(res == "P", 0.0, np.nan)))
     log["risked"] = np.where(res.isin(["W", "L", "P"]), log["stake"], np.nan)
-    # tracking plays (0u) are graded as 1u flat so their record is still visible
-    log["flat"] = np.where(res == "W", odds.map(_payout), np.where(res == "L", -1.0,
+    # tracking plays (0u) are graded as a bet to win 1u (risk 1.1u at -110),
+    # the same rule as staked plays and Cal's model
+    risk1 = 1.0 / odds.map(_payout)
+    log["flat"] = np.where(res == "W", 1.0, np.where(res == "L", -risk1,
                   np.where(res == "P", 0.0, np.nan)))
     staked, tracking = log[log["stake"] > 0], log[log["stake"] <= 0]
     agree = log[log.get("agree", pd.Series(False, index=log.index)).astype(str).str.lower() == "true"]

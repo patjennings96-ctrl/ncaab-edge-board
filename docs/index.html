@@ -170,9 +170,9 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
   <div class="sec-head"><h2>Season record</h2><span class="muted mono" id="rec-since"></span></div>
   <div class="rec-label">Edge Board · staked plays</div>
   <div class="rec-grid" id="edge-rec"></div>
-  <div class="rec-label">Edge Board · tracking and agreement (1u flat)</div>
+  <div class="rec-label">Edge Board · tracking and agreement (risk to win 1u)</div>
   <div class="rec-grid" id="edge-rec2"></div>
-  <div class="rec-label">Cal's model (1u flat)</div>
+  <div class="rec-label">Cal's model (risk 1.1u to win 1u)</div>
   <div class="rec-grid" id="cal-rec"></div>
 </section>
 
@@ -204,9 +204,9 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
       <ul>
         <li>Spread plays need 2+ points of disagreement with the consensus line; totals need 3+.</li>
         <li>Books shopped: DraftKings, FanDuel, theScore Bet, BetMGM, Bally Bet, Hard Rock, BetRivers, Kalshi and Polymarket (prediction-market prices converted to American odds, Kalshi's fee included). The best book is the one with the highest expected value, weighing line and price together.</li>
-        <li>Spread stakes are ¼ Kelly on a win probability calibrated to the backtest (about 54% at a 3-point gap), max 3u (1u = 1% of bankroll), sized at the best number across books.</li><li>Totals are 1u flat. Totals more than 5 points off the market are tracked, not bet: last season those lost.</li>
-        <li>Staked Jan 1 – Mar 8 only. Before and after, plays are posted and graded as tracking only (0u).</li>
-        <li>Totals that Cal's model also picks get 1.5u.</li>
+        <li>Every play risks enough to win 1u at the price taken: 1.1u at −110, 1.05u at −105, 1u at even money.</li>
+        <li><strong>Tracking only for now:</strong> Edge Board plays are posted and graded, not staked. When staking is turned on, it runs Jan 1 – Mar 8 only.</li>
+        <li>Totals more than 5 points off the market are tracked, not bet, even then: last season those lost.</li>
         <li><strong>Play to</strong> is the worst line that still meets these rules at −110. Past it, pass.</li>
       </ul>
     </div>
@@ -215,7 +215,7 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
       <ul>
         <li>Two projections per game (possession × efficiency, and adjusted ratings), each with a 3-point home edge.</li>
         <li>A spread play needs both models 5+ points off the line on the same side; a total needs 7+.</li>
-        <li>1u flat per play; wins pay +1u, losses −1.1u. Cal's rules have no betting window.</li>
+        <li>Every play risks 1.1u to win 1u. Cal's rules have no betting window.</li>
         <li><strong>Play to</strong> is the worst line at which both models still clear their thresholds.</li>
       </ul>
     </div>
@@ -282,7 +282,7 @@ function edgePlay(r){
     <div class="pick">${esc(r.side)} ${ln} <span class="muted mono">${fmtOdds(o)}${book}</span>${tags}</div>
     <div class="ptrow">${playTo(r.mkt, r.play_to)}</div>
     ${booksLine(r.quotes, r.mkt, 1)}
-    <div class="stake">${r.tracking ? "0u" : r.stake.toFixed(1) + "u"}<small>edge ${r.edge.toFixed(1)}%</small></div>
+    <div class="stake">${r.tracking ? "Track" : r.stake.toFixed(2) + "u"}<small>${r.tracking ? "edge " + r.edge.toFixed(1) + "%" : "to win 1u"}</small></div>
     <div class="meta">${model} · win prob ${(r.p*100).toFixed(0)}%${r.notes ? " · Lineup: " + esc(r.notes) : ""}</div>
   </div>`;
 }
@@ -306,7 +306,7 @@ function calPlay(p){
     <div class="pick">${esc(p.text)}<span class="tag ${p.mkt==="SPREAD"?"spread":"total"}">${p.mkt==="SPREAD"?"Spread":"Total"}</span></div>
     <div class="ptrow">${playTo(p.mkt, p.pt)}${p.books && p.books.length ? ` <span class="muted mono">best at ${esc(p.books[0].book)} ${p.mkt==="SPREAD" ? sgn(p.books[0].line) : p.books[0].line.toFixed(1)} ${fmtOdds(p.books[0].odds)}</span>` : ""}</div>
     ${booksLine(p.books, p.mkt, 1)}
-    <div class="stake">1u<small>flat</small></div>
+    <div class="stake">1.1u<small>to win 1u</small></div>
     <div class="meta">${p.gap} · ${proj}</div>
   </div>`;
 }
@@ -364,7 +364,7 @@ function renderPlays(){
     const L = r.best_line ?? r.line;
     return `<div class="agree-card"><span class="k">${r.mkt==="SPREAD"?"Spread":"Total"} · ${esc(r.away)} @ ${esc(r.home)}${startLabel(r.start) ? " · " + dayLabel(dayKey(r.start)).replace(/^(Today|Tomorrow) · .*/, "$1") + " " + startLabel(r.start) : ""}</span>
       <span class="v">${esc(r.side)} ${r.mkt==="SPREAD"?sgn(L):L.toFixed(1)}</span>
-      <span class="s">${r.tracking ? "Tracking only" : r.stake.toFixed(1)+"u Edge Board"} · Cal 1u${r.book ? " · best at " + esc(r.book) : ""}${agreePT(r)}</span></div>`;
+      <span class="s">${r.tracking ? "Edge tracking only" : r.stake.toFixed(2)+"u Edge Board"} · Cal 1.1u to win 1u${r.book ? " · best at " + esc(r.book) : ""}${agreePT(r)}</span></div>`;
   }).join("");
 }
 
