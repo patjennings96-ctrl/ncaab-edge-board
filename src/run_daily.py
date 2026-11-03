@@ -618,6 +618,7 @@ def run(demo: bool = True, sheet_id: str | None = None):
     if not demo:
         publish.update_clv(live.closing_lines(), games_raw=names_and_results())
         print("Wrote", publish.write_record())
+        publish.refresh_recent()
 
     # --- Google Sheets (only when a sheet id and credentials are configured) ---
     creds = os.environ.get("GOOGLE_CREDS_PATH", "credentials.json")
@@ -707,21 +708,56 @@ def load_live_games():
 
 
 def names_and_results():
-    """Completed games (both seasons on disk) for grading logged plays."""
+    """Completed games (both seasons on disk, plus tonight's finals from the
+    scoreboard) for grading logged plays."""
     season = live.current_season()
     frames = [live.load_games(s) for s in (season - 1, season)]
-    return pd.concat([f for f in frames if not f.empty], ignore_index=True) \
-        if any(not f.empty for f in frames) else pd.DataFrame()
+    games = pd.concat([f for f in frames if not f.empty], ignore_index=True) \
+        if any(not f.empty for f in frames) else pd.DataFrame(columns=["game_id", "home_score", "away_score"])
+    games["game_id"] = games["game_id"].astype(str)
+    try:
+        finals = live.recent_finals(2)
+        games = pd.concat([games, finals[~finals["game_id"].isin(games["game_id"])]], ignore_index=True)
+    except Exception as exc:
+        print(f"[grade] tonight's finals skipped: {exc}")
+    return games
 
 
 def ratings_table_teams(ratings):
     return list(R.ratings_table(ratings)["team"])
 
 
+def grade_only() -> None:
+    """Fast results pass (no odds call, no re-pricing): pull finished games,
+    grade both models' logs, update the season record and the tipped plays
+    on the site. Runs every 20 minutes while games are on."""
+    import calmodel
+    import publish
+    season = live.current_season()
+    cur = live.update_games(season)
+    prev = live.load_games(season - 1)
+    games = pd.concat([f for f in (prev, cur) if not f.empty], ignore_index=True)
+    finals = live.recent_finals(2)             # tonight's finals, not in the box-score history yet
+    if not finals.empty:
+        games["game_id"] = games["game_id"].astype(str)
+        games = pd.concat([games, finals[~finals["game_id"].isin(games["game_id"])]], ignore_index=True)
+    publish.update_clv(live.closing_lines(), games_raw=games)
+    calmodel.grade_log(games)
+    print("Wrote", publish.write_record())
+    publish.refresh_recent()
+    done = int(cur["home_score"].notna().sum()) if not cur.empty else 0
+    print(f"[grade] {done} finished games this season")
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--live", action="store_true",
                     help="use live data feeds (default: synthetic demo season)")
+    ap.add_argument("--grade-only", action="store_true",
+                    help="results pass only: grade finished games, update records")
     ap.add_argument("--sheet-id", default=os.environ.get("SHEET_ID") or None)
     args = ap.parse_args()
-    run(demo=not args.live, sheet_id=args.sheet_id)
+    if args.grade_only:
+        grade_only()
+    else:
+        run(demo=not args.live, sheet_id=args.sheet_id)

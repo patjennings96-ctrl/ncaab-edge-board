@@ -154,6 +154,20 @@ def load_games(season: int) -> pd.DataFrame:
     return pd.read_csv(p, dtype={"game_id": str, "home_id": str, "away_id": str})
 
 
+def recent_finals(days: int = 2) -> pd.DataFrame:
+    """Final scores from ESPN's scoreboard for today and the previous day(s),
+    without box scores: enough to grade tonight's plays right away."""
+    today = datetime.now(ET).date()
+    rows = []
+    for k in range(days):
+        for e in espn_scoreboard(today - timedelta(days=k)):
+            if e["completed"] and e["home_score"] is not None and e["away_score"] is not None:
+                rows.append({"game_id": str(e["game_id"]), "home_score": e["home_score"],
+                             "away_score": e["away_score"]})
+    return pd.DataFrame(rows).drop_duplicates("game_id") if rows else pd.DataFrame(
+        columns=["game_id", "home_score", "away_score"])
+
+
 def update_games(season: int, workers: int = 8, verbose: bool = True) -> pd.DataFrame:
     """
     Fetch every completed game from the last stored date (or season start)

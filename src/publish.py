@@ -110,7 +110,8 @@ def update_clv(closes: pd.DataFrame, games_raw: pd.DataFrame) -> None:
         log[col] = log[col].astype(object)
 
     close = closes.set_index("game_id") if not closes.empty else pd.DataFrame()
-    res = games_raw.set_index("game_id") if not games_raw.empty else pd.DataFrame()
+    res = games_raw.assign(game_id=games_raw["game_id"].astype(str)).drop_duplicates("game_id", keep="last") \
+        .set_index("game_id") if not games_raw.empty else pd.DataFrame()
 
     for i, r in log.iterrows():
         gid = str(r["game_id"])
@@ -363,3 +364,75 @@ def write_slate(preds, cal_priced, card, names: dict) -> str:
         json.dump({"updated_at": datetime.now(timezone.utc).isoformat(timespec="minutes"),
                    "games": games}, f, indent=1)
     return SLATE_PATH
+
+
+# -----------------------------------------------------------------------------
+# Plays that have tipped: kept on the board (with live / final status filled in
+# by the page from ESPN) until the next day is well under way
+# -----------------------------------------------------------------------------
+CAL_JSON_PATH = os.path.join(ROOT, "docs", "cal", "data", "plays.json")
+RECENT_HOURS = 36
+
+
+def _num(x, default=None):
+    try:
+        v = float(x)
+        return v if np.isfinite(v) else default
+    except (TypeError, ValueError):
+        return default
+
+
+def _recent_window(df: pd.DataFrame, col: str = "start") -> pd.DataFrame:
+    now = pd.Timestamp.now(tz="UTC")
+    st = pd.to_datetime(df[col], utc=True, errors="coerce")
+    return df[(st <= now) & (st >= now - pd.Timedelta(hours=RECENT_HOURS))]
+
+
+def recent_edge_plays() -> list[dict]:
+    if not os.path.exists(LOG_PATH):
+        return []
+    log = _recent_window(pd.read_csv(LOG_PATH, dtype={"game_id": str}))
+    out = []
+    for r in log.itertuples(index=False):
+        g = r._asdict()
+        odds = _num(g.get("best_odds")) or _num(g.get("odds"), -110)
+        tw = _num(g.get("to_win"), 1.0) or 1.0
+        res = str(g.get("result") or "")
+        units = tw if res == "W" else (-tw / _payout(odds) if res == "L" else (0.0 if res == "P" else None))
+        out.append({"game_id": str(g["game_id"]), "start": str(g["start"]), "home": g["home"], "away": g["away"],
+                    "mkt": g["mkt"], "side": str(g["side"]), "side_code": g["side_code"],
+                    "line": _num(g["line"]), "best_line": _num(g.get("best_line")), "odds": _num(g.get("odds")),
+                    "best_odds": _num(g.get("best_odds")), "book": "" if pd.isna(g.get("book")) else str(g.get("book")),
+                    "stake": _num(g.get("stake"), 0.0), "to_win": tw, "p": _num(g.get("p")), "edge": _num(g.get("edge")),
+                    "agree": str(g.get("agree")).lower() == "true", "tracking": _num(g.get("stake"), 0.0) == 0.0,
+                    "reason": "" if pd.isna(g.get("reason")) else str(g.get("reason")),
+                    "result": res if res in ("W", "L", "P") else "", "units": None if units is None else round(units, 2),
+                    "started": True})
+    return out
+
+
+def recent_cal_plays() -> list[dict]:
+    if not os.path.exists(CAL_LOG_PATH):
+        return []
+    log = _recent_window(pd.read_csv(CAL_LOG_PATH, dtype={"game_id": str, "units": str}).fillna({"units": ""}))
+    out = []
+    for r in log.itertuples(index=False):
+        u = _num(r.units)
+        out.append({"game_id": str(r.game_id), "start": str(r.start), "home": r.home, "away": r.away,
+                    "market": r.market, "play": r.play, "line": _num(r.line), "total_line": _num(r.total_line),
+                    "units": u, "result": "" if u is None else ("W" if u > 0 else ("L" if u < 0 else "P")),
+                    "started": True})
+    return out
+
+
+def refresh_recent() -> None:
+    """Write tipped plays (with their graded result so far) into both play files."""
+    for path, plays in ((JSON_PATH, recent_edge_plays()), (CAL_JSON_PATH, recent_cal_plays())):
+        if not os.path.exists(path):
+            continue
+        with open(path) as f:
+            d = json.load(f)
+        d["recent"] = plays
+        d["results_updated_at"] = datetime.now(timezone.utc).isoformat(timespec="minutes")
+        with open(path, "w") as f:
+            json.dump(d, f, indent=1)

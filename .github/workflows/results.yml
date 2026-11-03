@@ -1,0 +1,88 @@
+# Results pass: grades plays as games finish and updates the season record.
+#
+# Every 20 minutes from 10 AM to 12:40 AM Arizona time (17:00-07:40 UTC),
+# November through April. No odds call (no Odds API credits) and no
+# re-pricing: it reads final scores from ESPN, grades both models' logs,
+# rewrites docs/data/record.json and the tipped plays on the site.
+# Live scores on the page itself come straight from ESPN in the browser.
+#
+# GitHub may start scheduled runs late when it's busy; the full refresh
+# (daily.yml) also grades, so nothing is missed.
+
+name: Results
+
+on:
+  schedule:
+    - cron: "*/20 17-23 * 11,12,1,2,3,4 *"
+    - cron: "*/20 0-7 * 11,12,1,2,3,4 *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-board
+  cancel-in-progress: false
+
+jobs:
+  grade:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      MODEL_MODE: ${{ vars.MODEL_MODE || 'demo' }}
+    steps:
+      - name: Decide whether to run
+        id: gate
+        run: |
+          if [ "$MODEL_MODE" != "live" ]; then
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "Skipped: MODEL_MODE is not live."
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.run == 'true'
+
+      - uses: actions/setup-python@v5
+        if: steps.gate.outputs.run == 'true'
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        if: steps.gate.outputs.run == 'true'
+        run: pip install -r requirements.txt
+
+      - name: Grade finished games
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          set -o pipefail
+          mkdir -p jobs/out
+          cd src
+          python run_daily.py --grade-only 2>&1 | tee ../jobs/out/results.log
+
+      - name: Commit results
+        if: steps.gate.outputs.run == 'true'
+        run: |
+          git config user.name "board-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A docs/data docs/cal/data data/history || true
+          if git diff --cached --quiet; then
+            echo "No new results."
+          else
+            git commit -m "Results $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git pull --rebase --autostash -X theirs origin main
+            git push
+          fi
+
+      - name: Save log of a failed run
+        if: failure() && steps.gate.outputs.run == 'true'
+        run: |
+          git config user.name "board-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          cp jobs/out/results.log jobs/out/results_failed.log 2>/dev/null || true
+          git add jobs/out/results_failed.log || true
+          git commit -m "Results pass failed $(date -u +'%Y-%m-%d %H:%M UTC'): log" || exit 0
+          git pull --rebase --autostash -X theirs origin main
+          git push

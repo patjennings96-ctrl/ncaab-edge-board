@@ -75,6 +75,11 @@ nav a:focus-visible,.seg button:focus-visible{outline:2px solid var(--accent);ou
 .play .match{font-size:.82rem;color:var(--muted)}
 .play .pick{font-weight:600;font-size:1.02rem}
 .ptrow{font-size:.82rem}
+.live{grid-column:1/-1;font-size:.8rem;color:var(--muted);font-family:var(--mono);margin-top:2px}
+.live.in{color:var(--accent)}
+.live.in b{background:var(--accent);color:var(--bg);padding:0 5px;border-radius:3px;font-weight:600;margin-right:4px}
+.live.post .res{margin-right:6px}
+.play.started{background:color-mix(in srgb, var(--bg) 55%, var(--surface))}
 .books{grid-column:1/-1;font-size:.76rem;color:var(--muted);font-family:var(--mono)}
 .slate td{font-size:.88rem}
 .slate td.match{font-weight:600}
@@ -284,7 +289,8 @@ function edgePlay(r){
     <div class="pick">${esc(r.side)} ${ln} <span class="muted mono">${fmtOdds(o)}${book}</span>${tags}</div>
     <div class="ptrow">${playTo(r.mkt, r.play_to)}</div>
     ${booksLine(r.quotes, r.mkt, 1)}
-    <div class="stake">${r.tracking ? "Track" : r.stake.toFixed(2) + "u"}<small>${r.tracking ? (r.to_win > 1 ? "to win " + r.to_win + "u" : "edge " + r.edge.toFixed(1) + "%") : "to win " + (r.to_win || 1) + "u"}</small></div>
+    ${LIVE[String(r.game_id)] && LIVE[String(r.game_id)].state !== "pre" ? statusLine(r.game_id, r.mkt, r.side_code === "HOME", r.side_code === "OVER", r.line, r.home, r.away, null) : ""}
+    <div class="stake">${r.tracking || r.stake == null ? "Track" : r.stake.toFixed(2) + "u"}<small>${r.tracking ? (r.to_win > 1 ? "to win " + r.to_win + "u" : "edge " + r.edge.toFixed(1) + "%") : "to win " + (r.to_win || 1) + "u"}</small></div>
     <div class="meta">${model} · win prob ${(r.p*100).toFixed(0)}%${r.notes ? " · Lineup: " + esc(r.notes) : ""}</div>
   </div>`;
 }
@@ -308,6 +314,7 @@ function calPlay(p){
     <div class="pick">${esc(p.text)}<span class="tag ${p.mkt==="SPREAD"?"spread":"total"}">${p.mkt==="SPREAD"?"Spread":"Total"}</span></div>
     <div class="ptrow">${playTo(p.mkt, p.pt)}${p.books && p.books.length ? ` <span class="muted mono">best at ${esc(p.books[0].book)} ${p.mkt==="SPREAD" ? sgn(p.books[0].line) : p.books[0].line.toFixed(1)} ${fmtOdds(p.books[0].odds)}</span>` : ""}</div>
     ${booksLine(p.books, p.mkt, 1)}
+    ${LIVE[String(g.game_id)] && LIVE[String(g.game_id)].state !== "pre" ? statusLine(g.game_id, p.mkt === "SPREAD" ? "ATS" : "TOTAL", p.mkt === "SPREAD" ? g.ats_play === "HOME" : false, g.ou_play === "OVER", p.mkt === "SPREAD" ? (g.ats_play === "HOME" ? g.line : -g.line) : g.total_line, g.home, g.away, null) : ""}
     <div class="stake">1.1u<small>to win 1u</small></div>
     <div class="meta">${p.gap} · ${proj}</div>
   </div>`;
@@ -346,15 +353,98 @@ function byDay(items, startOf, render, within){
     `<div class="dayhead">${esc(dayLabel(k))}<span>${groups[k].length}</span></div>` +
     groups[k].sort((a,b) => (new Date(startOf(a)) - new Date(startOf(b))) || within(a,b)).map(render).join("")).join("");
 }
+// ---- live scores (ESPN, straight from the browser) ----------------------
+let LIVE = {}, liveTimer = null;
+const espnDate = d => new Intl.DateTimeFormat("en-CA",{timeZone:ET,year:"numeric",month:"2-digit",day:"2-digit"}).format(d).replace(/-/g,"");
+async function fetchLive(){
+  const days = [new Date(), new Date(Date.now() - 86400000)];
+  const out = {};
+  for (const d of days) {
+    try {
+      const r = await fetch(`https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard?dates=${espnDate(d)}&groups=50&limit=500`, {cache:"no-store"});
+      if (!r.ok) continue;
+      const j = await r.json();
+      for (const e of j.events || []) {
+        const c = e.competitions[0], st = c.status.type;
+        const t = {}, ab = {}; c.competitors.forEach(x => { t[x.homeAway] = +x.score || 0; ab[x.homeAway] = (x.team && x.team.abbreviation) || ""; });
+        out[e.id] = {state: st.state, detail: st.shortDetail, home: t.home, away: t.away, ha: ab.home, aa: ab.away};
+      }
+    } catch (err) { /* offline or blocked: show logged results only */ }
+  }
+  LIVE = out;
+}
+// how the play stands: positive = covering / winning
+function coverBy(mkt, sideHome, overSide, line, hs, as){
+  if (mkt === "SPREAD" || mkt === "ATS") return (sideHome ? hs - as : as - hs) + line;
+  const tot = hs + as; return overSide ? tot - line : line - tot;
+}
+function statusLine(gid, mkt, sideHome, overSide, line, homeName, awayName, logged){
+  const L = LIVE[String(gid)];
+  if (L && L.state === "in") {
+    const c = coverBy(mkt, sideHome, overSide, line, L.home, L.away);
+    const word = mkt === "TOTAL" ? (c > 0 ? "ahead of the number" : (c < 0 ? "behind the number" : "on the number")) : (c > 0 ? "covering" : (c < 0 ? "not covering" : "on the number"));
+    return `<div class="live in"><b>LIVE</b> ${esc(L.detail)} · ${esc(L.aa || awayName)} ${L.away}, ${esc(L.ha || homeName)} ${L.home} · ${word}${c ? " by " + Math.abs(c).toFixed(1) : ""}</div>`;
+  }
+  const fin = L && L.state === "post";
+  if (fin || (logged && logged.result)) {
+    let res = logged && logged.result;
+    if (!res && fin) { const c = coverBy(mkt, sideHome, overSide, line, L.home, L.away); res = c > 0 ? "W" : (c < 0 ? "L" : "P"); }
+    const score = fin ? ` · ${esc(L.aa || awayName)} ${L.away}, ${esc(L.ha || homeName)} ${L.home}` : "";
+    const u = logged && logged.units != null ? ` · ${units(logged.units)}` : "";
+    return `<div class="live post"><span class="res ${res}">${res === "W" ? "WIN" : res === "L" ? "LOSS" : "PUSH"}</span> Final${score}${u}</div>`;
+  }
+  if (L && L.state === "pre") return "";
+  return `<div class="live">Started · result pending</div>`;
+}
+function edgeStarted(r){
+  const L = r.line;
+  const ln = r.mkt === "SPREAD" ? sgn(L) : L.toFixed(1);
+  const tags = `<span class="tag ${r.mkt==="SPREAD"?"spread":"total"}">${r.mkt==="SPREAD"?"Spread":"Total"}</span>`
+    + (r.agree ? '<span class="tag both">Both models</span>' : "")
+    + (r.tracking ? `<span class="tag track">${esc(r.reason || "Tracking")}</span>` : "");
+  return `<div class="play started">
+    <div class="match">${esc(r.away)} @ ${esc(r.home)} · ${startLabel(r.start)}</div>
+    <div class="pick">${esc(r.side)} ${ln}${r.book ? ` <span class="muted mono">best was ${esc(r.book)}</span>` : ""}${tags}</div>
+    <div class="stake">${r.tracking || r.stake == null ? "Track" : r.stake.toFixed(2) + "u"}<small>to win ${r.to_win || 1}u</small></div>
+    ${statusLine(r.game_id, r.mkt, r.side_code === "HOME", r.side_code === "OVER", L, r.home, r.away, r)}
+  </div>`;
+}
+function calStarted(p){
+  const ats = p.market === "ATS";
+  const home = p.play === "HOME";
+  const L = ats ? (home ? p.line : -p.line) : p.total_line;
+  const text = ats ? `${home ? p.home : p.away} ${sgn(L)}` : `${p.play === "OVER" ? "Over" : "Under"} ${L.toFixed(1)}`;
+  return `<div class="play started">
+    <div class="match">${esc(p.away)} @ ${esc(p.home)} · ${startLabel(p.start)}</div>
+    <div class="pick">${esc(text)}<span class="tag ${ats?"spread":"total"}">${ats?"Spread":"Total"}</span></div>
+    <div class="stake">1.1u<small>to win 1u</small></div>
+    ${statusLine(p.game_id, ats ? "ATS" : "TOTAL", home, p.play === "OVER", L, p.home, p.away, p)}
+  </div>`;
+}
+function anyLiveSoon(){
+  const all = [...((EDGE && EDGE.recent) || []), ...((CAL && CAL.recent) || []), ...((EDGE && EDGE.plays) || [])];
+  const now = Date.now();
+  return all.some(x => { const L = LIVE[String(x.game_id)]; const t = new Date(x.start).getTime();
+    return (L && L.state === "in") || (t <= now + 600000 && !(L && L.state === "post") && !x.result); });
+}
+async function liveLoop(){
+  await fetchLive(); renderPlays();
+  clearTimeout(liveTimer);
+  if (anyLiveSoon()) liveTimer = setTimeout(liveLoop, 60000);
+}
+
 function renderPlays(){
-  const ep = (EDGE && EDGE.plays) || [];
+  const upcoming = (EDGE && EDGE.plays) || [];
+  const ep = [...((EDGE && EDGE.recent) || []), ...upcoming.filter(r => !((EDGE.recent || []).some(x => x.game_id === r.game_id && x.mkt === r.mkt)))];
   const cg = (CAL && CAL.games) || [];
-  const cp = cg.flatMap(calPicks);
+  const cpUp = cg.flatMap(calPicks);
+  const cRecent = (CAL && CAL.recent) || [];
+  const cp = [...cRecent.map(x => ({started: true, x})), ...cpUp.filter(p => !cRecent.some(x => x.game_id === p.g.game_id && (x.market === "ATS") === (p.mkt === "SPREAD")))];
   document.getElementById("edge-plays").innerHTML = ep.length
-    ? byDay(ep, r => r.start, edgePlay, (a,b) => b.edge - a.edge)
+    ? byDay(ep, r => r.start, r => r.started ? edgeStarted(r) : edgePlay(r), (a,b) => (b.edge || 0) - (a.edge || 0))
     : `<div class="empty">No Edge Board plays right now.${EDGE ? "" : " (Couldn't load data/plays.json.)"}</div>`;
   document.getElementById("cal-plays").innerHTML = cp.length
-    ? byDay(cp, p => p.g.start, calPlay, () => 0)
+    ? byDay(cp, p => p.started ? p.x.start : p.g.start, p => p.started ? calStarted(p.x) : calPlay(p), () => 0)
     : `<div class="empty">No games clear Cal's thresholds right now.${CAL ? "" : " (Couldn't load cal/data/plays.json.)"}</div>`;
   const su = ep.reduce((s,r)=>s+(r.tracking?0:r.stake),0);
   document.getElementById("plays-n").textContent = `Edge ${ep.length} (${su.toFixed(1)}u) · Cal ${cp.length}`;
@@ -506,6 +596,7 @@ async function load(){
   const ks = EDGE && EDGE.settings && EDGE.settings.spread_sizing;
   if (ks) document.getElementById("sizing-rule").textContent = `Spread sizing: ${ks.mode === "kelly" ? "¼ Kelly on the calibrated win probability (cap 3u)" : "flat to win 1u"}. Kelly check (from Dec 1, 300+ graded plays must win at the predicted rate): ${ks.reason || "pending"}.`;
   renderPlays(); renderSlate(); renderRecord(); renderCheck(); renderResults();
+  liveLoop();
 }
 load();
 </script>
