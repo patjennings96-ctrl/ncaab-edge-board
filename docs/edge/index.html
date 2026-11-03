@@ -379,7 +379,7 @@ Stake    = ¼ · (P·b − (1−P)) / b   ·  b = decimal − 1</div>
 <script>
 let PLAYS = [];
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const gameTime = s => { const t = new Date(s); return !s || isNaN(t) ? "" : t.toLocaleString("en-US", {weekday:"short", month:"short", day:"numeric", hour:"numeric", minute:"2-digit", timeZone:"America/Phoenix"}) + " AZ"; };
+const gameTime = s => { const t = new Date(s); return !s || isNaN(t) ? "" : t.toLocaleString("en-US", {weekday:"short", month:"short", day:"numeric", hour:"numeric", minute:"2-digit", timeZone:"America/Phoenix"}) + " MST"; };
 const fmtLine = v => (v>0?"+":"") + v.toFixed(1);
 let filter = "ALL";
 const fmtOdds = o => (o>0?"+":"") + o;
@@ -424,7 +424,7 @@ async function load(){
     PLAYS=d.plays||[];
     document.getElementById("demo-note").hidden = d.mode!=="demo";
     const t=new Date(d.updated_at);
-    up.textContent="Updated "+t.toLocaleString("en-US", {weekday:"short",month:"short",day:"numeric",hour:"numeric",minute:"2-digit",timeZone:"America/Phoenix"})+" AZ"+(d.mode==="live"?" · live lines":" · demo run");
+    up.textContent="Updated "+t.toLocaleString("en-US", {weekday:"short",month:"short",day:"numeric",hour:"numeric",minute:"2-digit",timeZone:"America/Phoenix"})+" MST"+(d.mode==="live"?" · live lines":" · demo run");
   }catch(e){
     up.textContent="Couldn't load the latest card (data/plays.json). Check that the Refresh board workflow has run.";
   }

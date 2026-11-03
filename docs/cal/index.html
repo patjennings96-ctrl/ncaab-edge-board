@@ -246,7 +246,7 @@ function grade(g, kind) {
   return x > 0 ? '<span class="tag win">W</span>' : x < 0 ? '<span class="tag loss">L</span>' : '<span class="tag">P</span>';
 }
 
-function gameTime(s) { const t = new Date(s); return !s || isNaN(t) || /^\d{4}-\d{2}-\d{2}$/.test(s) ? "" : t.toLocaleString("en-US", {weekday:"short", month:"short", day:"numeric", hour:"numeric", minute:"2-digit", timeZone:"America/Phoenix"}) + " AZ"; }
+function gameTime(s) { const t = new Date(s); return !s || isNaN(t) || /^\d{4}-\d{2}-\d{2}$/.test(s) ? "" : t.toLocaleString("en-US", {weekday:"short", month:"short", day:"numeric", hour:"numeric", minute:"2-digit", timeZone:"America/Phoenix"}) + " MST"; }
 function render() {
   const list = GAMES.filter(g => FILTER === "all" || g.ats_play || g.ou_play)
     .sort((a, b) => (new Date(a.start) - new Date(b.start)) || ((!!(b.ats_play || b.ou_play)) - (!!(a.ats_play || a.ou_play))));   // tip-off order
@@ -285,7 +285,7 @@ async function load() {
     GAMES = d.games || [];
     if (d.model2_source) document.getElementById("m2src").textContent = `The sheet used KenPom; today's run used ${d.model2_source}.`;
     const t = new Date(d.updated_at);
-    document.getElementById("updated").textContent = "Updated " + t.toLocaleString("en-US", {month: "short", day: "numeric", hour: "numeric", minute: "2-digit", timeZone: "America/Phoenix"}) + " AZ";
+    document.getElementById("updated").textContent = "Updated " + t.toLocaleString("en-US", {month: "short", day: "numeric", hour: "numeric", minute: "2-digit", timeZone: "America/Phoenix"}) + " MST";
     const r = d.record || {};
     const live = k => r[k] && (r[k].w + r[k].l + r[k].p) ? `${r[k].w}–${r[k].l} · ${units(r[k].units)}` : "No graded plays yet";
     document.getElementById("live-ats").innerHTML = live("ATS");

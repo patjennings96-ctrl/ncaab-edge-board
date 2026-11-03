@@ -240,7 +240,7 @@ const fmtOdds = o => (o > 0 ? "+" : "") + o;
 const units = v => (v > 0 ? "+" : "") + v.toFixed(1) + "u";
 const cls = v => v > 0 ? "pos" : (v < 0 ? "neg" : "");
 const ET = "America/New_York";
-const AZ = "America/Phoenix";   // all times shown in Arizona time
+const AZ = "America/Phoenix";   // all times shown in Arizona time (MST all year; Arizona has no daylight saving)
 const ptFmt = (mkt, v) => v == null ? "" : (mkt === "SPREAD" || mkt === "ATS" ? sgn(v) : v.toFixed(1));
 const playTo = (mkt, v) => v == null ? "" : `<span class="pt">play to ${ptFmt(mkt, v)}</span>`;
 
@@ -259,7 +259,7 @@ function startLabel(s){
   if (!s) return "";
   if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return "";
   const t = new Date(s); if (isNaN(t)) return "";
-  return t.toLocaleTimeString("en-US", {hour:"numeric", minute:"2-digit", timeZone:AZ}) + " AZ";
+  return t.toLocaleTimeString("en-US", {hour:"numeric", minute:"2-digit", timeZone:AZ}) + " MST";
 }
 
 let SLATE = null, EDGE = null, CAL = null, REC = null, resModel = "edge";
@@ -498,7 +498,7 @@ async function load(){
   [EDGE, CAL, REC, SLATE] = await Promise.all([getJSON("data/plays.json"), getJSON("cal/data/plays.json"), getJSON("data/record.json"), getJSON("data/slate.json")]);
   const ts = [EDGE && EDGE.updated_at, CAL && CAL.updated_at].filter(Boolean).sort().pop();
   document.getElementById("updated").textContent = ts
-    ? "Updated " + new Date(ts).toLocaleString("en-US", {weekday:"short", month:"short", day:"numeric", hour:"numeric", minute:"2-digit", timeZone:AZ}) + " AZ"
+    ? "Updated " + new Date(ts).toLocaleString("en-US", {weekday:"short", month:"short", day:"numeric", hour:"numeric", minute:"2-digit", timeZone:AZ}) + " MST"
       + (EDGE && EDGE.mode === "demo" ? " · demo data" : "")
     : "Couldn't load the latest plays.";
   renderPlays(); renderSlate(); renderRecord(); renderCheck(); renderResults();
