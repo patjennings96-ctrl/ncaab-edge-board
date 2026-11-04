@@ -533,9 +533,7 @@ function statusLine(gid, mkt, sideHome, overSide, line, homeName, awayName, logg
       const parts = isSpread ? [spTxt, totTxt] : [totTxt, sp == null ? "" : `${esc(L.ha || homeName)} ${sgn(L.lv.spread)}`];
       tail = `live ${parts.filter(Boolean).join(" · ")} <span class="muted">(${esc(L.lv.book)})</span>`;
     } else {
-      const c = coverBy(mkt, sideHome, overSide, line, L.home, L.away);
-      const word = mkt === "TOTAL" ? (c > 0 ? "ahead of the number" : (c < 0 ? "behind the number" : "on the number")) : (c > 0 ? "covering" : (c < 0 ? "not covering" : "on the number"));
-      tail = `${word}${c ? " by " + Math.abs(c).toFixed(1) : ""}`;
+      tail = `<span class="muted">live line not posted yet</span>`;
     }
     return `<div class="live in"><b>LIVE</b> ${esc(L.detail)} · ${score} · ${tail}</div>`;
   }
