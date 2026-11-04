@@ -80,6 +80,22 @@ def _load_stamp(folder: str) -> dict:
         return {}
 
 
+def kenpom_status() -> dict:
+    """When the KenPom paste was last updated and whether the models are using it.
+    Both models use KenPom only while the paste is under MAX_AGE_DAYS old: the
+    Edge Board blends it TEAM_BLEND with its own ratings, Cal's Model 2 runs on it.
+    Otherwise the Edge Board uses its own ratings and Model 2 falls back to them."""
+    path = os.path.join(EXT_DIR, "kenpom", "teams.csv")
+    st = _load_stamp(os.path.dirname(path)).get("teams.csv")
+    if not st or not os.path.exists(path):
+        return {"as_of": None, "age_days": None, "in_use": False, "max_age_days": MAX_AGE_DAYS,
+                "edge_blend": TEAM_BLEND}
+    t = calendar.timegm(time.strptime(st["as_of"], "%Y-%m-%dT%H:%M:%SZ"))
+    age = (time.time() - t) / 86400
+    return {"as_of": st["as_of"], "age_days": round(age, 1), "in_use": _fresh(path),
+            "max_age_days": MAX_AGE_DAYS, "edge_blend": TEAM_BLEND}
+
+
 KENPOM_PASTE = os.path.join(EXT_DIR, "kenpom", "paste.txt")
 _WL = re.compile(r"^\d{1,2}-\d{1,2}$")
 _NUM = re.compile(r"^[+-]?\d+(\.\d+)?$")

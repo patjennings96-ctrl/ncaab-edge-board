@@ -615,7 +615,8 @@ def run(demo: bool = True, sheet_id: str | None = None):
                 "cal_sigma_spread": CAL_SIGMA_SPREAD,
                 "min_points_spread": MIN_POINTS_SPREAD, "min_points_total": MIN_POINTS_TOTAL,
                 "bet_window": "Jan 1 - Mar 8", "staking": "risk to win 1u (1.5u on totals both models agree on)",
-                "edge_tracking_only": EDGE_TRACKING_ONLY, "spread_sizing": kelly_check()}
+                "edge_tracking_only": EDGE_TRACKING_ONLY, "spread_sizing": kelly_check(),
+                "kenpom": _kenpom_status()}
     print("\nWrote", publish.write_json(card, mode, settings))
     print("Wrote", publish.write_slate(preds, priced, card, names))
     log = publish.append_log(card, mode)
@@ -728,6 +729,14 @@ def names_and_results():
     except Exception as exc:
         print(f"[grade] tonight's finals skipped: {exc}")
     return games
+
+
+def _kenpom_status() -> dict:
+    try:
+        import external as X
+        return X.kenpom_status()
+    except Exception as exc:
+        return {"in_use": False, "error": str(exc)}
 
 
 def ratings_table_teams(ratings):

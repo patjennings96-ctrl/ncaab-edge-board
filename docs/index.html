@@ -58,6 +58,10 @@ nav a:focus-visible,.seg button:focus-visible{outline:2px solid var(--accent);ou
 .phase.live strong{color:var(--good)}
 .phase:not(.live) strong{color:var(--warn)}
 #updated{font-size:.85rem}
+.inputs{font-size:.86rem;border-left:4px solid var(--good);background:var(--good-soft);padding:10px 14px;border-radius:0 6px 6px 0}
+.inputs.stale{border-color:var(--bad);background:var(--bad-soft)}
+.inputs b{font-family:var(--display);text-transform:uppercase;letter-spacing:.02em;margin-right:6px}
+.inputs a{color:inherit}
 
 /* jump tabs */
 .tabs{position:sticky;top:0;z-index:20;margin:-20px -16px;padding:10px 16px;background:color-mix(in srgb, var(--bg) 92%, transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
@@ -172,6 +176,7 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
   <h1>Daily Plays</h1>
   <div class="date" id="today"></div>
   <div class="phase" id="phase"><strong id="phase-k"></strong><span id="phase-v"></span></div>
+  <div class="inputs" id="kp" hidden></div>
   <p class="muted" id="updated">Loading…</p>
 </header>
 
@@ -270,6 +275,7 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
     <div>
       <h3>Edge Board</h3>
       <ul>
+        <li>Ratings: its own adjusted ratings from every game's box score. While a KenPom paste is under 3 days old they are blended 50/50 with KenPom (offense, defense, tempo); otherwise it runs on its own ratings. The banner at the top says which.</li>
         <li>Spread plays need 2+ points of disagreement with the consensus line; totals need 3+.</li>
         <li>Books shopped: DraftKings, FanDuel, theScore Bet, BetMGM, Bally Bet, Hard Rock, BetRivers, Kalshi and Polymarket (prediction-market prices converted to American odds, Kalshi's fee included). The best book is the one with the highest expected value, weighing line and price together.</li>
         <li>Every play risks enough to win 1u at the price taken: 1.1u at −110, 1.05u at −105, 1u at even money.</li>
@@ -285,6 +291,7 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
       <h3>Cal's model</h3>
       <ul>
         <li>Two projections per game (possession × efficiency, and adjusted ratings), each with a 3-point home edge.</li>
+        <li>Model 2 runs on the KenPom paste while it is under 3 days old; after that it falls back to the Edge Board's ratings.</li>
         <li>A spread play needs both models 5+ points off the line on the same side; a total needs 7+.</li>
         <li>Every play risks 1.1u to win 1u. Cal's rules have no betting window.</li>
         <li><strong>Play to</strong> is the worst line at which both models still clear their thresholds.</li>
@@ -414,6 +421,31 @@ function renderTop(upcoming, cpUp){
       <span class="tp">${x.pick}</span><span class="tv"${simTitle(x.s)}>${x.s.w}-${x.s.l} · ${(x.s.pct*100).toFixed(1)}%</span>
       <span class="tm">${x.who} · ${x.game} · ${startLabel(x.start)} · ${x.extra}<br>like: ${esc(x.s.match)} (${units(x.s.units)})</span></li>`).join("")
     : `<li class="empty muted">No similar-play records yet.</li>`;
+}
+// KenPom paste: both models use it only while it is under max_age_days old.
+function renderKenpom(){
+  const k = EDGE && EDGE.settings && EDGE.settings.kenpom, el = document.getElementById("kp");
+  if (!k) return;
+  el.hidden = false;
+  const max = k.max_age_days || 3, blend = Math.round(100 * (k.edge_blend ?? 0.5));
+  const paste = `<a href="https://github.com/patjennings96-ctrl/ncaab-edge-board/edit/main/data/external/kenpom/paste.txt">Paste today's KenPom</a>`;
+  if (!k.as_of) {
+    el.className = "inputs stale";
+    el.innerHTML = `<b>KenPom: none</b>No KenPom paste on file. The Edge Board is on its own ratings and Cal's Model 2 is using the Edge Board's ratings. ${paste}.`;
+    return;
+  }
+  const t = new Date(k.as_of), age = (Date.now() - t) / 86400000;
+  const when = new Intl.DateTimeFormat("en-US",{timeZone:AZ,month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}).format(t) + " MST";
+  const ago = age < 1 ? "today" : `${Math.floor(age)} day${Math.floor(age) === 1 ? "" : "s"} old`;
+  // the plays were priced with the setting at the last refresh; flag a paste about to expire too
+  if (k.in_use && age < max) {
+    el.className = "inputs" + (age >= max - 1 ? " stale" : "");
+    el.innerHTML = `<b>KenPom: in use</b>Paste from ${when} (${ago}). Edge Board ratings are ${blend}% KenPom, ${100 - blend}% its own; Cal's Model 2 runs on KenPom.`
+      + (age >= max - 1 ? ` It stops being used after ${max} days: ${paste}.` : "");
+  } else {
+    el.className = "inputs stale";
+    el.innerHTML = `<b>KenPom: not in use</b>Last paste ${when} (${ago}, limit ${max} days). The Edge Board is on its own ratings only and Cal's Model 2 is using the Edge Board's ratings instead of KenPom. ${paste} to switch both back (the board re-prices a few minutes after you save it).`;
+  }
 }
 function agreePT(r){
   const g = ((CAL && CAL.games) || []).find(x => String(x.game_id) === String(r.game_id));
@@ -772,6 +804,7 @@ async function load(){
   document.getElementById("phase-k").textContent = ph.k;
   document.getElementById("phase-v").textContent = ph.v;
   [EDGE, CAL, REC, SLATE] = await Promise.all([getJSON("data/plays.json"), getJSON("cal/data/plays.json"), getJSON("data/record.json"), getJSON("data/slate.json")]);
+  renderKenpom();
   const ts = [EDGE && EDGE.updated_at, CAL && CAL.updated_at].filter(Boolean).sort().pop();
   document.getElementById("updated").textContent = ts
     ? "Updated " + new Date(ts).toLocaleString("en-US", {weekday:"short", month:"short", day:"numeric", hour:"numeric", minute:"2-digit", timeZone:AZ}) + " MST"
