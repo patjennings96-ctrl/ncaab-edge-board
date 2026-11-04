@@ -400,7 +400,8 @@ def grade_log(games_raw: pd.DataFrame) -> None:
 def log_record() -> dict:
     if not os.path.exists(CAL_LOG):
         return {}
-    log = pd.read_csv(CAL_LOG, dtype={"units": str}).fillna({"units": ""})
+    import publish
+    log = publish.drop_void(pd.read_csv(CAL_LOG, dtype={"units": str}).fillna({"units": ""}), "cal")
     out = {}
     for mkt, g in log.groupby("market"):
         u = pd.to_numeric(g["units"], errors="coerce").dropna()

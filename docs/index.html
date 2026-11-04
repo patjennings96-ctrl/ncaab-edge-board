@@ -696,6 +696,9 @@ function renderRecord(){
   const bg = e.big_spreads;
   document.getElementById("edge-big").textContent = bg && (bg.w + bg.l + bg.p)
     ? `Not counted: Edge Board spreads over 25.5 points (off the board) went ${bg.w}-${bg.l}${bg.p ? "-" + bg.p : ""}. They're still graded in the background for the cap review.` : "";
+  const vd = [...new Set([...((EDGE && EDGE.void_days) || []), ...((CAL && CAL.void_days) || [])])].sort();
+  if (vd.length) document.getElementById("edge-big").textContent += (document.getElementById("edge-big").textContent ? " " : "")
+    + `Voided (removed from the board and every record, both models): ${vd.map(d => dayLabel(d).replace(/^(Today|Yesterday|Tomorrow) · /, "")).join(", ")}.`;
   document.getElementById("cal-rec").innerHTML = tile("Spreads", cr.ATS) + tile("Totals", cr.TOTAL) + tile("All", c.all);
   if (REC && REC.season_start) {
     const y = +REC.season_start.slice(0,4);

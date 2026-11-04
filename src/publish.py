@@ -71,19 +71,27 @@ def write_json(card: pd.DataFrame, mode: str, settings: dict) -> str:
 
 
 def attach_similar() -> None:
-    """Add "how have similar plays done" records to both plays.json files."""
+    """Final pass on both plays.json files: drop plays on voided days, then add
+    "how have similar plays done" records."""
     import similar
+    e = json.load(open(JSON_PATH)) if os.path.exists(JSON_PATH) else None
+    c = json.load(open(CAL_JSON_PATH)) if os.path.exists(CAL_JSON_PATH) else None
+    for obj, key, model in ((e, "plays", "edge"), (c, "games", "cal")):
+        if obj is None:
+            continue
+        days = void_days(model)
+        rows = obj.get(key, [])
+        keep = ~az_date(pd.Series([r.get("start") for r in rows], dtype=object)).isin(days) if rows else []
+        obj[key] = [r for r, k in zip(rows, keep) if k]
+        obj["void_days"] = sorted(days)
     try:
-        P = similar.pool()
-        e = json.load(open(JSON_PATH)) if os.path.exists(JSON_PATH) else None
-        c = json.load(open(CAL_JSON_PATH)) if os.path.exists(CAL_JSON_PATH) else None
-        similar.attach((e or {}).get("plays", []), (c or {}).get("games", []), P)
-        for path, obj in ((JSON_PATH, e), (CAL_JSON_PATH, c)):
-            if obj is not None:
-                with open(path, "w") as f:
-                    json.dump(obj, f, indent=2)
+        similar.attach((e or {}).get("plays", []), (c or {}).get("games", []), similar.pool())
     except Exception as exc:
         print(f"[similar] skipped: {exc}")
+    for path, obj in ((JSON_PATH, e), (CAL_JSON_PATH, c)):
+        if obj is not None:
+            with open(path, "w") as f:
+                json.dump(obj, f, indent=2)
 
 
 def append_log(card: pd.DataFrame, mode: str) -> str | None:
@@ -214,6 +222,31 @@ def _summ(df: pd.DataFrame, units_col: str = "units") -> dict:
 BIG_SPREAD = 25.5
 
 
+# Days Pat voided (data/history/void_days.csv: date, model edge|cal|both,
+# reason). Dates are Arizona dates of tip-off, as the site groups them. Voided
+# plays stay in the logs but are dropped from the board, every record and check.
+VOID_PATH = os.path.join(ROOT, "data", "history", "void_days.csv")
+
+
+def void_days(model: str) -> set[str]:
+    if not os.path.exists(VOID_PATH):
+        return set()
+    v = pd.read_csv(VOID_PATH, dtype=str).fillna("")
+    return set(v.loc[v["model"].str.lower().isin([model, "both"]), "date"].str.strip())
+
+
+def az_date(start) -> pd.Series:
+    st = pd.to_datetime(start, utc=True, errors="coerce")
+    return st.dt.tz_convert("America/Phoenix").dt.strftime("%Y-%m-%d")
+
+
+def drop_void(log: pd.DataFrame, model: str) -> pd.DataFrame:
+    days = void_days(model)
+    if not days or log.empty or "start" not in log:
+        return log
+    return log[~az_date(log["start"]).isin(days)]
+
+
 def is_big_spread(log: pd.DataFrame) -> pd.Series:
     line = pd.to_numeric(log.get("best_line", log["line"]), errors="coerce").fillna(
         pd.to_numeric(log["line"], errors="coerce"))
@@ -223,7 +256,7 @@ def is_big_spread(log: pd.DataFrame) -> pd.Series:
 def edge_record(since: str) -> dict:
     if not os.path.exists(LOG_PATH):
         return {}
-    log = pd.read_csv(LOG_PATH, dtype={"game_id": str})
+    log = drop_void(pd.read_csv(LOG_PATH, dtype={"game_id": str}), "edge")
     log = log[log["posted_at"].astype(str) >= since].copy()
     if log.empty:
         return {}
@@ -266,7 +299,7 @@ def edge_record(since: str) -> dict:
 def cal_record(since: str) -> dict:
     if not os.path.exists(CAL_LOG_PATH):
         return {}
-    log = pd.read_csv(CAL_LOG_PATH, dtype={"game_id": str, "units": str}).fillna({"units": ""})
+    log = drop_void(pd.read_csv(CAL_LOG_PATH, dtype={"game_id": str, "units": str}).fillna({"units": ""}), "cal")
     log = log[log["posted_at"].astype(str) >= since].copy()
     if log.empty:
         return {}
@@ -319,7 +352,7 @@ def _side_split(result: pd.Series, fav: pd.Series, size: pd.Series) -> dict:
 def model_check(since: str) -> dict:
     out = {"edge": {}, "cal": {}}
     if os.path.exists(LOG_PATH):
-        log = pd.read_csv(LOG_PATH, dtype={"game_id": str})
+        log = drop_void(pd.read_csv(LOG_PATH, dtype={"game_id": str}), "edge")
         log = log[(log["posted_at"].astype(str) >= since) & log["result"].astype(str).isin(["W", "L", "P"])]
         log = log[~is_big_spread(log)] if not log.empty else log
         if not log.empty and "gap" in log:
@@ -342,7 +375,7 @@ def model_check(since: str) -> dict:
                     ln = pd.to_numeric(g["line"], errors="coerce")
                     out["edge"][mkt]["sides"] = _side_split(g["result"], ln < 0, ln.abs())
     if os.path.exists(CAL_LOG_PATH):
-        log = pd.read_csv(CAL_LOG_PATH, dtype={"game_id": str, "units": str}).fillna({"units": ""})
+        log = drop_void(pd.read_csv(CAL_LOG_PATH, dtype={"game_id": str, "units": str}).fillna({"units": ""}), "cal")
         log = log[log["posted_at"].astype(str) >= since]
         u = pd.to_numeric(log["units"], errors="coerce")
         log = log[u.notna()].assign(result=np.where(u[u.notna()] > 0, "W", np.where(u[u.notna()] < 0, "L", "P")))
@@ -430,7 +463,7 @@ def _recent_window(df: pd.DataFrame, col: str = "start") -> pd.DataFrame:
 def recent_edge_plays() -> list[dict]:
     if not os.path.exists(LOG_PATH):
         return []
-    log = _recent_window(pd.read_csv(LOG_PATH, dtype={"game_id": str}))
+    log = _recent_window(drop_void(pd.read_csv(LOG_PATH, dtype={"game_id": str}), "edge"))
     out = []
     for r in log.itertuples(index=False):
         g = r._asdict()
@@ -453,7 +486,7 @@ def recent_edge_plays() -> list[dict]:
 def recent_cal_plays() -> list[dict]:
     if not os.path.exists(CAL_LOG_PATH):
         return []
-    log = _recent_window(pd.read_csv(CAL_LOG_PATH, dtype={"game_id": str, "units": str}).fillna({"units": ""}))
+    log = _recent_window(drop_void(pd.read_csv(CAL_LOG_PATH, dtype={"game_id": str, "units": str}).fillna({"units": ""}), "cal"))
     out = []
     for r in log.itertuples(index=False):
         u = _num(r.units)

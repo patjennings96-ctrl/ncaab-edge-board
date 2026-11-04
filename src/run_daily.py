@@ -247,7 +247,7 @@ def kelly_check(today=None) -> dict:
     if not os.path.exists(publish.LOG_PATH):
         out["reason"] = "no graded plays yet"
         return out
-    log = pd.read_csv(publish.LOG_PATH, dtype={"game_id": str})
+    log = publish.drop_void(pd.read_csv(publish.LOG_PATH, dtype={"game_id": str}), "edge")
     log = log[(log["posted_at"].astype(str) >= publish._season_start()) & (log["mkt"] == "SPREAD")
               & log["result"].astype(str).isin(["W", "L"])]
     log = log[~publish.is_big_spread(log)]          # off the board: never bet, not counted

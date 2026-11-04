@@ -124,7 +124,8 @@ def _edge_live() -> pd.DataFrame:
     p = os.path.join(HIST, "card_log.csv")
     if not os.path.exists(p):
         return pd.DataFrame()
-    d = pd.read_csv(p, dtype={"game_id": str})
+    import publish
+    d = publish.drop_void(pd.read_csv(p, dtype={"game_id": str}), "edge")
     d = d[d.result.isin(["W", "L", "P"])].copy()
     d["gap"] = pd.to_numeric(d.gap, errors="coerce")
     d = d.dropna(subset=["gap"])
@@ -141,7 +142,8 @@ def _cal_live() -> pd.DataFrame:
     p = os.path.join(HIST, "cal_log.csv")
     if not os.path.exists(p):
         return pd.DataFrame()
-    d = pd.read_csv(p, dtype={"game_id": str, "units": str})
+    import publish
+    d = publish.drop_void(pd.read_csv(p, dtype={"game_id": str, "units": str}), "cal")
     d["u"] = pd.to_numeric(d.units, errors="coerce")
     d["gap"] = pd.to_numeric(d.gap, errors="coerce")
     d = d.dropna(subset=["u", "gap"])
