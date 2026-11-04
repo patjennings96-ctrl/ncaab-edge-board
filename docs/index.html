@@ -482,7 +482,8 @@ async function fetchLive(){
       for (const e of j.events || []) {
         const c = e.competitions[0], st = c.status.type;
         const t = {}, ab = {}, nm = {}; c.competitors.forEach(x => { t[x.homeAway] = +x.score || 0; ab[x.homeAway] = (x.team && x.team.abbreviation) || ""; nm[x.homeAway] = (x.team && x.team.displayName) || ""; });
-        out[e.id] = {state: st.state, detail: st.shortDetail, home: t.home, away: t.away, ha: ab.home, aa: ab.away, hn: nm.home, an: nm.away};
+        out[e.id] = {state: st.state, detail: st.shortDetail, home: t.home, away: t.away, ha: ab.home, aa: ab.away, hn: nm.home, an: nm.away,
+                     period: c.status.period || 1, clock: c.status.displayClock || "0:00"};
       }
     } catch (err) { /* offline or blocked: show logged results only */ }
   }
@@ -533,7 +534,19 @@ function statusLine(gid, mkt, sideHome, overSide, line, homeName, awayName, logg
       const parts = isSpread ? [spTxt, totTxt] : [totTxt, sp == null ? "" : `${esc(L.ha || homeName)} ${sgn(L.lv.spread)}`];
       tail = `live ${parts.filter(Boolean).join(" · ")} <span class="muted">(${esc(L.lv.book)})</span>`;
     } else {
-      tail = `<span class="muted">live line not posted yet</span>`;
+      // DraftKings doesn't post a live line for every game (often not for big
+      // mismatches): show where the play stands against its own number instead.
+      if (mkt === "TOTAL") {
+        const [mm, ss] = String(L.clock).split(":").map(Number);
+        const left = (mm || 0) + (ss || 0) / 60;
+        const el = L.period <= 2 ? (L.period - 1) * 20 + (20 - left) : null;
+        const tot = L.home + L.away;
+        tail = el && el >= 4 ? `on pace for ${Math.round(tot * 40 / el)} (line ${(+line).toFixed(1)})` : `total ${tot} (line ${(+line).toFixed(1)})`;
+      } else {
+        const c = coverBy(mkt, sideHome, overSide, line, L.home, L.away);
+        tail = c > 0 ? `covering by ${c.toFixed(1)}` : c < 0 ? `not covering by ${(-c).toFixed(1)}` : "on the number";
+      }
+      tail += ` <span class="muted">· no live line</span>`;
     }
     return `<div class="live in"><b>LIVE</b> ${esc(L.detail)} · ${score} · ${tail}</div>`;
   }
