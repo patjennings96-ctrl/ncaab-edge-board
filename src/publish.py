@@ -31,6 +31,26 @@ def _side_label(row) -> str:
     return row["side"]
 
 
+# "Best bet" tier: the one filter that held up in both halves of last season's
+# Jan 1 - Mar 8 backtest (93-66, 58.5%, +20u; Jan 1-Feb 4 58.7%, Feb 5-Mar 8
+# 57.6%). Edge Board spreads only: 4+ points off the line, taking the underdog,
+# spread under 15. It lost in Nov-Dec (80-87), so it only applies Jan 1 - Mar 8.
+BEST_GAP, BEST_MAX_LINE = 4.0, 15.0
+
+
+def is_best_bet(mkt, line, gap, start) -> bool:
+    try:
+        line, gap = float(line), float(gap)
+    except (TypeError, ValueError):
+        return False
+    d = pd.to_datetime(start, utc=True, errors="coerce")
+    if pd.isna(d) or mkt != "SPREAD":
+        return False
+    d = d.tz_convert("America/New_York")
+    in_window = d.month in (1, 2) or (d.month == 3 and d.day <= 8)
+    return in_window and gap >= BEST_GAP and 0 < line < BEST_MAX_LINE
+
+
 def card_to_records(card: pd.DataFrame) -> list[dict]:
     recs = []
     for _, r in card.iterrows():
@@ -52,6 +72,8 @@ def card_to_records(card: pd.DataFrame) -> list[dict]:
             "to_win": float(r.get("to_win", 1.0) if pd.notna(r.get("to_win", 1.0)) else 1.0),
             "reason": str(r.get("reason", "") or ""),
             "gap": None if pd.isna(r.get("gap", np.nan)) else float(r["gap"]),
+            "best": is_best_bet(r["mkt"], r.get("best_line", r["line"]) if pd.notna(r.get("best_line", np.nan)) else r["line"],
+                                r.get("gap", np.nan), r.get("start", "")),
             "quotes": json.loads(r["quotes"]) if isinstance(r.get("quotes"), str) and r.get("quotes") else [],
         })
     return recs
@@ -287,6 +309,10 @@ def edge_record(since: str) -> dict:
            "tracking": {m: _summ(g, "flat") for m, g in tracking.groupby("mkt")},
            "both_models": {m: _summ(g, "flat") for m, g in agree.groupby("mkt")},
            "all": _summ(staked), "big_spreads": big_summary}
+    best = log[[is_best_bet(m, bl if pd.notna(bl) else l, g, s) for m, bl, l, g, s in
+                zip(log["mkt"], pd.to_numeric(log.get("best_line"), errors="coerce"), log["line"],
+                    pd.to_numeric(log.get("gap"), errors="coerce"), log["start"])]]
+    out["best_bets"] = _summ(best, "flat") if not best.empty else {"w": 0, "l": 0, "p": 0}
     rec = log[res.isin(["W", "L", "P"])].sort_values("start", ascending=False).head(40)
     out["recent"] = [{"start": str(r.start), "away": r.away, "home": r.home, "mkt": r.mkt,
                       "side": str(r.side), "line": float(r.line), "stake": float(r.stake),

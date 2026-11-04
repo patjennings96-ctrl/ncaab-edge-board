@@ -131,6 +131,7 @@ details.day.today > .dayhead{color:var(--ink)}
 .tag.spread{background:var(--court-soft);color:var(--court)}
 .tag.total{background:var(--accent-soft);color:var(--accent)}
 .tag.both{background:var(--good-soft);color:var(--good)}
+.tag.best{background:var(--good);color:var(--bg)}
 .tag.track{border:1px solid var(--line);color:var(--muted)}
 .empty{padding:18px 14px;color:var(--muted);font-size:.92rem}
 
@@ -277,6 +278,7 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
       <ul>
         <li>Ratings: its own adjusted ratings from every game's box score. While a KenPom paste is under 3 days old they are blended 50/50 with KenPom (offense, defense, tempo); otherwise it runs on its own ratings. The banner at the top says which.</li>
         <li>Spread plays need 2+ points of disagreement with the consensus line; totals need 3+.</li>
+        <li><strong>Best bet</strong> (Jan 1 – Mar 8 only): a spread 4+ points off the line, on the underdog, spread under 15. Last season 93-66 (58.5%, +20u), steady in both halves of the window; it lost in Nov–Dec, so it isn't flagged before January.</li>
         <li>Books shopped: DraftKings, FanDuel, theScore Bet, BetMGM, Bally Bet, Hard Rock, BetRivers, Kalshi and Polymarket (prediction-market prices converted to American odds, Kalshi's fee included). The best book is the one with the highest expected value, weighing line and price together.</li>
         <li>Every play risks enough to win 1u at the price taken: 1.1u at −110, 1.05u at −105, 1u at even money.</li>
         <li><strong>Tracking only for now:</strong> Edge Board plays are posted and graded, not staked. When staking is turned on, it runs Jan 1 – Mar 8 only.</li>
@@ -354,6 +356,7 @@ function edgePlay(r){
   const ln = r.mkt === "SPREAD" ? sgn(L) : L.toFixed(1);
   const book = r.book ? ` at ${esc(r.book)}` : "";
   const tags = `<span class="tag ${r.mkt==="SPREAD"?"spread":"total"}">${r.mkt==="SPREAD"?"Spread":"Total"}</span>`
+    + (r.best ? '<span class="tag best">Best bet</span>' : "")
     + (r.agree ? '<span class="tag both">Both models</span>' : "")
     + (r.tracking ? `<span class="tag track">${esc(r.reason || "Tracking")}</span>` : "");
   const model = r.mkt === "SPREAD" ? `model ${esc(r.home)} by ${r.proj.toFixed(1)}` : `model total ${r.total.toFixed(1)}`;
@@ -407,8 +410,8 @@ function renderTop(upcoming, cpUp){
   // Edge plays its own rules keep off the board (15+ spreads, totals 5+ off) are left out
   const eD = live.filter(r => dayKey(r.start) === day && !bigSpread(r) && r.reason !== "Over 5 pts off the market"), cD = calLive.filter(p => dayKey(p.g.start) === day);
   const lineTxt = r => { const L = r.best_line ?? r.line; return `${esc(r.side)} ${r.mkt === "SPREAD" ? sgn(L) : L.toFixed(1)}`; };
-  const tags = r => (r.agree ? " · both models" : "") + (r.tracking ? ` · ${esc(r.reason || "tracking")}` : "");
-  const byEdge = [...eD].sort((a, b) => b.edge - a.edge).slice(0, 5);
+  const tags = r => (r.best ? " · BEST BET" : "") + (r.agree ? " · both models" : "") + (r.tracking ? ` · ${esc(r.reason || "tracking")}` : "");
+  const byEdge = [...eD].sort((a, b) => (b.best - a.best) || (b.edge - a.edge)).slice(0, 5);
   document.getElementById("top-edge").innerHTML = byEdge.length ? byEdge.map(r => `<li>
       <span class="tp">${lineTxt(r)}</span><span class="tv">${r.edge.toFixed(1)}%</span>
       <span class="tm">${esc(r.away)} @ ${esc(r.home)} · ${startLabel(r.start)}${r.book ? " · " + esc(r.book) + " " + fmtOdds(r.best_odds ?? r.odds) : ""}${tags(r)}${r.similar ? ` · <span${simTitle(r.similar)}>${simTxt(r.similar)}</span>` : ""}</span></li>`).join("")
@@ -692,7 +695,8 @@ function renderRecord(){
   const st = e.staked || {}, tr = e.tracking || {}, bm = e.both_models || {}, cr = c.record || {};
   document.getElementById("edge-rec").innerHTML = tile("Spreads", st.SPREAD) + tile("Totals", st.TOTAL) + tile("All staked", e.all);
   document.getElementById("edge-rec2").innerHTML = tile("Tracking spreads", tr.SPREAD) + tile("Tracking totals", tr.TOTAL)
-    + tile("Both models · spreads", bm.SPREAD) + tile("Both models · totals", bm.TOTAL);
+    + tile("Both models · spreads", bm.SPREAD) + tile("Both models · totals", bm.TOTAL)
+    + tile("Best bets (Jan 1 – Mar 8)", e.best_bets);
   const bg = e.big_spreads;
   document.getElementById("edge-big").textContent = bg && (bg.w + bg.l + bg.p)
     ? `Not counted: Edge Board spreads over 25.5 points (off the board) went ${bg.w}-${bg.l}${bg.p ? "-" + bg.p : ""}. They're still graded in the background for the cap review.` : "";
