@@ -208,16 +208,16 @@ def _summ(df: pd.DataFrame, units_col: str = "units") -> dict:
     return out
 
 
-# Pat's rule: Edge Board spreads of 15+ points are off the board. They stay in
+# Pat's rule: Edge Board spreads over 25.5 points (26+) are off the board. They stay in
 # card_log.csv (graded, for the twice-monthly review of the cap) but are left
 # out of every Edge Board record and check.
-BIG_SPREAD = 15.0
+BIG_SPREAD = 25.5
 
 
 def is_big_spread(log: pd.DataFrame) -> pd.Series:
     line = pd.to_numeric(log.get("best_line", log["line"]), errors="coerce").fillna(
         pd.to_numeric(log["line"], errors="coerce"))
-    return (log["mkt"] == "SPREAD") & (line.abs() >= BIG_SPREAD)
+    return (log["mkt"] == "SPREAD") & (line.abs() > BIG_SPREAD)
 
 
 def edge_record(since: str) -> dict:

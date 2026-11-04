@@ -206,7 +206,7 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
       <ol class="toplist" id="top-sim"></ol>
     </div>
   </div>
-  <p class="muted" style="font-size:.82rem">Similar plays: how plays with the same traits did in last season's backtest plus this season's graded plays (season phase, gap size, favorite or underdog and spread size; over or under for totals). Ranked by win rate pulled toward 50% for small samples. Edge Board plays its rules exclude (15+ point spreads, totals 5+ off the market) are left out. Hover or long-press a record to see what was matched.</p>
+  <p class="muted" style="font-size:.82rem">Similar plays: how plays with the same traits did in last season's backtest plus this season's graded plays (season phase, gap size, favorite or underdog and spread size; over or under for totals). Ranked by win rate pulled toward 50% for small samples. Edge Board plays its rules exclude (spreads over 25.5, totals 5+ off the market) are left out. Hover or long-press a record to see what was matched.</p>
 </section>
 
 <section id="plays-sec">
@@ -274,7 +274,7 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
         <li>Books shopped: DraftKings, FanDuel, theScore Bet, BetMGM, Bally Bet, Hard Rock, BetRivers, Kalshi and Polymarket (prediction-market prices converted to American odds, Kalshi's fee included). The best book is the one with the highest expected value, weighing line and price together.</li>
         <li>Every play risks enough to win 1u at the price taken: 1.1u at −110, 1.05u at −105, 1u at even money.</li>
         <li><strong>Tracking only for now:</strong> Edge Board plays are posted and graded, not staked. When staking is turned on, it runs Jan 1 – Mar 8 only.</li>
-        <li>Spreads of 15+ points are not bet and not shown; they are still graded in the background so the cap can be reviewed.</li>
+        <li>Spreads up to 25.5 points are played. Bigger spreads (26+) are not bet and not shown; they are still graded in the background so the cap can be reviewed.</li>
         <li>Totals more than 5 points off the market are tracked, not bet, even then: last season those lost.</li>
         <li>Totals that Cal's model also picks are sized to win 1.5u (1.65u at −110), graded that way while tracking.</li>
         <li id="sizing-rule">Spread sizing: flat to win 1u. From Dec 1, spreads switch to ¼ Kelly on the calibrated win probability (cap 3u) if 300+ graded plays have won at the rate the model predicted.</li>
@@ -398,8 +398,7 @@ function renderTop(upcoming, cpUp){
   const day = days[0];
   document.getElementById("top-day").textContent = dayLabel(day);
   // Edge plays its own rules keep off the board (15+ spreads, totals 5+ off) are left out
-  const RULED_OUT = ["15+ point spread", "Over 5 pts off the market"];
-  const eD = live.filter(r => dayKey(r.start) === day && !RULED_OUT.includes(r.reason)), cD = calLive.filter(p => dayKey(p.g.start) === day);
+  const eD = live.filter(r => dayKey(r.start) === day && !bigSpread(r) && r.reason !== "Over 5 pts off the market"), cD = calLive.filter(p => dayKey(p.g.start) === day);
   const lineTxt = r => { const L = r.best_line ?? r.line; return `${esc(r.side)} ${r.mkt === "SPREAD" ? sgn(L) : L.toFixed(1)}`; };
   const tags = r => (r.agree ? " · both models" : "") + (r.tracking ? ` · ${esc(r.reason || "tracking")}` : "");
   const byEdge = [...eD].sort((a, b) => b.edge - a.edge).slice(0, 5);
@@ -599,10 +598,10 @@ async function liveLoop(){
   if (anyLiveSoon()) liveTimer = setTimeout(liveLoop, 60000);
 }
 
-// Edge Board spreads of 15+ points are off the board (Pat's rule). They are still
+// Edge Board spreads over 25.5 points are off the board (Pat's rule). They are still
 // logged and graded in the background for the twice-monthly review.
-const BIG_SPREAD = 15;
-const bigSpread = r => r.mkt === "SPREAD" && Math.abs(r.best_line ?? r.line) >= BIG_SPREAD;
+const BIG_SPREAD = 25.5;
+const bigSpread = r => r.mkt === "SPREAD" && Math.abs(r.best_line ?? r.line) > BIG_SPREAD;
 function renderPlays(){
   const allUp = (EDGE && EDGE.plays) || [];
   const upcoming = allUp.filter(r => !bigSpread(r));
@@ -617,7 +616,7 @@ function renderPlays(){
     ? byDay(ep, r => r.start, r => r.started ? edgeStarted(r) : edgePlay(r), (a,b) => (b.edge || 0) - (a.edge || 0), "edge")
     : `<div class="empty">No Edge Board plays right now.${EDGE ? "" : " (Couldn't load data/plays.json.)"}</div>`;
   document.getElementById("edge-hidden").textContent = hidden
-    ? `${hidden} play${hidden === 1 ? "" : "s"} on 15+ point spreads not shown (tracked in the background for review).` : "";
+    ? `${hidden} play${hidden === 1 ? "" : "s"} on spreads over 25.5 not shown (tracked in the background for review).` : "";
   document.getElementById("cal-plays").innerHTML = cp.length
     ? byDay(cp, p => p.started ? p.x.start : p.g.start, p => p.started ? calStarted(p.x) : calPlay(p), () => 0, "cal")
     : `<div class="empty">No games clear Cal's thresholds right now.${CAL ? "" : " (Couldn't load cal/data/plays.json.)"}</div>`;
@@ -664,7 +663,7 @@ function renderRecord(){
     + tile("Both models · spreads", bm.SPREAD) + tile("Both models · totals", bm.TOTAL);
   const bg = e.big_spreads;
   document.getElementById("edge-big").textContent = bg && (bg.w + bg.l + bg.p)
-    ? `Not counted: Edge Board spreads of 15+ points (off the board) went ${bg.w}-${bg.l}${bg.p ? "-" + bg.p : ""}. They're still graded in the background for the cap review.` : "";
+    ? `Not counted: Edge Board spreads over 25.5 points (off the board) went ${bg.w}-${bg.l}${bg.p ? "-" + bg.p : ""}. They're still graded in the background for the cap review.` : "";
   document.getElementById("cal-rec").innerHTML = tile("Spreads", cr.ATS) + tile("Totals", cr.TOTAL) + tile("All", c.all);
   if (REC && REC.season_start) {
     const y = +REC.season_start.slice(0,4);

@@ -1,18 +1,18 @@
 {
- "updated_at": "2026-11-04T00:09+00:00",
+ "updated_at": "2026-11-04T00:21+00:00",
  "season_start": "2026-10-01",
  "edge": {
   "staked": {},
   "tracking": {
    "SPREAD": {
-    "w": 28,
-    "l": 25,
+    "w": 38,
+    "l": 48,
     "p": 0,
-    "units": 0.93,
-    "pending": 5,
-    "roi": 0.0164,
-    "clv": 0.27,
-    "beat_close": 0.377
+    "units": -13.82,
+    "pending": 16,
+    "roi": -0.1492,
+    "clv": -0.02,
+    "beat_close": 0.344
    },
    "TOTAL": {
     "w": 59,
@@ -27,13 +27,13 @@
   },
   "both_models": {
    "SPREAD": {
-    "w": 3,
-    "l": 1,
+    "w": 5,
+    "l": 7,
     "p": 0,
-    "units": 1.8,
-    "pending": 2,
-    "roi": 0.4119,
-    "clv": -0.25,
+    "units": -2.75,
+    "pending": 7,
+    "roi": -0.2093,
+    "clv": -0.47,
     "beat_close": 0.25
    },
    "TOTAL": {
@@ -58,23 +58,11 @@
    "beat_close": null
   },
   "big_spreads": {
-   "w": 25,
-   "l": 40,
+   "w": 15,
+   "l": 17,
    "p": 0
   },
   "recent": [
-   {
-    "start": "2026-11-03T04:59Z",
-    "away": "Seattle U Redhawks",
-    "home": "Hawai'i Rainbow Warriors",
-    "mkt": "SPREAD",
-    "side": "Hawai'i Rainbow Warriors",
-    "line": -1.5,
-    "stake": 0.0,
-    "result": "L",
-    "units": -0.0,
-    "clv": 0.0
-   },
    {
     "start": "2026-11-03T04:59Z",
     "away": "Seattle U Redhawks",
@@ -86,6 +74,18 @@
     "result": "L",
     "units": -0.0,
     "clv": 3.0
+   },
+   {
+    "start": "2026-11-03T04:59Z",
+    "away": "Seattle U Redhawks",
+    "home": "Hawai'i Rainbow Warriors",
+    "mkt": "SPREAD",
+    "side": "Hawai'i Rainbow Warriors",
+    "line": -1.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": 0.0
    },
    {
     "start": "2026-11-03T03:30Z",
@@ -100,28 +100,52 @@
     "clv": 3.0
    },
    {
-    "start": "2026-11-03T03:00Z",
-    "away": "Illinois State Redbirds",
-    "home": "Saint Mary's Gaels",
+    "start": "2026-11-03T03:30Z",
+    "away": "Milwaukee Panthers",
+    "home": "USC Trojans",
     "mkt": "SPREAD",
-    "side": "Saint Mary's Gaels",
-    "line": -6.5,
+    "side": "Milwaukee Panthers",
+    "line": 25.5,
     "stake": 0.0,
     "result": "L",
     "units": -0.0,
-    "clv": 0.0
+    "clv": -1.0
    },
    {
     "start": "2026-11-03T03:00Z",
-    "away": "Radford Highlanders",
-    "home": "San Francisco Dons",
+    "away": "North Alabama Lions",
+    "home": "UC Davis Aggies",
     "mkt": "SPREAD",
-    "side": "Radford Highlanders",
-    "line": 11.5,
+    "side": "UC Davis Aggies",
+    "line": -9.0,
     "stake": 0.0,
     "result": "L",
     "units": -0.0,
-    "clv": -0.5
+    "clv": 0.5
+   },
+   {
+    "start": "2026-11-03T03:00Z",
+    "away": "Robert Morris Colonials",
+    "home": "Nevada Wolf Pack",
+    "mkt": "SPREAD",
+    "side": "Robert Morris Colonials",
+    "line": 12.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": -1.0
+   },
+   {
+    "start": "2026-11-03T03:00Z",
+    "away": "Montana Grizzlies",
+    "home": "Oregon Ducks",
+    "mkt": "SPREAD",
+    "side": "Montana Grizzlies",
+    "line": 17.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": -1.0
    },
    {
     "start": "2026-11-03T03:00Z",
@@ -161,27 +185,51 @@
    },
    {
     "start": "2026-11-03T03:00Z",
-    "away": "North Alabama Lions",
-    "home": "UC Davis Aggies",
-    "mkt": "SPREAD",
-    "side": "UC Davis Aggies",
-    "line": -9.0,
+    "away": "Montana Grizzlies",
+    "home": "Oregon Ducks",
+    "mkt": "TOTAL",
+    "side": "OVER",
+    "line": 151.5,
     "stake": 0.0,
-    "result": "L",
-    "units": -0.0,
-    "clv": 0.5
+    "result": "W",
+    "units": 0.0,
+    "clv": 0.0
    },
    {
     "start": "2026-11-03T03:00Z",
-    "away": "Colgate Raiders",
-    "home": "Washington Huskies",
+    "away": "East Tennessee State Buccaneers",
+    "home": "Arizona State Sun Devils",
     "mkt": "SPREAD",
-    "side": "Washington Huskies",
-    "line": -14.5,
+    "side": "East Tennessee State Buccaneers",
+    "line": 17.5,
+    "stake": 0.0,
+    "result": "W",
+    "units": 0.0,
+    "clv": -2.0
+   },
+   {
+    "start": "2026-11-03T03:00Z",
+    "away": "East Tennessee State Buccaneers",
+    "home": "Arizona State Sun Devils",
+    "mkt": "TOTAL",
+    "side": "OVER",
+    "line": 146.5,
     "stake": 0.0,
     "result": "L",
     "units": -0.0,
-    "clv": 0.0
+    "clv": -1.0
+   },
+   {
+    "start": "2026-11-03T03:00Z",
+    "away": "Montana State Bobcats",
+    "home": "Colorado State Rams",
+    "mkt": "TOTAL",
+    "side": "OVER",
+    "line": 146.0,
+    "stake": 0.0,
+    "result": "W",
+    "units": 0.0,
+    "clv": 0.5
    },
    {
     "start": "2026-11-03T03:00Z",
@@ -209,27 +257,39 @@
    },
    {
     "start": "2026-11-03T03:00Z",
-    "away": "Montana State Bobcats",
-    "home": "Colorado State Rams",
-    "mkt": "TOTAL",
-    "side": "OVER",
-    "line": 146.0,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": 0.5
-   },
-   {
-    "start": "2026-11-03T03:00Z",
-    "away": "East Tennessee State Buccaneers",
-    "home": "Arizona State Sun Devils",
-    "mkt": "TOTAL",
-    "side": "OVER",
-    "line": 146.5,
+    "away": "Illinois State Redbirds",
+    "home": "Saint Mary's Gaels",
+    "mkt": "SPREAD",
+    "side": "Saint Mary's Gaels",
+    "line": -6.5,
     "stake": 0.0,
     "result": "L",
     "units": -0.0,
-    "clv": -1.0
+    "clv": 0.0
+   },
+   {
+    "start": "2026-11-03T03:00Z",
+    "away": "Colgate Raiders",
+    "home": "Washington Huskies",
+    "mkt": "SPREAD",
+    "side": "Washington Huskies",
+    "line": -14.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": 0.0
+   },
+   {
+    "start": "2026-11-03T03:00Z",
+    "away": "Radford Highlanders",
+    "home": "San Francisco Dons",
+    "mkt": "SPREAD",
+    "side": "Radford Highlanders",
+    "line": 11.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": -0.5
    },
    {
     "start": "2026-11-03T03:00Z",
@@ -245,27 +305,15 @@
    },
    {
     "start": "2026-11-03T03:00Z",
-    "away": "Eastern Washington Eagles",
-    "home": "Stanford Cardinal",
-    "mkt": "TOTAL",
-    "side": "OVER",
-    "line": 153.5,
+    "away": "Towson Tigers",
+    "home": "Santa Clara Broncos",
+    "mkt": "SPREAD",
+    "side": "Towson Tigers",
+    "line": 15.5,
     "stake": 0.0,
     "result": "L",
     "units": -0.0,
-    "clv": 1.0
-   },
-   {
-    "start": "2026-11-03T03:00Z",
-    "away": "Colgate Raiders",
-    "home": "Washington Huskies",
-    "mkt": "TOTAL",
-    "side": "OVER",
-    "line": 153.0,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": 1.0
+    "clv": 3.0
    },
    {
     "start": "2026-11-03T03:00Z",
@@ -281,39 +329,27 @@
    },
    {
     "start": "2026-11-03T03:00Z",
-    "away": "Robert Morris Colonials",
-    "home": "Nevada Wolf Pack",
-    "mkt": "SPREAD",
-    "side": "Robert Morris Colonials",
-    "line": 12.5,
-    "stake": 0.0,
-    "result": "L",
-    "units": -0.0,
-    "clv": -1.0
-   },
-   {
-    "start": "2026-11-03T03:00Z",
-    "away": "Montana Grizzlies",
-    "home": "Oregon Ducks",
+    "away": "Colgate Raiders",
+    "home": "Washington Huskies",
     "mkt": "TOTAL",
     "side": "OVER",
-    "line": 151.5,
+    "line": 153.0,
     "stake": 0.0,
     "result": "W",
     "units": 0.0,
-    "clv": 0.0
+    "clv": 1.0
    },
    {
-    "start": "2026-11-03T02:30Z",
-    "away": "Weber State Wildcats",
-    "home": "Oregon State Beavers",
+    "start": "2026-11-03T03:00Z",
+    "away": "Eastern Washington Eagles",
+    "home": "Stanford Cardinal",
     "mkt": "TOTAL",
-    "side": "UNDER",
-    "line": 155.5,
+    "side": "OVER",
+    "line": 153.5,
     "stake": 0.0,
     "result": "L",
     "units": -0.0,
-    "clv": -5.0
+    "clv": 1.0
    },
    {
     "start": "2026-11-03T02:30Z",
@@ -340,52 +376,40 @@
     "clv": 4.0
    },
    {
-    "start": "2026-11-03T02:00Z",
-    "away": "Davidson Wildcats",
-    "home": "Washington State Cougars",
+    "start": "2026-11-03T02:30Z",
+    "away": "Weber State Wildcats",
+    "home": "Oregon State Beavers",
     "mkt": "TOTAL",
     "side": "UNDER",
-    "line": 150.0,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": 0.5
-   },
-   {
-    "start": "2026-11-03T02:00Z",
-    "away": "Long Beach State Beach",
-    "home": "Utah Utes",
-    "mkt": "TOTAL",
-    "side": "OVER",
-    "line": 148.5,
+    "line": 155.5,
     "stake": 0.0,
     "result": "L",
     "units": -0.0,
-    "clv": -2.0
+    "clv": -5.0
    },
    {
-    "start": "2026-11-03T02:00Z",
-    "away": "Ohio State Buckeyes",
-    "home": "BYU Cougars",
-    "mkt": "TOTAL",
-    "side": "UNDER",
-    "line": 160.5,
+    "start": "2026-11-03T02:30Z",
+    "away": "Weber State Wildcats",
+    "home": "Oregon State Beavers",
+    "mkt": "SPREAD",
+    "side": "Weber State Wildcats",
+    "line": 17.5,
     "stake": 0.0,
     "result": "L",
     "units": -0.0,
-    "clv": 0.0
+    "clv": -1.0
    },
    {
     "start": "2026-11-03T02:00Z",
     "away": "North Dakota Fighting Hawks",
     "home": "Minnesota Golden Gophers",
-    "mkt": "TOTAL",
-    "side": "UNDER",
-    "line": 146.5,
+    "mkt": "SPREAD",
+    "side": "North Dakota Fighting Hawks",
+    "line": 25.5,
     "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": -2.0
+    "result": "L",
+    "units": -0.0,
+    "clv": -1.0
    },
    {
     "start": "2026-11-03T02:00Z",
@@ -401,6 +425,78 @@
    },
    {
     "start": "2026-11-03T02:00Z",
+    "away": "La Salle Explorers",
+    "home": "Houston Cougars",
+    "mkt": "TOTAL",
+    "side": "OVER",
+    "line": 134.5,
+    "stake": 0.0,
+    "result": "W",
+    "units": 0.0,
+    "clv": 0.0
+   },
+   {
+    "start": "2026-11-03T02:00Z",
+    "away": "Chattanooga Mocs",
+    "home": "Louisville Cardinals",
+    "mkt": "TOTAL",
+    "side": "OVER",
+    "line": 158.0,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": 1.5
+   },
+   {
+    "start": "2026-11-03T02:00Z",
+    "away": "Davidson Wildcats",
+    "home": "Washington State Cougars",
+    "mkt": "TOTAL",
+    "side": "UNDER",
+    "line": 150.0,
+    "stake": 0.0,
+    "result": "W",
+    "units": 0.0,
+    "clv": 0.5
+   },
+   {
+    "start": "2026-11-03T02:00Z",
+    "away": "Utah Tech Trailblazers",
+    "home": "New Mexico Lobos",
+    "mkt": "SPREAD",
+    "side": "Utah Tech Trailblazers",
+    "line": 21.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": -2.0
+   },
+   {
+    "start": "2026-11-03T02:00Z",
+    "away": "Abilene Christian Wildcats",
+    "home": "Colorado Buffaloes",
+    "mkt": "SPREAD",
+    "side": "Abilene Christian Wildcats",
+    "line": 18.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": 0.0
+   },
+   {
+    "start": "2026-11-03T02:00Z",
+    "away": "Abilene Christian Wildcats",
+    "home": "Colorado Buffaloes",
+    "mkt": "TOTAL",
+    "side": "OVER",
+    "line": 152.0,
+    "stake": 0.0,
+    "result": "W",
+    "units": 0.0,
+    "clv": 1.5
+   },
+   {
+    "start": "2026-11-03T02:00Z",
     "away": "Chicago State Cougars",
     "home": "Texas Longhorns",
     "mkt": "TOTAL",
@@ -409,6 +505,18 @@
     "stake": 0.0,
     "result": "W",
     "units": 0.0,
+    "clv": 0.0
+   },
+   {
+    "start": "2026-11-03T02:00Z",
+    "away": "Ohio State Buckeyes",
+    "home": "BYU Cougars",
+    "mkt": "TOTAL",
+    "side": "UNDER",
+    "line": 160.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
     "clv": 0.0
    },
    {
@@ -425,54 +533,6 @@
    },
    {
     "start": "2026-11-03T02:00Z",
-    "away": "Texas Southern Tigers",
-    "home": "Grand Canyon Lopes",
-    "mkt": "TOTAL",
-    "side": "OVER",
-    "line": 146.5,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": -4.0
-   },
-   {
-    "start": "2026-11-03T02:00Z",
-    "away": "Abilene Christian Wildcats",
-    "home": "Colorado Buffaloes",
-    "mkt": "TOTAL",
-    "side": "OVER",
-    "line": 152.0,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": 1.5
-   },
-   {
-    "start": "2026-11-03T02:00Z",
-    "away": "Chattanooga Mocs",
-    "home": "Louisville Cardinals",
-    "mkt": "TOTAL",
-    "side": "OVER",
-    "line": 158.0,
-    "stake": 0.0,
-    "result": "L",
-    "units": -0.0,
-    "clv": 1.5
-   },
-   {
-    "start": "2026-11-03T02:00Z",
-    "away": "La Salle Explorers",
-    "home": "Houston Cougars",
-    "mkt": "TOTAL",
-    "side": "OVER",
-    "line": 134.5,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": 0.0
-   },
-   {
-    "start": "2026-11-03T02:00Z",
     "away": "Utah Tech Trailblazers",
     "home": "New Mexico Lobos",
     "mkt": "TOTAL",
@@ -482,66 +542,6 @@
     "result": "W",
     "units": 0.0,
     "clv": 4.0
-   },
-   {
-    "start": "2026-11-03T01:30Z",
-    "away": "Oral Roberts Golden Eagles",
-    "home": "Central Arkansas Bears",
-    "mkt": "TOTAL",
-    "side": "UNDER",
-    "line": 154.5,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": -1.0
-   },
-   {
-    "start": "2026-11-03T01:30Z",
-    "away": "Florida A&M Rattlers",
-    "home": "Florida State Seminoles",
-    "mkt": "TOTAL",
-    "side": "UNDER",
-    "line": 156.5,
-    "stake": 0.0,
-    "result": "L",
-    "units": -0.0,
-    "clv": -2.0
-   },
-   {
-    "start": "2026-11-03T01:30Z",
-    "away": "Alcorn State Braves",
-    "home": "Ole Miss Rebels",
-    "mkt": "TOTAL",
-    "side": "OVER",
-    "line": 146.5,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": 2.0
-   },
-   {
-    "start": "2026-11-03T01:30Z",
-    "away": "Oral Roberts Golden Eagles",
-    "home": "Central Arkansas Bears",
-    "mkt": "SPREAD",
-    "side": "Central Arkansas Bears",
-    "line": -8.5,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": 0.0
-   },
-   {
-    "start": "2026-11-03T01:00Z",
-    "away": "Fordham Rams",
-    "home": "Kansas Jayhawks",
-    "mkt": "TOTAL",
-    "side": "UNDER",
-    "line": 148.5,
-    "stake": 0.0,
-    "result": "L",
-    "units": -0.0,
-    "clv": 2.0
    }
   ]
  },
@@ -981,57 +981,57 @@
     "buckets": [
      {
       "gap": "2-3",
-      "w": 8,
-      "l": 9,
-      "pct": 0.471,
-      "expected": 0.532,
-      "clv": -0.35
+      "w": 9,
+      "l": 13,
+      "pct": 0.409,
+      "expected": 0.533,
+      "clv": -0.82
      },
      {
       "gap": "3-4",
-      "w": 5,
-      "l": 8,
-      "pct": 0.385,
+      "w": 8,
+      "l": 9,
+      "pct": 0.471,
       "expected": 0.546,
-      "clv": 0.5
+      "clv": 0.68
      },
      {
       "gap": "4-5",
-      "w": 7,
-      "l": 2,
-      "pct": 0.778,
+      "w": 8,
+      "l": 5,
+      "pct": 0.615,
       "expected": 0.559,
-      "clv": 1.33
+      "clv": 0.96
      },
      {
       "gap": "5+",
-      "w": 8,
-      "l": 6,
-      "pct": 0.571,
-      "expected": 0.589,
-      "clv": 0.14
+      "w": 13,
+      "l": 21,
+      "pct": 0.382,
+      "expected": 0.591,
+      "clv": -0.16
      }
     ],
     "agree": {
-     "w": 3,
-     "l": 1,
-     "pct": 0.75
+     "w": 5,
+     "l": 7,
+     "pct": 0.417
     },
     "no_agree": {
-     "w": 25,
-     "l": 24,
-     "pct": 0.51
+     "w": 33,
+     "l": 41,
+     "pct": 0.446
     },
     "sides": {
      "fav": {
-      "w": 15,
-      "l": 13,
-      "pct": 0.536
+      "w": 17,
+      "l": 16,
+      "pct": 0.515
      },
      "dog": {
-      "w": 13,
-      "l": 12,
-      "pct": 0.52
+      "w": 21,
+      "l": 32,
+      "pct": 0.396
      },
      "under 5": {
       "w": 14,
@@ -1044,9 +1044,9 @@
       "pct": 0.519
      },
      "15+": {
-      "w": 0,
-      "l": 1,
-      "pct": 0.0
+      "w": 10,
+      "l": 24,
+      "pct": 0.294
      }
     }
    },
