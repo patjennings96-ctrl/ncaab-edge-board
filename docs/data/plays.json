@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-04T03:45+00:00",
+  "updated_at": "2026-11-04T03:55+00:00",
   "mode": "live",
   "settings": {
     "kelly_mult": 0.25,
@@ -45,23 +45,24 @@
       "notes": "",
       "best_line": -17.5,
       "best_odds": -110,
-      "book": "theScore Bet",
+      "book": "FanDuel",
       "agree": false,
       "play_to": -25.5,
       "tracking": true,
       "to_win": 1.0,
       "reason": "Tracking only",
       "gap": 10.4,
+      "best": false,
       "quotes": [
         {
-          "book": "theScore Bet",
+          "book": "FanDuel",
           "line": -17.5,
           "odds": -110,
           "prob": 0.6356,
           "ev": 0.2135
         },
         {
-          "book": "BetMGM",
+          "book": "theScore Bet",
           "line": -17.5,
           "odds": -110,
           "prob": 0.6356,
@@ -82,6 +83,13 @@
           "ev": 0.1932
         },
         {
+          "book": "BetMGM",
+          "line": -17.5,
+          "odds": -115,
+          "prob": 0.6356,
+          "ev": 0.1884
+        },
+        {
           "book": "BetRivers",
           "line": -17.5,
           "odds": -115,
@@ -94,13 +102,6 @@
           "odds": -115,
           "prob": 0.6356,
           "ev": 0.1884
-        },
-        {
-          "book": "FanDuel",
-          "line": -16.5,
-          "odds": -120,
-          "prob": 0.6481,
-          "ev": 0.1882
         }
       ],
       "similar": {
@@ -121,11 +122,11 @@
       "side": "Saint Mary's Gaels",
       "side_code": "HOME",
       "line": -12.5,
-      "odds": -114,
+      "odds": -110,
       "proj": 15.5,
       "total": 143.5,
       "p": 0.5401,
-      "edge": 3.26,
+      "edge": 4.01,
       "stake": 0.0,
       "notes": "",
       "best_line": -12.5,
@@ -137,6 +138,7 @@
       "to_win": 1.0,
       "reason": "Tracking only",
       "gap": 3.02,
+      "best": false,
       "quotes": [
         {
           "book": "theScore Bet",
@@ -151,6 +153,13 @@
           "odds": -108,
           "prob": 0.5401,
           "ev": 0.0402
+        },
+        {
+          "book": "BetMGM",
+          "line": -13.5,
+          "odds": -105,
+          "prob": 0.5269,
+          "ev": 0.0286
         },
         {
           "book": "Bally Bet",
@@ -175,10 +184,10 @@
         },
         {
           "book": "FanDuel",
-          "line": -12.5,
-          "odds": -120,
-          "prob": 0.5401,
-          "ev": -0.0098
+          "line": -13.5,
+          "odds": -110,
+          "prob": 0.5269,
+          "ev": 0.0058
         },
         {
           "book": "Kalshi",
@@ -222,6 +231,7 @@
       "to_win": 1.0,
       "reason": "Over 5 pts off the market",
       "gap": 6.02,
+      "best": false,
       "quotes": [
         {
           "book": "BetMGM",
@@ -252,6 +262,13 @@
           "ev": 0.0633
         },
         {
+          "book": "Kalshi",
+          "line": 147.5,
+          "odds": -103,
+          "prob": 0.5381,
+          "ev": 0.0605
+        },
+        {
           "book": "DraftKings",
           "line": 148.5,
           "odds": -108,
@@ -271,13 +288,6 @@
           "odds": -110,
           "prob": 0.5476,
           "ev": 0.0453
-        },
-        {
-          "book": "Kalshi",
-          "line": 149.5,
-          "odds": -126,
-          "prob": 0.557,
-          "ev": -0.001
         }
       ],
       "similar": {
@@ -306,22 +316,16 @@
       "stake": 0.0,
       "notes": "",
       "best_line": -29.5,
-      "best_odds": -104,
-      "book": "FanDuel",
+      "best_odds": -108,
+      "book": "Bally Bet",
       "agree": false,
       "play_to": -34.0,
       "tracking": true,
       "to_win": 1.0,
       "reason": "26+ point spread",
       "gap": 6.11,
+      "best": false,
       "quotes": [
-        {
-          "book": "FanDuel",
-          "line": -29.5,
-          "odds": -104,
-          "prob": 0.5872,
-          "ev": 0.1518
-        },
         {
           "book": "Bally Bet",
           "line": -29.5,
@@ -337,6 +341,20 @@
           "ev": 0.1259
         },
         {
+          "book": "FanDuel",
+          "line": -29.5,
+          "odds": -110,
+          "prob": 0.5872,
+          "ev": 0.121
+        },
+        {
+          "book": "DraftKings",
+          "line": -30.5,
+          "odds": -105,
+          "prob": 0.5742,
+          "ev": 0.121
+        },
+        {
           "book": "BetMGM",
           "line": -30.5,
           "odds": -105,
@@ -349,13 +367,6 @@
           "odds": -105,
           "prob": 0.5742,
           "ev": 0.121
-        },
-        {
-          "book": "DraftKings",
-          "line": -30.5,
-          "odds": -108,
-          "prob": 0.5742,
-          "ev": 0.1058
         }
       ],
       "similar": {
@@ -392,6 +403,7 @@
       "to_win": 1.0,
       "reason": "Over 5 pts off the market",
       "gap": 6.46,
+      "best": false,
       "quotes": [
         {
           "book": "FanDuel",
@@ -427,13 +439,6 @@
           "odds": -112,
           "prob": 0.5564,
           "ev": 0.0532
-        },
-        {
-          "book": "Kalshi",
-          "line": 149.5,
-          "odds": -112,
-          "prob": 0.6063,
-          "ev": 0.1476
         },
         {
           "book": "DraftKings",
@@ -484,6 +489,7 @@
       "to_win": 1.0,
       "reason": "Tracking only",
       "gap": 4.14,
+      "best": false,
       "quotes": [
         {
           "book": "Bally Bet",
@@ -553,23 +559,17 @@
       "edge": 6.28,
       "stake": 0.0,
       "notes": "",
-      "best_line": -22.5,
-      "best_odds": -110,
-      "book": "FanDuel",
+      "best_line": -24.5,
+      "best_odds": -105,
+      "book": "theScore Bet",
       "agree": false,
       "play_to": -26.5,
       "tracking": true,
       "to_win": 1.0,
       "reason": "Tracking only",
       "gap": 4.41,
+      "best": false,
       "quotes": [
-        {
-          "book": "FanDuel",
-          "line": -22.5,
-          "odds": -110,
-          "prob": 0.5847,
-          "ev": 0.1162
-        },
         {
           "book": "theScore Bet",
           "line": -24.5,
@@ -590,6 +590,13 @@
           "odds": -108,
           "prob": 0.5585,
           "ev": 0.0756
+        },
+        {
+          "book": "FanDuel",
+          "line": -22.5,
+          "odds": -120,
+          "prob": 0.5847,
+          "ev": 0.0719
         },
         {
           "book": "BetRivers",
@@ -640,6 +647,7 @@
       "to_win": 1.0,
       "reason": "Tracking only",
       "gap": 3.99,
+      "best": false,
       "quotes": [
         {
           "book": "DraftKings",
@@ -682,6 +690,13 @@
           "odds": -117,
           "prob": 0.5378,
           "ev": -0.0025
+        },
+        {
+          "book": "Kalshi",
+          "line": 152.5,
+          "odds": -131,
+          "prob": 0.5284,
+          "ev": -0.0683
         }
       ],
       "similar": {
@@ -718,6 +733,7 @@
       "to_win": 1.0,
       "reason": "Tracking only",
       "gap": 4.89,
+      "best": false,
       "quotes": [
         {
           "book": "Kalshi",
@@ -803,6 +819,7 @@
       "to_win": 1.0,
       "reason": "26+ point spread",
       "gap": 5.09,
+      "best": false,
       "quotes": [
         {
           "book": "theScore Bet",
@@ -881,6 +898,7 @@
       "to_win": 1.0,
       "reason": "Tracking only",
       "gap": 4.64,
+      "best": false,
       "quotes": [
         {
           "book": "FanDuel",
@@ -935,6 +953,92 @@
       }
     },
     {
+      "game_id": "401917514",
+      "start": "2026-11-05T03:00Z",
+      "home": "Loyola Marymount Lions",
+      "away": "Queens University Royals",
+      "mkt": "SPREAD",
+      "side": "Queens University Royals",
+      "side_code": "AWAY",
+      "line": 6.5,
+      "odds": -105,
+      "proj": 4.4,
+      "total": 156.6,
+      "p": 0.5275,
+      "edge": 4.03,
+      "stake": 0.0,
+      "notes": "",
+      "best_line": 6.5,
+      "best_odds": -102,
+      "book": "BetMGM",
+      "agree": false,
+      "play_to": 6.5,
+      "tracking": true,
+      "to_win": 1.0,
+      "reason": "Tracking only",
+      "gap": 2.07,
+      "best": false,
+      "quotes": [
+        {
+          "book": "BetMGM",
+          "line": 6.5,
+          "odds": -102,
+          "prob": 0.5275,
+          "ev": 0.0446
+        },
+        {
+          "book": "FanDuel",
+          "line": 6.5,
+          "odds": -104,
+          "prob": 0.5275,
+          "ev": 0.0347
+        },
+        {
+          "book": "DraftKings",
+          "line": 6.5,
+          "odds": -105,
+          "prob": 0.5275,
+          "ev": 0.0298
+        },
+        {
+          "book": "Bally Bet",
+          "line": 6.5,
+          "odds": -105,
+          "prob": 0.5275,
+          "ev": 0.0298
+        },
+        {
+          "book": "BetRivers",
+          "line": 6.5,
+          "odds": -106,
+          "prob": 0.5275,
+          "ev": 0.0251
+        },
+        {
+          "book": "theScore Bet",
+          "line": 7.5,
+          "odds": -115,
+          "prob": 0.5407,
+          "ev": 0.0109
+        },
+        {
+          "book": "Kalshi",
+          "line": 5.5,
+          "odds": -116,
+          "prob": 0.5142,
+          "ev": -0.0425
+        }
+      ],
+      "similar": {
+        "w": 36,
+        "l": 39,
+        "pct": 0.48,
+        "units": -6.9,
+        "score": 0.488,
+        "match": "Nov-Dec, 2-3 pt gap, 5-15 spreads, underdogs"
+      }
+    },
+    {
       "game_id": "401920685",
       "start": "2026-11-07T01:00Z",
       "home": "Michigan Wolverines",
@@ -959,6 +1063,7 @@
       "to_win": 1.0,
       "reason": "Tracking only",
       "gap": 5.48,
+      "best": false,
       "quotes": [
         {
           "book": "DraftKings",
@@ -6363,7 +6468,7 @@
       "started": true
     }
   ],
-  "results_updated_at": "2026-11-04T03:46+00:00",
+  "results_updated_at": "2026-11-04T03:55+00:00",
   "void_days": [
     "2026-11-03"
   ]
