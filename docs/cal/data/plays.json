@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-04T00:09+00:00",
+  "updated_at": "2026-11-04T00:22+00:00",
   "mode": "live",
   "model2_source": "Edge Board adjusted ratings",
   "hca": 3.0,
@@ -48,10 +48,16 @@
       "ou_play": "",
       "ats_books": [
         {
+          "book": "DraftKings",
+          "line": 31.5,
+          "odds": -102,
+          "ev": 0.359
+        },
+        {
           "book": "theScore Bet",
           "line": 31.5,
-          "odds": 100,
-          "ev": 0.3725
+          "odds": -105,
+          "ev": 0.3398
         },
         {
           "book": "FanDuel",
@@ -67,12 +73,6 @@
         },
         {
           "book": "BetMGM",
-          "line": 32.5,
-          "odds": -115,
-          "ev": 0.3049
-        },
-        {
-          "book": "DraftKings",
           "line": 32.5,
           "odds": -115,
           "ev": 0.3049
@@ -450,12 +450,6 @@
           "ev": 0.3274
         },
         {
-          "book": "theScore Bet",
-          "line": 23.5,
-          "odds": -110,
-          "ev": 0.3025
-        },
-        {
           "book": "DraftKings",
           "line": 23.5,
           "odds": -112,
@@ -463,6 +457,12 @@
         },
         {
           "book": "BetMGM",
+          "line": 23.5,
+          "odds": -115,
+          "ev": 0.2755
+        },
+        {
+          "book": "theScore Bet",
           "line": 23.5,
           "odds": -115,
           "ev": 0.2755
@@ -503,18 +503,18 @@
       "start": "2026-11-04T01:00Z",
       "home": "Kansas State Wildcats",
       "away": "South Dakota State Jackrabbits",
-      "line": -11.5,
+      "line": -10.5,
       "total_line": 159.5,
       "m1": {
         "away": 71.6,
         "home": 76.7,
-        "ats": -6.4,
+        "ats": -5.4,
         "tot": -11.2
       },
       "m2": {
         "away": 72.0,
         "home": 79.9,
-        "ats": -3.7,
+        "ats": -2.7,
         "tot": -7.6,
         "tot_adj": -0.6
       },
@@ -1893,5 +1893,5 @@
       "started": true
     }
   ],
-  "results_updated_at": "2026-11-04T00:21+00:00"
+  "results_updated_at": "2026-11-04T00:22+00:00"
 }
