@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-04T03:38+00:00",
+  "updated_at": "2026-11-04T03:44+00:00",
   "mode": "live",
   "settings": {
     "kelly_mult": 0.25,
@@ -521,6 +521,13 @@
           "ev": 0.1658
         },
         {
+          "book": "Kalshi",
+          "line": 149.5,
+          "odds": -112,
+          "prob": 0.6063,
+          "ev": 0.1476
+        },
+        {
           "book": "DraftKings",
           "line": 149.5,
           "odds": -115,
@@ -533,13 +540,240 @@
           "odds": -115,
           "prob": 0.6063,
           "ev": 0.1335
+        }
+      ],
+      "similar": {
+        "w": 109,
+        "l": 118,
+        "pct": 0.48,
+        "units": -20.8,
+        "score": 0.4838,
+        "match": "Nov-Dec, 7+ pt gap, unders"
+      }
+    },
+    {
+      "game_id": "401920191",
+      "start": "2026-11-05T00:00Z",
+      "home": "Saint Joseph's Hawks",
+      "away": "Longwood Lancers",
+      "mkt": "SPREAD",
+      "side": "Saint Joseph's Hawks",
+      "side_code": "HOME",
+      "line": -8.5,
+      "odds": -112,
+      "proj": 12.2,
+      "total": 140.6,
+      "p": 0.549,
+      "edge": 4.47,
+      "stake": 0.0,
+      "notes": "",
+      "best_line": -8.5,
+      "best_odds": -106,
+      "book": "Bally Bet",
+      "agree": false,
+      "play_to": -10.0,
+      "tracking": true,
+      "to_win": 1.0,
+      "reason": "Tracking only",
+      "gap": 3.7,
+      "quotes": [
+        {
+          "book": "Bally Bet",
+          "line": -8.5,
+          "odds": -106,
+          "prob": 0.549,
+          "ev": 0.067
+        },
+        {
+          "book": "BetRivers",
+          "line": -8.5,
+          "odds": -107,
+          "prob": 0.549,
+          "ev": 0.0622
+        },
+        {
+          "book": "DraftKings",
+          "line": -9.5,
+          "odds": -112,
+          "prob": 0.5358,
+          "ev": 0.0142
+        },
+        {
+          "book": "FanDuel",
+          "line": -8.5,
+          "odds": -120,
+          "prob": 0.549,
+          "ev": 0.0066
+        },
+        {
+          "book": "theScore Bet",
+          "line": -9.5,
+          "odds": -115,
+          "prob": 0.5358,
+          "ev": 0.0017
         },
         {
           "book": "Kalshi",
-          "line": 149.5,
+          "line": -9.5,
           "odds": -116,
-          "prob": 0.6063,
-          "ev": 0.129
+          "prob": 0.5358,
+          "ev": -0.0023
+        }
+      ],
+      "similar": {
+        "w": 36,
+        "l": 41,
+        "pct": 0.468,
+        "units": -9.1,
+        "score": 0.4803,
+        "match": "Nov-Dec, 3-4 pt gap, 5-15 spreads"
+      }
+    },
+    {
+      "game_id": "401920191",
+      "start": "2026-11-05T00:00Z",
+      "home": "Saint Joseph's Hawks",
+      "away": "Longwood Lancers",
+      "mkt": "TOTAL",
+      "side": "UNDER",
+      "side_code": "UNDER",
+      "line": 149.5,
+      "odds": -114,
+      "proj": 12.2,
+      "total": 140.6,
+      "p": 0.5842,
+      "edge": 7.67,
+      "stake": 0.0,
+      "notes": "",
+      "best_line": 149.5,
+      "best_odds": -112,
+      "book": "DraftKings",
+      "agree": false,
+      "play_to": 144.0,
+      "tracking": true,
+      "to_win": 1.0,
+      "reason": "Over 5 pts off the market",
+      "gap": 8.94,
+      "quotes": [
+        {
+          "book": "DraftKings",
+          "line": 149.5,
+          "odds": -112,
+          "prob": 0.5842,
+          "ev": 0.1059
+        },
+        {
+          "book": "Bally Bet",
+          "line": 149.5,
+          "odds": -113,
+          "prob": 0.5842,
+          "ev": 0.1013
+        },
+        {
+          "book": "FanDuel",
+          "line": 149.5,
+          "odds": -114,
+          "prob": 0.5842,
+          "ev": 0.0967
+        },
+        {
+          "book": "BetRivers",
+          "line": 149.5,
+          "odds": -114,
+          "prob": 0.5842,
+          "ev": 0.0967
+        },
+        {
+          "book": "BetMGM",
+          "line": 149.5,
+          "odds": -115,
+          "prob": 0.5842,
+          "ev": 0.0923
+        },
+        {
+          "book": "theScore Bet",
+          "line": 149.5,
+          "odds": -115,
+          "prob": 0.5842,
+          "ev": 0.0923
+        }
+      ],
+      "similar": {
+        "w": 109,
+        "l": 118,
+        "pct": 0.48,
+        "units": -20.8,
+        "score": 0.4838,
+        "match": "Nov-Dec, 7+ pt gap, unders"
+      }
+    },
+    {
+      "game_id": "401902276",
+      "start": "2026-11-05T00:00Z",
+      "home": "Butler Bulldogs",
+      "away": "Fairleigh Dickinson Knights",
+      "mkt": "TOTAL",
+      "side": "UNDER",
+      "side_code": "UNDER",
+      "line": 153.5,
+      "odds": -110,
+      "proj": 23.7,
+      "total": 143.9,
+      "p": 0.5908,
+      "edge": 9.08,
+      "stake": 0.0,
+      "notes": "",
+      "best_line": 153.5,
+      "best_odds": -110,
+      "book": "DraftKings",
+      "agree": false,
+      "play_to": 147.0,
+      "tracking": true,
+      "to_win": 1.0,
+      "reason": "Over 5 pts off the market",
+      "gap": 9.64,
+      "quotes": [
+        {
+          "book": "DraftKings",
+          "line": 153.5,
+          "odds": -110,
+          "prob": 0.5908,
+          "ev": 0.1279
+        },
+        {
+          "book": "BetMGM",
+          "line": 153.5,
+          "odds": -110,
+          "prob": 0.5908,
+          "ev": 0.1279
+        },
+        {
+          "book": "theScore Bet",
+          "line": 153.5,
+          "odds": -110,
+          "prob": 0.5908,
+          "ev": 0.1279
+        },
+        {
+          "book": "FanDuel",
+          "line": 152.5,
+          "odds": -110,
+          "prob": 0.5815,
+          "ev": 0.1102
+        },
+        {
+          "book": "Bally Bet",
+          "line": 153.5,
+          "odds": -115,
+          "prob": 0.5908,
+          "ev": 0.1045
+        },
+        {
+          "book": "BetRivers",
+          "line": 153.5,
+          "odds": -117,
+          "prob": 0.5908,
+          "ev": 0.0958
         }
       ],
       "similar": {
@@ -625,84 +859,6 @@
           "odds": -143,
           "prob": 0.584,
           "ev": -0.0076
-        }
-      ],
-      "similar": {
-        "w": 109,
-        "l": 118,
-        "pct": 0.48,
-        "units": -20.8,
-        "score": 0.4838,
-        "match": "Nov-Dec, 7+ pt gap, unders"
-      }
-    },
-    {
-      "game_id": "401902276",
-      "start": "2026-11-05T00:00Z",
-      "home": "Butler Bulldogs",
-      "away": "Fairleigh Dickinson Knights",
-      "mkt": "TOTAL",
-      "side": "UNDER",
-      "side_code": "UNDER",
-      "line": 153.5,
-      "odds": -110,
-      "proj": 23.7,
-      "total": 143.9,
-      "p": 0.5908,
-      "edge": 9.08,
-      "stake": 0.0,
-      "notes": "",
-      "best_line": 153.5,
-      "best_odds": -110,
-      "book": "DraftKings",
-      "agree": false,
-      "play_to": 147.0,
-      "tracking": true,
-      "to_win": 1.0,
-      "reason": "Over 5 pts off the market",
-      "gap": 9.64,
-      "quotes": [
-        {
-          "book": "DraftKings",
-          "line": 153.5,
-          "odds": -110,
-          "prob": 0.5908,
-          "ev": 0.1279
-        },
-        {
-          "book": "BetMGM",
-          "line": 153.5,
-          "odds": -110,
-          "prob": 0.5908,
-          "ev": 0.1279
-        },
-        {
-          "book": "theScore Bet",
-          "line": 153.5,
-          "odds": -110,
-          "prob": 0.5908,
-          "ev": 0.1279
-        },
-        {
-          "book": "FanDuel",
-          "line": 152.5,
-          "odds": -110,
-          "prob": 0.5815,
-          "ev": 0.1102
-        },
-        {
-          "book": "Bally Bet",
-          "line": 153.5,
-          "odds": -115,
-          "prob": 0.5908,
-          "ev": 0.1045
-        },
-        {
-          "book": "BetRivers",
-          "line": 153.5,
-          "odds": -117,
-          "prob": 0.5908,
-          "ev": 0.0958
         }
       ],
       "similar": {
@@ -859,134 +1015,6 @@
           "odds": -115,
           "prob": 0.6138,
           "ev": 0.1476
-        }
-      ],
-      "similar": {
-        "w": 109,
-        "l": 118,
-        "pct": 0.48,
-        "units": -20.8,
-        "score": 0.4838,
-        "match": "Nov-Dec, 7+ pt gap, unders"
-      }
-    },
-    {
-      "game_id": "401920191",
-      "start": "2026-11-05T00:00Z",
-      "home": "Saint Joseph's Hawks",
-      "away": "Longwood Lancers",
-      "mkt": "SPREAD",
-      "side": "Saint Joseph's Hawks",
-      "side_code": "HOME",
-      "line": -9.5,
-      "odds": -115,
-      "proj": 12.2,
-      "total": 140.6,
-      "p": 0.5358,
-      "edge": 2.5,
-      "stake": 0.0,
-      "notes": "",
-      "best_line": -9.5,
-      "best_odds": -112,
-      "book": "DraftKings",
-      "agree": false,
-      "play_to": -10.0,
-      "tracking": true,
-      "to_win": 1.0,
-      "reason": "Tracking only",
-      "gap": 2.7,
-      "quotes": [
-        {
-          "book": "DraftKings",
-          "line": -9.5,
-          "odds": -112,
-          "prob": 0.5358,
-          "ev": 0.0142
-        },
-        {
-          "book": "FanDuel",
-          "line": -8.5,
-          "odds": -120,
-          "prob": 0.549,
-          "ev": 0.0066
-        },
-        {
-          "book": "theScore Bet",
-          "line": -9.5,
-          "odds": -115,
-          "prob": 0.5358,
-          "ev": 0.0017
-        },
-        {
-          "book": "Kalshi",
-          "line": -9.5,
-          "odds": -116,
-          "prob": 0.5358,
-          "ev": -0.0023
-        }
-      ],
-      "similar": {
-        "w": 25,
-        "l": 17,
-        "pct": 0.595,
-        "units": 6.3,
-        "score": 0.5435,
-        "match": "Nov-Dec, 2-3 pt gap, 5-15 spreads, favorites"
-      }
-    },
-    {
-      "game_id": "401920191",
-      "start": "2026-11-05T00:00Z",
-      "home": "Saint Joseph's Hawks",
-      "away": "Longwood Lancers",
-      "mkt": "TOTAL",
-      "side": "UNDER",
-      "side_code": "UNDER",
-      "line": 149.5,
-      "odds": -114,
-      "proj": 12.2,
-      "total": 140.6,
-      "p": 0.5842,
-      "edge": 7.44,
-      "stake": 0.0,
-      "notes": "",
-      "best_line": 149.5,
-      "best_odds": -112,
-      "book": "DraftKings",
-      "agree": false,
-      "play_to": 144.0,
-      "tracking": true,
-      "to_win": 1.0,
-      "reason": "Over 5 pts off the market",
-      "gap": 8.94,
-      "quotes": [
-        {
-          "book": "DraftKings",
-          "line": 149.5,
-          "odds": -112,
-          "prob": 0.5842,
-          "ev": 0.1059
-        },
-        {
-          "book": "FanDuel",
-          "line": 149.5,
-          "odds": -114,
-          "prob": 0.5842,
-          "ev": 0.0967
-        },
-        {
-          "book": "BetMGM",
-          "line": 149.5,
-          "odds": -115,
-          "prob": 0.5842,
-          "ev": 0.0923
-        },
-        {
-          "book": "theScore Bet",
-          "line": 149.5,
-          "odds": -115,
-          "prob": 0.5842,
-          "ev": 0.0923
         }
       ],
       "similar": {
@@ -6605,7 +6633,7 @@
       "started": true
     }
   ],
-  "results_updated_at": "2026-11-04T03:43+00:00",
+  "results_updated_at": "2026-11-04T03:44+00:00",
   "void_days": [
     "2026-11-03"
   ]

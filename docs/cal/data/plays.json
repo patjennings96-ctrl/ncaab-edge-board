@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-04T03:38+00:00",
+  "updated_at": "2026-11-04T03:44+00:00",
   "mode": "live",
   "model2_source": "Edge Board adjusted ratings",
   "hca": 3.0,
@@ -184,6 +184,105 @@
       "ou_play_to": null
     },
     {
+      "game_id": "401920191",
+      "start": "2026-11-05T00:00Z",
+      "home": "Saint Joseph's Hawks",
+      "away": "Longwood Lancers",
+      "line": -8.5,
+      "total_line": 149.5,
+      "m1": {
+        "away": 72.5,
+        "home": 73.3,
+        "ats": -7.7,
+        "tot": -3.8
+      },
+      "m2": {
+        "away": 68.5,
+        "home": 75.4,
+        "ats": -1.5,
+        "tot": -5.6,
+        "tot_adj": 0.3
+      },
+      "ats_play": "",
+      "ou_play": "",
+      "ats_books": [],
+      "ou_books": [],
+      "ats_play_to": null,
+      "ou_play_to": null
+    },
+    {
+      "game_id": "401902276",
+      "start": "2026-11-05T00:00Z",
+      "home": "Butler Bulldogs",
+      "away": "Fairleigh Dickinson Knights",
+      "line": -24.5,
+      "total_line": 153.5,
+      "m1": {
+        "away": 65.2,
+        "home": 79.5,
+        "ats": -10.2,
+        "tot": -8.8
+      },
+      "m2": {
+        "away": 64.5,
+        "home": 81.8,
+        "ats": -7.2,
+        "tot": -7.2,
+        "tot_adj": -1.2
+      },
+      "ats_play": "AWAY",
+      "ou_play": "",
+      "ats_books": [
+        {
+          "book": "BetMGM",
+          "line": 24.5,
+          "odds": -110,
+          "ev": 0.1345
+        },
+        {
+          "book": "DraftKings",
+          "line": 24.5,
+          "odds": -112,
+          "ev": 0.1249
+        },
+        {
+          "book": "Bally Bet",
+          "line": 24.5,
+          "odds": -113,
+          "ev": 0.1202
+        },
+        {
+          "book": "BetRivers",
+          "line": 24.5,
+          "odds": -114,
+          "ev": 0.1156
+        },
+        {
+          "book": "theScore Bet",
+          "line": 24.5,
+          "odds": -115,
+          "ev": 0.111
+        },
+        {
+          "book": "FanDuel",
+          "line": 22.5,
+          "odds": -110,
+          "ev": 0.0848
+        }
+      ],
+      "ou_books": [],
+      "ats_play_to": 22.5,
+      "ou_play_to": null,
+      "ats_similar": {
+        "w": 44,
+        "l": 34,
+        "pct": 0.564,
+        "units": 6.6,
+        "score": 0.5391,
+        "match": "Nov-Dec, 7-10 pt gap, 15+ spreads, underdogs"
+      }
+    },
+    {
       "game_id": "401918052",
       "start": "2026-11-05T02:00Z",
       "home": "California Golden Bears",
@@ -262,78 +361,6 @@
       }
     },
     {
-      "game_id": "401902276",
-      "start": "2026-11-05T00:00Z",
-      "home": "Butler Bulldogs",
-      "away": "Fairleigh Dickinson Knights",
-      "line": -24.5,
-      "total_line": 153.5,
-      "m1": {
-        "away": 65.2,
-        "home": 79.5,
-        "ats": -10.2,
-        "tot": -8.8
-      },
-      "m2": {
-        "away": 64.5,
-        "home": 81.8,
-        "ats": -7.2,
-        "tot": -7.2,
-        "tot_adj": -1.2
-      },
-      "ats_play": "AWAY",
-      "ou_play": "",
-      "ats_books": [
-        {
-          "book": "BetMGM",
-          "line": 24.5,
-          "odds": -110,
-          "ev": 0.1345
-        },
-        {
-          "book": "DraftKings",
-          "line": 24.5,
-          "odds": -112,
-          "ev": 0.1249
-        },
-        {
-          "book": "Bally Bet",
-          "line": 24.5,
-          "odds": -113,
-          "ev": 0.1202
-        },
-        {
-          "book": "BetRivers",
-          "line": 24.5,
-          "odds": -114,
-          "ev": 0.1156
-        },
-        {
-          "book": "theScore Bet",
-          "line": 24.5,
-          "odds": -115,
-          "ev": 0.111
-        },
-        {
-          "book": "FanDuel",
-          "line": 22.5,
-          "odds": -110,
-          "ev": 0.0848
-        }
-      ],
-      "ou_books": [],
-      "ats_play_to": 22.5,
-      "ou_play_to": null,
-      "ats_similar": {
-        "w": 44,
-        "l": 34,
-        "pct": 0.564,
-        "units": 6.6,
-        "score": 0.5391,
-        "match": "Nov-Dec, 7-10 pt gap, 15+ spreads, underdogs"
-      }
-    },
-    {
       "game_id": "401920798",
       "start": "2026-11-05T01:00Z",
       "home": "Auburn Tigers",
@@ -352,33 +379,6 @@
         "ats": -9.6,
         "tot": -5.1,
         "tot_adj": 0.9
-      },
-      "ats_play": "",
-      "ou_play": "",
-      "ats_books": [],
-      "ou_books": [],
-      "ats_play_to": null,
-      "ou_play_to": null
-    },
-    {
-      "game_id": "401920191",
-      "start": "2026-11-05T00:00Z",
-      "home": "Saint Joseph's Hawks",
-      "away": "Longwood Lancers",
-      "line": -9.5,
-      "total_line": 149.5,
-      "m1": {
-        "away": 72.5,
-        "home": 73.3,
-        "ats": -8.7,
-        "tot": -3.8
-      },
-      "m2": {
-        "away": 68.5,
-        "home": 75.4,
-        "ats": -2.5,
-        "tot": -5.6,
-        "tot_adj": 0.3
       },
       "ats_play": "",
       "ou_play": "",
@@ -1226,7 +1226,7 @@
       "started": true
     }
   ],
-  "results_updated_at": "2026-11-04T03:43+00:00",
+  "results_updated_at": "2026-11-04T03:44+00:00",
   "void_days": [
     "2026-11-03"
   ]
