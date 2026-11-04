@@ -110,6 +110,8 @@ details.day.today > .dayhead{color:var(--ink)}
 .dayhead .dn{display:flex;gap:10px}
 .dayhead .rec{color:var(--ink)}
 .pt{font-family:var(--mono);font-size:.78rem;color:var(--good);background:var(--good-soft);padding:1px 7px;border-radius:3px}
+.hidden-note{font-size:.78rem;padding:8px 14px;border-top:1px solid var(--line)}
+.hidden-note:empty{display:none}
 .toplist{list-style:none;margin:0;padding:0;counter-reset:t}
 .toplist li{counter-increment:t;display:grid;grid-template-columns:28px 1fr auto;gap:2px 10px;padding:10px 14px;border-top:1px solid var(--line);align-items:baseline}
 .toplist li:first-child{border-top:0}
@@ -213,6 +215,7 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
     <div class="model" id="edge-sec">
       <div class="model-head"><h3>Edge Board</h3><a href="edge/">How it works →</a></div>
       <div id="edge-plays"><div class="empty">Loading…</div></div>
+      <div class="hidden-note muted" id="edge-hidden"></div>
     </div>
     <div class="model" id="cal-sec">
       <div class="model-head"><h3>Cal's model</h3><a href="cal/">Full slate →</a></div>
@@ -270,7 +273,7 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
         <li>Books shopped: DraftKings, FanDuel, theScore Bet, BetMGM, Bally Bet, Hard Rock, BetRivers, Kalshi and Polymarket (prediction-market prices converted to American odds, Kalshi's fee included). The best book is the one with the highest expected value, weighing line and price together.</li>
         <li>Every play risks enough to win 1u at the price taken: 1.1u at −110, 1.05u at −105, 1u at even money.</li>
         <li><strong>Tracking only for now:</strong> Edge Board plays are posted and graded, not staked. When staking is turned on, it runs Jan 1 – Mar 8 only.</li>
-        <li>Spreads of 15+ points are tracked, not bet.</li>
+        <li>Spreads of 15+ points are not bet and not shown; they are still graded in the background so the cap can be reviewed.</li>
         <li>Totals more than 5 points off the market are tracked, not bet, even then: last season those lost.</li>
         <li>Totals that Cal's model also picks are sized to win 1.5u (1.65u at −110), graded that way while tracking.</li>
         <li id="sizing-rule">Spread sizing: flat to win 1u. From Dec 1, spreads switch to ¼ Kelly on the calibrated win probability (cap 3u) if 300+ graded plays have won at the rate the model predicted.</li>
@@ -584,9 +587,16 @@ async function liveLoop(){
   if (anyLiveSoon()) liveTimer = setTimeout(liveLoop, 60000);
 }
 
+// Edge Board spreads of 15+ points are off the board (Pat's rule). They are still
+// logged and graded in the background for the twice-monthly review.
+const BIG_SPREAD = 15;
+const bigSpread = r => r.mkt === "SPREAD" && Math.abs(r.best_line ?? r.line) >= BIG_SPREAD;
 function renderPlays(){
-  const upcoming = (EDGE && EDGE.plays) || [];
-  const ep = [...((EDGE && EDGE.recent) || []), ...upcoming.filter(r => !((EDGE.recent || []).some(x => x.game_id === r.game_id && x.mkt === r.mkt)))];
+  const allUp = (EDGE && EDGE.plays) || [];
+  const upcoming = allUp.filter(r => !bigSpread(r));
+  const recent = ((EDGE && EDGE.recent) || []).filter(r => !bigSpread(r));
+  const hidden = allUp.length - upcoming.length;
+  const ep = [...recent, ...upcoming.filter(r => !recent.some(x => x.game_id === r.game_id && x.mkt === r.mkt))];
   const cg = (CAL && CAL.games) || [];
   const cpUp = cg.flatMap(calPicks);
   const cRecent = (CAL && CAL.recent) || [];
@@ -594,6 +604,8 @@ function renderPlays(){
   document.getElementById("edge-plays").innerHTML = ep.length
     ? byDay(ep, r => r.start, r => r.started ? edgeStarted(r) : edgePlay(r), (a,b) => (b.edge || 0) - (a.edge || 0), "edge")
     : `<div class="empty">No Edge Board plays right now.${EDGE ? "" : " (Couldn't load data/plays.json.)"}</div>`;
+  document.getElementById("edge-hidden").textContent = hidden
+    ? `${hidden} play${hidden === 1 ? "" : "s"} on 15+ point spreads not shown (tracked in the background for review).` : "";
   document.getElementById("cal-plays").innerHTML = cp.length
     ? byDay(cp, p => p.started ? p.x.start : p.g.start, p => p.started ? calStarted(p.x) : calPlay(p), () => 0, "cal")
     : `<div class="empty">No games clear Cal's thresholds right now.${CAL ? "" : " (Couldn't load cal/data/plays.json.)"}</div>`;
@@ -758,7 +770,7 @@ async function load(){
   tabCounts(); spy();
 }
 function tabCounts(){
-  const ep = ((EDGE && EDGE.plays) || []).length, cp = ((CAL && CAL.games) || []).flatMap(calPicks).length;
+  const ep = ((EDGE && EDGE.plays) || []).filter(r => !bigSpread(r)).length, cp = ((CAL && CAL.games) || []).flatMap(calPicks).length;
   document.getElementById("tab-edge-n").textContent = ep || "";
   document.getElementById("tab-cal-n").textContent = cp || "";
 }
