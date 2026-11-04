@@ -208,6 +208,18 @@ def _summ(df: pd.DataFrame, units_col: str = "units") -> dict:
     return out
 
 
+# Pat's rule: Edge Board spreads of 15+ points are off the board. They stay in
+# card_log.csv (graded, for the twice-monthly review of the cap) but are left
+# out of every Edge Board record and check.
+BIG_SPREAD = 15.0
+
+
+def is_big_spread(log: pd.DataFrame) -> pd.Series:
+    line = pd.to_numeric(log.get("best_line", log["line"]), errors="coerce").fillna(
+        pd.to_numeric(log["line"], errors="coerce"))
+    return (log["mkt"] == "SPREAD") & (line.abs() >= BIG_SPREAD)
+
+
 def edge_record(since: str) -> dict:
     if not os.path.exists(LOG_PATH):
         return {}
@@ -215,6 +227,13 @@ def edge_record(since: str) -> dict:
     log = log[log["posted_at"].astype(str) >= since].copy()
     if log.empty:
         return {}
+    big = is_big_spread(log)
+    big_res = log.loc[big, "result"].astype(str)
+    big_summary = {"w": int((big_res == "W").sum()), "l": int((big_res == "L").sum()),
+                   "p": int((big_res == "P").sum())}
+    log = log[~big].copy()
+    if log.empty:
+        return {"big_spreads": big_summary}
     log["stake"] = pd.to_numeric(log.get("stake"), errors="coerce").fillna(0.0)
     odds = log["best_odds"] if "best_odds" in log else log["odds"]
     odds = pd.to_numeric(odds, errors="coerce").fillna(pd.to_numeric(log["odds"], errors="coerce"))
@@ -234,7 +253,7 @@ def edge_record(since: str) -> dict:
     out = {"staked": {m: _summ(g) for m, g in staked.groupby("mkt")},
            "tracking": {m: _summ(g, "flat") for m, g in tracking.groupby("mkt")},
            "both_models": {m: _summ(g, "flat") for m, g in agree.groupby("mkt")},
-           "all": _summ(staked)}
+           "all": _summ(staked), "big_spreads": big_summary}
     rec = log[res.isin(["W", "L", "P"])].sort_values("start", ascending=False).head(40)
     out["recent"] = [{"start": str(r.start), "away": r.away, "home": r.home, "mkt": r.mkt,
                       "side": str(r.side), "line": float(r.line), "stake": float(r.stake),
@@ -302,6 +321,7 @@ def model_check(since: str) -> dict:
     if os.path.exists(LOG_PATH):
         log = pd.read_csv(LOG_PATH, dtype={"game_id": str})
         log = log[(log["posted_at"].astype(str) >= since) & log["result"].astype(str).isin(["W", "L", "P"])]
+        log = log[~is_big_spread(log)] if not log.empty else log
         if not log.empty and "gap" in log:
             log["gap"] = pd.to_numeric(log["gap"], errors="coerce")
             log["p"] = pd.to_numeric(log.get("p"), errors="coerce")

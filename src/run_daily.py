@@ -250,6 +250,7 @@ def kelly_check(today=None) -> dict:
     log = pd.read_csv(publish.LOG_PATH, dtype={"game_id": str})
     log = log[(log["posted_at"].astype(str) >= publish._season_start()) & (log["mkt"] == "SPREAD")
               & log["result"].astype(str).isin(["W", "L"])]
+    log = log[~publish.is_big_spread(log)]          # off the board: never bet, not counted
     if "p" not in log or "gap" not in log:
         out["reason"] = "log has no probabilities yet"
         return out
