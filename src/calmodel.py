@@ -373,8 +373,18 @@ def log_plays(priced: pd.DataFrame, names: dict) -> None:
     new = pd.DataFrame(rows)
     os.makedirs(os.path.dirname(CAL_LOG), exist_ok=True)
     if os.path.exists(CAL_LOG):
-        old = pd.read_csv(CAL_LOG, dtype={"game_id": str})
-        new = new[~(new.game_id + "|" + new.market).isin(old.game_id + "|" + old.market)]
+        # graded at the last line posted before tip-off: refresh untipped rows
+        old = pd.read_csv(CAL_LOG, dtype={"game_id": str, "units": str}).fillna({"units": ""})
+        okey, nkey = old.game_id + "|" + old.market, new.game_id + "|" + new.market
+        cur = new.set_index(nkey)
+        untipped = pd.to_datetime(old["start"], utc=True, errors="coerce") > pd.Timestamp.now(tz="UTC")
+        upd = untipped & okey.isin(cur.index) & old["units"].eq("")
+        for i in old.index[upd]:
+            for col in ("play", "line", "total_line", "gap"):
+                old.at[i, col] = cur.loc[okey[i], col]
+        if upd.any():
+            old.to_csv(CAL_LOG, index=False)
+        new = new[~nkey.isin(okey)]
     if not new.empty:
         new.to_csv(CAL_LOG, mode="a", index=False, header=not os.path.exists(CAL_LOG))
 

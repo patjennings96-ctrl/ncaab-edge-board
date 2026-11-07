@@ -597,7 +597,7 @@ function statusLine(gid, mkt, sideHome, overSide, line, homeName, awayName, logg
   return `<div class="live">Started · result pending</div>`;
 }
 function edgeStarted(r){
-  const L = r.line;
+  const L = r.best_line ?? r.line;
   const ln = r.mkt === "SPREAD" ? sgn(L) : L.toFixed(1);
   const tags = `<span class="tag ${r.mkt==="SPREAD"?"spread":"total"}">${r.mkt==="SPREAD"?"Spread":"Total"}</span>`
     + (r.agree ? '<span class="tag both">Both models</span>' : "")
@@ -705,7 +705,7 @@ function liveGraded(){
     if (r.result || bigSpread(r)) continue;
     const L = orient(LIVE[String(r.game_id)], r.home, r.away);
     if (!L || L.state !== "post") continue;
-    const c = coverBy(r.mkt, r.side_code === "HOME", r.side_code === "OVER", r.line, L.home, L.away);
+    const c = coverBy(r.mkt, r.side_code === "HOME", r.side_code === "OVER", r.best_line ?? r.line, L.home, L.away);
     const res = c > 0 ? "W" : c < 0 ? "L" : "P", tw = r.to_win || 1;
     const u = res === "W" ? tw : res === "L" ? -tw / payout(r.best_odds ?? r.odds ?? -110) : 0;
     bump(`tr.${r.mkt}`, res, u);

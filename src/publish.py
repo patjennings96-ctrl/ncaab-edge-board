@@ -121,12 +121,31 @@ def append_log(card: pd.DataFrame, mode: str) -> str | None:
     if mode != "live" or card.empty:
         return None
     os.makedirs(os.path.dirname(LOG_PATH), exist_ok=True)
-    df = pd.DataFrame(card_to_records(card)).drop(columns=["quotes"], errors="ignore")
-    # Log each (game, market) once: the first time the model posted it.
+    df = pd.DataFrame(card_to_records(card)).drop(columns=["quotes", "similar"], errors="ignore")
+    now = datetime.now(timezone.utc)
+    # A play is graded at the LAST line the board showed before tip-off: while
+    # the game hasn't started, each refresh overwrites the logged line, price,
+    # book and size with the current posting (a better number can appear later,
+    # e.g. more books post). posted_at keeps the first posting; updated_at the last.
     if os.path.exists(LOG_PATH):
-        seen = pd.read_csv(LOG_PATH, dtype={"game_id": str})[["game_id", "mkt"]]
-        key = df["game_id"] + "|" + df["mkt"]
-        df = df[~key.isin(seen["game_id"] + "|" + seen["mkt"])]
+        old = pd.read_csv(LOG_PATH, dtype=str)
+        okey = old["game_id"] + "|" + old["mkt"]
+        nkey = df["game_id"].astype(str) + "|" + df["mkt"]
+        cur = df.set_index(nkey)
+        untipped = pd.to_datetime(old["start"], utc=True, errors="coerce") > now
+        upd = untipped & okey.isin(cur.index) & old["result"].fillna("").eq("")
+        if "updated_at" not in old:
+            old["updated_at"] = ""
+        for i in old.index[upd]:
+            r = cur.loc[okey[i]]
+            for col in df.columns:
+                if col in old.columns and col not in ("game_id", "mkt", "start", "home", "away"):
+                    v = r[col]
+                    old.at[i, col] = "" if v is None or (isinstance(v, float) and np.isnan(v)) else str(v)
+            old.at[i, "updated_at"] = now.isoformat(timespec="minutes")
+        if upd.any():
+            old.to_csv(LOG_PATH, index=False)
+        df = df[~nkey.isin(okey)]
     if df.empty:
         return None
     df.insert(0, "posted_at", datetime.now(timezone.utc).isoformat(timespec="minutes"))
@@ -163,14 +182,17 @@ def update_clv(closes: pd.DataFrame, games_raw: pd.DataFrame) -> None:
 
     for i, r in log.iterrows():
         gid = str(r["game_id"])
+        # graded at the number the board told you to bet: the best book's line
+        bl = pd.to_numeric(pd.Series([r.get("best_line")]), errors="coerce").iloc[0]
+        line = float(bl) if pd.notna(bl) else float(r["line"])
         if not close.empty and gid in close.index and str(r["close_line"]) in ("", "nan"):
             c = close.loc[gid]
             if r["mkt"] == "SPREAD":
                 cl = c["spread_home"] if r["side_code"] == "HOME" else -c["spread_home"]
-                clv = r["line"] - cl
+                clv = line - cl
             else:
                 cl = c["total"]
-                clv = (cl - r["line"]) if r["side_code"] == "OVER" else (r["line"] - cl)
+                clv = (cl - line) if r["side_code"] == "OVER" else (line - cl)
             if pd.notna(cl):
                 log.at[i, "close_line"] = round(float(cl), 1)
                 log.at[i, "clv_points"] = round(float(clv), 1)
@@ -182,9 +204,9 @@ def update_clv(closes: pd.DataFrame, games_raw: pd.DataFrame) -> None:
             margin, total = hs - as_, hs + as_
             if r["mkt"] == "SPREAD":
                 m = margin if r["side_code"] == "HOME" else -margin
-                x = m + float(r["line"])
+                x = m + line
             else:
-                x = (total - float(r["line"])) * (1 if r["side_code"] == "OVER" else -1)
+                x = (total - line) * (1 if r["side_code"] == "OVER" else -1)
             log.at[i, "result"] = "W" if x > 0 else ("P" if x == 0 else "L")
     log.to_csv(LOG_PATH, index=False)
 
