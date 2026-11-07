@@ -628,7 +628,7 @@ function anyLiveSoon(){
     return (L && L.state === "in") || (t <= now + 600000 && !(L && L.state === "post") && !x.result); });
 }
 async function liveLoop(){
-  await fetchLive(); renderPlays();
+  await fetchLive(); renderPlays(); renderRecord();
   clearTimeout(liveTimer);
   if (anyLiveSoon()) liveTimer = setTimeout(liveLoop, 60000);
 }
@@ -686,12 +686,60 @@ function tile(label, s, flat){
   if (s.roi != null) bits.push(`ROI ${(s.roi*100).toFixed(1)}%`);
   if (s.clv != null) bits.push(`CLV ${sgn(s.clv)} pts`);
   if (s.pending) bits.push(`${s.pending} pending`);
+  if (s.live) bits.push(`${s.live} just finished`);
   return `<div class="tile"><span class="k">${label}</span>
     <span class="v">${s.w}-${s.l}${s.p?"-"+s.p:""} <span class="${cls(s.units)}" style="font-size:.7em">${units(s.units)}</span></span>
     <span class="s">${bits.join(" · ")}</span></div>`;
 }
+// Grade tipped plays the moment ESPN marks the game final, on top of the last
+// published record, so the record moves as each game ends instead of waiting
+// for the next results pass on GitHub (which can lag an hour or two). Same
+// rules as the server: Edge plays to win their size at their odds; Cal +1/-1.1.
+const payout = o => o > 0 ? o / 100 : 100 / Math.abs(o || -110);
+function liveGraded(){
+  const add = {}, bump = (k, res, u) => {
+    const s = add[k] ||= {w:0, l:0, p:0, units:0, n:0};
+    s[res === "W" ? "w" : res === "L" ? "l" : "p"]++; s.units += u; s.n++;
+  };
+  for (const r of ((EDGE && EDGE.recent) || [])) {
+    if (r.result || bigSpread(r)) continue;
+    const L = orient(LIVE[String(r.game_id)], r.home, r.away);
+    if (!L || L.state !== "post") continue;
+    const c = coverBy(r.mkt, r.side_code === "HOME", r.side_code === "OVER", r.line, L.home, L.away);
+    const res = c > 0 ? "W" : c < 0 ? "L" : "P", tw = r.to_win || 1;
+    const u = res === "W" ? tw : res === "L" ? -tw / payout(r.best_odds ?? r.odds ?? -110) : 0;
+    bump(`tr.${r.mkt}`, res, u);
+    if (r.agree) bump(`bm.${r.mkt}`, res, u);
+    if (r.best) bump("best", res, u);
+    if (!r.tracking) { bump(`st.${r.mkt}`, res, u); bump("eall", res, u); }
+  }
+  for (const p of ((CAL && CAL.recent) || [])) {
+    if (p.result) continue;
+    const L = orient(LIVE[String(p.game_id)], p.home, p.away);
+    if (!L || L.state !== "post") continue;
+    const ats = p.market === "ATS", home = p.play === "HOME";
+    const line = ats ? (home ? p.line : -p.line) : p.total_line;
+    const c = coverBy(ats ? "ATS" : "TOTAL", home, p.play === "OVER", line, L.home, L.away);
+    const res = c > 0 ? "W" : c < 0 ? "L" : "P";
+    bump(`cal.${ats ? "ATS" : "TOTAL"}`, res, res === "W" ? 1 : res === "L" ? -1.1 : 0);
+    bump("call", res, res === "W" ? 1 : res === "L" ? -1.1 : 0);
+  }
+  return add;
+}
+function withLive(s, a){
+  if (!a || !a.n) return s;
+  s = {...(s || {w:0, l:0, p:0, units:0, pending:0})};
+  s.w += a.w; s.l += a.l; s.p += a.p; s.units = (s.units || 0) + a.units;
+  s.pending = Math.max(0, (s.pending || 0) - a.n); s.live = (s.live || 0) + a.n;
+  return s;
+}
 function renderRecord(){
-  const e = (REC && REC.edge) || {}, c = (REC && REC.cal) || {};
+  const A = liveGraded();
+  const e0 = (REC && REC.edge) || {}, c0 = (REC && REC.cal) || {};
+  const mk = (o, pre) => Object.fromEntries(Object.entries(o || {}).map(([k, v]) => [k, withLive(v, A[`${pre}.${k}`])]));
+  const e = {...e0, staked: mk(e0.staked, "st"), tracking: mk(e0.tracking, "tr"), both_models: mk(e0.both_models, "bm"),
+             all: withLive(e0.all, A.eall), best_bets: withLive(e0.best_bets, A.best)};
+  const c = {...c0, record: mk(c0.record, "cal"), all: withLive(c0.all, A.call)};
   const st = e.staked || {}, tr = e.tracking || {}, bm = e.both_models || {}, cr = c.record || {};
   document.getElementById("edge-rec").innerHTML = tile("Spreads", st.SPREAD) + tile("Totals", st.TOTAL) + tile("All staked", e.all);
   document.getElementById("edge-rec2").innerHTML = tile("Tracking spreads", tr.SPREAD) + tile("Tracking totals", tr.TOTAL)

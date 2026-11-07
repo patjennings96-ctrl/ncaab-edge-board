@@ -505,6 +505,8 @@ def recent_edge_plays() -> list[dict]:
                     "agree": str(g.get("agree")).lower() == "true", "tracking": _num(g.get("stake"), 0.0) == 0.0,
                     "reason": "" if pd.isna(g.get("reason")) else str(g.get("reason")),
                     "result": res if res in ("W", "L", "P") else "", "units": None if units is None else round(units, 2),
+                    "gap": _num(g.get("gap")),
+                    "best": is_best_bet(g["mkt"], g["line"], g.get("gap"), g["start"]),
                     "started": True})
     return out
 
