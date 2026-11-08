@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-08T17:47+00:00",
+  "updated_at": "2026-11-08T17:54+00:00",
   "mode": "live",
   "settings": {
     "kelly_mult": 0.25,
@@ -27,6 +27,99 @@
     }
   },
   "plays": [
+    {
+      "game_id": "401920424",
+      "start": "2026-11-08T18:00Z",
+      "home": "Virginia Cavaliers",
+      "away": "Arkansas Razorbacks",
+      "mkt": "SPREAD",
+      "side": "Arkansas Razorbacks",
+      "side_code": "AWAY",
+      "line": 4.5,
+      "odds": -114,
+      "proj": 0.3,
+      "total": 161.4,
+      "p": 0.5559,
+      "edge": 4.94,
+      "stake": 0.0,
+      "notes": "",
+      "best_line": 3.5,
+      "best_odds": 100,
+      "book": "theScore Bet",
+      "agree": true,
+      "play_to": 4.5,
+      "tracking": true,
+      "to_win": 1.0,
+      "reason": "Tracking only",
+      "gap": 4.21,
+      "best": false,
+      "quotes": [
+        {
+          "book": "theScore Bet",
+          "line": 3.5,
+          "odds": 100,
+          "prob": 0.5427,
+          "ev": 0.0853
+        },
+        {
+          "book": "FanDuel",
+          "line": 3.5,
+          "odds": -102,
+          "prob": 0.5427,
+          "ev": 0.0747
+        },
+        {
+          "book": "BetMGM",
+          "line": 4.5,
+          "odds": -110,
+          "prob": 0.5559,
+          "ev": 0.0612
+        },
+        {
+          "book": "Bally Bet",
+          "line": 4.5,
+          "odds": -114,
+          "prob": 0.5559,
+          "ev": 0.0434
+        },
+        {
+          "book": "DraftKings",
+          "line": 4.5,
+          "odds": -115,
+          "prob": 0.5559,
+          "ev": 0.0392
+        },
+        {
+          "book": "BetRivers",
+          "line": 4.5,
+          "odds": -115,
+          "prob": 0.5559,
+          "ev": 0.0392
+        },
+        {
+          "book": "Hard Rock",
+          "line": 4.5,
+          "odds": -115,
+          "prob": 0.5559,
+          "ev": 0.0392
+        },
+        {
+          "book": "Kalshi",
+          "line": 4.5,
+          "odds": -121,
+          "prob": 0.5559,
+          "ev": 0.0152
+        }
+      ],
+      "similar": {
+        "w": 76,
+        "l": 70,
+        "pct": 0.521,
+        "units": -1.0,
+        "score": 0.5153,
+        "match": "Nov-Dec, 4-5 pt gap"
+      }
+    },
     {
       "game_id": "401924734",
       "start": "2026-11-08T18:00Z",
@@ -83,6 +176,13 @@
           "ev": 0.2092
         },
         {
+          "book": "BetRivers",
+          "line": 153.5,
+          "odds": -107,
+          "prob": 0.6222,
+          "ev": 0.2037
+        },
+        {
           "book": "DraftKings",
           "line": 153.5,
           "odds": -108,
@@ -95,13 +195,6 @@
           "odds": -110,
           "prob": 0.6222,
           "ev": 0.1878
-        },
-        {
-          "book": "BetRivers",
-          "line": 152.5,
-          "odds": -109,
-          "prob": 0.6131,
-          "ev": 0.1756
         },
         {
           "book": "Kalshi",
@@ -121,6 +214,99 @@
       }
     },
     {
+      "game_id": "401921687",
+      "start": "2026-11-08T18:00Z",
+      "home": "UMass Lowell River Hawks",
+      "away": "Marist Red Foxes",
+      "mkt": "TOTAL",
+      "side": "OVER",
+      "side_code": "OVER",
+      "line": 141.5,
+      "odds": -110,
+      "proj": 1.1,
+      "total": 145.4,
+      "p": 0.5374,
+      "edge": 3.74,
+      "stake": 0.0,
+      "notes": "",
+      "best_line": 143.5,
+      "best_odds": 100,
+      "book": "BetRivers",
+      "agree": false,
+      "play_to": 141.5,
+      "tracking": true,
+      "to_win": 1.0,
+      "reason": "Tracking only",
+      "gap": 3.95,
+      "best": false,
+      "quotes": [
+        {
+          "book": "BetRivers",
+          "line": 143.5,
+          "odds": 100,
+          "prob": 0.5185,
+          "ev": 0.037
+        },
+        {
+          "book": "Bally Bet",
+          "line": 143.5,
+          "odds": 100,
+          "prob": 0.5185,
+          "ev": 0.037
+        },
+        {
+          "book": "Hard Rock",
+          "line": 143.5,
+          "odds": 100,
+          "prob": 0.5185,
+          "ev": 0.037
+        },
+        {
+          "book": "theScore Bet",
+          "line": 141.5,
+          "odds": -110,
+          "prob": 0.5374,
+          "ev": 0.026
+        },
+        {
+          "book": "Kalshi",
+          "line": 141.5,
+          "odds": -112,
+          "prob": 0.5374,
+          "ev": 0.0173
+        },
+        {
+          "book": "DraftKings",
+          "line": 141.5,
+          "odds": -112,
+          "prob": 0.5374,
+          "ev": 0.0173
+        },
+        {
+          "book": "FanDuel",
+          "line": 141.5,
+          "odds": -115,
+          "prob": 0.5374,
+          "ev": 0.0048
+        },
+        {
+          "book": "BetMGM",
+          "line": 141.5,
+          "odds": -115,
+          "prob": 0.5374,
+          "ev": 0.0048
+        }
+      ],
+      "similar": {
+        "w": 35,
+        "l": 30,
+        "pct": 0.538,
+        "units": 2.0,
+        "score": 0.5217,
+        "match": "Nov-Dec, 3-4 pt gap, overs"
+      }
+    },
+    {
       "game_id": "401902277",
       "start": "2026-11-08T19:00Z",
       "home": "Boise State Broncos",
@@ -137,7 +323,7 @@
       "stake": 0.0,
       "notes": "",
       "best_line": -3.5,
-      "best_odds": 105,
+      "best_odds": 109,
       "book": "Kalshi",
       "agree": false,
       "play_to": -2.5,
@@ -150,9 +336,9 @@
         {
           "book": "Kalshi",
           "line": -3.5,
-          "odds": 105,
+          "odds": 109,
           "prob": 0.5438,
-          "ev": 0.1148
+          "ev": 0.1366
         },
         {
           "book": "Bally Bet",
@@ -780,11 +966,11 @@
       "side": "UNDER",
       "side_code": "UNDER",
       "line": 148.5,
-      "odds": -115,
+      "odds": -114,
       "proj": 10.8,
       "total": 144.8,
       "p": 0.5354,
-      "edge": 2.57,
+      "edge": 2.79,
       "stake": 0.0,
       "notes": "",
       "best_line": 148.5,
@@ -806,6 +992,13 @@
           "ev": 0.005
         },
         {
+          "book": "DraftKings",
+          "line": 147.5,
+          "odds": -110,
+          "prob": 0.5259,
+          "ev": 0.004
+        },
+        {
           "book": "BetMGM",
           "line": 147.5,
           "odds": -110,
@@ -820,21 +1013,7 @@
           "ev": 0.001
         },
         {
-          "book": "DraftKings",
-          "line": 148.5,
-          "odds": -115,
-          "prob": 0.5354,
-          "ev": 0.001
-        },
-        {
           "book": "BetRivers",
-          "line": 148.5,
-          "odds": -115,
-          "prob": 0.5354,
-          "ev": 0.001
-        },
-        {
-          "book": "Hard Rock",
           "line": 148.5,
           "odds": -115,
           "prob": 0.5354,
@@ -853,6 +1032,13 @@
           "odds": -114,
           "prob": 0.5259,
           "ev": -0.0127
+        },
+        {
+          "book": "Hard Rock",
+          "line": 148.5,
+          "odds": -125,
+          "prob": 0.5354,
+          "ev": -0.0363
         }
       ],
       "similar": {
@@ -1709,6 +1895,6 @@
       "started": true
     }
   ],
-  "results_updated_at": "2026-11-08T17:47+00:00",
+  "results_updated_at": "2026-11-08T17:54+00:00",
   "void_days": []
 }
