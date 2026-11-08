@@ -291,14 +291,19 @@ def drop_void(log: pd.DataFrame, model: str) -> pd.DataFrame:
     return log[~az_date(log["start"]).isin(days)]
 
 
-# Plays logged under looser thresholds before Nov 7 (spreads 2+, totals 3+)
-# that the current rules wouldn't post are left out of the records too.
-MIN_GAP = {"SPREAD": 4.0, "TOTAL": 3.5}
+# Play thresholds by when the play was posted. A rule change applies going
+# forward only: a play counts under the rules that were in force when it was
+# posted, so nothing leaves the record after the fact (Pat, Nov 8).
+MIN_GAP_HISTORY = [("2026-11-08T01:07", {"SPREAD": 4.0, "TOTAL": 3.5}),
+                   ("", {"SPREAD": 2.0, "TOTAL": 3.0})]
 
 
 def below_min(log: pd.DataFrame) -> pd.Series:
     gap = pd.to_numeric(log["gap"], errors="coerce").abs()
-    need = log["mkt"].map(MIN_GAP).fillna(0)
+    posted = log["posted_at"].astype(str)
+    need = pd.Series(0.0, index=log.index)
+    for since, rule in reversed(MIN_GAP_HISTORY):
+        need = need.where(~(posted >= since), log["mkt"].map(rule).fillna(0))
     return gap.notna() & (gap < need)
 
 
