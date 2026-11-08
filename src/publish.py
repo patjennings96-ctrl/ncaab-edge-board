@@ -291,6 +291,21 @@ def drop_void(log: pd.DataFrame, model: str) -> pd.DataFrame:
     return log[~az_date(log["start"]).isin(days)]
 
 
+# Plays logged under looser thresholds before Nov 7 (spreads 2+, totals 3+)
+# that the current rules wouldn't post are left out of the records too.
+MIN_GAP = {"SPREAD": 4.0, "TOTAL": 3.5}
+
+
+def below_min(log: pd.DataFrame) -> pd.Series:
+    gap = pd.to_numeric(log["gap"], errors="coerce").abs()
+    need = log["mkt"].map(MIN_GAP).fillna(0)
+    return gap.notna() & (gap < need)
+
+
+def not_counted(log: pd.DataFrame) -> pd.Series:
+    return is_big_spread(log) | below_min(log)
+
+
 def is_big_spread(log: pd.DataFrame) -> pd.Series:
     line = pd.to_numeric(log.get("best_line", log["line"]), errors="coerce").fillna(
         pd.to_numeric(log["line"], errors="coerce"))
@@ -308,7 +323,7 @@ def edge_record(since: str) -> dict:
     big_res = log.loc[big, "result"].astype(str)
     big_summary = {"w": int((big_res == "W").sum()), "l": int((big_res == "L").sum()),
                    "p": int((big_res == "P").sum())}
-    log = log[~big].copy()
+    log = log[~big & ~below_min(log)].copy()
     if log.empty:
         return {"big_spreads": big_summary}
     log["stake"] = pd.to_numeric(log.get("stake"), errors="coerce").fillna(0.0)
@@ -402,7 +417,7 @@ def model_check(since: str) -> dict:
     if os.path.exists(LOG_PATH):
         log = drop_void(pd.read_csv(LOG_PATH, dtype={"game_id": str}), "edge")
         log = log[(log["posted_at"].astype(str) >= since) & log["result"].astype(str).isin(["W", "L", "P"])]
-        log = log[~is_big_spread(log)] if not log.empty else log
+        log = log[~not_counted(log)] if not log.empty else log
         if not log.empty and "gap" in log:
             log["gap"] = pd.to_numeric(log["gap"], errors="coerce")
             log["p"] = pd.to_numeric(log.get("p"), errors="coerce")
@@ -512,6 +527,7 @@ def recent_edge_plays() -> list[dict]:
     if not os.path.exists(LOG_PATH):
         return []
     log = _recent_window(drop_void(pd.read_csv(LOG_PATH, dtype={"game_id": str}), "edge"))
+    log = log[~below_min(log)] if not log.empty else log
     out = []
     for r in log.itertuples(index=False):
         g = r._asdict()

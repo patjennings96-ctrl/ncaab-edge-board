@@ -119,8 +119,11 @@ SIGMA_FLOOR_TOTAL = 17.0
 # Minimum disagreement with the consensus number before betting. From the
 # model head-to-head (src/model_compare.py): spreads were break-even or worse
 # under 2 points; totals needed 3+.
-MIN_POINTS_SPREAD = 2.0
-MIN_POINTS_TOTAL = 3.0
+# Pat (Nov 7): fewer plays, better ROI. Backtest Jan 1-Mar 8 2026: spreads 4+
+# went 137-102 (57.3%, ROI +9.4%, both halves ~57%) vs 2+ at 54.0% / +3.1%;
+# totals 3.5-5 54.3% / +3.7% vs 3-5 at 53.3% / +1.8%.
+MIN_POINTS_SPREAD = 4.0
+MIN_POINTS_TOTAL = 3.5
 
 # Betting window: conference regular season. In 2025-26 the same rules lost
 # heavily in December (spreads -40u, totals -75u at 3+) and in March
@@ -250,7 +253,7 @@ def kelly_check(today=None) -> dict:
     log = publish.drop_void(pd.read_csv(publish.LOG_PATH, dtype={"game_id": str}), "edge")
     log = log[(log["posted_at"].astype(str) >= publish._season_start()) & (log["mkt"] == "SPREAD")
               & log["result"].astype(str).isin(["W", "L"])]
-    log = log[~publish.is_big_spread(log)]          # off the board: never bet, not counted
+    log = log[~publish.not_counted(log)]            # off the board: never bet, not counted
     if "p" not in log or "gap" not in log:
         out["reason"] = "log has no probabilities yet"
         return out
