@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-11-12T22:15+00:00",
+ "updated_at": "2026-11-12T22:28+00:00",
  "season_start": "2026-10-01",
  "edge": {
   "staked": {},
@@ -553,12 +553,12 @@
  "cal": {
   "record": {
    "ATS": {
-    "w": 68,
+    "w": 69,
     "l": 89,
     "p": 0,
-    "units": -29.9,
-    "pending": 17,
-    "roi": -0.1904
+    "units": -28.9,
+    "pending": 16,
+    "roi": -0.1829
    },
    "TOTAL": {
     "w": 23,
@@ -570,14 +570,24 @@
    }
   },
   "all": {
-   "w": 91,
+   "w": 92,
    "l": 105,
    "p": 0,
-   "units": -24.5,
-   "pending": 18,
-   "roi": -0.125
+   "units": -23.5,
+   "pending": 17,
+   "roi": -0.1193
   },
   "recent": [
+   {
+    "start": "2026-11-12T20:00Z",
+    "away": "Kansas City Roos",
+    "home": "George Mason Patriots",
+    "mkt": "ATS",
+    "play": "AWAY",
+    "line": -15.5,
+    "total_line": 141.5,
+    "units": 1.0
+   },
    {
     "start": "2026-11-12T03:00Z",
     "away": "UTSA Roadrunners",
@@ -967,16 +977,6 @@
     "line": -15.5,
     "total_line": 165.5,
     "units": 1.0
-   },
-   {
-    "start": "2026-11-11T00:00Z",
-    "away": "Siena Saints",
-    "home": "Dayton Flyers",
-    "mkt": "TOTAL",
-    "play": "UNDER",
-    "line": -13.5,
-    "total_line": 159.5,
-    "units": -1.1
    }
   ]
  },
@@ -1113,9 +1113,9 @@
      },
      {
       "gap": "7-10",
-      "w": 25,
+      "w": 26,
       "l": 26,
-      "pct": 0.49
+      "pct": 0.5
      },
      {
       "gap": "10+",
@@ -1131,9 +1131,9 @@
       "pct": 0.0
      },
      "dog": {
-      "w": 68,
+      "w": 69,
       "l": 88,
-      "pct": 0.436
+      "pct": 0.439
      },
      "under 5": {
       "w": 2,
@@ -1146,9 +1146,9 @@
       "pct": 0.571
      },
      "15+": {
-      "w": 58,
+      "w": 59,
       "l": 78,
-      "pct": 0.426
+      "pct": 0.431
      }
     }
    },
