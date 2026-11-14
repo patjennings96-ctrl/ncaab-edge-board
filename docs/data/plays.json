@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-14T17:58+00:00",
+  "updated_at": "2026-11-14T18:29+00:00",
   "mode": "live",
   "settings": {
     "kelly_mult": 0.25,
@@ -136,16 +136,16 @@
       "side": "UNDER",
       "side_code": "UNDER",
       "line": 151.5,
-      "odds": -113,
+      "odds": -110,
       "proj": 12.1,
       "total": 147.5,
       "p": 0.5379,
-      "edge": 3.25,
+      "edge": 3.79,
       "stake": 0.0,
       "notes": "",
       "best_line": 151.5,
-      "best_odds": -110,
-      "book": "FanDuel",
+      "best_odds": -103,
+      "book": "Kalshi",
       "agree": false,
       "play_to": 151.5,
       "tracking": true,
@@ -155,7 +155,28 @@
       "best": false,
       "quotes": [
         {
+          "book": "Kalshi",
+          "line": 151.5,
+          "odds": -103,
+          "prob": 0.5379,
+          "ev": 0.0601
+        },
+        {
           "book": "FanDuel",
+          "line": 151.5,
+          "odds": -105,
+          "prob": 0.5379,
+          "ev": 0.0502
+        },
+        {
+          "book": "BetMGM",
+          "line": 151.5,
+          "odds": -105,
+          "prob": 0.5379,
+          "ev": 0.0502
+        },
+        {
+          "book": "Bally Bet",
           "line": 151.5,
           "odds": -110,
           "prob": 0.5379,
@@ -169,14 +190,7 @@
           "ev": 0.0269
         },
         {
-          "book": "Kalshi",
-          "line": 151.5,
-          "odds": -112,
-          "prob": 0.5379,
-          "ev": 0.0182
-        },
-        {
-          "book": "Bally Bet",
+          "book": "DraftKings",
           "line": 151.5,
           "odds": -112,
           "prob": 0.5379,
@@ -185,26 +199,12 @@
         {
           "book": "BetRivers",
           "line": 151.5,
-          "odds": -113,
+          "odds": -112,
           "prob": 0.5379,
-          "ev": 0.0139
-        },
-        {
-          "book": "DraftKings",
-          "line": 151.5,
-          "odds": -115,
-          "prob": 0.5379,
-          "ev": 0.0056
+          "ev": 0.0182
         },
         {
           "book": "theScore Bet",
-          "line": 151.5,
-          "odds": -115,
-          "prob": 0.5379,
-          "ev": 0.0056
-        },
-        {
-          "book": "BetMGM",
           "line": 151.5,
           "odds": -115,
           "prob": 0.5379,
@@ -329,9 +329,9 @@
       "edge": 7.98,
       "stake": 0.0,
       "notes": "Wofford Terriers: Misho Kalinov (missed 1)",
-      "best_line": 176.5,
-      "best_odds": -105,
-      "book": "Hard Rock",
+      "best_line": 177.5,
+      "best_odds": -107,
+      "book": "Kalshi",
       "agree": true,
       "play_to": 172.5,
       "tracking": true,
@@ -340,6 +340,20 @@
       "gap": 7.77,
       "best": false,
       "quotes": [
+        {
+          "book": "Kalshi",
+          "line": 177.5,
+          "odds": -107,
+          "prob": 0.5827,
+          "ev": 0.1273
+        },
+        {
+          "book": "theScore Bet",
+          "line": 176.5,
+          "odds": -105,
+          "prob": 0.5734,
+          "ev": 0.1195
+        },
         {
           "book": "Hard Rock",
           "line": 176.5,
@@ -362,39 +376,25 @@
           "ev": 0.1044
         },
         {
-          "book": "FanDuel",
-          "line": 175.5,
-          "odds": -106,
-          "prob": 0.5641,
-          "ev": 0.0962
+          "book": "DraftKings",
+          "line": 177.5,
+          "odds": -112,
+          "prob": 0.5827,
+          "ev": 0.103
         },
         {
-          "book": "theScore Bet",
+          "book": "BetMGM",
           "line": 176.5,
           "odds": -110,
           "prob": 0.5734,
           "ev": 0.0947
         },
         {
-          "book": "DraftKings",
+          "book": "FanDuel",
           "line": 176.5,
           "odds": -112,
           "prob": 0.5734,
           "ev": 0.0854
-        },
-        {
-          "book": "Kalshi",
-          "line": 177.5,
-          "odds": -116,
-          "prob": 0.5827,
-          "ev": 0.0851
-        },
-        {
-          "book": "BetMGM",
-          "line": 175.5,
-          "odds": -110,
-          "prob": 0.5641,
-          "ev": 0.0768
         }
       ],
       "similar": {
@@ -650,16 +650,16 @@
         {
           "book": "Bally Bet",
           "line": -25.5,
-          "odds": -112,
+          "odds": -113,
           "prob": 0.5604,
-          "ev": 0.0607
+          "ev": 0.0563
         },
         {
           "book": "BetRivers",
           "line": -25.5,
-          "odds": -113,
+          "odds": -114,
           "prob": 0.5604,
-          "ev": 0.0563
+          "ev": 0.052
         }
       ],
       "similar": {
@@ -669,6 +669,99 @@
         "units": -10.7,
         "score": 0.4701,
         "match": "Nov-Dec, 4-5 pt gap, 15+ spreads"
+      }
+    },
+    {
+      "game_id": "401911392",
+      "start": "2026-11-14T19:00Z",
+      "home": "South Carolina Gamecocks",
+      "away": "Gardner-Webb Runnin' Bulldogs",
+      "mkt": "TOTAL",
+      "side": "OVER",
+      "side_code": "OVER",
+      "line": 142.5,
+      "odds": -110,
+      "proj": 29.3,
+      "total": 146.4,
+      "p": 0.5373,
+      "edge": 3.73,
+      "stake": 0.0,
+      "notes": "South Carolina Gamecocks: Camden Heide (missed 1)",
+      "best_line": 141.5,
+      "best_odds": -112,
+      "book": "Kalshi",
+      "agree": false,
+      "play_to": 142.5,
+      "tracking": true,
+      "to_win": 1.0,
+      "reason": "Tracking only",
+      "gap": 3.93,
+      "best": false,
+      "quotes": [
+        {
+          "book": "Kalshi",
+          "line": 141.5,
+          "odds": -112,
+          "prob": 0.5467,
+          "ev": 0.0349
+        },
+        {
+          "book": "Hard Rock",
+          "line": 143.5,
+          "odds": -105,
+          "prob": 0.5278,
+          "ev": 0.0305
+        },
+        {
+          "book": "FanDuel",
+          "line": 142.5,
+          "odds": -110,
+          "prob": 0.5373,
+          "ev": 0.0257
+        },
+        {
+          "book": "BetMGM",
+          "line": 142.5,
+          "odds": -110,
+          "prob": 0.5373,
+          "ev": 0.0257
+        },
+        {
+          "book": "Bally Bet",
+          "line": 143.5,
+          "odds": -107,
+          "prob": 0.5278,
+          "ev": 0.0211
+        },
+        {
+          "book": "BetRivers",
+          "line": 143.5,
+          "odds": -108,
+          "prob": 0.5278,
+          "ev": 0.0165
+        },
+        {
+          "book": "theScore Bet",
+          "line": 142.5,
+          "odds": -115,
+          "prob": 0.5373,
+          "ev": 0.0045
+        },
+        {
+          "book": "DraftKings",
+          "line": 142.5,
+          "odds": -115,
+          "prob": 0.5373,
+          "ev": 0.0045
+        }
+      ],
+      "similar": {
+        "w": 38,
+        "l": 32,
+        "pct": 0.543,
+        "units": 2.8,
+        "score": 0.525,
+        "match": "Nov-Dec, 3-4 pt gap, overs"
       }
     },
     {
@@ -1145,11 +1238,11 @@
       "side": "Wichita State Shockers",
       "side_code": "HOME",
       "line": -12.5,
-      "odds": -110,
+      "odds": -115,
       "proj": 18.3,
       "total": 150.5,
       "p": 0.5768,
-      "edge": 7.68,
+      "edge": 6.83,
       "stake": 0.0,
       "notes": "Wichita State Shockers: William Berg (missed 1); Austin Peay Governors: Rashaud Marshall (missed 1), Zyree Collins (missed 1), Chuck Love III (missed 1)",
       "best_line": -12.5,
@@ -1171,13 +1264,6 @@
           "ev": 0.1537
         },
         {
-          "book": "DraftKings",
-          "line": -12.5,
-          "odds": -105,
-          "prob": 0.5768,
-          "ev": 0.1262
-        },
-        {
           "book": "BetMGM",
           "line": -12.5,
           "odds": -105,
@@ -1197,6 +1283,13 @@
           "odds": -112,
           "prob": 0.5768,
           "ev": 0.0919
+        },
+        {
+          "book": "DraftKings",
+          "line": -11.5,
+          "odds": -120,
+          "prob": 0.5898,
+          "ev": 0.0814
         },
         {
           "book": "Bally Bet",
@@ -1237,34 +1330,34 @@
       "mkt": "TOTAL",
       "side": "UNDER",
       "side_code": "UNDER",
-      "line": 154.5,
-      "odds": -110,
+      "line": 155.5,
+      "odds": -112,
       "proj": 18.3,
       "total": 150.5,
-      "p": 0.538,
-      "edge": 3.8,
+      "p": 0.5474,
+      "edge": 4.53,
       "stake": 0.0,
       "notes": "Wichita State Shockers: William Berg (missed 1); Austin Peay Governors: Rashaud Marshall (missed 1), Zyree Collins (missed 1), Chuck Love III (missed 1)",
-      "best_line": 154.5,
+      "best_line": 155.5,
       "best_odds": -105,
-      "book": "BetMGM",
+      "book": "theScore Bet",
       "agree": false,
       "play_to": 154.0,
       "tracking": true,
       "to_win": 1.0,
-      "reason": "Tracking only",
-      "gap": 4.0,
+      "reason": "Over 5 pts off the market",
+      "gap": 5.0,
       "best": false,
       "quotes": [
         {
-          "book": "BetMGM",
-          "line": 154.5,
+          "book": "theScore Bet",
+          "line": 155.5,
           "odds": -105,
-          "prob": 0.538,
-          "ev": 0.0503
+          "prob": 0.5474,
+          "ev": 0.0687
         },
         {
-          "book": "theScore Bet",
+          "book": "FanDuel",
           "line": 155.5,
           "odds": -110,
           "prob": 0.5474,
@@ -1278,7 +1371,7 @@
           "ev": 0.0362
         },
         {
-          "book": "FanDuel",
+          "book": "Hard Rock",
           "line": 154.5,
           "odds": -110,
           "prob": 0.538,
@@ -1286,17 +1379,17 @@
         },
         {
           "book": "DraftKings",
-          "line": 154.5,
-          "odds": -110,
-          "prob": 0.538,
-          "ev": 0.027
+          "line": 155.5,
+          "odds": -115,
+          "prob": 0.5474,
+          "ev": 0.0234
         },
         {
-          "book": "Hard Rock",
-          "line": 154.5,
-          "odds": -110,
-          "prob": 0.538,
-          "ev": 0.027
+          "book": "BetMGM",
+          "line": 155.5,
+          "odds": -115,
+          "prob": 0.5474,
+          "ev": 0.0234
         },
         {
           "book": "Bally Bet",
@@ -1314,12 +1407,12 @@
         }
       ],
       "similar": {
-        "w": 65,
-        "l": 58,
-        "pct": 0.528,
-        "units": 1.2,
-        "score": 0.5202,
-        "match": "Nov-Dec, 4-5 pt gap, unders"
+        "w": 82,
+        "l": 98,
+        "pct": 0.456,
+        "units": -25.8,
+        "score": 0.4652,
+        "match": "Nov-Dec, 5-7 pt gap, unders"
       }
     },
     {
@@ -1599,92 +1692,6 @@
         "units": -4.4,
         "score": 0.4896,
         "match": "Nov-Dec, 4-5 pt gap, overs"
-      }
-    },
-    {
-      "game_id": "401912229",
-      "start": "2026-11-14T18:00Z",
-      "home": "Army Black Knights",
-      "away": "St. Thomas Tommies",
-      "mkt": "TOTAL",
-      "side": "OVER",
-      "side_code": "OVER",
-      "line": 146.5,
-      "odds": -110,
-      "proj": -9.8,
-      "total": 150.2,
-      "p": 0.5348,
-      "edge": 3.48,
-      "stake": 0.0,
-      "notes": "St. Thomas Tommies: Austin Herro (missed 1)",
-      "best_line": 147.5,
-      "best_odds": 105,
-      "book": "Kalshi",
-      "agree": false,
-      "play_to": 146.5,
-      "tracking": true,
-      "to_win": 1.0,
-      "reason": "Tracking only",
-      "gap": 3.66,
-      "best": false,
-      "quotes": [
-        {
-          "book": "Kalshi",
-          "line": 147.5,
-          "odds": 105,
-          "prob": 0.5253,
-          "ev": 0.0769
-        },
-        {
-          "book": "Bally Bet",
-          "line": 146.5,
-          "odds": -107,
-          "prob": 0.5348,
-          "ev": 0.0346
-        },
-        {
-          "book": "BetRivers",
-          "line": 146.5,
-          "odds": -108,
-          "prob": 0.5348,
-          "ev": 0.0299
-        },
-        {
-          "book": "theScore Bet",
-          "line": 146.5,
-          "odds": -110,
-          "prob": 0.5348,
-          "ev": 0.0209
-        },
-        {
-          "book": "BetMGM",
-          "line": 146.5,
-          "odds": -110,
-          "prob": 0.5348,
-          "ev": 0.0209
-        },
-        {
-          "book": "FanDuel",
-          "line": 145.5,
-          "odds": -115,
-          "prob": 0.5442,
-          "ev": 0.0175
-        },
-        {
-          "book": "DraftKings",
-          "line": 146.5,
-          "odds": -112,
-          "prob": 0.5348,
-          "ev": 0.0122
-        }
-      ],
-      "similar": {
-        "w": 38,
-        "l": 32,
-        "pct": 0.543,
-        "units": 2.8,
-        "score": 0.525,
-        "match": "Nov-Dec, 3-4 pt gap, overs"
       }
     }
   ],
@@ -2723,8 +2730,8 @@
       "agree": false,
       "tracking": true,
       "reason": "Over 5 pts off the market",
-      "result": "",
-      "units": null,
+      "result": "P",
+      "units": 0.0,
       "gap": 6.02,
       "best": false,
       "started": true
@@ -2756,6 +2763,6 @@
       "started": true
     }
   ],
-  "results_updated_at": "2026-11-14T18:28+00:00",
+  "results_updated_at": "2026-11-14T18:29+00:00",
   "void_days": []
 }
