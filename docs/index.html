@@ -276,7 +276,7 @@ footer{font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padd
     <div>
       <h3>Edge Board</h3>
       <ul>
-        <li>Ratings: its own adjusted ratings from every game's box score. While a KenPom paste is under 3 days old they are blended 50/50 with KenPom (offense, defense, tempo); otherwise it runs on its own ratings. The banner at the top says which.</li>
+        <li>Ratings: its own adjusted ratings from every game's box score, plus KenPom while a paste is under 3 days old (the banner at the top says which). For spreads, each source gets its own weight, re-fit daily on the last 3 weeks of results, so early in the season KenPom carries most of the margin and our ratings earn weight as games are played. Totals blend the two 50/50.</li>
         <li>Spread plays need 4+ points of disagreement with the line; totals need 3.5+ (fewer plays, better return: last season's Jan–Mar spreads went 57.3% at 4+ vs 54.0% at 2+). Rule changes apply going forward: plays posted under the earlier 2+/3+ rules still count.</li>
         <li><strong>Best bet</strong> (Jan 1 – Mar 8 only): a spread 4+ points off the line, on the underdog, spread under 15. Last season 93-66 (58.5%, +20u), steady in both halves of the window; it lost in Nov–Dec, so it isn't flagged before January.</li>
         <li>Books shopped: DraftKings, FanDuel, theScore Bet, BetMGM, Bally Bet, Hard Rock, BetRivers, Kalshi and Polymarket (prediction-market prices converted to American odds, Kalshi's fee included). The best book is the one with the highest expected value, weighing line and price together.</li>
@@ -441,9 +441,13 @@ function renderKenpom(){
   const when = new Intl.DateTimeFormat("en-US",{timeZone:AZ,month:"short",day:"numeric",hour:"numeric",minute:"2-digit"}).format(t) + " MST";
   const ago = age < 1 ? "today" : `${Math.floor(age)} day${Math.floor(age) === 1 ? "" : "s"} old`;
   // the plays were priced with the setting at the last refresh; flag a paste about to expire too
+  const mw = EDGE.settings.margin_weights, sh = mw && mw.kenpom_share != null ? Math.round(100 * mw.kenpom_share) : null;
+  const shareTxt = sh != null
+    ? `Edge Board spreads currently lean ${sh}% on KenPom and ${100 - sh}% on its own ratings (re-fit daily from results); totals blend them ${blend}/${100 - blend}.`
+    : `Edge Board ratings are ${blend}% KenPom, ${100 - blend}% its own.`;
   if (k.in_use && age < max) {
     el.className = "inputs" + (age >= max - 1 ? " stale" : "");
-    el.innerHTML = `<b>KenPom: in use</b>Paste from ${when} (${ago}). Edge Board ratings are ${blend}% KenPom, ${100 - blend}% its own; Cal's Model 2 runs on KenPom.`
+    el.innerHTML = `<b>KenPom: in use</b>Paste from ${when} (${ago}). ${shareTxt} Cal's Model 2 runs on KenPom.`
       + (age >= max - 1 ? ` It stops being used after ${max} days: ${paste}.` : "");
   } else {
     el.className = "inputs stale";

@@ -194,14 +194,24 @@ def load_team_sources(espn_names: dict) -> list[pd.DataFrame]:
             continue
         d["off"] = d["adj_o"] - d["adj_o"].mean()
         d["deff"] = d["adj_d"] - d["adj_d"].mean()
+        # tempo relative to the source's own average: sources count possessions
+        # on slightly different scales (KenPom averages ~70.7, ours ~68)
+        d["tempo_c"] = d["tempo"] - d["tempo"].mean()
         d["source"] = src
         print(f"[external] {src} teams: {len(d)} matched of {len(df)}")
         out.append(d.set_index("team_id"))
     return out
 
 
-def blend_team_ratings(r, sources: list[pd.DataFrame], weight: float = TEAM_BLEND):
-    """Return a copy of AdjustedRatings with offense/defense/tempo blended with external sources."""
+def blend_team_ratings(r, sources: list[pd.DataFrame], weight: float = TEAM_BLEND, center_tempo: bool = False):
+    """Return a copy of AdjustedRatings with offense/defense/tempo blended with external sources.
+
+    center_tempo=True puts each source's tempo on our possession scale (its
+    difference from its own average, added to our league average). The margin
+    components use it. The 50/50 blend behind the totals keeps the raw tempo:
+    its extra possessions happen to offset our ratings' low scoring level, a
+    centered version with a fitted level tested no better (Nov 14 2026), and
+    the totals were working, so they were left alone."""
     if not sources:
         return r
     import copy
@@ -214,9 +224,11 @@ def blend_team_ratings(r, sources: list[pd.DataFrame], weight: float = TEAM_BLEN
         ed = sum(v["deff"] for v in vals) / len(vals)
         b.off[t] = (1 - weight) * r.off[t] + weight * eo
         b.deff[t] = (1 - weight) * r.deff[t] + weight * ed
-        tps = [v["tempo"] for v in vals if pd.notna(v.get("tempo"))]
+        col = "tempo_c" if center_tempo else "tempo"
+        tps = [v[col] for v in vals if pd.notna(v.get(col))]
         if tps and t in b.tempo:
-            b.tempo[t] = (1 - weight) * r.tempo[t] + weight * (sum(tps) / len(tps))
+            ext = sum(tps) / len(tps) + (r.league_tempo if center_tempo else 0.0)
+            b.tempo[t] = (1 - weight) * r.tempo[t] + weight * ext
     return b
 
 

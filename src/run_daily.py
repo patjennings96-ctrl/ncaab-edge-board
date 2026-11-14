@@ -520,7 +520,11 @@ def run(demo: bool = True, sheet_id: str | None = None):
         import players as P
         X.refresh_stamps()          # KenPom paste -> teams.csv; date stamps for freshness
         own_ratings = ratings
-        ratings = X.blend_team_ratings(ratings, X.load_team_sources(names))
+        ext_sources = X.load_team_sources(names)
+        ratings = X.blend_team_ratings(ratings, ext_sources)
+        # KenPom alone, on our possession scale: its own piece of the margin
+        kp_ratings = X.blend_team_ratings(own_ratings, ext_sources, weight=1.0, center_tempo=True) \
+            if ext_sources else None
         roster = P.load_player_games(extra["season"])
         roster = roster.drop_duplicates("player_id", keep="last").set_index("player_id")[["name", "team_id"]]
         ext_players = X.load_player_sources(names, roster) if not roster.empty else None
@@ -564,6 +568,7 @@ def run(demo: bool = True, sheet_id: str | None = None):
     cal_plays = {}
     priced = None
     preds = None
+    margin_fit = None
     if not demo:
         try:
             import calmodel
@@ -589,16 +594,21 @@ def run(demo: bool = True, sheet_id: str | None = None):
         preds["pred_margin_raw"] = preds["pred_margin"]
         k = 1.0
         if ps is not None:
-            slope, n_fit = fitted_stretch_slope(extra["season"], extra["cur_raw"])
-            k = early_margin_stretch(ps["prior_games"], slope)
-            print(f"[calibration] stretch slope {slope:.3f} ({n_fit} finished games this season)")
-            if k != 1.0:
-                # stretch the strength gap, not home court
-                hca_pts = 2.0 * preds["custom_hca"].fillna(0.0) * preds["proj_poss"] / 100.0
-                preds["pred_margin"] = hca_pts + k * (preds["pred_margin"] - hca_pts)
-                print(f"[calibration] early-season margin stretch x{k:.2f} "
-                      f"(starting rating worth {ps['prior_games']:.1f} games)")
-        if ps is not None:
+            # Margin = home court + a * (our ratings' gap) + b * (KenPom's gap),
+            # with a and b re-fit on recent results (see calibrate.py). Replaces
+            # the single stretch on the 50/50 blend, which overrated favorites.
+            import calibrate as C
+            comp = margin_components(preds, own_ratings, kp_ratings)
+            done = C.finished(extra["season"], extra["cur_raw"])
+            margin_fit = C.margin_weights(done)
+            preds["pred_margin"] = C.predict_margin(comp["hca_pts"], comp["own_s"], comp["kp_s"], margin_fit)
+            if not done.empty and done["kp_s"].notna().any():
+                so, sk = float(done["own_s"].std()), float(done["kp_s"].std())
+                margin_fit["kenpom_share"] = round(margin_fit["b"] * sk / max(margin_fit["a"] * so + margin_fit["b"] * sk, 1e-9), 2)
+            margin_fit = {k_: (round(v, 3) if isinstance(v, float) else v) for k_, v in margin_fit.items()}
+            print(f"[calibration] margin weights: ours {margin_fit['a']:.2f}, KenPom {margin_fit['b']:.2f} "
+                  f"({margin_fit['n']} recent games; ours alone {margin_fit['a_solo']:.2f})")
+            C.log_components(comp, extra["season"])
             log_projections(preds, extra["season"], ps["prior_games"], k)
         if ctx is not None:
             preds = apply_lineups(preds, ctx, names)
@@ -619,7 +629,7 @@ def run(demo: bool = True, sheet_id: str | None = None):
                 "min_points_spread": MIN_POINTS_SPREAD, "min_points_total": MIN_POINTS_TOTAL,
                 "bet_window": "Jan 1 - Mar 8", "staking": "risk to win 1u (1.5u on totals both models agree on)",
                 "edge_tracking_only": EDGE_TRACKING_ONLY, "spread_sizing": kelly_check(),
-                "kenpom": _kenpom_status()}
+                "kenpom": _kenpom_status(), "margin_weights": margin_fit}
     print("\nWrote", publish.write_json(card, mode, settings))
     print("Wrote", publish.write_slate(preds, priced, card, names))
     log = publish.append_log(card, mode)
@@ -647,6 +657,21 @@ def run(demo: bool = True, sheet_id: str | None = None):
     elif sheet_id:
         print("Sheet id set but no credentials file found; skipped Sheets export.")
     return card
+
+
+def margin_components(preds: pd.DataFrame, own, kp) -> pd.DataFrame:
+    """Per game: home-court points and the strength gap / total from our ratings
+    and from KenPom alone (neutral floor). kp is None without a fresh paste."""
+    rows = []
+    for r in preds.itertuples(index=False):
+        o = own.project(r.home, r.away, neutral=True)
+        k = kp.project(r.home, r.away, neutral=True) if kp is not None else None
+        h = getattr(r, "custom_hca", 0.0)
+        rows.append({"game_id": str(r.game_id), "start": str(r.start), "home": str(r.home), "away": str(r.away),
+                     "hca_pts": round(2.0 * (0.0 if pd.isna(h) else h) * r.proj_poss / 100.0, 3),
+                     "own_s": round(o["proj_margin"], 3), "kp_s": round(k["proj_margin"], 3) if k else np.nan,
+                     "own_t": round(o["proj_total"], 2), "kp_t": round(k["proj_total"], 2) if k else np.nan})
+    return pd.DataFrame(rows, index=preds.index)
 
 
 def apply_lineups(preds: pd.DataFrame, ctx: dict, names: dict) -> pd.DataFrame:
