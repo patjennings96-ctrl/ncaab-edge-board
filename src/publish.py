@@ -92,6 +92,29 @@ def write_json(card: pd.DataFrame, mode: str, settings: dict) -> str:
     return JSON_PATH
 
 
+def void_called_off(ids: set[str]) -> int:
+    """Plays on postponed or canceled games are no action: graded as a push."""
+    n = 0
+    if not ids:
+        return n
+    if os.path.exists(LOG_PATH):
+        log = pd.read_csv(LOG_PATH, dtype=str)
+        m = log["game_id"].isin(ids) & log["result"].fillna("").eq("")
+        if m.any():
+            log.loc[m, "result"] = "P"
+            log.loc[m, "notes"] = "Postponed or canceled: no action"
+            log.to_csv(LOG_PATH, index=False)
+            n += int(m.sum())
+    if os.path.exists(CAL_LOG_PATH):
+        cal = pd.read_csv(CAL_LOG_PATH, dtype=str)
+        m = cal["game_id"].isin(ids) & cal["units"].fillna("").eq("")
+        if m.any():
+            cal.loc[m, "units"] = "0.0"
+            cal.to_csv(CAL_LOG_PATH, index=False)
+            n += int(m.sum())
+    return n
+
+
 def attach_similar() -> None:
     """Final pass on both plays.json files: drop plays on voided days, then add
     "how have similar plays done" records."""
@@ -307,8 +330,19 @@ def below_min(log: pd.DataFrame) -> pd.Series:
     return gap.notna() & (gap < need)
 
 
+# Pat (Nov 14 2026): the spreads record restarts with the corrected spread
+# model (per-source margin weights). Spread plays on games that tipped before
+# the switch stay in the log and are shown as one "before" line.
+SPREAD_RESET = "2026-11-14T17:28Z"
+
+
+def before_spread_reset(log: pd.DataFrame) -> pd.Series:
+    st = pd.to_datetime(log["start"], utc=True, errors="coerce")
+    return (log["mkt"] == "SPREAD") & (st < pd.Timestamp(SPREAD_RESET))
+
+
 def not_counted(log: pd.DataFrame) -> pd.Series:
-    return is_big_spread(log) | below_min(log)
+    return is_big_spread(log) | below_min(log) | before_spread_reset(log)
 
 
 def is_big_spread(log: pd.DataFrame) -> pd.Series:
@@ -345,12 +379,18 @@ def edge_record(since: str) -> dict:
     log["to_win_n"] = tw
     log["flat"] = np.where(res == "W", tw, np.where(res == "L", -risk1 * tw,
                   np.where(res == "P", 0.0, np.nan)))
+    old_spreads = log[before_spread_reset(log)]
+    log = log[~before_spread_reset(log)]
+    res = log["result"].astype(str)
     staked, tracking = log[log["stake"] > 0], log[log["stake"] <= 0]
     agree = log[log.get("agree", pd.Series(False, index=log.index)).astype(str).str.lower() == "true"]
     out = {"staked": {m: _summ(g) for m, g in staked.groupby("mkt")},
            "tracking": {m: _summ(g, "flat") for m, g in tracking.groupby("mkt")},
            "both_models": {m: _summ(g, "flat") for m, g in agree.groupby("mkt")},
-           "all": _summ(staked), "big_spreads": big_summary}
+           "all": _summ(staked), "big_spreads": big_summary,
+           "spread_reset": SPREAD_RESET,
+           "spreads_before_reset": _summ(old_spreads, "flat") if not old_spreads.empty else None}
+    out["tracking"].setdefault("SPREAD", {"w": 0, "l": 0, "p": 0, "units": 0.0, "pending": 0})
     best = log[[is_best_bet(m, bl if pd.notna(bl) else l, g, s) for m, bl, l, g, s in
                 zip(log["mkt"], pd.to_numeric(log.get("best_line"), errors="coerce"), log["line"],
                     pd.to_numeric(log.get("gap"), errors="coerce"), log["start"])]]

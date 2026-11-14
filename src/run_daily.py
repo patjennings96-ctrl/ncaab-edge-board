@@ -636,6 +636,7 @@ def run(demo: bool = True, sheet_id: str | None = None):
     if log:
         print("Appended", log)
     if not demo:
+        publish.void_called_off(live.called_off())
         publish.update_clv(live.closing_lines(), games_raw=names_and_results())
         print("Wrote", publish.write_record())
         publish.refresh_recent()
@@ -781,6 +782,7 @@ def grade_only() -> None:
     cur = live.update_games(season)
     prev = live.load_games(season - 1)
     games = pd.concat([f for f in (prev, cur) if not f.empty], ignore_index=True)
+    publish.void_called_off(live.called_off())
     finals = live.recent_finals(2)             # tonight's finals, not in the box-score history yet
     if not finals.empty:
         games["game_id"] = games["game_id"].astype(str)

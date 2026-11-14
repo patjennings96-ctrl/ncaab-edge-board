@@ -98,6 +98,7 @@ def espn_scoreboard(day: date) -> list[dict]:
             "start": comp.get("date") or ev.get("date"),
             "neutral": bool(comp.get("neutralSite", False)),
             "completed": bool(status.get("type", {}).get("completed", False)),
+            "called_off": str(status.get("type", {}).get("name", "")) in ("STATUS_POSTPONED", "STATUS_CANCELED"),
             "periods": int(status.get("period") or 2),
             "home_id": str(teams["home"]["team"]["id"]),
             "away_id": str(teams["away"]["team"]["id"]),
@@ -167,6 +168,18 @@ def recent_finals(days: int = 2) -> pd.DataFrame:
                              "away_name": e["away_name"]})
     return pd.DataFrame(rows).drop_duplicates("game_id") if rows else pd.DataFrame(
         columns=["game_id", "home_score", "away_score", "home_name", "away_name"])
+
+
+def called_off(days: int = 3) -> set[str]:
+    """Game ids ESPN lists as postponed or canceled in the last few days."""
+    today = datetime.now(ET).date()
+    ids = set()
+    for k in range(days):
+        try:
+            ids |= {str(e["game_id"]) for e in espn_scoreboard(today - timedelta(days=k)) if e.get("called_off")}
+        except Exception:
+            pass
+    return ids
 
 
 def _norm(name) -> str:

@@ -521,7 +521,7 @@ async function fetchLive(){
       for (const e of j.events || []) {
         const c = e.competitions[0], st = c.status.type;
         const t = {}, ab = {}, nm = {}; c.competitors.forEach(x => { t[x.homeAway] = +x.score || 0; ab[x.homeAway] = (x.team && x.team.abbreviation) || ""; nm[x.homeAway] = (x.team && x.team.displayName) || ""; });
-        out[e.id] = {state: st.state, detail: st.shortDetail, home: t.home, away: t.away, ha: ab.home, aa: ab.away, hn: nm.home, an: nm.away,
+        out[e.id] = {state: (st.state === "post" && !st.completed) ? "off" : st.state, detail: st.shortDetail, home: t.home, away: t.away, ha: ab.home, aa: ab.away, hn: nm.home, an: nm.away,
                      period: c.status.period || 1, clock: c.status.displayClock || "0:00"};
       }
     } catch (err) { /* offline or blocked: show logged results only */ }
@@ -589,6 +589,8 @@ function statusLine(gid, mkt, sideHome, overSide, line, homeName, awayName, logg
     }
     return `<div class="live in"><b>LIVE</b> ${esc(L.detail)} · ${score} · ${tail}</div>`;
   }
+  // postponed or canceled: ESPN shows 0-0, there is no result to grade
+  if (L && L.state === "off") return `<div class="live">${esc(L.detail || "Postponed")} · no action</div>`;
   const fin = L && L.state === "post";
   if (fin || (logged && logged.result)) {
     let res = logged && logged.result;
@@ -629,7 +631,7 @@ function anyLiveSoon(){
   const all = [...((EDGE && EDGE.recent) || []), ...((CAL && CAL.recent) || []), ...((EDGE && EDGE.plays) || [])];
   const now = Date.now();
   return all.some(x => { const L = LIVE[String(x.game_id)]; const t = new Date(x.start).getTime();
-    return (L && L.state === "in") || (t <= now + 600000 && !(L && L.state === "post") && !x.result); });
+    return (L && L.state === "in") || (t <= now + 600000 && !(L && (L.state === "post" || L.state === "off")) && !x.result); });
 }
 async function liveLoop(){
   await fetchLive(); renderPlays(); renderRecord();
@@ -707,6 +709,7 @@ function liveGraded(){
   };
   for (const r of ((EDGE && EDGE.recent) || [])) {
     if (r.result || bigSpread(r)) continue;
+    if (r.mkt === "SPREAD" && REC && REC.edge && REC.edge.spread_reset && new Date(r.start) < new Date(REC.edge.spread_reset)) continue;
     const L = orient(LIVE[String(r.game_id)], r.home, r.away);
     if (!L || L.state !== "post") continue;
     const c = coverBy(r.mkt, r.side_code === "HOME", r.side_code === "OVER", r.best_line ?? r.line, L.home, L.away);
@@ -752,6 +755,9 @@ function renderRecord(){
   const bg = e.big_spreads;
   document.getElementById("edge-big").textContent = bg && (bg.w + bg.l + bg.p)
     ? `Not counted: Edge Board spreads over 25.5 points (off the board) went ${bg.w}-${bg.l}${bg.p ? "-" + bg.p : ""}. They're still graded in the background for the cap review.` : "";
+  const sb = e.spreads_before_reset;
+  if (sb) document.getElementById("edge-big").textContent += (document.getElementById("edge-big").textContent ? " " : "")
+    + `Spreads record restarted Nov 14 with the corrected spread model; before that the old model went ${sb.w}-${sb.l} (${units(sb.units)}).`;
   const vd = [...new Set([...((EDGE && EDGE.void_days) || []), ...((CAL && CAL.void_days) || [])])].sort();
   if (vd.length) document.getElementById("edge-big").textContent += (document.getElementById("edge-big").textContent ? " " : "")
     + `Voided (removed from the board and every record, both models): ${vd.map(d => dayLabel(d).replace(/^(Today|Yesterday|Tomorrow) · /, "")).join(", ")}.`;
