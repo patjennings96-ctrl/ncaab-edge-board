@@ -127,11 +127,11 @@
       "ats_play_to": null,
       "ou_play_to": 138.0,
       "ou_similar": {
-        "w": 24,
+        "w": 25,
         "l": 23,
-        "pct": 0.511,
-        "units": -1.3,
-        "score": 0.5052,
+        "pct": 0.521,
+        "units": -0.3,
+        "score": 0.5102,
         "match": "Nov-Dec, 7-9 pt gap, overs"
       }
     },
@@ -319,11 +319,11 @@
       "ats_play_to": 17.0,
       "ou_play_to": null,
       "ats_similar": {
-        "w": 55,
-        "l": 72,
-        "pct": 0.433,
-        "units": -24.2,
-        "score": 0.452,
+        "w": 57,
+        "l": 73,
+        "pct": 0.438,
+        "units": -23.3,
+        "score": 0.4556,
         "match": "Nov-Dec, 5-7 pt gap, 15+ spreads, underdogs"
       }
     },
@@ -451,11 +451,11 @@
       "ats_play_to": 1.5,
       "ou_play_to": null,
       "ats_similar": {
-        "w": 101,
-        "l": 138,
-        "pct": 0.423,
-        "units": -50.8,
-        "score": 0.436,
+        "w": 104,
+        "l": 139,
+        "pct": 0.428,
+        "units": -48.9,
+        "score": 0.4403,
         "match": "Nov-Dec, 5-7 pt gap"
       }
     },
@@ -802,11 +802,11 @@
       "ats_play_to": 33.5,
       "ou_play_to": null,
       "ats_similar": {
-        "w": 55,
-        "l": 72,
-        "pct": 0.433,
-        "units": -24.2,
-        "score": 0.452,
+        "w": 57,
+        "l": 73,
+        "pct": 0.438,
+        "units": -23.3,
+        "score": 0.4556,
         "match": "Nov-Dec, 5-7 pt gap, 15+ spreads, underdogs"
       }
     },
@@ -1240,11 +1240,11 @@
       "ats_play_to": null,
       "ou_play_to": 160.0,
       "ou_similar": {
-        "w": 43,
+        "w": 44,
         "l": 40,
-        "pct": 0.518,
-        "units": -1.0,
-        "score": 0.5113,
+        "pct": 0.524,
+        "units": 0.0,
+        "score": 0.5149,
         "match": "Nov-Dec, 7-9 pt gap"
       }
     },
@@ -1319,10 +1319,10 @@
       "ou_play_to": null,
       "ats_similar": {
         "w": 67,
-        "l": 55,
-        "pct": 0.549,
-        "units": 6.5,
-        "score": 0.5349,
+        "l": 56,
+        "pct": 0.545,
+        "units": 5.4,
+        "score": 0.5318,
         "match": "Nov-Dec, 7-10 pt gap, 15+ spreads, underdogs"
       }
     },
@@ -1823,10 +1823,10 @@
       "ou_play_to": null,
       "ats_similar": {
         "w": 67,
-        "l": 55,
-        "pct": 0.549,
-        "units": 6.5,
-        "score": 0.5349,
+        "l": 56,
+        "pct": 0.545,
+        "units": 5.4,
+        "score": 0.5318,
         "match": "Nov-Dec, 7-10 pt gap, 15+ spreads, underdogs"
       }
     },
@@ -2455,11 +2455,11 @@
         "match": "Nov-Dec, 5-7 pt gap, 5-15 spreads, underdogs"
       },
       "ou_similar": {
-        "w": 43,
+        "w": 44,
         "l": 40,
-        "pct": 0.518,
-        "units": -1.0,
-        "score": 0.5113,
+        "pct": 0.524,
+        "units": 0.0,
+        "score": 0.5149,
         "match": "Nov-Dec, 7-9 pt gap"
       }
     },
@@ -2552,10 +2552,10 @@
       "ou_play_to": null,
       "ats_similar": {
         "w": 67,
-        "l": 55,
-        "pct": 0.549,
-        "units": 6.5,
-        "score": 0.5349,
+        "l": 56,
+        "pct": 0.545,
+        "units": 5.4,
+        "score": 0.5318,
         "match": "Nov-Dec, 7-10 pt gap, 15+ spreads, underdogs"
       }
     },
@@ -2936,6 +2936,58 @@
       "play": "AWAY",
       "line": -18.5,
       "total_line": 154.5,
+      "units": -1.1,
+      "result": "L",
+      "started": true
+    },
+    {
+      "game_id": "401918055",
+      "start": "2026-11-14T22:00Z",
+      "home": "California Golden Bears",
+      "away": "Utah Tech Trailblazers",
+      "market": "ATS",
+      "play": "AWAY",
+      "line": -16.5,
+      "total_line": 158.5,
+      "units": 1.0,
+      "result": "W",
+      "started": true
+    },
+    {
+      "game_id": "401911308",
+      "start": "2026-11-15T00:00Z",
+      "home": "Siena Saints",
+      "away": "Brown Bears",
+      "market": "TOTAL",
+      "play": "UNDER",
+      "line": -9.5,
+      "total_line": 157.5,
+      "units": null,
+      "result": "",
+      "started": true
+    },
+    {
+      "game_id": "401921775",
+      "start": "2026-11-15T00:00Z",
+      "home": "Villanova Wildcats",
+      "away": "Rider Broncs",
+      "market": "ATS",
+      "play": "AWAY",
+      "line": -34.5,
+      "total_line": 144.5,
+      "units": null,
+      "result": "",
+      "started": true
+    },
+    {
+      "game_id": "401925827",
+      "start": "2026-11-14T23:00Z",
+      "home": "North Texas Mean Green",
+      "away": "South Alabama Jaguars",
+      "market": "TOTAL",
+      "play": "OVER",
+      "line": -8.5,
+      "total_line": 133.5,
       "units": null,
       "result": "",
       "started": true
@@ -2949,8 +3001,8 @@
       "play": "UNDER",
       "line": -6.5,
       "total_line": 176.5,
-      "units": null,
-      "result": "",
+      "units": -1.1,
+      "result": "L",
       "started": true
     },
     {
@@ -2962,8 +3014,8 @@
       "play": "AWAY",
       "line": -39.5,
       "total_line": 143.5,
-      "units": null,
-      "result": "",
+      "units": -1.1,
+      "result": "L",
       "started": true
     },
     {
@@ -2975,8 +3027,8 @@
       "play": "AWAY",
       "line": -26.5,
       "total_line": 142.5,
-      "units": null,
-      "result": "",
+      "units": 1.0,
+      "result": "W",
       "started": true
     },
     {
@@ -2988,11 +3040,50 @@
       "play": "OVER",
       "line": -6.5,
       "total_line": 136.5,
+      "units": 1.0,
+      "result": "W",
+      "started": true
+    },
+    {
+      "game_id": "401909534",
+      "start": "2026-11-14T23:00Z",
+      "home": "Providence Friars",
+      "away": "Colorado Buffaloes",
+      "market": "ATS",
+      "play": "AWAY",
+      "line": -12.5,
+      "total_line": 156.5,
       "units": null,
       "result": "",
       "started": true
+    },
+    {
+      "game_id": "401920568",
+      "start": "2026-11-15T00:30Z",
+      "home": "Towson Tigers",
+      "away": "UMBC Retrievers",
+      "market": "ATS",
+      "play": "AWAY",
+      "line": -10.5,
+      "total_line": 145.0,
+      "units": null,
+      "result": "",
+      "started": true
+    },
+    {
+      "game_id": "401920567",
+      "start": "2026-11-14T22:00Z",
+      "home": "Loyola Maryland Greyhounds",
+      "away": "Morgan State Bears",
+      "market": "ATS",
+      "play": "AWAY",
+      "line": -1.5,
+      "total_line": 151.5,
+      "units": 1.0,
+      "result": "W",
+      "started": true
     }
   ],
-  "results_updated_at": "2026-11-14T21:00+00:00",
+  "results_updated_at": "2026-11-15T00:48+00:00",
   "void_days": []
 }
