@@ -225,18 +225,18 @@
       "ou_play_to": 164.0,
       "ats_similar": {
         "w": 32,
-        "l": 45,
-        "pct": 0.416,
-        "units": -17.5,
-        "score": 0.4488,
+        "l": 46,
+        "pct": 0.41,
+        "units": -18.6,
+        "score": 0.4453,
         "match": "Nov-Dec, 5-7 pt gap, 5-15 spreads, underdogs"
       },
       "ou_similar": {
-        "w": 45,
+        "w": 46,
         "l": 40,
-        "pct": 0.529,
-        "units": 1.0,
-        "score": 0.5185,
+        "pct": 0.535,
+        "units": 2.0,
+        "score": 0.5221,
         "match": "Nov-Dec, 7-9 pt gap"
       }
     },
@@ -337,11 +337,11 @@
       "ats_play_to": 45.0,
       "ou_play_to": null,
       "ats_similar": {
-        "w": 58,
+        "w": 59,
         "l": 74,
-        "pct": 0.439,
-        "units": -23.4,
-        "score": 0.456,
+        "pct": 0.444,
+        "units": -22.4,
+        "score": 0.459,
         "match": "Nov-Dec, 5-7 pt gap, 15+ spreads, underdogs"
       }
     },
@@ -527,10 +527,10 @@
       "ou_play_to": null,
       "ats_similar": {
         "w": 32,
-        "l": 45,
-        "pct": 0.416,
-        "units": -17.5,
-        "score": 0.4488,
+        "l": 46,
+        "pct": 0.41,
+        "units": -18.6,
+        "score": 0.4453,
         "match": "Nov-Dec, 5-7 pt gap, 5-15 spreads, underdogs"
       }
     },
@@ -1002,8 +1002,8 @@
       "play": "AWAY",
       "line": -17.5,
       "total_line": 144.5,
-      "units": null,
-      "result": "",
+      "units": 1.0,
+      "result": "W",
       "started": true
     },
     {
@@ -1137,6 +1137,19 @@
       "started": true
     },
     {
+      "game_id": "401920896",
+      "start": "2026-11-16T01:00Z",
+      "home": "Wisconsin Badgers",
+      "away": "Coastal Carolina Chanticleers",
+      "market": "ATS",
+      "play": "AWAY",
+      "line": -27.5,
+      "total_line": 148.5,
+      "units": null,
+      "result": "",
+      "started": true
+    },
+    {
       "game_id": "401909774",
       "start": "2026-11-15T18:00Z",
       "home": "Iowa State Cyclones",
@@ -1163,6 +1176,45 @@
       "started": true
     },
     {
+      "game_id": "401920124",
+      "start": "2026-11-15T23:00Z",
+      "home": "Montana State Bobcats",
+      "away": "Cal Poly Mustangs",
+      "market": "ATS",
+      "play": "AWAY",
+      "line": -6.5,
+      "total_line": 165.5,
+      "units": -1.1,
+      "result": "L",
+      "started": true
+    },
+    {
+      "game_id": "401920124",
+      "start": "2026-11-15T23:00Z",
+      "home": "Montana State Bobcats",
+      "away": "Cal Poly Mustangs",
+      "market": "TOTAL",
+      "play": "UNDER",
+      "line": -6.5,
+      "total_line": 165.5,
+      "units": 1.0,
+      "result": "W",
+      "started": true
+    },
+    {
+      "game_id": "401929419",
+      "start": "2026-11-16T01:00Z",
+      "home": "UTEP Miners",
+      "away": "Florida A&M Rattlers",
+      "market": "ATS",
+      "play": "AWAY",
+      "line": -19.5,
+      "total_line": 143.5,
+      "units": null,
+      "result": "",
+      "started": true
+    },
+    {
       "game_id": "401909554",
       "start": "2026-11-15T18:30Z",
       "home": "Boston College Eagles",
@@ -1176,6 +1228,19 @@
       "started": true
     },
     {
+      "game_id": "401926772",
+      "start": "2026-11-16T00:00Z",
+      "home": "USC Trojans",
+      "away": "Arkansas-Pine Bluff Golden Lions",
+      "market": "ATS",
+      "play": "AWAY",
+      "line": -45.5,
+      "total_line": 157.5,
+      "units": null,
+      "result": "",
+      "started": true
+    },
+    {
       "game_id": "401934396",
       "start": "2026-11-15T21:00Z",
       "home": "Pacific Tigers",
@@ -1184,11 +1249,11 @@
       "play": "AWAY",
       "line": -12.0,
       "total_line": 164.0,
-      "units": null,
-      "result": "",
+      "units": -1.1,
+      "result": "L",
       "started": true
     }
   ],
-  "results_updated_at": "2026-11-15T21:23+00:00",
+  "results_updated_at": "2026-11-16T01:21+00:00",
   "void_days": []
 }
