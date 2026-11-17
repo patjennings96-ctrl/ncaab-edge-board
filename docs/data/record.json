@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-11-17T23:31+00:00",
+ "updated_at": "2026-11-17T23:41+00:00",
  "season_start": "2026-10-01",
  "edge": {
   "staked": {},
@@ -572,23 +572,33 @@
     "roi": -0.1262
    },
    "TOTAL": {
-    "w": 31,
+    "w": 32,
     "l": 21,
     "p": 0,
-    "units": 7.9,
-    "pending": 8,
-    "roi": 0.1519
+    "units": 8.9,
+    "pending": 7,
+    "roi": 0.1679
    }
   },
   "all": {
-   "w": 126,
+   "w": 127,
    "l": 131,
    "p": 1,
-   "units": -18.1,
-   "pending": 41,
-   "roi": -0.0702
+   "units": -17.1,
+   "pending": 40,
+   "roi": -0.066
   },
   "recent": [
+   {
+    "start": "2026-11-17T19:00Z",
+    "away": "Rutgers Scarlet Knights",
+    "home": "Houston Cougars",
+    "mkt": "TOTAL",
+    "play": "OVER",
+    "line": -15.5,
+    "total_line": 142.5,
+    "units": 1.0
+   },
    {
     "start": "2026-11-17T01:00Z",
     "away": "Western Illinois Leathernecks",
@@ -831,16 +841,6 @@
    },
    {
     "start": "2026-11-14T23:00Z",
-    "away": "South Alabama Jaguars",
-    "home": "North Texas Mean Green",
-    "mkt": "TOTAL",
-    "play": "OVER",
-    "line": -8.5,
-    "total_line": 133.5,
-    "units": -1.1
-   },
-   {
-    "start": "2026-11-14T23:00Z",
     "away": "Colorado Buffaloes",
     "home": "Providence Friars",
     "mkt": "ATS",
@@ -850,14 +850,14 @@
     "units": -1.1
    },
    {
-    "start": "2026-11-14T22:00Z",
-    "away": "Morgan State Bears",
-    "home": "Loyola Maryland Greyhounds",
-    "mkt": "ATS",
-    "play": "AWAY",
-    "line": -1.5,
-    "total_line": 151.5,
-    "units": 1.0
+    "start": "2026-11-14T23:00Z",
+    "away": "South Alabama Jaguars",
+    "home": "North Texas Mean Green",
+    "mkt": "TOTAL",
+    "play": "OVER",
+    "line": -8.5,
+    "total_line": 133.5,
+    "units": -1.1
    },
    {
     "start": "2026-11-14T22:00Z",
@@ -867,6 +867,16 @@
     "play": "AWAY",
     "line": -16.5,
     "total_line": 158.5,
+    "units": 1.0
+   },
+   {
+    "start": "2026-11-14T22:00Z",
+    "away": "Morgan State Bears",
+    "home": "Loyola Maryland Greyhounds",
+    "mkt": "ATS",
+    "play": "AWAY",
+    "line": -1.5,
+    "total_line": 151.5,
     "units": 1.0
    },
    {
@@ -911,16 +921,6 @@
    },
    {
     "start": "2026-11-14T19:00Z",
-    "away": "Stonehill Skyhawks",
-    "home": "Texas Tech Red Raiders",
-    "mkt": "ATS",
-    "play": "AWAY",
-    "line": -39.5,
-    "total_line": 143.5,
-    "units": -1.1
-   },
-   {
-    "start": "2026-11-14T19:00Z",
     "away": "Gardner-Webb Runnin' Bulldogs",
     "home": "South Carolina Gamecocks",
     "mkt": "ATS",
@@ -928,6 +928,16 @@
     "line": -26.5,
     "total_line": 142.5,
     "units": 1.0
+   },
+   {
+    "start": "2026-11-14T19:00Z",
+    "away": "Stonehill Skyhawks",
+    "home": "Texas Tech Red Raiders",
+    "mkt": "ATS",
+    "play": "AWAY",
+    "line": -39.5,
+    "total_line": 143.5,
+    "units": -1.1
    },
    {
     "start": "2026-11-14T02:00Z",
@@ -961,32 +971,22 @@
    },
    {
     "start": "2026-11-14T01:00Z",
-    "away": "Cal Poly Mustangs",
-    "home": "Idaho Vandals",
-    "mkt": "TOTAL",
-    "play": "UNDER",
-    "line": -1.5,
-    "total_line": 168.5,
+    "away": "Central Arkansas Bears",
+    "home": "Arkansas Razorbacks",
+    "mkt": "ATS",
+    "play": "AWAY",
+    "line": -23.5,
+    "total_line": 161.5,
     "units": 1.0
    },
    {
     "start": "2026-11-14T01:00Z",
-    "away": "Fairleigh Dickinson Knights",
-    "home": "Oklahoma Sooners",
+    "away": "SIU Edwardsville Cougars",
+    "home": "Duke Blue Devils",
     "mkt": "ATS",
     "play": "AWAY",
-    "line": -31.5,
-    "total_line": 146.5,
-    "units": 1.0
-   },
-   {
-    "start": "2026-11-14T01:00Z",
-    "away": "Texas Southern Tigers",
-    "home": "Murray State Racers",
-    "mkt": "ATS",
-    "play": "AWAY",
-    "line": -29.5,
-    "total_line": 162.5,
+    "line": -43.5,
+    "total_line": 148.5,
     "units": 1.0
    }
   ]
@@ -1167,9 +1167,9 @@
     "buckets": [
      {
       "gap": "7-9",
-      "w": 20,
+      "w": 21,
       "l": 11,
-      "pct": 0.645
+      "pct": 0.656
      },
      {
       "gap": "9-12",
