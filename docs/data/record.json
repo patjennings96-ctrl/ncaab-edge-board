@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-11-18T22:57+00:00",
+ "updated_at": "2026-11-18T23:12+00:00",
  "season_start": "2026-10-01",
  "edge": {
   "staked": {},
@@ -565,11 +565,11 @@
   "record": {
    "ATS": {
     "w": 107,
-    "l": 117,
+    "l": 118,
     "p": 1,
-    "units": -21.7,
-    "pending": 29,
-    "roi": -0.0964
+    "units": -22.8,
+    "pending": 28,
+    "roi": -0.1009
    },
    "TOTAL": {
     "w": 34,
@@ -582,13 +582,23 @@
   },
   "all": {
    "w": 141,
-   "l": 140,
+   "l": 141,
    "p": 1,
-   "units": -13.0,
-   "pending": 39,
-   "roi": -0.0461
+   "units": -14.1,
+   "pending": 38,
+   "roi": -0.0498
   },
   "recent": [
+   {
+    "start": "2026-11-18T17:00Z",
+    "away": "Jackson State Tigers",
+    "home": "Baylor Bears",
+    "mkt": "ATS",
+    "play": "AWAY",
+    "line": -35.5,
+    "total_line": 155.5,
+    "units": -1.1
+   },
    {
     "start": "2026-11-18T02:30Z",
     "away": "UNLV Rebels",
@@ -631,6 +641,16 @@
    },
    {
     "start": "2026-11-18T01:30Z",
+    "away": "Nicholls Colonels",
+    "home": "Ole Miss Rebels",
+    "mkt": "ATS",
+    "play": "AWAY",
+    "line": -27.5,
+    "total_line": 142.5,
+    "units": -1.1
+   },
+   {
+    "start": "2026-11-18T01:30Z",
     "away": "Sam Houston Bearkats",
     "home": "Wyoming Cowboys",
     "mkt": "ATS",
@@ -640,14 +660,14 @@
     "units": 1.0
    },
    {
-    "start": "2026-11-18T01:30Z",
-    "away": "Nicholls Colonels",
-    "home": "Ole Miss Rebels",
+    "start": "2026-11-18T01:00Z",
+    "away": "Lindenwood Lions",
+    "home": "Northern Iowa Panthers",
     "mkt": "ATS",
     "play": "AWAY",
-    "line": -27.5,
-    "total_line": 142.5,
-    "units": -1.1
+    "line": -13.5,
+    "total_line": 154.5,
+    "units": 1.0
    },
    {
     "start": "2026-11-18T01:00Z",
@@ -671,32 +691,12 @@
    },
    {
     "start": "2026-11-18T01:00Z",
-    "away": "Maryland Eastern Shore Hawks",
-    "home": "DePaul Blue Demons",
-    "mkt": "TOTAL",
-    "play": "OVER",
-    "line": -30.5,
-    "total_line": 125.5,
-    "units": -1.1
-   },
-   {
-    "start": "2026-11-18T01:00Z",
     "away": "Oral Roberts Golden Eagles",
     "home": "SMU Mustangs",
     "mkt": "ATS",
     "play": "AWAY",
     "line": -22.5,
     "total_line": 155.5,
-    "units": 1.0
-   },
-   {
-    "start": "2026-11-18T01:00Z",
-    "away": "Lindenwood Lions",
-    "home": "Northern Iowa Panthers",
-    "mkt": "ATS",
-    "play": "AWAY",
-    "line": -13.5,
-    "total_line": 154.5,
     "units": 1.0
    },
    {
@@ -717,6 +717,16 @@
     "play": "HOME",
     "line": 1.5,
     "total_line": 155.5,
+    "units": -1.1
+   },
+   {
+    "start": "2026-11-18T01:00Z",
+    "away": "Maryland Eastern Shore Hawks",
+    "home": "DePaul Blue Demons",
+    "mkt": "TOTAL",
+    "play": "OVER",
+    "line": -30.5,
+    "total_line": 125.5,
     "units": -1.1
    },
    {
@@ -978,16 +988,6 @@
     "line": -22.5,
     "total_line": 133.5,
     "units": 1.0
-   },
-   {
-    "start": "2026-11-15T18:00Z",
-    "away": "Niagara Purple Eagles",
-    "home": "Iowa State Cyclones",
-    "mkt": "ATS",
-    "play": "AWAY",
-    "line": -39.0,
-    "total_line": 143.5,
-    "units": 1.0
    }
   ]
  },
@@ -1119,8 +1119,8 @@
      {
       "gap": "5-7",
       "w": 55,
-      "l": 65,
-      "pct": 0.458
+      "l": 66,
+      "pct": 0.455
      },
      {
       "gap": "7-10",
@@ -1143,8 +1143,8 @@
      },
      "dog": {
       "w": 106,
-      "l": 115,
-      "pct": 0.48
+      "l": 116,
+      "pct": 0.477
      },
      "under 5": {
       "w": 5,
@@ -1158,8 +1158,8 @@
      },
      "15+": {
       "w": 87,
-      "l": 96,
-      "pct": 0.475
+      "l": 97,
+      "pct": 0.473
      }
     }
    },
