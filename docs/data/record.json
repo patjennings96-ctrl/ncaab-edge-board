@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-11-18T07:33+00:00",
+ "updated_at": "2026-11-18T12:00+00:00",
  "season_start": "2026-10-01",
  "edge": {
   "staked": {},
@@ -16,11 +16,11 @@
    },
    "TOTAL": {
     "w": 165,
-    "l": 154,
+    "l": 155,
     "p": 2,
-    "units": 3.8,
-    "pending": 37,
-    "roi": 0.0107,
+    "units": 2.75,
+    "pending": 39,
+    "roi": 0.0077,
     "clv": 0.28,
     "beat_close": 0.22
    }
@@ -31,7 +31,7 @@
     "l": 0,
     "p": 0,
     "units": 1.0,
-    "pending": 8,
+    "pending": 7,
     "roi": 1.01,
     "clv": -1.0,
     "beat_close": 0.0
@@ -41,7 +41,7 @@
     "l": 11,
     "p": 0,
     "units": 6.73,
-    "pending": 2,
+    "pending": 0,
     "roi": 0.1588,
     "clv": 0.37,
     "beat_close": 0.185
@@ -79,6 +79,18 @@
    "p": 0
   },
   "recent": [
+   {
+    "start": "2026-11-18T04:59Z",
+    "away": "West Virginia Mountaineers",
+    "home": "Auburn Tigers",
+    "mkt": "TOTAL",
+    "side": "UNDER",
+    "line": 143.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": 0.0
+   },
    {
     "start": "2026-11-18T04:00Z",
     "away": "Montana State Bobcats",
@@ -155,6 +167,18 @@
     "start": "2026-11-18T01:30Z",
     "away": "Sam Houston Bearkats",
     "home": "Wyoming Cowboys",
+    "mkt": "SPREAD",
+    "side": "Sam Houston Bearkats",
+    "line": 12.5,
+    "stake": 0.0,
+    "result": "W",
+    "units": 0.0,
+    "clv": -1.0
+   },
+   {
+    "start": "2026-11-18T01:30Z",
+    "away": "Sam Houston Bearkats",
+    "home": "Wyoming Cowboys",
     "mkt": "TOTAL",
     "side": "OVER",
     "line": 150.5,
@@ -174,18 +198,6 @@
     "result": "L",
     "units": -0.0,
     "clv": 2.0
-   },
-   {
-    "start": "2026-11-18T01:30Z",
-    "away": "Sam Houston Bearkats",
-    "home": "Wyoming Cowboys",
-    "mkt": "SPREAD",
-    "side": "Sam Houston Bearkats",
-    "line": 12.5,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": -1.0
    },
    {
     "start": "2026-11-18T01:00Z",
@@ -357,11 +369,11 @@
    },
    {
     "start": "2026-11-18T00:30Z",
-    "away": "Bryant Bulldogs",
-    "home": "Massachusetts Minutemen",
+    "away": "Kennesaw State Owls",
+    "home": "Alabama Crimson Tide",
     "mkt": "SPREAD",
-    "side": "Massachusetts Minutemen",
-    "line": -9.5,
+    "side": "Alabama Crimson Tide",
+    "line": -25.5,
     "stake": 0.0,
     "result": "L",
     "units": -0.0,
@@ -369,11 +381,11 @@
    },
    {
     "start": "2026-11-18T00:30Z",
-    "away": "Kennesaw State Owls",
-    "home": "Alabama Crimson Tide",
+    "away": "Bryant Bulldogs",
+    "home": "Massachusetts Minutemen",
     "mkt": "SPREAD",
-    "side": "Alabama Crimson Tide",
-    "line": -25.5,
+    "side": "Massachusetts Minutemen",
+    "line": -9.5,
     "stake": 0.0,
     "result": "L",
     "units": -0.0,
@@ -405,11 +417,11 @@
    },
    {
     "start": "2026-11-18T00:00Z",
-    "away": "Sacred Heart Pioneers",
-    "home": "Providence Friars",
+    "away": "Mississippi State Bulldogs",
+    "home": "UCF Knights",
     "mkt": "TOTAL",
     "side": "OVER",
-    "line": 152.5,
+    "line": 154.5,
     "stake": 0.0,
     "result": "W",
     "units": 0.0,
@@ -429,11 +441,23 @@
    },
    {
     "start": "2026-11-18T00:00Z",
-    "away": "Mississippi State Bulldogs",
-    "home": "UCF Knights",
+    "away": "Central Michigan Chippewas",
+    "home": "Dayton Flyers",
+    "mkt": "SPREAD",
+    "side": "Dayton Flyers",
+    "line": -10.5,
+    "stake": 0.0,
+    "result": "W",
+    "units": 0.0,
+    "clv": 2.0
+   },
+   {
+    "start": "2026-11-18T00:00Z",
+    "away": "Sacred Heart Pioneers",
+    "home": "Providence Friars",
     "mkt": "TOTAL",
     "side": "OVER",
-    "line": 154.5,
+    "line": 152.5,
     "stake": 0.0,
     "result": "W",
     "units": 0.0,
@@ -474,18 +498,6 @@
     "result": "W",
     "units": 0.0,
     "clv": 0.0
-   },
-   {
-    "start": "2026-11-18T00:00Z",
-    "away": "Central Michigan Chippewas",
-    "home": "Dayton Flyers",
-    "mkt": "SPREAD",
-    "side": "Dayton Flyers",
-    "line": -10.5,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": 2.0
    },
    {
     "start": "2026-11-18T00:00Z",
@@ -546,18 +558,6 @@
     "result": "L",
     "units": -0.0,
     "clv": -1.0
-   },
-   {
-    "start": "2026-11-18T00:00Z",
-    "away": "Fordham Rams",
-    "home": "Manhattan Jaspers",
-    "mkt": "TOTAL",
-    "side": "UNDER",
-    "line": 144.5,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": 0.0
    }
   ]
  },
@@ -568,7 +568,7 @@
     "l": 117,
     "p": 1,
     "units": -21.7,
-    "pending": 23,
+    "pending": 24,
     "roi": -0.0964
    },
    "TOTAL": {
@@ -576,7 +576,7 @@
     "l": 23,
     "p": 0,
     "units": 8.7,
-    "pending": 5,
+    "pending": 6,
     "roi": 0.1526
    }
   },
@@ -585,7 +585,7 @@
    "l": 140,
    "p": 1,
    "units": -13.0,
-   "pending": 28,
+   "pending": 30,
    "roi": -0.0461
   },
   "recent": [
@@ -1087,10 +1087,10 @@
      {
       "gap": "5-7",
       "w": 36,
-      "l": 39,
-      "pct": 0.48,
+      "l": 40,
+      "pct": 0.474,
       "expected": 0.556,
-      "clv": 0.07
+      "clv": 0.06
      },
      {
       "gap": "7+",
@@ -1108,8 +1108,8 @@
     },
     "no_agree": {
      "w": 149,
-     "l": 143,
-     "pct": 0.51
+     "l": 144,
+     "pct": 0.509
     }
    }
   },
