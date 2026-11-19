@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-19T07:29+00:00",
+  "updated_at": "2026-11-19T20:31+00:00",
   "mode": "live",
   "settings": {
     "kelly_mult": 0.25,
@@ -20,7 +20,7 @@
     },
     "kenpom": {
       "as_of": "2026-11-18T12:00:10Z",
-      "age_days": 0.8,
+      "age_days": 1.4,
       "in_use": true,
       "max_age_days": 3,
       "edge_blend": 0.5
@@ -35,89 +35,96 @@
   },
   "plays": [
     {
-      "game_id": "401918959",
-      "start": "2026-11-19T23:00Z",
-      "home": "Murray State Racers",
-      "away": "NC State Wolfpack",
+      "game_id": "401923304",
+      "start": "2026-11-20T00:00Z",
+      "home": "Quinnipiac Bobcats",
+      "away": "Maine Black Bears",
       "mkt": "TOTAL",
       "side": "OVER",
       "side_code": "OVER",
-      "line": 160.5,
+      "line": 133.5,
       "odds": -110,
-      "proj": -4.9,
-      "total": 166.9,
-      "p": 0.5605,
-      "edge": 6.05,
+      "proj": 10.3,
+      "total": 138.2,
+      "p": 0.5446,
+      "edge": 4.46,
       "stake": 0.0,
-      "notes": "",
-      "best_line": 160.5,
-      "best_odds": -108,
-      "book": "Bally Bet",
+      "notes": "Quinnipiac Bobcats: Mike Parrotta (missed 1), Nate Guerengomba (missed 3)",
+      "best_line": 133.5,
+      "best_odds": -105,
+      "book": "Hard Rock",
       "agree": false,
-      "play_to": 163.0,
+      "play_to": 134.5,
       "tracking": true,
       "to_win": 1.0,
-      "reason": "Over 5 pts off the market",
-      "gap": 6.39,
+      "reason": "Tracking only",
+      "gap": 4.7,
       "best": false,
       "quotes": [
         {
-          "book": "Bally Bet",
-          "line": 160.5,
-          "odds": -108,
-          "prob": 0.5605,
-          "ev": 0.0794
-        },
-        {
-          "book": "BetRivers",
-          "line": 160.5,
-          "odds": -109,
-          "prob": 0.5605,
-          "ev": 0.0747
-        },
-        {
-          "book": "FanDuel",
-          "line": 160.5,
-          "odds": -110,
-          "prob": 0.5605,
-          "ev": 0.07
-        },
-        {
           "book": "Hard Rock",
-          "line": 160.5,
-          "odds": -110,
-          "prob": 0.5605,
-          "ev": 0.07
+          "line": 133.5,
+          "odds": -105,
+          "prob": 0.5446,
+          "ev": 0.0632
         },
         {
           "book": "DraftKings",
-          "line": 161.5,
-          "odds": -112,
-          "prob": 0.5511,
-          "ev": 0.0431
+          "line": 133.5,
+          "odds": -108,
+          "prob": 0.5446,
+          "ev": 0.0488
         },
         {
           "book": "BetMGM",
-          "line": 161.5,
-          "odds": -115,
-          "prob": 0.5511,
-          "ev": 0.0303
+          "line": 133.5,
+          "odds": -110,
+          "prob": 0.5446,
+          "ev": 0.0396
         },
         {
           "book": "theScore Bet",
-          "line": 161.5,
+          "line": 133.5,
+          "odds": -110,
+          "prob": 0.5446,
+          "ev": 0.0396
+        },
+        {
+          "book": "Kalshi",
+          "line": 133.5,
+          "odds": -112,
+          "prob": 0.5446,
+          "ev": 0.0308
+        },
+        {
+          "book": "Bally Bet",
+          "line": 133.5,
+          "odds": -114,
+          "prob": 0.5446,
+          "ev": 0.0223
+        },
+        {
+          "book": "FanDuel",
+          "line": 133.5,
+          "odds": -114,
+          "prob": 0.5446,
+          "ev": 0.0223
+        },
+        {
+          "book": "BetRivers",
+          "line": 133.5,
           "odds": -115,
-          "prob": 0.5511,
-          "ev": 0.0303
+          "prob": 0.5446,
+          "ev": 0.0181
         }
       ],
       "similar": {
-        "w": 32,
-        "l": 39,
-        "pct": 0.451,
-        "units": -10.9,
-        "score": 0.4711,
-        "match": "Nov-Dec, 5-7 pt gap, overs"
+        "w": 28,
+        "l": 31,
+        "pct": 0.475,
+        "units": -6.1,
+        "score": 0.4862,
+        "match": "Nov-Dec, 4-5 pt gap, overs"
       }
     },
     {
@@ -129,16 +136,16 @@
       "side": "Charleston Cougars",
       "side_code": "AWAY",
       "line": 1.5,
-      "odds": -118,
+      "odds": -108,
       "proj": -2.7,
       "total": 152.5,
       "p": 0.556,
-      "edge": 3.86,
+      "edge": 6.03,
       "stake": 0.0,
       "notes": "",
-      "best_line": 0.5,
-      "best_odds": -104,
-      "book": "Bally Bet",
+      "best_line": 1.5,
+      "best_odds": -108,
+      "book": "FanDuel",
       "agree": true,
       "play_to": 1.5,
       "tracking": true,
@@ -148,53 +155,60 @@
       "best": false,
       "quotes": [
         {
-          "book": "Bally Bet",
-          "line": 0.5,
-          "odds": -104,
-          "prob": 0.5428,
-          "ev": 0.0647
-        },
-        {
-          "book": "BetRivers",
-          "line": 0.5,
-          "odds": -105,
-          "prob": 0.5428,
-          "ev": 0.0597
+          "book": "FanDuel",
+          "line": 1.5,
+          "odds": -108,
+          "prob": 0.556,
+          "ev": 0.0708
         },
         {
           "book": "DraftKings",
           "line": 1.5,
-          "odds": -118,
+          "odds": -108,
           "prob": 0.556,
-          "ev": 0.0271
+          "ev": 0.0708
         },
         {
           "book": "BetMGM",
           "line": 1.5,
-          "odds": -118,
+          "odds": -110,
           "prob": 0.556,
-          "ev": 0.0271
-        },
-        {
-          "book": "FanDuel",
-          "line": 1.5,
-          "odds": -120,
-          "prob": 0.556,
-          "ev": 0.0193
+          "ev": 0.0614
         },
         {
           "book": "theScore Bet",
           "line": 1.5,
-          "odds": -125,
+          "odds": -110,
           "prob": 0.556,
-          "ev": 0.0008
+          "ev": 0.0614
         },
         {
           "book": "Kalshi",
           "line": 1.5,
-          "odds": -131,
+          "odds": -112,
           "prob": 0.556,
-          "ev": -0.0196
+          "ev": 0.0524
+        },
+        {
+          "book": "Bally Bet",
+          "line": -0.5,
+          "odds": -104,
+          "prob": 0.5295,
+          "ev": 0.0387
+        },
+        {
+          "book": "BetRivers",
+          "line": -0.5,
+          "odds": -105,
+          "prob": 0.5295,
+          "ev": 0.0339
+        },
+        {
+          "book": "Hard Rock",
+          "line": 1.5,
+          "odds": -120,
+          "prob": 0.556,
+          "ev": 0.0193
         }
       ],
       "similar": {
@@ -214,59 +228,31 @@
       "mkt": "TOTAL",
       "side": "UNDER",
       "side_code": "UNDER",
-      "line": 159.5,
+      "line": 158.5,
       "odds": -110,
       "proj": -2.7,
       "total": 152.5,
-      "p": 0.5658,
-      "edge": 6.58,
+      "p": 0.5564,
+      "edge": 5.64,
       "stake": 0.0,
       "notes": "",
       "best_line": 158.5,
-      "best_odds": 101,
+      "best_odds": -107,
       "book": "Kalshi",
       "agree": false,
       "play_to": 156.5,
       "tracking": true,
       "to_win": 1.0,
       "reason": "Over 5 pts off the market",
-      "gap": 6.96,
+      "gap": 5.96,
       "best": false,
       "quotes": [
         {
           "book": "Kalshi",
           "line": 158.5,
-          "odds": 101,
+          "odds": -107,
           "prob": 0.5564,
-          "ev": 0.1183
-        },
-        {
-          "book": "DraftKings",
-          "line": 159.5,
-          "odds": -105,
-          "prob": 0.5658,
-          "ev": 0.1046
-        },
-        {
-          "book": "FanDuel",
-          "line": 159.5,
-          "odds": -110,
-          "prob": 0.5658,
-          "ev": 0.0801
-        },
-        {
-          "book": "BetMGM",
-          "line": 159.5,
-          "odds": -110,
-          "prob": 0.5658,
-          "ev": 0.0801
-        },
-        {
-          "book": "theScore Bet",
-          "line": 159.5,
-          "odds": -110,
-          "prob": 0.5658,
-          "ev": 0.0801
+          "ev": 0.0764
         },
         {
           "book": "Bally Bet",
@@ -283,104 +269,39 @@
           "ev": 0.0668
         },
         {
+          "book": "FanDuel",
+          "line": 158.5,
+          "odds": -110,
+          "prob": 0.5564,
+          "ev": 0.0622
+        },
+        {
+          "book": "DraftKings",
+          "line": 158.5,
+          "odds": -110,
+          "prob": 0.5564,
+          "ev": 0.0622
+        },
+        {
+          "book": "BetMGM",
+          "line": 158.5,
+          "odds": -110,
+          "prob": 0.5564,
+          "ev": 0.0622
+        },
+        {
           "book": "Hard Rock",
           "line": 158.5,
           "odds": -110,
           "prob": 0.5564,
           "ev": 0.0622
-        }
-      ],
-      "similar": {
-        "w": 89,
-        "l": 111,
-        "pct": 0.445,
-        "units": -33.1,
-        "score": 0.456,
-        "match": "Nov-Dec, 5-7 pt gap, unders"
-      }
-    },
-    {
-      "game_id": "401925941",
-      "start": "2026-11-20T02:00Z",
-      "home": "Washington Huskies",
-      "away": "Utah Tech Trailblazers",
-      "mkt": "TOTAL",
-      "side": "UNDER",
-      "side_code": "UNDER",
-      "line": 159.5,
-      "odds": -115,
-      "proj": 16.8,
-      "total": 154.4,
-      "p": 0.5481,
-      "edge": 3.96,
-      "stake": 0.0,
-      "notes": "Washington Huskies: Ryan Beasley (missed 1)",
-      "best_line": 157.5,
-      "best_odds": 101,
-      "book": "Kalshi",
-      "agree": false,
-      "play_to": 158.0,
-      "tracking": true,
-      "to_win": 1.0,
-      "reason": "Over 5 pts off the market",
-      "gap": 5.08,
-      "best": false,
-      "quotes": [
-        {
-          "book": "Kalshi",
-          "line": 157.5,
-          "odds": 101,
-          "prob": 0.5292,
-          "ev": 0.0637
         },
         {
-          "book": "Bally Bet",
-          "line": 160.5,
-          "odds": -114,
-          "prob": 0.5575,
-          "ev": 0.0466
-        },
-        {
-          "book": "BetRivers",
-          "line": 160.5,
-          "odds": -115,
-          "prob": 0.5575,
-          "ev": 0.0423
-        },
-        {
-          "book": "Hard Rock",
-          "line": 160.5,
-          "odds": -115,
-          "prob": 0.5575,
-          "ev": 0.0423
-        },
-        {
-          "book": "FanDuel",
+          "book": "theScore Bet",
           "line": 158.5,
-          "odds": -110,
-          "prob": 0.5387,
-          "ev": 0.0283
-        },
-        {
-          "book": "BetMGM",
-          "line": 158.5,
-          "odds": -110,
-          "prob": 0.5387,
-          "ev": 0.0283
-        },
-        {
-          "book": "DraftKings",
-          "line": 159.5,
           "odds": -115,
-          "prob": 0.5481,
-          "ev": 0.0247
-        },
-        {
-          "book": "theScore Bet",
-          "line": 159.5,
-          "odds": -120,
-          "prob": 0.5481,
-          "ev": 0.0048
+          "prob": 0.5564,
+          "ev": 0.0402
         }
       ],
       "similar": {
@@ -390,429 +311,6 @@
         "units": -33.1,
         "score": 0.456,
         "match": "Nov-Dec, 5-7 pt gap, unders"
-      }
-    },
-    {
-      "game_id": "401919050",
-      "start": "2026-11-20T01:00Z",
-      "home": "TCU Horned Frogs",
-      "away": "Texas A&M Aggies",
-      "mkt": "SPREAD",
-      "side": "Texas A&M Aggies",
-      "side_code": "AWAY",
-      "line": -0.5,
-      "odds": -114,
-      "proj": -5.3,
-      "total": 161.0,
-      "p": 0.5633,
-      "edge": 5.47,
-      "stake": 0.0,
-      "notes": "TCU Horned Frogs: Luke Bamgboye (missed 3); Texas A&M Aggies: Cade Phillips (missed 2)",
-      "best_line": -1.5,
-      "best_odds": 105,
-      "book": "DraftKings",
-      "agree": false,
-      "play_to": -1.0,
-      "tracking": true,
-      "to_win": 1.0,
-      "reason": "Tracking only",
-      "gap": 4.78,
-      "best": false,
-      "quotes": [
-        {
-          "book": "DraftKings",
-          "line": -1.5,
-          "odds": 105,
-          "prob": 0.5502,
-          "ev": 0.1278
-        },
-        {
-          "book": "theScore Bet",
-          "line": -1.5,
-          "odds": 100,
-          "prob": 0.5502,
-          "ev": 0.1003
-        },
-        {
-          "book": "BetMGM",
-          "line": 1.5,
-          "odds": -118,
-          "prob": 0.5894,
-          "ev": 0.0889
-        },
-        {
-          "book": "Kalshi",
-          "line": -1.5,
-          "odds": -103,
-          "prob": 0.5502,
-          "ev": 0.0843
-        },
-        {
-          "book": "FanDuel",
-          "line": -0.5,
-          "odds": -110,
-          "prob": 0.5633,
-          "ev": 0.0754
-        },
-        {
-          "book": "Bally Bet",
-          "line": -0.5,
-          "odds": -120,
-          "prob": 0.5633,
-          "ev": 0.0327
-        },
-        {
-          "book": "BetRivers",
-          "line": -0.5,
-          "odds": -121,
-          "prob": 0.5633,
-          "ev": 0.0289
-        }
-      ],
-      "similar": {
-        "w": 32,
-        "l": 28,
-        "pct": 0.533,
-        "units": 1.2,
-        "score": 0.5182,
-        "match": "Nov-Dec, 4-5 pt gap, under 5 spreads"
-      }
-    },
-    {
-      "game_id": "401930884",
-      "start": "2026-11-20T02:00Z",
-      "home": "Oregon Ducks",
-      "away": "Oregon State Beavers",
-      "mkt": "TOTAL",
-      "side": "UNDER",
-      "side_code": "UNDER",
-      "line": 161.5,
-      "odds": -115,
-      "proj": 4.1,
-      "total": 156.4,
-      "p": 0.5488,
-      "edge": 3.79,
-      "stake": 0.0,
-      "notes": "Oregon Ducks: Tyrone Riley IV (missed 2)",
-      "best_line": 159.5,
-      "best_odds": 101,
-      "book": "Kalshi",
-      "agree": false,
-      "play_to": 160.0,
-      "tracking": true,
-      "to_win": 1.0,
-      "reason": "Over 5 pts off the market",
-      "gap": 5.15,
-      "best": false,
-      "quotes": [
-        {
-          "book": "Kalshi",
-          "line": 159.5,
-          "odds": 101,
-          "prob": 0.5299,
-          "ev": 0.065
-        },
-        {
-          "book": "FanDuel",
-          "line": 161.5,
-          "odds": -110,
-          "prob": 0.5488,
-          "ev": 0.0476
-        },
-        {
-          "book": "DraftKings",
-          "line": 161.5,
-          "odds": -115,
-          "prob": 0.5488,
-          "ev": 0.0259
-        },
-        {
-          "book": "BetMGM",
-          "line": 161.5,
-          "odds": -115,
-          "prob": 0.5488,
-          "ev": 0.0259
-        },
-        {
-          "book": "theScore Bet",
-          "line": 161.5,
-          "odds": -115,
-          "prob": 0.5488,
-          "ev": 0.0259
-        },
-        {
-          "book": "Bally Bet",
-          "line": 164.5,
-          "odds": -134,
-          "prob": 0.5769,
-          "ev": 0.0074
-        },
-        {
-          "book": "Hard Rock",
-          "line": 164.5,
-          "odds": -135,
-          "prob": 0.5769,
-          "ev": 0.0042
-        },
-        {
-          "book": "BetRivers",
-          "line": 164.5,
-          "odds": -136,
-          "prob": 0.5769,
-          "ev": 0.0011
-        }
-      ],
-      "similar": {
-        "w": 89,
-        "l": 111,
-        "pct": 0.445,
-        "units": -33.1,
-        "score": 0.456,
-        "match": "Nov-Dec, 5-7 pt gap, unders"
-      }
-    },
-    {
-      "game_id": "401920349",
-      "start": "2026-11-20T03:00Z",
-      "home": "Stanford Cardinal",
-      "away": "Sacramento State Hornets",
-      "mkt": "TOTAL",
-      "side": "UNDER",
-      "side_code": "UNDER",
-      "line": 155.5,
-      "odds": -110,
-      "proj": 17.7,
-      "total": 150.8,
-      "p": 0.5449,
-      "edge": 4.49,
-      "stake": 0.0,
-      "notes": "",
-      "best_line": 155.5,
-      "best_odds": -105,
-      "book": "theScore Bet",
-      "agree": true,
-      "play_to": 154.5,
-      "tracking": true,
-      "to_win": 1.5,
-      "reason": "Tracking only",
-      "gap": 4.74,
-      "best": false,
-      "quotes": [
-        {
-          "book": "theScore Bet",
-          "line": 155.5,
-          "odds": -105,
-          "prob": 0.5449,
-          "ev": 0.0638
-        },
-        {
-          "book": "BetMGM",
-          "line": 154.5,
-          "odds": -105,
-          "prob": 0.5354,
-          "ev": 0.0454
-        },
-        {
-          "book": "FanDuel",
-          "line": 155.5,
-          "odds": -110,
-          "prob": 0.5449,
-          "ev": 0.0402
-        },
-        {
-          "book": "Hard Rock",
-          "line": 155.5,
-          "odds": -110,
-          "prob": 0.5449,
-          "ev": 0.0402
-        },
-        {
-          "book": "Bally Bet",
-          "line": 155.5,
-          "odds": -112,
-          "prob": 0.5449,
-          "ev": 0.0314
-        },
-        {
-          "book": "DraftKings",
-          "line": 154.5,
-          "odds": -108,
-          "prob": 0.5354,
-          "ev": 0.0312
-        },
-        {
-          "book": "BetRivers",
-          "line": 155.5,
-          "odds": -113,
-          "prob": 0.5449,
-          "ev": 0.0271
-        },
-        {
-          "book": "Kalshi",
-          "line": 155.5,
-          "odds": -121,
-          "prob": 0.5449,
-          "ev": -0.0048
-        }
-      ],
-      "similar": {
-        "w": 80,
-        "l": 67,
-        "pct": 0.544,
-        "units": 6.3,
-        "score": 0.533,
-        "match": "Nov-Dec, 4-5 pt gap, unders"
-      }
-    },
-    {
-      "game_id": "401920845",
-      "start": "2026-11-20T01:00Z",
-      "home": "St. Thomas Tommies",
-      "away": "Southeast Missouri State Redhawks",
-      "mkt": "TOTAL",
-      "side": "OVER",
-      "side_code": "OVER",
-      "line": 149.5,
-      "odds": -110,
-      "proj": 9.6,
-      "total": 154.8,
-      "p": 0.5499,
-      "edge": 4.99,
-      "stake": 0.0,
-      "notes": "St. Thomas Tommies: Austin Herro (missed 3)",
-      "best_line": 149.5,
-      "best_odds": -110,
-      "book": "FanDuel",
-      "agree": false,
-      "play_to": 151.0,
-      "tracking": true,
-      "to_win": 1.0,
-      "reason": "Over 5 pts off the market",
-      "gap": 5.26,
-      "best": false,
-      "quotes": [
-        {
-          "book": "FanDuel",
-          "line": 149.5,
-          "odds": -110,
-          "prob": 0.5499,
-          "ev": 0.0497
-        },
-        {
-          "book": "BetMGM",
-          "line": 149.5,
-          "odds": -110,
-          "prob": 0.5499,
-          "ev": 0.0497
-        },
-        {
-          "book": "theScore Bet",
-          "line": 149.5,
-          "odds": -110,
-          "prob": 0.5499,
-          "ev": 0.0497
-        },
-        {
-          "book": "DraftKings",
-          "line": 149.5,
-          "odds": -110,
-          "prob": 0.5499,
-          "ev": 0.0497
-        },
-        {
-          "book": "Bally Bet",
-          "line": 149.5,
-          "odds": -112,
-          "prob": 0.5499,
-          "ev": 0.0408
-        },
-        {
-          "book": "BetRivers",
-          "line": 149.5,
-          "odds": -113,
-          "prob": 0.5499,
-          "ev": 0.0365
-        },
-        {
-          "book": "Kalshi",
-          "line": 148.5,
-          "odds": -121,
-          "prob": 0.5593,
-          "ev": 0.0215
-        }
-      ],
-      "similar": {
-        "w": 32,
-        "l": 39,
-        "pct": 0.451,
-        "units": -10.9,
-        "score": 0.4711,
-        "match": "Nov-Dec, 5-7 pt gap, overs"
-      }
-    },
-    {
-      "game_id": "401920517",
-      "start": "2026-11-19T19:30Z",
-      "home": "West Virginia Mountaineers",
-      "away": "Florida Gators",
-      "mkt": "TOTAL",
-      "side": "UNDER",
-      "side_code": "UNDER",
-      "line": 149.5,
-      "odds": -110,
-      "proj": -10.1,
-      "total": 144.9,
-      "p": 0.5433,
-      "edge": 4.33,
-      "stake": 0.0,
-      "notes": "Florida Gators: Alex Lloyd (missed 1)",
-      "best_line": 150.5,
-      "best_odds": -110,
-      "book": "theScore Bet",
-      "agree": false,
-      "play_to": 148.5,
-      "tracking": true,
-      "to_win": 1.0,
-      "reason": "Tracking only",
-      "gap": 4.57,
-      "best": false,
-      "quotes": [
-        {
-          "book": "theScore Bet",
-          "line": 150.5,
-          "odds": -110,
-          "prob": 0.5528,
-          "ev": 0.0553
-        },
-        {
-          "book": "DraftKings",
-          "line": 149.5,
-          "odds": -108,
-          "prob": 0.5433,
-          "ev": 0.0464
-        },
-        {
-          "book": "FanDuel",
-          "line": 149.5,
-          "odds": -110,
-          "prob": 0.5433,
-          "ev": 0.0373
-        },
-        {
-          "book": "Kalshi",
-          "line": 150.5,
-          "odds": -121,
-          "prob": 0.5528,
-          "ev": 0.0096
-        }
-      ],
-      "similar": {
-        "w": 80,
-        "l": 67,
-        "pct": 0.544,
-        "units": 6.3,
-        "score": 0.533,
-        "match": "Nov-Dec, 4-5 pt gap, unders"
       }
     },
     {
@@ -823,45 +321,73 @@
       "mkt": "SPREAD",
       "side": "Stetson Hatters",
       "side_code": "AWAY",
-      "line": 35.5,
+      "line": 36.5,
       "odds": -110,
       "proj": 29.8,
       "total": 153.8,
-      "p": 0.5754,
-      "edge": 7.54,
+      "p": 0.5884,
+      "edge": 8.84,
       "stake": 0.0,
       "notes": "",
       "best_line": 35.5,
-      "best_odds": -110,
-      "book": "BetMGM",
+      "best_odds": 100,
+      "book": "theScore Bet",
       "agree": false,
       "play_to": 34.0,
       "tracking": true,
       "to_win": 1.0,
       "reason": "26+ point spread",
-      "gap": 5.71,
+      "gap": 6.71,
       "best": false,
       "quotes": [
         {
-          "book": "BetMGM",
+          "book": "theScore Bet",
           "line": 35.5,
-          "odds": -110,
+          "odds": 100,
           "prob": 0.5754,
-          "ev": 0.0985
+          "ev": 0.1508
+        },
+        {
+          "book": "Bally Bet",
+          "line": 36.5,
+          "odds": -108,
+          "prob": 0.5884,
+          "ev": 0.1333
+        },
+        {
+          "book": "BetRivers",
+          "line": 36.5,
+          "odds": -109,
+          "prob": 0.5884,
+          "ev": 0.1283
+        },
+        {
+          "book": "FanDuel",
+          "line": 36.5,
+          "odds": -110,
+          "prob": 0.5884,
+          "ev": 0.1234
+        },
+        {
+          "book": "BetMGM",
+          "line": 36.5,
+          "odds": -115,
+          "prob": 0.5884,
+          "ev": 0.1001
         },
         {
           "book": "DraftKings",
-          "line": 35.5,
-          "odds": -110,
-          "prob": 0.5754,
-          "ev": 0.0985
+          "line": 36.5,
+          "odds": -115,
+          "prob": 0.5884,
+          "ev": 0.1001
         },
         {
-          "book": "theScore Bet",
-          "line": 35.5,
-          "odds": -115,
-          "prob": 0.5754,
-          "ev": 0.0758
+          "book": "Hard Rock",
+          "line": 36.5,
+          "odds": -120,
+          "prob": 0.5884,
+          "ev": 0.0788
         }
       ],
       "similar": {
@@ -882,16 +408,16 @@
       "side": "Houston Christian Huskies",
       "side_code": "HOME",
       "line": -3.5,
-      "odds": -112,
+      "odds": -110,
       "proj": 7.9,
       "total": 149.1,
       "p": 0.5586,
-      "edge": 5.43,
+      "edge": 6.07,
       "stake": 0.0,
       "notes": "Georgia Southern Eagles: Rashaad Williams (missed 3)",
       "best_line": -3.5,
-      "best_odds": -110,
-      "book": "theScore Bet",
+      "best_odds": -102,
+      "book": "FanDuel",
       "agree": false,
       "play_to": -3.5,
       "tracking": true,
@@ -900,6 +426,34 @@
       "gap": 4.42,
       "best": false,
       "quotes": [
+        {
+          "book": "FanDuel",
+          "line": -3.5,
+          "odds": -102,
+          "prob": 0.5586,
+          "ev": 0.1063
+        },
+        {
+          "book": "BetMGM",
+          "line": -3.5,
+          "odds": -105,
+          "prob": 0.5586,
+          "ev": 0.0906
+        },
+        {
+          "book": "Kalshi",
+          "line": -3.5,
+          "odds": -107,
+          "prob": 0.5586,
+          "ev": 0.0807
+        },
+        {
+          "book": "Bally Bet",
+          "line": -3.5,
+          "odds": -109,
+          "prob": 0.5586,
+          "ev": 0.0711
+        },
         {
           "book": "theScore Bet",
           "line": -3.5,
@@ -910,23 +464,23 @@
         {
           "book": "DraftKings",
           "line": -3.5,
-          "odds": -112,
+          "odds": -110,
           "prob": 0.5586,
-          "ev": 0.0574
+          "ev": 0.0664
         },
         {
-          "book": "BetMGM",
+          "book": "BetRivers",
           "line": -3.5,
-          "odds": -115,
+          "odds": -110,
           "prob": 0.5586,
-          "ev": 0.0443
+          "ev": 0.0664
         },
         {
-          "book": "Kalshi",
+          "book": "Hard Rock",
           "line": -3.5,
-          "odds": -121,
+          "odds": -110,
           "prob": 0.5586,
-          "ev": 0.0203
+          "ev": 0.0664
         }
       ],
       "similar": {
@@ -939,52 +493,180 @@
       }
     },
     {
-      "game_id": "401916318",
-      "start": "2026-11-20T00:00Z",
-      "home": "Ohio State Buckeyes",
-      "away": "UMBC Retrievers",
-      "mkt": "TOTAL",
-      "side": "UNDER",
-      "side_code": "UNDER",
-      "line": 158.5,
-      "odds": -116,
-      "proj": 30.1,
-      "total": 154.0,
-      "p": 0.543,
-      "edge": 3.0,
+      "game_id": "401919050",
+      "start": "2026-11-20T01:00Z",
+      "home": "TCU Horned Frogs",
+      "away": "Texas A&M Aggies",
+      "mkt": "SPREAD",
+      "side": "Texas A&M Aggies",
+      "side_code": "AWAY",
+      "line": 0.5,
+      "odds": -106,
+      "proj": -5.3,
+      "total": 161.0,
+      "p": 0.5764,
+      "edge": 8.81,
       "stake": 0.0,
-      "notes": "",
-      "best_line": 157.5,
-      "best_odds": -103,
-      "book": "Kalshi",
+      "notes": "TCU Horned Frogs: Luke Bamgboye (missed 3); Texas A&M Aggies: Cade Phillips (missed 2)",
+      "best_line": -1.5,
+      "best_odds": 110,
+      "book": "DraftKings",
       "agree": false,
-      "play_to": 157.5,
+      "play_to": -1.0,
       "tracking": true,
       "to_win": 1.0,
       "reason": "Tracking only",
-      "gap": 4.54,
+      "gap": 5.78,
+      "best": false,
+      "quotes": [
+        {
+          "book": "DraftKings",
+          "line": -1.5,
+          "odds": 110,
+          "prob": 0.5502,
+          "ev": 0.1553
+        },
+        {
+          "book": "BetRivers",
+          "line": 0.5,
+          "odds": -106,
+          "prob": 0.5764,
+          "ev": 0.1202
+        },
+        {
+          "book": "Kalshi",
+          "line": -1.5,
+          "odds": 101,
+          "prob": 0.5502,
+          "ev": 0.1058
+        },
+        {
+          "book": "FanDuel",
+          "line": -1.5,
+          "odds": 100,
+          "prob": 0.5502,
+          "ev": 0.1003
+        },
+        {
+          "book": "Bally Bet",
+          "line": -0.5,
+          "odds": -105,
+          "prob": 0.5633,
+          "ev": 0.0998
+        },
+        {
+          "book": "BetMGM",
+          "line": 1.5,
+          "odds": -118,
+          "prob": 0.5894,
+          "ev": 0.0889
+        },
+        {
+          "book": "Hard Rock",
+          "line": 1.5,
+          "odds": -120,
+          "prob": 0.5894,
+          "ev": 0.0806
+        },
+        {
+          "book": "theScore Bet",
+          "line": 1.5,
+          "odds": -125,
+          "prob": 0.5894,
+          "ev": 0.061
+        }
+      ],
+      "similar": {
+        "w": 31,
+        "l": 31,
+        "pct": 0.5,
+        "units": -3.1,
+        "score": 0.5,
+        "match": "Nov-Dec, 5+ pt gap, under 5 spreads, underdogs"
+      }
+    },
+    {
+      "game_id": "401930884",
+      "start": "2026-11-20T02:00Z",
+      "home": "Oregon Ducks",
+      "away": "Oregon State Beavers",
+      "mkt": "TOTAL",
+      "side": "UNDER",
+      "side_code": "UNDER",
+      "line": 160.5,
+      "odds": -110,
+      "proj": 4.1,
+      "total": 156.4,
+      "p": 0.5393,
+      "edge": 3.93,
+      "stake": 0.0,
+      "notes": "Oregon Ducks: Tyrone Riley IV (missed 2)",
+      "best_line": 159.5,
+      "best_odds": 101,
+      "book": "Kalshi",
+      "agree": false,
+      "play_to": 160.0,
+      "tracking": true,
+      "to_win": 1.0,
+      "reason": "Tracking only",
+      "gap": 4.15,
       "best": false,
       "quotes": [
         {
           "book": "Kalshi",
-          "line": 157.5,
-          "odds": -103,
-          "prob": 0.5335,
-          "ev": 0.0516
+          "line": 159.5,
+          "odds": 101,
+          "prob": 0.5299,
+          "ev": 0.065
+        },
+        {
+          "book": "Bally Bet",
+          "line": 160.5,
+          "odds": -109,
+          "prob": 0.5393,
+          "ev": 0.0341
+        },
+        {
+          "book": "FanDuel",
+          "line": 160.5,
+          "odds": -110,
+          "prob": 0.5393,
+          "ev": 0.0296
         },
         {
           "book": "DraftKings",
-          "line": 158.5,
-          "odds": -112,
-          "prob": 0.543,
-          "ev": 0.0278
+          "line": 160.5,
+          "odds": -110,
+          "prob": 0.5393,
+          "ev": 0.0296
+        },
+        {
+          "book": "BetMGM",
+          "line": 160.5,
+          "odds": -110,
+          "prob": 0.5393,
+          "ev": 0.0296
         },
         {
           "book": "theScore Bet",
-          "line": 158.5,
-          "odds": -120,
-          "prob": 0.543,
-          "ev": -0.0045
+          "line": 160.5,
+          "odds": -110,
+          "prob": 0.5393,
+          "ev": 0.0296
+        },
+        {
+          "book": "BetRivers",
+          "line": 160.5,
+          "odds": -110,
+          "prob": 0.5393,
+          "ev": 0.0296
+        },
+        {
+          "book": "Hard Rock",
+          "line": 160.5,
+          "odds": -110,
+          "prob": 0.5393,
+          "ev": 0.0296
         }
       ],
       "similar": {
@@ -994,6 +676,278 @@
         "units": 6.3,
         "score": 0.533,
         "match": "Nov-Dec, 4-5 pt gap, unders"
+      }
+    },
+    {
+      "game_id": "401920349",
+      "start": "2026-11-20T03:00Z",
+      "home": "Stanford Cardinal",
+      "away": "Sacramento State Hornets",
+      "mkt": "TOTAL",
+      "side": "UNDER",
+      "side_code": "UNDER",
+      "line": 154.5,
+      "odds": -110,
+      "proj": 17.7,
+      "total": 150.8,
+      "p": 0.5354,
+      "edge": 3.54,
+      "stake": 0.0,
+      "notes": "",
+      "best_line": 153.5,
+      "best_odds": -105,
+      "book": "Hard Rock",
+      "agree": true,
+      "play_to": 154.5,
+      "tracking": true,
+      "to_win": 1.5,
+      "reason": "Tracking only",
+      "gap": 3.74,
+      "best": false,
+      "quotes": [
+        {
+          "book": "Hard Rock",
+          "line": 153.5,
+          "odds": -105,
+          "prob": 0.526,
+          "ev": 0.0269
+        },
+        {
+          "book": "FanDuel",
+          "line": 154.5,
+          "odds": -110,
+          "prob": 0.5354,
+          "ev": 0.0222
+        },
+        {
+          "book": "DraftKings",
+          "line": 154.5,
+          "odds": -110,
+          "prob": 0.5354,
+          "ev": 0.0222
+        },
+        {
+          "book": "BetMGM",
+          "line": 154.5,
+          "odds": -110,
+          "prob": 0.5354,
+          "ev": 0.0222
+        },
+        {
+          "book": "theScore Bet",
+          "line": 154.5,
+          "odds": -115,
+          "prob": 0.5354,
+          "ev": 0.001
+        },
+        {
+          "book": "Bally Bet",
+          "line": 154.5,
+          "odds": -115,
+          "prob": 0.5354,
+          "ev": 0.001
+        },
+        {
+          "book": "BetRivers",
+          "line": 154.5,
+          "odds": -117,
+          "prob": 0.5354,
+          "ev": -0.0069
+        },
+        {
+          "book": "Kalshi",
+          "line": 155.5,
+          "odds": -131,
+          "prob": 0.5449,
+          "ev": -0.0392
+        }
+      ],
+      "similar": {
+        "w": 88,
+        "l": 91,
+        "pct": 0.492,
+        "units": -12.1,
+        "score": 0.4934,
+        "match": "Nov-Dec, 3-4 pt gap, unders"
+      }
+    },
+    {
+      "game_id": "401920888",
+      "start": "2026-11-20T01:30Z",
+      "home": "Wisconsin Badgers",
+      "away": "Seton Hall Pirates",
+      "mkt": "TOTAL",
+      "side": "OVER",
+      "side_code": "OVER",
+      "line": 138.5,
+      "odds": -107,
+      "proj": 4.6,
+      "total": 142.3,
+      "p": 0.5362,
+      "edge": 4.48,
+      "stake": 0.0,
+      "notes": "Seton Hall Pirates: Darien Moore Jr. (missed 3), Terry Copeland Jr. (missed 1)",
+      "best_line": 138.5,
+      "best_odds": -105,
+      "book": "theScore Bet",
+      "agree": false,
+      "play_to": 138.5,
+      "tracking": true,
+      "to_win": 1.0,
+      "reason": "Tracking only",
+      "gap": 3.82,
+      "best": false,
+      "quotes": [
+        {
+          "book": "theScore Bet",
+          "line": 138.5,
+          "odds": -105,
+          "prob": 0.5362,
+          "ev": 0.0469
+        },
+        {
+          "book": "Kalshi",
+          "line": 138.5,
+          "odds": -107,
+          "prob": 0.5362,
+          "ev": 0.0374
+        },
+        {
+          "book": "Hard Rock",
+          "line": 139.5,
+          "odds": -105,
+          "prob": 0.5268,
+          "ev": 0.0284
+        },
+        {
+          "book": "DraftKings",
+          "line": 138.5,
+          "odds": -110,
+          "prob": 0.5362,
+          "ev": 0.0237
+        },
+        {
+          "book": "Bally Bet",
+          "line": 139.5,
+          "odds": -106,
+          "prob": 0.5268,
+          "ev": 0.0237
+        },
+        {
+          "book": "BetMGM",
+          "line": 138.5,
+          "odds": -110,
+          "prob": 0.5362,
+          "ev": 0.0237
+        },
+        {
+          "book": "BetRivers",
+          "line": 139.5,
+          "odds": -107,
+          "prob": 0.5268,
+          "ev": 0.019
+        },
+        {
+          "book": "FanDuel",
+          "line": 138.5,
+          "odds": -112,
+          "prob": 0.5362,
+          "ev": 0.015
+        }
+      ],
+      "similar": {
+        "w": 49,
+        "l": 36,
+        "pct": 0.576,
+        "units": 9.4,
+        "score": 0.5481,
+        "match": "Nov-Dec, 3-4 pt gap, overs"
+      }
+    },
+    {
+      "game_id": "401920845",
+      "start": "2026-11-20T01:00Z",
+      "home": "St. Thomas Tommies",
+      "away": "Southeast Missouri State Redhawks",
+      "mkt": "TOTAL",
+      "side": "OVER",
+      "side_code": "OVER",
+      "line": 149.5,
+      "odds": -110,
+      "proj": 9.6,
+      "total": 154.8,
+      "p": 0.5499,
+      "edge": 4.99,
+      "stake": 0.0,
+      "notes": "St. Thomas Tommies: Austin Herro (missed 3)",
+      "best_line": 149.5,
+      "best_odds": -108,
+      "book": "DraftKings",
+      "agree": false,
+      "play_to": 151.0,
+      "tracking": true,
+      "to_win": 1.0,
+      "reason": "Over 5 pts off the market",
+      "gap": 5.26,
+      "best": false,
+      "quotes": [
+        {
+          "book": "DraftKings",
+          "line": 149.5,
+          "odds": -108,
+          "prob": 0.5499,
+          "ev": 0.059
+        },
+        {
+          "book": "FanDuel",
+          "line": 149.5,
+          "odds": -110,
+          "prob": 0.5499,
+          "ev": 0.0497
+        },
+        {
+          "book": "BetMGM",
+          "line": 149.5,
+          "odds": -110,
+          "prob": 0.5499,
+          "ev": 0.0497
+        },
+        {
+          "book": "theScore Bet",
+          "line": 149.5,
+          "odds": -110,
+          "prob": 0.5499,
+          "ev": 0.0497
+        },
+        {
+          "book": "Bally Bet",
+          "line": 149.5,
+          "odds": -110,
+          "prob": 0.5499,
+          "ev": 0.0497
+        },
+        {
+          "book": "BetRivers",
+          "line": 149.5,
+          "odds": -112,
+          "prob": 0.5499,
+          "ev": 0.0408
+        },
+        {
+          "book": "Kalshi",
+          "line": 148.5,
+          "odds": -126,
+          "prob": 0.5593,
+          "ev": 0.0031
+        }
+      ],
+      "similar": {
+        "w": 32,
+        "l": 39,
+        "pct": 0.451,
+        "units": -10.9,
+        "score": 0.4711,
+        "match": "Nov-Dec, 5-7 pt gap, overs"
       }
     }
   ],
@@ -2895,8 +2849,34 @@
       "gap": 4.92,
       "best": false,
       "started": true
+    },
+    {
+      "game_id": "401920517",
+      "start": "2026-11-19T19:30Z",
+      "home": "West Virginia Mountaineers",
+      "away": "Florida Gators",
+      "mkt": "TOTAL",
+      "side": "UNDER",
+      "side_code": "UNDER",
+      "line": 149.5,
+      "best_line": 150.5,
+      "odds": -110.0,
+      "best_odds": -110.0,
+      "book": "theScore Bet",
+      "stake": 0.0,
+      "to_win": 1.0,
+      "p": 0.5433,
+      "edge": 4.33,
+      "agree": false,
+      "tracking": true,
+      "reason": "Tracking only",
+      "result": "",
+      "units": null,
+      "gap": 4.57,
+      "best": false,
+      "started": true
     }
   ],
-  "results_updated_at": "2026-11-19T15:09+00:00",
+  "results_updated_at": "2026-11-19T20:31+00:00",
   "void_days": []
 }
