@@ -1,28 +1,28 @@
 {
- "updated_at": "2026-11-20T22:51+00:00",
+ "updated_at": "2026-11-21T00:25+00:00",
  "season_start": "2026-10-01",
  "edge": {
   "staked": {},
   "tracking": {
    "SPREAD": {
     "w": 24,
-    "l": 29,
+    "l": 30,
     "p": 1,
-    "units": -6.11,
+    "units": -7.19,
     "pending": 6,
-    "roi": -0.1091,
+    "roi": -0.126,
     "clv": 0.25,
-    "beat_close": 0.286
+    "beat_close": 0.281
    },
    "TOTAL": {
-    "w": 194,
+    "w": 195,
     "l": 181,
     "p": 2,
-    "units": 4.91,
-    "pending": 25,
-    "roi": 0.0118,
+    "units": 5.91,
+    "pending": 26,
+    "roi": 0.0142,
     "clv": 0.3,
-    "beat_close": 0.237
+    "beat_close": 0.233
    }
   },
   "both_models": {
@@ -79,6 +79,30 @@
    "p": 0
   },
   "recent": [
+   {
+    "start": "2026-11-20T21:00Z",
+    "away": "South Dakota State Jackrabbits",
+    "home": "Idaho State Bengals",
+    "mkt": "TOTAL",
+    "side": "OVER",
+    "line": 142.5,
+    "stake": 0.0,
+    "result": "W",
+    "units": 0.0,
+    "clv": -2.0
+   },
+   {
+    "start": "2026-11-20T21:00Z",
+    "away": "South Dakota State Jackrabbits",
+    "home": "Idaho State Bengals",
+    "mkt": "SPREAD",
+    "side": "South Dakota State Jackrabbits",
+    "line": -5.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": 0.0
+   },
    {
     "start": "2026-11-20T20:00Z",
     "away": "Western Illinois Leathernecks",
@@ -215,24 +239,24 @@
     "start": "2026-11-20T00:30Z",
     "away": "Charleston Cougars",
     "home": "Drake Bulldogs",
-    "mkt": "TOTAL",
-    "side": "UNDER",
-    "line": 158.5,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": 0.0
-   },
-   {
-    "start": "2026-11-20T00:30Z",
-    "away": "Charleston Cougars",
-    "home": "Drake Bulldogs",
     "mkt": "SPREAD",
     "side": "Charleston Cougars",
     "line": 1.5,
     "stake": 0.0,
     "result": "L",
     "units": -0.0,
+    "clv": 0.0
+   },
+   {
+    "start": "2026-11-20T00:30Z",
+    "away": "Charleston Cougars",
+    "home": "Drake Bulldogs",
+    "mkt": "TOTAL",
+    "side": "UNDER",
+    "line": 158.5,
+    "stake": 0.0,
+    "result": "W",
+    "units": 0.0,
     "clv": 0.0
    },
    {
@@ -443,9 +467,9 @@
     "start": "2026-11-19T02:00Z",
     "away": "Fresno State Bulldogs",
     "home": "San Jos\u00e9 State Spartans",
-    "mkt": "TOTAL",
-    "side": "UNDER",
-    "line": 156.5,
+    "mkt": "SPREAD",
+    "side": "Fresno State Bulldogs",
+    "line": 6.5,
     "stake": 0.0,
     "result": "L",
     "units": -0.0,
@@ -479,9 +503,9 @@
     "start": "2026-11-19T02:00Z",
     "away": "Fresno State Bulldogs",
     "home": "San Jos\u00e9 State Spartans",
-    "mkt": "SPREAD",
-    "side": "Fresno State Bulldogs",
-    "line": 6.5,
+    "mkt": "TOTAL",
+    "side": "UNDER",
+    "line": 156.5,
     "stake": 0.0,
     "result": "L",
     "units": -0.0,
@@ -534,30 +558,6 @@
     "result": "W",
     "units": 0.0,
     "clv": -1.0
-   },
-   {
-    "start": "2026-11-19T01:00Z",
-    "away": "Cornell Big Red",
-    "home": "Syracuse Orange",
-    "mkt": "SPREAD",
-    "side": "Cornell Big Red",
-    "line": 21.5,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": 4.0
-   },
-   {
-    "start": "2026-11-19T01:00Z",
-    "away": "Campbell Fighting Camels",
-    "home": "Oklahoma Sooners",
-    "mkt": "TOTAL",
-    "side": "OVER",
-    "line": 147.5,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": 0.0
    }
   ]
  },
@@ -568,7 +568,7 @@
     "l": 133,
     "p": 1,
     "units": -22.3,
-    "pending": 11,
+    "pending": 12,
     "roi": -0.0864
    },
    "TOTAL": {
@@ -576,7 +576,7 @@
     "l": 27,
     "p": 0,
     "units": 11.3,
-    "pending": 3,
+    "pending": 4,
     "roi": 0.1662
    }
   },
@@ -585,7 +585,7 @@
    "l": 160,
    "p": 1,
    "units": -11.0,
-   "pending": 14,
+   "pending": 16,
    "roi": -0.0337
   },
   "recent": [
@@ -1014,10 +1014,10 @@
      {
       "gap": "4-5",
       "w": 14,
-      "l": 16,
-      "pct": 0.467,
+      "l": 17,
+      "pct": 0.452,
       "expected": 0.558,
-      "clv": 0.32
+      "clv": 0.31
      },
      {
       "gap": "5+",
@@ -1035,14 +1035,14 @@
     },
     "no_agree": {
      "w": 18,
-     "l": 26,
-     "pct": 0.409
+     "l": 27,
+     "pct": 0.4
     },
     "sides": {
      "fav": {
       "w": 10,
-      "l": 15,
-      "pct": 0.4
+      "l": 16,
+      "pct": 0.385
      },
      "dog": {
       "w": 14,
@@ -1056,8 +1056,8 @@
      },
      "5-15": {
       "w": 7,
-      "l": 9,
-      "pct": 0.438
+      "l": 10,
+      "pct": 0.412
      },
      "15+": {
       "w": 7,
@@ -1070,11 +1070,11 @@
     "buckets": [
      {
       "gap": "3-4",
-      "w": 61,
+      "w": 62,
       "l": 56,
-      "pct": 0.521,
+      "pct": 0.525,
       "expected": 0.534,
-      "clv": 0.56
+      "clv": 0.54
      },
      {
       "gap": "4-5",
@@ -1107,9 +1107,9 @@
      "pct": 0.6
     },
     "no_agree": {
-     "w": 176,
+     "w": 177,
      "l": 169,
-     "pct": 0.51
+     "pct": 0.512
     }
    }
   },
