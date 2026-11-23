@@ -181,11 +181,11 @@
       "ats_play_to": null,
       "ou_play_to": 131.5,
       "ou_similar": {
-        "w": 32,
+        "w": 33,
         "l": 26,
-        "pct": 0.552,
-        "units": 3.4,
-        "score": 0.5278,
+        "pct": 0.559,
+        "units": 4.4,
+        "score": 0.5321,
         "match": "Nov-Dec, 7-9 pt gap, overs"
       }
     },
@@ -259,11 +259,11 @@
       "ats_play_to": 28.5,
       "ou_play_to": null,
       "ats_similar": {
-        "w": 67,
-        "l": 82,
+        "w": 68,
+        "l": 83,
         "pct": 0.45,
-        "units": -23.2,
-        "score": 0.4623,
+        "units": -23.3,
+        "score": 0.4627,
         "match": "Nov-Dec, 5-7 pt gap, 15+ spreads, underdogs"
       }
     },
@@ -790,6 +790,19 @@
       "started": true
     },
     {
+      "game_id": "401920905",
+      "start": "2026-11-23T00:00Z",
+      "home": "UCLA Bruins",
+      "away": "Delaware Blue Hens",
+      "market": "ATS",
+      "play": "AWAY",
+      "line": -28.5,
+      "total_line": 145.5,
+      "units": -1.1,
+      "result": "L",
+      "started": true
+    },
+    {
       "game_id": "401918455",
       "start": "2026-11-22T19:00Z",
       "home": "Youngstown State Penguins",
@@ -811,6 +824,19 @@
       "play": "AWAY",
       "line": -38.5,
       "total_line": 150.5,
+      "units": 1.0,
+      "result": "W",
+      "started": true
+    },
+    {
+      "game_id": "401921420",
+      "start": "2026-11-22T23:00Z",
+      "home": "Minnesota Golden Gophers",
+      "away": "Utah Utes",
+      "market": "TOTAL",
+      "play": "OVER",
+      "line": -9.5,
+      "total_line": 131.5,
       "units": 1.0,
       "result": "W",
       "started": true
@@ -850,11 +876,11 @@
       "play": "AWAY",
       "line": -24.5,
       "total_line": 135.5,
-      "units": null,
-      "result": "",
+      "units": 1.0,
+      "result": "W",
       "started": true
     }
   ],
-  "results_updated_at": "2026-11-22T22:11+00:00",
+  "results_updated_at": "2026-11-23T02:46+00:00",
   "void_days": []
 }
