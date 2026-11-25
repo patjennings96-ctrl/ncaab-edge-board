@@ -1,48 +1,48 @@
 {
- "updated_at": "2026-11-25T00:47+00:00",
+ "updated_at": "2026-11-25T01:10+00:00",
  "season_start": "2026-10-01",
  "edge": {
   "staked": {},
   "tracking": {
    "SPREAD": {
-    "w": 33,
-    "l": 39,
+    "w": 34,
+    "l": 41,
     "p": 1,
-    "units": -7.49,
-    "pending": 30,
-    "roi": -0.0992,
-    "clv": 0.21,
-    "beat_close": 0.271
+    "units": -8.69,
+    "pending": 27,
+    "roi": -0.1103,
+    "clv": 0.18,
+    "beat_close": 0.253
    },
    "TOTAL": {
-    "w": 226,
-    "l": 222,
+    "w": 227,
+    "l": 224,
     "p": 2,
-    "units": -6.07,
-    "pending": 59,
-    "roi": -0.0122,
-    "clv": 0.26,
-    "beat_close": 0.229
+    "units": -6.56,
+    "pending": 56,
+    "roi": -0.0131,
+    "clv": 0.28,
+    "beat_close": 0.234
    }
   },
   "both_models": {
    "SPREAD": {
     "w": 6,
-    "l": 3,
+    "l": 4,
     "p": 0,
-    "units": 2.9,
-    "pending": 5,
-    "roi": 0.3036,
-    "clv": 1.0,
-    "beat_close": 0.5
+    "units": 1.8,
+    "pending": 4,
+    "roi": 0.169,
+    "clv": 0.86,
+    "beat_close": 0.455
    },
    "TOTAL": {
-    "w": 22,
+    "w": 23,
     "l": 16,
     "p": 0,
-    "units": 8.06,
-    "pending": 6,
-    "roi": 0.1361,
+    "units": 9.56,
+    "pending": 5,
+    "roi": 0.1571,
     "clv": 0.3,
     "beat_close": 0.2
    }
@@ -80,6 +80,42 @@
   },
   "recent": [
    {
+    "start": "2026-11-24T23:00Z",
+    "away": "Sacred Heart Pioneers",
+    "home": "Rutgers Scarlet Knights",
+    "mkt": "TOTAL",
+    "side": "UNDER",
+    "line": 159.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": -2.0
+   },
+   {
+    "start": "2026-11-24T23:00Z",
+    "away": "Queens University Royals",
+    "home": "Wofford Terriers",
+    "mkt": "TOTAL",
+    "side": "UNDER",
+    "line": 174.5,
+    "stake": 0.0,
+    "result": "W",
+    "units": 0.0,
+    "clv": 2.0
+   },
+   {
+    "start": "2026-11-24T23:00Z",
+    "away": "Sacred Heart Pioneers",
+    "home": "Rutgers Scarlet Knights",
+    "mkt": "SPREAD",
+    "side": "Sacred Heart Pioneers",
+    "line": 23.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": 1.0
+   },
+   {
     "start": "2026-11-24T22:30Z",
     "away": "Kent State Golden Flashes",
     "home": "Wyoming Cowboys",
@@ -92,16 +128,40 @@
     "clv": -1.0
    },
    {
-    "start": "2026-11-24T20:00Z",
-    "away": "Tennessee Volunteers",
-    "home": "Maryland Terrapins",
+    "start": "2026-11-24T22:30Z",
+    "away": "Creighton Bluejays",
+    "home": "Michigan Wolverines",
     "mkt": "TOTAL",
     "side": "UNDER",
-    "line": 146.5,
+    "line": 162.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": 0.0
+   },
+   {
+    "start": "2026-11-24T22:30Z",
+    "away": "Creighton Bluejays",
+    "home": "Michigan Wolverines",
+    "mkt": "SPREAD",
+    "side": "Michigan Wolverines",
+    "line": -5.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": 0.0
+   },
+   {
+    "start": "2026-11-24T22:30Z",
+    "away": "San Diego State Aztecs",
+    "home": "Iowa State Cyclones",
+    "mkt": "SPREAD",
+    "side": "Iowa State Cyclones",
+    "line": -7.5,
     "stake": 0.0,
     "result": "W",
     "units": 0.0,
-    "clv": -1.0
+    "clv": 2.0
    },
    {
     "start": "2026-11-24T20:00Z",
@@ -113,6 +173,18 @@
     "stake": 0.0,
     "result": "W",
     "units": 0.0,
+    "clv": 0.0
+   },
+   {
+    "start": "2026-11-24T20:00Z",
+    "away": "North Dakota Fighting Hawks",
+    "home": "Detroit Mercy Titans",
+    "mkt": "TOTAL",
+    "side": "OVER",
+    "line": 151.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
     "clv": 0.0
    },
    {
@@ -141,27 +213,15 @@
    },
    {
     "start": "2026-11-24T20:00Z",
-    "away": "North Dakota Fighting Hawks",
-    "home": "Detroit Mercy Titans",
-    "mkt": "TOTAL",
-    "side": "OVER",
-    "line": 151.5,
-    "stake": 0.0,
-    "result": "L",
-    "units": -0.0,
-    "clv": 0.0
-   },
-   {
-    "start": "2026-11-24T19:30Z",
-    "away": "Ole Miss Rebels",
-    "home": "BYU Cougars",
+    "away": "Tennessee Volunteers",
+    "home": "Maryland Terrapins",
     "mkt": "TOTAL",
     "side": "UNDER",
-    "line": 159.0,
+    "line": 146.5,
     "stake": 0.0,
     "result": "W",
     "units": 0.0,
-    "clv": 0.5
+    "clv": -1.0
    },
    {
     "start": "2026-11-24T19:30Z",
@@ -174,6 +234,18 @@
     "result": "L",
     "units": -0.0,
     "clv": -0.5
+   },
+   {
+    "start": "2026-11-24T19:30Z",
+    "away": "Ole Miss Rebels",
+    "home": "BYU Cougars",
+    "mkt": "TOTAL",
+    "side": "UNDER",
+    "line": 159.0,
+    "stake": 0.0,
+    "result": "W",
+    "units": 0.0,
+    "clv": 0.5
    },
    {
     "start": "2026-11-24T19:00Z",
@@ -285,18 +357,6 @@
    },
    {
     "start": "2026-11-24T01:00Z",
-    "away": "Winthrop Eagles",
-    "home": "Illinois Fighting Illini",
-    "mkt": "TOTAL",
-    "side": "UNDER",
-    "line": 181.5,
-    "stake": 0.0,
-    "result": "L",
-    "units": -0.0,
-    "clv": -1.0
-   },
-   {
-    "start": "2026-11-24T01:00Z",
     "away": "Monmouth Hawks",
     "home": "North Carolina Tar Heels",
     "mkt": "TOTAL",
@@ -306,6 +366,18 @@
     "result": "W",
     "units": 0.0,
     "clv": 0.0
+   },
+   {
+    "start": "2026-11-24T01:00Z",
+    "away": "Winthrop Eagles",
+    "home": "Illinois Fighting Illini",
+    "mkt": "TOTAL",
+    "side": "UNDER",
+    "line": 181.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": -1.0
    },
    {
     "start": "2026-11-24T00:30Z",
@@ -321,27 +393,15 @@
    },
    {
     "start": "2026-11-24T00:00Z",
-    "away": "North Carolina A&T Aggies",
-    "home": "South Carolina State Bulldogs",
-    "mkt": "TOTAL",
-    "side": "OVER",
-    "line": 146.5,
-    "stake": 0.0,
-    "result": "L",
-    "units": -0.0,
-    "clv": -1.0
-   },
-   {
-    "start": "2026-11-24T00:00Z",
-    "away": "Central Arkansas Bears",
-    "home": "North Florida Ospreys",
+    "away": "Georgia Southern Eagles",
+    "home": "Northern Kentucky Norse",
     "mkt": "TOTAL",
     "side": "UNDER",
     "line": 166.5,
     "stake": 0.0,
     "result": "W",
     "units": 0.0,
-    "clv": -1.0
+    "clv": 2.0
    },
    {
     "start": "2026-11-24T00:00Z",
@@ -357,15 +417,27 @@
    },
    {
     "start": "2026-11-24T00:00Z",
-    "away": "Georgia Southern Eagles",
-    "home": "Northern Kentucky Norse",
+    "away": "Central Arkansas Bears",
+    "home": "North Florida Ospreys",
     "mkt": "TOTAL",
     "side": "UNDER",
     "line": 166.5,
     "stake": 0.0,
     "result": "W",
     "units": 0.0,
-    "clv": 2.0
+    "clv": -1.0
+   },
+   {
+    "start": "2026-11-24T00:00Z",
+    "away": "North Carolina A&T Aggies",
+    "home": "South Carolina State Bulldogs",
+    "mkt": "TOTAL",
+    "side": "OVER",
+    "line": 146.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": -1.0
    },
    {
     "start": "2026-11-23T22:00Z",
@@ -477,30 +549,6 @@
    },
    {
     "start": "2026-11-22T22:00Z",
-    "away": "Rice Owls",
-    "home": "Lamar Cardinals",
-    "mkt": "TOTAL",
-    "side": "UNDER",
-    "line": 162.5,
-    "stake": 0.0,
-    "result": "L",
-    "units": -0.0,
-    "clv": -1.0
-   },
-   {
-    "start": "2026-11-22T22:00Z",
-    "away": "UNC Asheville Bulldogs",
-    "home": "Samford Bulldogs",
-    "mkt": "TOTAL",
-    "side": "UNDER",
-    "line": 154.5,
-    "stake": 0.0,
-    "result": "L",
-    "units": -0.0,
-    "clv": 0.0
-   },
-   {
-    "start": "2026-11-22T22:00Z",
     "away": "NJIT Highlanders",
     "home": "Boston College Eagles",
     "mkt": "TOTAL",
@@ -510,85 +558,107 @@
     "result": "L",
     "units": -0.0,
     "clv": 0.0
-   },
-   {
-    "start": "2026-11-22T21:30Z",
-    "away": "UC Irvine Anteaters",
-    "home": "Loyola Marymount Lions",
-    "mkt": "TOTAL",
-    "side": "OVER",
-    "line": 136.5,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": -1.0
-   },
-   {
-    "start": "2026-11-22T21:30Z",
-    "away": "Richmond Spiders",
-    "home": "Liberty Flames",
-    "mkt": "TOTAL",
-    "side": "OVER",
-    "line": 141.5,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": 0.0
-   },
-   {
-    "start": "2026-11-22T21:30Z",
-    "away": "Richmond Spiders",
-    "home": "Liberty Flames",
-    "mkt": "SPREAD",
-    "side": "Richmond Spiders",
-    "line": 1.5,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": 2.0
-   },
-   {
-    "start": "2026-11-22T20:30Z",
-    "away": "Mercyhurst Lakers",
-    "home": "UAlbany Great Danes",
-    "mkt": "TOTAL",
-    "side": "OVER",
-    "line": 129.5,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": 2.0
    }
   ]
  },
  "cal": {
   "record": {
    "ATS": {
-    "w": 135,
-    "l": 147,
+    "w": 136,
+    "l": 149,
     "p": 1,
-    "units": -26.7,
-    "pending": 21,
-    "roi": -0.0943
+    "units": -27.9,
+    "pending": 18,
+    "roi": -0.0976
    },
    "TOTAL": {
-    "w": 52,
-    "l": 32,
+    "w": 55,
+    "l": 33,
     "p": 0,
-    "units": 16.8,
-    "pending": 14,
-    "roi": 0.2
+    "units": 18.7,
+    "pending": 10,
+    "roi": 0.2125
    }
   },
   "all": {
-   "w": 187,
-   "l": 179,
+   "w": 191,
+   "l": 182,
    "p": 1,
-   "units": -9.9,
-   "pending": 35,
-   "roi": -0.027
+   "units": -9.2,
+   "pending": 28,
+   "roi": -0.0246
   },
   "recent": [
+   {
+    "start": "2026-11-24T23:00Z",
+    "away": "Queens University Royals",
+    "home": "Wofford Terriers",
+    "mkt": "TOTAL",
+    "play": "UNDER",
+    "line": 1.5,
+    "total_line": 172.5,
+    "units": 1.0
+   },
+   {
+    "start": "2026-11-24T23:00Z",
+    "away": "Sacred Heart Pioneers",
+    "home": "Rutgers Scarlet Knights",
+    "mkt": "ATS",
+    "play": "AWAY",
+    "line": -22.5,
+    "total_line": 159.5,
+    "units": -1.1
+   },
+   {
+    "start": "2026-11-24T21:30Z",
+    "away": "Tulsa Golden Hurricane",
+    "home": "Illinois State Redbirds",
+    "mkt": "TOTAL",
+    "play": "OVER",
+    "line": 1.5,
+    "total_line": 142.5,
+    "units": 1.0
+   },
+   {
+    "start": "2026-11-24T21:00Z",
+    "away": "Lindenwood Lions",
+    "home": "New Haven Chargers",
+    "mkt": "ATS",
+    "play": "AWAY",
+    "line": 1.5,
+    "total_line": 132.5,
+    "units": -1.1
+   },
+   {
+    "start": "2026-11-24T20:00Z",
+    "away": "App State Mountaineers",
+    "home": "Yale Bulldogs",
+    "mkt": "TOTAL",
+    "play": "OVER",
+    "line": 1.5,
+    "total_line": 134.0,
+    "units": -1.1
+   },
+   {
+    "start": "2026-11-24T18:30Z",
+    "away": "Rice Owls",
+    "home": "UIC Flames",
+    "mkt": "ATS",
+    "play": "AWAY",
+    "line": -7.5,
+    "total_line": 141.5,
+    "units": 1.0
+   },
+   {
+    "start": "2026-11-24T17:30Z",
+    "away": "Belmont Bruins",
+    "home": "Akron Zips",
+    "mkt": "TOTAL",
+    "play": "OVER",
+    "line": -3.5,
+    "total_line": 141.5,
+    "units": 1.0
+   },
    {
     "start": "2026-11-24T03:00Z",
     "away": "Alabama State Hornets",
@@ -631,6 +701,16 @@
    },
    {
     "start": "2026-11-24T00:00Z",
+    "away": "Georgia Southern Eagles",
+    "home": "Northern Kentucky Norse",
+    "mkt": "TOTAL",
+    "play": "UNDER",
+    "line": -3.5,
+    "total_line": 164.5,
+    "units": 1.0
+   },
+   {
+    "start": "2026-11-24T00:00Z",
     "away": "Central Arkansas Bears",
     "home": "North Florida Ospreys",
     "mkt": "TOTAL",
@@ -648,16 +728,6 @@
     "line": 8.5,
     "total_line": 166.5,
     "units": -1.1
-   },
-   {
-    "start": "2026-11-24T00:00Z",
-    "away": "Georgia Southern Eagles",
-    "home": "Northern Kentucky Norse",
-    "mkt": "TOTAL",
-    "play": "UNDER",
-    "line": -3.5,
-    "total_line": 164.5,
-    "units": 1.0
    },
    {
     "start": "2026-11-23T21:30Z",
@@ -918,76 +988,6 @@
     "line": -51.0,
     "total_line": 163.5,
     "units": -1.1
-   },
-   {
-    "start": "2026-11-21T01:00Z",
-    "away": "Kentucky Wildcats",
-    "home": "Indiana Hoosiers",
-    "mkt": "TOTAL",
-    "play": "OVER",
-    "line": -3.5,
-    "total_line": 153.5,
-    "units": 1.0
-   },
-   {
-    "start": "2026-11-21T01:00Z",
-    "away": "Le Moyne Dolphins",
-    "home": "Missouri Tigers",
-    "mkt": "ATS",
-    "play": "AWAY",
-    "line": -34.5,
-    "total_line": 154.5,
-    "units": 1.0
-   },
-   {
-    "start": "2026-11-21T00:30Z",
-    "away": "Iowa Hawkeyes",
-    "home": "Xavier Musketeers",
-    "mkt": "ATS",
-    "play": "HOME",
-    "line": -3.5,
-    "total_line": 145.5,
-    "units": -1.1
-   },
-   {
-    "start": "2026-11-21T00:00Z",
-    "away": "Coastal Carolina Chanticleers",
-    "home": "Tennessee Volunteers",
-    "mkt": "ATS",
-    "play": "AWAY",
-    "line": -26.5,
-    "total_line": 146.5,
-    "units": -1.1
-   },
-   {
-    "start": "2026-11-21T00:00Z",
-    "away": "Oakland Golden Grizzlies",
-    "home": "Purdue Boilermakers",
-    "mkt": "ATS",
-    "play": "AWAY",
-    "line": -21.5,
-    "total_line": 147.5,
-    "units": -1.1
-   },
-   {
-    "start": "2026-11-21T00:00Z",
-    "away": "Loyola Maryland Greyhounds",
-    "home": "Virginia Cavaliers",
-    "mkt": "ATS",
-    "play": "AWAY",
-    "line": -41.5,
-    "total_line": 150.5,
-    "units": -1.1
-   },
-   {
-    "start": "2026-11-21T00:00Z",
-    "away": "Harvard Crimson",
-    "home": "Holy Cross Crusaders",
-    "mkt": "ATS",
-    "play": "HOME",
-    "line": 11.5,
-    "total_line": 137.5,
-    "units": -1.1
    }
   ]
  },
@@ -1021,33 +1021,33 @@
      },
      {
       "gap": "5+",
-      "w": 16,
-      "l": 17,
-      "pct": 0.485,
-      "expected": 0.584,
-      "clv": 0.08
+      "w": 17,
+      "l": 19,
+      "pct": 0.472,
+      "expected": 0.585,
+      "clv": 0.15
      }
     ],
     "agree": {
      "w": 6,
-     "l": 3,
-     "pct": 0.667
+     "l": 4,
+     "pct": 0.6
     },
     "no_agree": {
-     "w": 27,
-     "l": 36,
-     "pct": 0.429
+     "w": 28,
+     "l": 37,
+     "pct": 0.431
     },
     "sides": {
      "fav": {
-      "w": 14,
-      "l": 23,
-      "pct": 0.378
+      "w": 15,
+      "l": 24,
+      "pct": 0.385
      },
      "dog": {
       "w": 19,
-      "l": 16,
-      "pct": 0.543
+      "l": 17,
+      "pct": 0.528
      },
      "under 5": {
       "w": 17,
@@ -1055,14 +1055,14 @@
       "pct": 0.531
      },
      "5-15": {
-      "w": 8,
-      "l": 15,
-      "pct": 0.348
+      "w": 9,
+      "l": 16,
+      "pct": 0.36
      },
      "15+": {
       "w": 8,
-      "l": 9,
-      "pct": 0.471
+      "l": 10,
+      "pct": 0.444
      }
     }
    },
@@ -1086,30 +1086,30 @@
      },
      {
       "gap": "5-7",
-      "w": 55,
+      "w": 56,
       "l": 60,
-      "pct": 0.478,
+      "pct": 0.483,
       "expected": 0.556,
-      "clv": 0.16
+      "clv": 0.18
      },
      {
       "gap": "7+",
       "w": 40,
-      "l": 45,
-      "pct": 0.471,
-      "expected": 0.593,
-      "clv": -0.06
+      "l": 47,
+      "pct": 0.46,
+      "expected": 0.592,
+      "clv": -0.08
      }
     ],
     "agree": {
-     "w": 22,
+     "w": 23,
      "l": 16,
-     "pct": 0.579
+     "pct": 0.59
     },
     "no_agree": {
      "w": 204,
-     "l": 206,
-     "pct": 0.498
+     "l": 208,
+     "pct": 0.495
     }
    }
   },
@@ -1118,9 +1118,9 @@
     "buckets": [
      {
       "gap": "5-7",
-      "w": 68,
-      "l": 83,
-      "pct": 0.45
+      "w": 69,
+      "l": 84,
+      "pct": 0.451
      },
      {
       "gap": "7-10",
@@ -1131,35 +1131,35 @@
      {
       "gap": "10+",
       "w": 18,
-      "l": 16,
-      "pct": 0.529
+      "l": 17,
+      "pct": 0.514
      }
     ],
     "sides": {
      "fav": {
       "w": 1,
-      "l": 3,
-      "pct": 0.25
+      "l": 4,
+      "pct": 0.2
      },
      "dog": {
-      "w": 134,
-      "l": 144,
+      "w": 135,
+      "l": 145,
       "pct": 0.482
      },
      "under 5": {
       "w": 5,
-      "l": 14,
-      "pct": 0.263
+      "l": 15,
+      "pct": 0.25
      },
      "5-15": {
-      "w": 21,
+      "w": 22,
       "l": 18,
-      "pct": 0.538
+      "pct": 0.55
      },
      "15+": {
       "w": 109,
-      "l": 115,
-      "pct": 0.487
+      "l": 116,
+      "pct": 0.484
      }
     }
    },
@@ -1167,21 +1167,21 @@
     "buckets": [
      {
       "gap": "7-9",
-      "w": 36,
+      "w": 38,
       "l": 16,
-      "pct": 0.692
+      "pct": 0.704
      },
      {
       "gap": "9-12",
       "w": 12,
-      "l": 13,
-      "pct": 0.48
+      "l": 14,
+      "pct": 0.462
      },
      {
       "gap": "12+",
-      "w": 4,
+      "w": 5,
       "l": 3,
-      "pct": 0.571
+      "pct": 0.625
      }
     ]
    }
