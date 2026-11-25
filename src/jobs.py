@@ -189,6 +189,35 @@ def books_probe() -> None:
     print("\n".join(lines))
 
 
+def venues(*dates: str) -> None:
+    """ESPN venue + neutral-site flag for every game on the given ET dates (YYYYMMDD)."""
+    import csv
+    os.makedirs(OUT_DIR, exist_ok=True)
+    rows = []
+    for d in dates:
+        url = ("https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/"
+               f"scoreboard?dates={d}&groups=50&limit=500")
+        j = live.SESSION.get(url, timeout=40).json()
+        for ev in j.get("events", []):
+            c = ev["competitions"][0]
+            t = {x["homeAway"]: x for x in c["competitors"]}
+            v = c.get("venue", {}) or {}
+            a = v.get("address", {}) or {}
+            note = "; ".join(n.get("headline", "") for n in c.get("notes", []) if n.get("headline"))
+            rows.append({"game_id": ev["id"], "start": c.get("date"), "neutral": int(bool(c.get("neutralSite"))),
+                         "home_id": t["home"]["team"]["id"], "home": t["home"]["team"].get("displayName"),
+                         "home_loc": t["home"]["team"].get("location"),
+                         "away_id": t["away"]["team"]["id"], "away": t["away"]["team"].get("displayName"),
+                         "venue": v.get("fullName"), "city": a.get("city"), "state": a.get("state"),
+                         "venue_id": v.get("id"), "note": note,
+                         "status": c.get("status", {}).get("type", {}).get("name")})
+    path = os.path.join(OUT_DIR, "venues.csv")
+    with open(path, "w", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=list(rows[0].keys()) if rows else ["game_id"])
+        w.writeheader(); w.writerows(rows)
+    print(f"{len(rows)} games -> {path}")
+
+
 def main(argv):
     if not argv:
         print("usage: jobs.py <command> [args]")
@@ -197,10 +226,10 @@ def main(argv):
     fn = {"probe_torvik": probe_torvik, "backfill_players": backfill_players,
           "lineup_backtest": lineup_backtest, "start_times": start_times,
           "probe_url": probe_url, "espn_teams": espn_teams, "rosters": rosters,
-          "odds_probe": odds_probe, "books_probe": books_probe}.get(cmd)
+          "odds_probe": odds_probe, "books_probe": books_probe, "venues": venues}.get(cmd)
     if fn is None:
         raise SystemExit(f"unknown command {cmd}")
-    fn(*[int(a) if a.isdigit() and cmd != "probe_url" else a for a in args])
+    fn(*[int(a) if a.isdigit() and cmd != "probe_url" else a for a in args] if cmd != "venues" else args)
 
 
 if __name__ == "__main__":
