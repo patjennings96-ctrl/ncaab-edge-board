@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-11-26T06:36+00:00",
+ "updated_at": "2026-11-26T15:50+00:00",
  "season_start": "2026-10-01",
  "edge": {
   "staked": {},
@@ -9,18 +9,18 @@
     "l": 58,
     "p": 1,
     "units": -13.26,
-    "pending": 2,
+    "pending": 3,
     "roi": -0.1204,
     "clv": 0.11,
     "beat_close": 0.245
    },
    "TOTAL": {
-    "w": 262,
-    "l": 254,
+    "w": 263,
+    "l": 255,
     "p": 2,
-    "units": -2.75,
-    "pending": 11,
-    "roi": -0.0048,
+    "units": -2.8,
+    "pending": 9,
+    "roi": -0.0049,
     "clv": 0.3,
     "beat_close": 0.248
    }
@@ -80,6 +80,30 @@
   },
   "recent": [
    {
+    "start": "2026-11-26T05:30Z",
+    "away": "Clemson Tigers",
+    "home": "Colorado State Rams",
+    "mkt": "TOTAL",
+    "side": "UNDER",
+    "line": 150.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": 1.0
+   },
+   {
+    "start": "2026-11-26T04:59Z",
+    "away": "Incarnate Word Cardinals",
+    "home": "Hawai'i Rainbow Warriors",
+    "mkt": "TOTAL",
+    "side": "OVER",
+    "line": 139.5,
+    "stake": 0.0,
+    "result": "W",
+    "units": 0.0,
+    "clv": -1.0
+   },
+   {
     "start": "2026-11-26T00:00Z",
     "away": "Northeastern Huskies",
     "home": "Wisconsin Badgers",
@@ -90,102 +114,6 @@
     "result": "L",
     "units": -0.0,
     "clv": 0.0
-   },
-   {
-    "start": "2026-11-26T00:00Z",
-    "away": "St. Thomas Tommies",
-    "home": "UNC Wilmington Seahawks",
-    "mkt": "TOTAL",
-    "side": "UNDER",
-    "line": 158.5,
-    "stake": 0.0,
-    "result": "L",
-    "units": -0.0,
-    "clv": 2.0
-   },
-   {
-    "start": "2026-11-26T00:00Z",
-    "away": "Longwood Lancers",
-    "home": "George Mason Patriots",
-    "mkt": "TOTAL",
-    "side": "UNDER",
-    "line": 145.5,
-    "stake": 0.0,
-    "result": "L",
-    "units": -0.0,
-    "clv": 0.0
-   },
-   {
-    "start": "2026-11-26T00:00Z",
-    "away": "SMU Mustangs",
-    "home": "Utah State Aggies",
-    "mkt": "TOTAL",
-    "side": "UNDER",
-    "line": 168.5,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": 5.0
-   },
-   {
-    "start": "2026-11-26T00:00Z",
-    "away": "Norfolk State Spartans",
-    "home": "NC State Wolfpack",
-    "mkt": "TOTAL",
-    "side": "OVER",
-    "line": 149.5,
-    "stake": 0.0,
-    "result": "L",
-    "units": -0.0,
-    "clv": 1.0
-   },
-   {
-    "start": "2026-11-26T00:00Z",
-    "away": "Bellarmine Knights",
-    "home": "Northern Kentucky Norse",
-    "mkt": "TOTAL",
-    "side": "OVER",
-    "line": 147.5,
-    "stake": 0.0,
-    "result": "L",
-    "units": -0.0,
-    "clv": 0.0
-   },
-   {
-    "start": "2026-11-26T00:00Z",
-    "away": "Northern Illinois Huskies",
-    "home": "SIU Edwardsville Cougars",
-    "mkt": "TOTAL",
-    "side": "UNDER",
-    "line": 138.5,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": 1.0
-   },
-   {
-    "start": "2026-11-26T00:00Z",
-    "away": "Northern Illinois Huskies",
-    "home": "SIU Edwardsville Cougars",
-    "mkt": "SPREAD",
-    "side": "SIU Edwardsville Cougars",
-    "line": 4.5,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": 1.0
-   },
-   {
-    "start": "2026-11-26T00:00Z",
-    "away": "UConn Huskies",
-    "home": "Duke Blue Devils",
-    "mkt": "TOTAL",
-    "side": "UNDER",
-    "line": 149.5,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": 5.0
    },
    {
     "start": "2026-11-26T00:00Z",
@@ -201,6 +129,42 @@
    },
    {
     "start": "2026-11-26T00:00Z",
+    "away": "Northern Illinois Huskies",
+    "home": "SIU Edwardsville Cougars",
+    "mkt": "SPREAD",
+    "side": "SIU Edwardsville Cougars",
+    "line": 4.5,
+    "stake": 0.0,
+    "result": "W",
+    "units": 0.0,
+    "clv": 1.0
+   },
+   {
+    "start": "2026-11-26T00:00Z",
+    "away": "SMU Mustangs",
+    "home": "Utah State Aggies",
+    "mkt": "TOTAL",
+    "side": "UNDER",
+    "line": 168.5,
+    "stake": 0.0,
+    "result": "W",
+    "units": 0.0,
+    "clv": 5.0
+   },
+   {
+    "start": "2026-11-26T00:00Z",
+    "away": "UConn Huskies",
+    "home": "Duke Blue Devils",
+    "mkt": "TOTAL",
+    "side": "UNDER",
+    "line": 149.5,
+    "stake": 0.0,
+    "result": "W",
+    "units": 0.0,
+    "clv": 5.0
+   },
+   {
+    "start": "2026-11-26T00:00Z",
     "away": "St. Thomas Tommies",
     "home": "UNC Wilmington Seahawks",
     "mkt": "SPREAD",
@@ -210,6 +174,66 @@
     "result": "L",
     "units": -0.0,
     "clv": 2.0
+   },
+   {
+    "start": "2026-11-26T00:00Z",
+    "away": "St. Thomas Tommies",
+    "home": "UNC Wilmington Seahawks",
+    "mkt": "TOTAL",
+    "side": "UNDER",
+    "line": 158.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": 2.0
+   },
+   {
+    "start": "2026-11-26T00:00Z",
+    "away": "Northern Illinois Huskies",
+    "home": "SIU Edwardsville Cougars",
+    "mkt": "TOTAL",
+    "side": "UNDER",
+    "line": 138.5,
+    "stake": 0.0,
+    "result": "W",
+    "units": 0.0,
+    "clv": 1.0
+   },
+   {
+    "start": "2026-11-26T00:00Z",
+    "away": "Norfolk State Spartans",
+    "home": "NC State Wolfpack",
+    "mkt": "TOTAL",
+    "side": "OVER",
+    "line": 149.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": 1.0
+   },
+   {
+    "start": "2026-11-26T00:00Z",
+    "away": "Longwood Lancers",
+    "home": "George Mason Patriots",
+    "mkt": "TOTAL",
+    "side": "UNDER",
+    "line": 145.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": 0.0
+   },
+   {
+    "start": "2026-11-26T00:00Z",
+    "away": "Bellarmine Knights",
+    "home": "Northern Kentucky Norse",
+    "mkt": "TOTAL",
+    "side": "OVER",
+    "line": 147.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": 0.0
    },
    {
     "start": "2026-11-25T23:00Z",
@@ -249,18 +273,6 @@
    },
    {
     "start": "2026-11-25T22:00Z",
-    "away": "Memphis Tigers",
-    "home": "Penn State Nittany Lions",
-    "mkt": "TOTAL",
-    "side": "UNDER",
-    "line": 165.5,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": 3.0
-   },
-   {
-    "start": "2026-11-25T22:00Z",
     "away": "Portland State Vikings",
     "home": "UC Riverside Highlanders",
     "mkt": "TOTAL",
@@ -270,6 +282,18 @@
     "result": "W",
     "units": 0.0,
     "clv": -1.0
+   },
+   {
+    "start": "2026-11-25T22:00Z",
+    "away": "Memphis Tigers",
+    "home": "Penn State Nittany Lions",
+    "mkt": "TOTAL",
+    "side": "UNDER",
+    "line": 165.5,
+    "stake": 0.0,
+    "result": "W",
+    "units": 0.0,
+    "clv": 3.0
    },
    {
     "start": "2026-11-25T21:45Z",
@@ -309,18 +333,6 @@
    },
    {
     "start": "2026-11-25T19:30Z",
-    "away": "Texas A&M Aggies",
-    "home": "Xavier Musketeers",
-    "mkt": "TOTAL",
-    "side": "UNDER",
-    "line": 168.5,
-    "stake": 0.0,
-    "result": "L",
-    "units": -0.0,
-    "clv": -4.0
-   },
-   {
-    "start": "2026-11-25T19:30Z",
     "away": "Ole Miss Rebels",
     "home": "Arizona Wildcats",
     "mkt": "TOTAL",
@@ -335,6 +347,18 @@
     "start": "2026-11-25T19:30Z",
     "away": "Texas A&M Aggies",
     "home": "Xavier Musketeers",
+    "mkt": "TOTAL",
+    "side": "UNDER",
+    "line": 168.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": -4.0
+   },
+   {
+    "start": "2026-11-25T19:30Z",
+    "away": "Texas A&M Aggies",
+    "home": "Xavier Musketeers",
     "mkt": "SPREAD",
     "side": "Texas A&M Aggies",
     "line": -3.5,
@@ -342,18 +366,6 @@
     "result": "L",
     "units": -0.0,
     "clv": -1.0
-   },
-   {
-    "start": "2026-11-25T19:00Z",
-    "away": "Arizona State Sun Devils",
-    "home": "LSU Tigers",
-    "mkt": "SPREAD",
-    "side": "LSU Tigers",
-    "line": -4.0,
-    "stake": 0.0,
-    "result": "L",
-    "units": -0.0,
-    "clv": 0.0
    },
    {
     "start": "2026-11-25T19:00Z",
@@ -374,6 +386,30 @@
     "mkt": "TOTAL",
     "side": "OVER",
     "line": 124.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": 0.0
+   },
+   {
+    "start": "2026-11-25T19:00Z",
+    "away": "Arizona State Sun Devils",
+    "home": "LSU Tigers",
+    "mkt": "SPREAD",
+    "side": "LSU Tigers",
+    "line": -4.0,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": 0.0
+   },
+   {
+    "start": "2026-11-25T18:00Z",
+    "away": "Southern Utah Thunderbirds",
+    "home": "Long Beach State Beach",
+    "mkt": "TOTAL",
+    "side": "OVER",
+    "line": 150.5,
     "stake": 0.0,
     "result": "L",
     "units": -0.0,
@@ -402,18 +438,6 @@
     "result": "L",
     "units": -0.0,
     "clv": -1.5
-   },
-   {
-    "start": "2026-11-25T18:00Z",
-    "away": "Southern Utah Thunderbirds",
-    "home": "Long Beach State Beach",
-    "mkt": "TOTAL",
-    "side": "OVER",
-    "line": 150.5,
-    "stake": 0.0,
-    "result": "L",
-    "units": -0.0,
-    "clv": 0.0
    },
    {
     "start": "2026-11-25T17:30Z",
@@ -453,27 +477,15 @@
    },
    {
     "start": "2026-11-25T16:00Z",
-    "away": "Rice Owls",
-    "home": "Ohio Bobcats",
-    "mkt": "TOTAL",
-    "side": "UNDER",
-    "line": 157.5,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": 3.0
-   },
-   {
-    "start": "2026-11-25T16:00Z",
-    "away": "Rice Owls",
-    "home": "Ohio Bobcats",
+    "away": "Northern Iowa Panthers",
+    "home": "Charlotte 49ers",
     "mkt": "SPREAD",
-    "side": "Rice Owls",
-    "line": 5.5,
+    "side": "Northern Iowa Panthers",
+    "line": 7.5,
     "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": 2.0
+    "result": "L",
+    "units": -0.0,
+    "clv": -1.0
    },
    {
     "start": "2026-11-25T16:00Z",
@@ -489,15 +501,27 @@
    },
    {
     "start": "2026-11-25T16:00Z",
-    "away": "Northern Iowa Panthers",
-    "home": "Charlotte 49ers",
+    "away": "Rice Owls",
+    "home": "Ohio Bobcats",
     "mkt": "SPREAD",
-    "side": "Northern Iowa Panthers",
-    "line": 7.5,
+    "side": "Rice Owls",
+    "line": 5.5,
     "stake": 0.0,
-    "result": "L",
-    "units": -0.0,
-    "clv": -1.0
+    "result": "W",
+    "units": 0.0,
+    "clv": 2.0
+   },
+   {
+    "start": "2026-11-25T16:00Z",
+    "away": "Rice Owls",
+    "home": "Ohio Bobcats",
+    "mkt": "TOTAL",
+    "side": "UNDER",
+    "line": 157.5,
+    "stake": 0.0,
+    "result": "W",
+    "units": 0.0,
+    "clv": 3.0
    },
    {
     "start": "2026-11-25T15:00Z",
@@ -534,30 +558,6 @@
     "result": "L",
     "units": -0.0,
     "clv": -1.0
-   },
-   {
-    "start": "2026-11-25T03:30Z",
-    "away": "Oregon Ducks",
-    "home": "St. John's Red Storm",
-    "mkt": "TOTAL",
-    "side": "UNDER",
-    "line": 157.5,
-    "stake": 0.0,
-    "result": "L",
-    "units": -0.0,
-    "clv": 0.0
-   },
-   {
-    "start": "2026-11-25T03:30Z",
-    "away": "VCU Rams",
-    "home": "Colorado State Rams",
-    "mkt": "TOTAL",
-    "side": "UNDER",
-    "line": 149.5,
-    "stake": 0.0,
-    "result": "L",
-    "units": -0.0,
-    "clv": -1.0
    }
   ]
  },
@@ -568,7 +568,7 @@
     "l": 161,
     "p": 1,
     "units": -28.1,
-    "pending": 0,
+    "pending": 1,
     "roi": -0.0904
    },
    "TOTAL": {
@@ -576,7 +576,7 @@
     "l": 37,
     "p": 0,
     "units": 21.3,
-    "pending": 1,
+    "pending": 2,
     "roi": 0.2152
    }
   },
@@ -585,7 +585,7 @@
    "l": 198,
    "p": 1,
    "units": -6.8,
-   "pending": 1,
+   "pending": 3,
    "roi": -0.0166
   },
   "recent": [
@@ -1070,19 +1070,19 @@
     "buckets": [
      {
       "gap": "3-4",
-      "w": 73,
+      "w": 74,
       "l": 73,
-      "pct": 0.5,
+      "pct": 0.503,
       "expected": 0.534,
-      "clv": 0.5
+      "clv": 0.49
      },
      {
       "gap": "4-5",
       "w": 72,
-      "l": 60,
-      "pct": 0.545,
+      "l": 61,
+      "pct": 0.541,
       "expected": 0.542,
-      "clv": 0.37
+      "clv": 0.38
      },
      {
       "gap": "5-7",
@@ -1107,8 +1107,8 @@
      "pct": 0.591
     },
     "no_agree": {
-     "w": 236,
-     "l": 236,
+     "w": 237,
+     "l": 237,
      "pct": 0.5
     }
    }
