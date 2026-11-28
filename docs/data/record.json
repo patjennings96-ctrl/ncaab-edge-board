@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-11-28T06:02+00:00",
+ "updated_at": "2026-11-28T07:53+00:00",
  "season_start": "2026-10-01",
  "edge": {
   "staked": {},
@@ -9,18 +9,18 @@
     "l": 60,
     "p": 1,
     "units": -12.23,
-    "pending": 3,
+    "pending": 5,
     "roi": -0.106,
     "clv": 0.13,
     "beat_close": 0.243
    },
    "TOTAL": {
     "w": 281,
-    "l": 266,
+    "l": 267,
     "p": 2,
-    "units": 3.08,
-    "pending": 20,
-    "roi": 0.0051,
+    "units": 2.05,
+    "pending": 23,
+    "roi": 0.0034,
     "clv": 0.33,
     "beat_close": 0.258
    }
@@ -31,7 +31,7 @@
     "l": 7,
     "p": 0,
     "units": 0.86,
-    "pending": 1,
+    "pending": 2,
     "roi": 0.0549,
     "clv": 0.5,
     "beat_close": 0.333
@@ -41,7 +41,7 @@
     "l": 20,
     "p": 0,
     "units": 9.36,
-    "pending": 2,
+    "pending": 4,
     "roi": 0.1273,
     "clv": 0.34,
     "beat_close": 0.234
@@ -79,6 +79,18 @@
    "p": 0
   },
   "recent": [
+   {
+    "start": "2026-11-28T04:00Z",
+    "away": "Creighton Bluejays",
+    "home": "Gonzaga Bulldogs",
+    "mkt": "TOTAL",
+    "side": "UNDER",
+    "line": 160.5,
+    "stake": 0.0,
+    "result": "L",
+    "units": -0.0,
+    "clv": -1.0
+   },
    {
     "start": "2026-11-28T02:00Z",
     "away": "Tennessee Volunteers",
@@ -513,18 +525,6 @@
    },
    {
     "start": "2026-11-26T00:00Z",
-    "away": "UConn Huskies",
-    "home": "Duke Blue Devils",
-    "mkt": "TOTAL",
-    "side": "UNDER",
-    "line": 149.5,
-    "stake": 0.0,
-    "result": "W",
-    "units": 0.0,
-    "clv": 5.0
-   },
-   {
-    "start": "2026-11-26T00:00Z",
     "away": "Northern Illinois Huskies",
     "home": "SIU Edwardsville Cougars",
     "mkt": "SPREAD",
@@ -537,27 +537,27 @@
    },
    {
     "start": "2026-11-26T00:00Z",
-    "away": "Northern Illinois Huskies",
-    "home": "SIU Edwardsville Cougars",
+    "away": "SMU Mustangs",
+    "home": "Utah State Aggies",
     "mkt": "TOTAL",
     "side": "UNDER",
-    "line": 138.5,
+    "line": 168.5,
     "stake": 0.0,
     "result": "W",
     "units": 0.0,
-    "clv": 1.0
+    "clv": 5.0
    },
    {
     "start": "2026-11-26T00:00Z",
-    "away": "St. Thomas Tommies",
-    "home": "UNC Wilmington Seahawks",
-    "mkt": "SPREAD",
-    "side": "St. Thomas Tommies",
-    "line": 7.5,
+    "away": "UConn Huskies",
+    "home": "Duke Blue Devils",
+    "mkt": "TOTAL",
+    "side": "UNDER",
+    "line": 149.5,
     "stake": 0.0,
-    "result": "L",
-    "units": -0.0,
-    "clv": 2.0
+    "result": "W",
+    "units": 0.0,
+    "clv": 5.0
    }
   ]
  },
@@ -568,7 +568,7 @@
     "l": 165,
     "p": 1,
     "units": -26.5,
-    "pending": 10,
+    "pending": 11,
     "roi": -0.0826
    },
    "TOTAL": {
@@ -576,7 +576,7 @@
     "l": 41,
     "p": 0,
     "units": 17.9,
-    "pending": 3,
+    "pending": 5,
     "roi": 0.1721
    }
   },
@@ -585,7 +585,7 @@
    "l": 206,
    "p": 1,
    "units": -8.6,
-   "pending": 13,
+   "pending": 16,
    "roi": -0.0202
   },
   "recent": [
@@ -1087,10 +1087,10 @@
      {
       "gap": "5-7",
       "w": 75,
-      "l": 70,
-      "pct": 0.517,
+      "l": 71,
+      "pct": 0.514,
       "expected": 0.555,
-      "clv": 0.31
+      "clv": 0.3
      },
      {
       "gap": "7+",
@@ -1108,8 +1108,8 @@
     },
     "no_agree": {
      "w": 254,
-     "l": 246,
-     "pct": 0.508
+     "l": 247,
+     "pct": 0.507
     }
    }
   },
